@@ -1,9 +1,7 @@
 <template>
     <button class="round-button">
         <slot>
-            <i class="fa-solid fa-face-smile" style="color: #fafafa;"></i>
-            <h3>+</h3>
-            
+            <i class="fa-solid fa-face-smile" style="color: #f2eae4;"></i>   
         </slot>
     </button>
 </template>
