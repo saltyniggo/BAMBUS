@@ -1,6 +1,5 @@
 <template>
-  <h3>Hallo Worlt</h3>
-  <side-nav></side-nav>
+  <side-nav id="app-base-sidenav"></side-nav>
 
   <RouterView />
 </template>
@@ -27,5 +26,14 @@ export default {
   font-family: "Red Hat Text", sans-serif;
   color: #222126;
   font-size: 20px;
+}
+
+#app-base-sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15%;
+  height: 100%;
+  z-index: 100;
 }
 </style>
