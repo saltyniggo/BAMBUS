@@ -1,29 +1,36 @@
 # BAMBUS
 
-This template should help get you started developing with Vue 3 in Vite.
+---
 
-## Recommended IDE Setup
+## Overview
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+This is a beep boop for bambus-snackers
 
-## Customize configuration
+## Rap About Coding
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Yo, listen up, I got a story to tell
+About coding, the language that casts a spell
+From HTML to CSS, JavaScript to Python
+We're building apps, websites, and everything in between
 
-## Project Setup
+Lines of code, they dance on the screen
+Syntax and logic, it's a programmer's dream
+We debug, we test, we make it all work
+Turning ideas into reality, we're the code experts
 
-```sh
-npm install
-```
+From algorithms to data structures, we dive deep
+Solving problems, making software leap
+We collaborate, we iterate, we never stop
+Pushing boundaries, reaching the top
 
-### Compile and Hot-Reload for Development
+Coding is an art, a creative expression
+We write the future, with every session
+So grab your keyboard, let's write some code
+Together we'll build, and make the world explode
 
-```sh
-npm run dev
-```
+BAMBUS, the place where coders unite
+Sharing knowledge, day and night
+So join the community, let's make it grand
+Coding is our passion, it's time to take a stand
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+---
