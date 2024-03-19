@@ -1,11 +1,22 @@
 <template>
   <h3>Hallo Worlt</h3>
+  <side-nav></side-nav>
 
   <RouterView />
 </template>
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
+import SideNav from "./components/SideNav.vue";
+
+export default {
+  name: "App",
+  components: {
+    RouterLink,
+    RouterView,
+    SideNav,
+  },
+};
 </script>
 
 <style>
