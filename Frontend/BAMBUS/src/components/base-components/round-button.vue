@@ -1,0 +1,26 @@
+<template>
+    <button class="round-button">
+        <slot>
+            <i class="fa-solid fa-face-smile" style="color: #fafafa;"></i>
+            <h3>+</h3>
+            
+        </slot>
+    </button>
+</template>
+
+<script>
+</script>
+
+<style scoped>
+button.round-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #D9910D;
+    color: #F2EAE4;
+    border: none;
+    box-shadow: 0px 0px 5px 0px #222126;
+    cursor: pointer;
+    transition: 0.3s;
+}
+</style>

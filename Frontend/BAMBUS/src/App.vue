@@ -1,6 +1,8 @@
 <template>
   <h3>Hallo Worlt</h3>
   <side-nav></side-nav>
+  <round-button></round-button>
+  
 
   <RouterView />
 </template>
@@ -8,6 +10,7 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import SideNav from "./components/SideNav.vue";
+import roundButton from "./components/base-components/round-button.vue";
 
 export default {
   name: "App",
@@ -15,6 +18,7 @@ export default {
     RouterLink,
     RouterView,
     SideNav,
+    roundButton,
   },
 };
 </script>
