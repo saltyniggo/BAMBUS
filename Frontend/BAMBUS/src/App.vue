@@ -1,9 +1,17 @@
 <template>
+  <app-side-nav id="app-base-sidenav"></app-side-nav>
+  <div class="app-base-content">
+    <router-view name="view"></router-view>
+  </div>
+ 
+
   <RouterView />
 </template>
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
+
+
 
 export default {
   name: "App",
@@ -17,6 +25,7 @@ export default {
   box-sizing: border-box;
   font-family: "Red Hat Text", sans-serif;
   color: #222126;
+  scroll-behavior: smooth;
 }
 
 p {

@@ -23,9 +23,9 @@ div.content-container {
   border: none;
   box-sizing: border-box;
 
-  padding: 2rem;
-  background-color: #f2eae4;
-  box-shadow: 0px 0px 5px 0px #222126;
+    padding: 2rem;
+    background-color: #F2EAE4;
+    box-shadow: 0px 0px 5px 0px #222126;
 
   transition: 0.3s;
   display: flex;
@@ -38,11 +38,7 @@ div.content-container:hover {
   box-shadow: 0px 0px 10px 0px #222126;
 }
 
-h1,
-h2,
-h3,
-p,
-i {
-  color: #f2eae4;
+h1, h2, h3, p, i {
+    color: #222126;
 }
 </style>
