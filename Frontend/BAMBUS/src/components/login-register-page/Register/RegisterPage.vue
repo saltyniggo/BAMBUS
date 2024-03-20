@@ -3,7 +3,7 @@
     <BaseContentContainer>
       <h1 slot="header">Register</h1>
       <h2>Please enter your credentials to log in.</h2>
-      <login-credential-form />
+      <register-credential-form />
       <p>Already have an account?</p>
       <base-text-button @click="$emit('redirectLogin')">
         Login
@@ -15,14 +15,14 @@
 <script>
 import BaseContentContainer from "../../base-components/base-content-container.vue";
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
-import LoginCredentialForm from "../Login/LoginCredentialForm.vue";
+import RegisterCredentialForm from "./RegisterCredentialForm.vue";
 
 export default {
   name: "RegisterPage",
   components: {
     BaseContentContainer,
     BaseTextButton,
-    LoginCredentialForm,
+    RegisterCredentialForm,
   },
 };
 </script>
