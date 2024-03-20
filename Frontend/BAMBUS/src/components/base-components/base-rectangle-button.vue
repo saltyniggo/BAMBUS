@@ -27,5 +27,6 @@ button.rectangle-button {
     box-shadow: 0px 0px 5px 0px #222126;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 1rem;
 }
 </style>
