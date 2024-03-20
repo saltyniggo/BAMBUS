@@ -1,12 +1,9 @@
 <template>
-  <h3>Hallo Worlt</h3>
-  <side-nav></side-nav>
+  <side-nav id="app-base-sidenav"></side-nav>
   <round-buttton></round-buttton>
   <rectangle-button></rectangle-button>
   <item-container></item-container>
-  <content-container>
-  </content-container>
-  
+  <content-container> </content-container>
 
   <RouterView />
 </template>
@@ -47,5 +44,13 @@ p {
   font-size: 18px;
 }
 
-
-</style>./components/base-components/base-item-container.vue./components/base-components/base-rectangle-button.vue./components/base-components/base-round-button.vue
+#app-base-sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 15%;
+  height: 100%;
+  z-index: 100;
+}
+</style>
+./components/base-components/base-item-container.vue./components/base-components/base-rectangle-button.vue./components/base-components/base-round-button.vue
