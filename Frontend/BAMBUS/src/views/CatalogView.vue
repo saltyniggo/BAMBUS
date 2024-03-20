@@ -7,7 +7,7 @@
 
 <script>
 import catalogPage from "../components/catalog-components/CatalogPage.vue";
-import startPage from "../components/catalog-components/startPage.vue";
+import startPage from "../components/catalog-components/StartPage.vue";
 
 export default {
     name: "CatalogView",
@@ -25,4 +25,4 @@ export default {
 <style scoped>
 
 
-</style>
+</style>../components/catalog-components/CatalogFilter.vue../components/catalog-components/Catalog.vue
