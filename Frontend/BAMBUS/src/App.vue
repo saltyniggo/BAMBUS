@@ -1,10 +1,11 @@
 <template>
   <side-nav id="app-base-sidenav"></side-nav>
-  <round-buttton></round-buttton>
-  <rectangle-button></rectangle-button>
-  <item-container></item-container>
-  <content-container> </content-container>
-
+  <div class="app-base-content">
+    <round-buttton></round-buttton>
+    <rectangle-button></rectangle-button>
+    <item-container></item-container>
+    <content-container> </content-container>
+  </div>
   <RouterView />
 </template>
 
@@ -42,6 +43,10 @@ export default {
 
 p {
   font-size: 18px;
+}
+
+.app-base-content {
+  margin-left: 15%;
 }
 
 #app-base-sidenav {
