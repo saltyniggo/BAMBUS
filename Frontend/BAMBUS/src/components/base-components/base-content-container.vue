@@ -26,7 +26,7 @@ div.content-container{
     box-sizing: border-box;
 
     padding: 2rem;
-    background-color: #7ca692;
+    background-color: #F2EAE4;
     box-shadow: 0px 0px 5px 0px #222126;
 
     transition: 0.3s;
@@ -42,6 +42,6 @@ div.content-container:hover {
 }
 
 h1, h2, h3, p, i {
-    color: #F2EAE4;
+    color: #222126;
 }
 </style>

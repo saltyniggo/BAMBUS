@@ -1,17 +1,20 @@
 <template>
   <app-side-nav id="app-base-sidenav"></app-side-nav>
   <div class="app-base-content">
-  <round-button></round-button>
-  <rectangle-button></rectangle-button>
-  <item-container></item-container>
-  <content-container>
-    <v-slot:default>
+
+  <!-- <round-button></round-button> -->
+  <!-- <rectangle-button></rectangle-button> -->
+  <!-- <item-container></item-container> -->
+  <!-- <content-container> -->
+    <!-- <v-slot:default> -->
       <!-- <modalL></modalL> -->
       <!-- <modalS></modalS> -->
-    </v-slot:default>
-  </content-container>
-  <base-tab-header></base-tab-header>
+    <!-- </v-slot:default> -->
+  <!-- </content-container> -->
+  <!-- <base-tab-header></base-tab-header> -->
+  <catalog-view></catalog-view>
   </div>
+ 
 
   <RouterView />
 </template>
@@ -27,6 +30,7 @@ import contentContainer from "./components/base-components/base-content-containe
 import modalL from "./components/base-components/base-modal-large.vue";
 import modalS from "./components/base-components/base-modal-small.vue";
 import baseTabHeader from "./components/base-components/base-tab-header.vue";
+import catalogView from "./views/CatalogView.vue";
 
 export default {
   name: "App",
@@ -41,6 +45,7 @@ export default {
     modalL,
     modalS,
     baseTabHeader,
+    catalogView
   },
 };
 </script>
