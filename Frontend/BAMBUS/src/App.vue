@@ -37,6 +37,11 @@ export default {
   box-sizing: border-box;
   font-family: "Red Hat Text", sans-serif;
   color: #222126;
-  font-size: 20px;
 }
+
+p {
+  font-size: 18px;
+}
+
+
 </style>
