@@ -4,6 +4,8 @@
   <round-buttton></round-buttton>
   <rectangle-button></rectangle-button>
   <item-container></item-container>
+  <content-container>
+  </content-container>
   
 
   <RouterView />
@@ -13,9 +15,10 @@
 import { RouterLink, RouterView } from "vue-router";
 
 import SideNav from "./components/SideNav.vue";
-import itemContainer from "./components/base-components/item-container.vue";
-import roundButton from "./components/base-components/round-button.vue";
-import rectangleButton from "./components/base-components/rectangle-button.vue";
+import itemContainer from "./components/base-components/base-item-container.vue";
+import roundButton from "./components/base-components/base-round-button.vue";
+import rectangleButton from "./components/base-components/base-rectangle-button.vue";
+import contentContainer from "./components/base-components/base-content-container.vue";
 
 export default {
   name: "App",
@@ -25,7 +28,8 @@ export default {
     SideNav,
     roundButton,
     rectangleButton,
-    itemContainer
+    itemContainer,
+    contentContainer,
   },
 };
 </script>
@@ -44,4 +48,4 @@ p {
 }
 
 
-</style>
+</style>./components/base-components/base-item-container.vue./components/base-components/base-rectangle-button.vue./components/base-components/base-round-button.vue

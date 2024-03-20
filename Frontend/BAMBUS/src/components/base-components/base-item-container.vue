@@ -1,6 +1,6 @@
 <template>
-    <div class="item-container">
-
+<base-content-container>
+    <v-slot:deafault>
         <div class="item-header">
             <div class="item-header-rating"> 
                 <i class="fa-solid fa-star" style="color: #f2eae4"></i>
@@ -28,42 +28,23 @@
             <p>Action Wissenschaft</p>
             <p>Verfügbar</p>
         </div>
-        
-        
-
-    
     <p>ISBN 978-3-12-732320-7</p>
-    
-    </div>
+    </v-slot:deafault>
+       
+</base-content-container>
 </template>
 
+<script>
+import baseContentContainer from "./base-content-container.vue";
+export default {
+    name: "base-item-container",
+    components: {
+        baseContentContainer,
+    },
+};
+</script>
+
 <style scoped>
-
-div.item-container{
-    width: 33%;
-    min-width: 300px;
-    min-height: 300px;
-
-    border-radius: 10px;
-    border: none;
-    box-sizing: border-box;
-
-    margin: 10px;
-    padding: 10px;
-    background-color: #7ca692;
-    color: #F2EAE4;
-    
-    box-shadow: 0px 0px 5px 0px #222126;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-div.item-container:hover {
-    box-shadow: 0px 0px 10px 0px #222126;
-}
 
 div.item-header, div.item-description {
     margin: 5% 0;
@@ -85,6 +66,10 @@ div.item-header-category {
 
 div.item-title {
     margin-bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 div.item-title h1, h2, i {
@@ -93,6 +78,7 @@ div.item-title h1, h2, i {
 
 h3, h2, h1, p, i {
     color: #F2EAE4; 
+    text-align: center;
 }
 
 

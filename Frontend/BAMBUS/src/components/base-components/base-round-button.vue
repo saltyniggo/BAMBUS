@@ -7,6 +7,9 @@
 </template>
 
 <script>
+export default {
+    name: "base-round-button",
+};
 </script>
 
 <style scoped>

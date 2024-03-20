@@ -10,6 +10,12 @@
     </button>
 </template>
 
+<script>
+export default {
+    name: "base-rectangle-button",
+};
+</script>
+
 <style scoped>
 button.rectangle-button {
     width: 100px;
