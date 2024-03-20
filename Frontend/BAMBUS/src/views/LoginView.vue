@@ -1,14 +1,14 @@
 <template>
-  <div class="login-view">
+  <div>
     <login-page
       class="login-view-content"
-      v-if="currentPage == 'login'"
-      @redirectRegister="redirectTo('register')"
+      v-if="onLogin"
+      @redirectRegister="changePage()"
     />
     <register-page
       class="login-view-content"
       v-else
-      @redirectLogin="redirectTo('login')"
+      @redirectLogin="changePage()"
     />
   </div>
 </template>
@@ -25,27 +25,18 @@ export default {
   },
   data() {
     return {
-      currentPage: "login",
+      onLogin: true,
     };
   },
   methods: {
-    redirectTo(page) {
-      this.currentPage = page;
+    changePage() {
+      this.onLogin = !this.onLogin;
     },
   },
 };
 </script>
 
 <style scoped>
-.login-view {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: #3b8c84;
-}
-
 .login-view-content {
   display: flex;
   justify-content: center;

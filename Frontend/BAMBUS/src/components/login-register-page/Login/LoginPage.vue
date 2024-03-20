@@ -28,9 +28,6 @@ export default {
 </script>
 
 <style scoped>
-.login-page {
-}
-
 h1,
 h2,
 p,
