@@ -1,3 +1,4 @@
+import CatalogView from "@/views/CatalogView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -6,7 +7,8 @@ const router = createRouter({
     {
       path: "/",
       name: "catalog",
-    },
+      component: {view: CatalogView},
+    },    
     {
       path: "/cart",
       name: "cart",

@@ -25,7 +25,19 @@ export default {
         CatalogFilter,
         itemContainer
     },
+    props: {
+        category: {
+            type: String,
+            default: "all"
+        }
+    },
+    watch: {
+        category() {
+            console.log("Category changed to: " + this.category);
+        }
+    }
 };
+
 </script>
 
 <style scoped>
@@ -33,6 +45,7 @@ export default {
         min-height: 100vh;
         width: 100%;
         background-color: #3b8c84;
+        scroll-behavior: smooth;
     }
 
     .catalog-items {

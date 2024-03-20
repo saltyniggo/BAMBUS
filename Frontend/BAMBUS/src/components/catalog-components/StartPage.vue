@@ -3,20 +3,32 @@
         <h1>
             Was willst Du heute entdecken?
         </h1>
-        <a class="startpage-shortcut">
+        <a class="startpage-shortcut" @click="scrollDownShow('Bücher')">
             Bücher
         </a>
-        <a class="startpage-shortcut">
+        <a class="startpage-shortcut" @click="scrollDownShow('Zeitschriften')">
             Zeitschriften
         </a>
-        <a class="startpage-shortcut">
+        <a class="startpage-shortcut" @click="scrollDownShow('Spiele')">
             Spiele
         </a >
-        <a class="startpage-shortcut" href=#catalog>
+        <a class="startpage-shortcut" @click="scrollDownShow('Alles')" style="scroll-behavior: smooth">
             Alles
         </a>
     </div>
 </template>
+
+<script>
+export default {
+    name: "StartPage",
+    emits: ["scrollDownShow"],
+    methods: {
+        scrollDownShow(category) {
+            this.$emit("scrollDownShow", category);
+        }
+    }
+};
+</script>
 
 <style scoped>
     .startpage {
@@ -28,6 +40,7 @@
         width: 100%;
         background-image: url(../../../public/bambooBackground.jpg);
         background-color:#84bf9e;
+        scroll-behavior: smooth;
     }
 
     .startpage h1 {

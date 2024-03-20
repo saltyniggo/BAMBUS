@@ -1,18 +1,10 @@
 <template>
   <app-side-nav id="app-base-sidenav"></app-side-nav>
   <div class="app-base-content">
+    <router-view name="view"></router-view>
+      <catalog-view></catalog-view>
 
-  <!-- <round-button></round-button> -->
-  <!-- <rectangle-button></rectangle-button> -->
-  <!-- <item-container></item-container> -->
-  <!-- <content-container> -->
-    <!-- <v-slot:default> -->
-      <!-- <modalL></modalL> -->
-      <!-- <modalS></modalS> -->
-    <!-- </v-slot:default> -->
-  <!-- </content-container> -->
-  <!-- <base-tab-header></base-tab-header> -->
-  <catalog-view></catalog-view>
+  
   </div>
  
 
@@ -57,6 +49,7 @@ export default {
   box-sizing: border-box;
   font-family: "Red Hat Text", sans-serif;
   color: #222126;
+  scroll-behavior: smooth;
 }
 
 p {
