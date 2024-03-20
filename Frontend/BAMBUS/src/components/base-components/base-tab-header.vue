@@ -19,7 +19,9 @@ export default {
     },
     methods: {
         showTab(event) {
+            console.log(event.target.parentElement.id);
             this.active = event.target.parentElement.id;
+            console.log(this.active);
         }
     }
 };
