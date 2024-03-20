@@ -1,7 +1,7 @@
 <template>
   <h3>Hallo Worlt</h3>
   <side-nav></side-nav>
-  <round-buttton></round-buttton>
+  <round-button></round-button>
   <rectangle-button></rectangle-button>
   <item-container></item-container>
   <content-container>
