@@ -1,5 +1,5 @@
 <template>
-  <side-nav id="app-base-sidenav"></side-nav>
+  <app-side-nav id="app-base-sidenav"></app-side-nav>
   <div class="app-base-content">
     <round-buttton></round-buttton>
     <rectangle-button></rectangle-button>
@@ -12,7 +12,7 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 
-import SideNav from "./components/SideNav.vue";
+import AppSideNav from "./components/AppSideNav.vue";
 import itemContainer from "./components/base-components/base-item-container.vue";
 import roundButton from "./components/base-components/base-round-button.vue";
 import rectangleButton from "./components/base-components/base-rectangle-button.vue";
@@ -23,7 +23,7 @@ export default {
   components: {
     RouterLink,
     RouterView,
-    SideNav,
+    AppSideNav,
     roundButton,
     rectangleButton,
     itemContainer,
@@ -58,4 +58,4 @@ p {
   z-index: 100;
 }
 </style>
-./components/base-components/base-item-container.vue./components/base-components/base-rectangle-button.vue./components/base-components/base-round-button.vue
+./components/base-components/base-item-container.vue./components/base-components/base-rectangle-button.vue./components/base-components/base-round-button.vue./components/AppSideNav.vue
