@@ -1,3 +1,4 @@
+import { compile } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -26,6 +27,7 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
+      component: () => import("../views/LoginView.vue"),
     },
     {
       path: "/*",
