@@ -5,6 +5,9 @@
   <rectangle-button></rectangle-button>
   <item-container></item-container>
   <content-container>
+    <v-slot:default>
+      <modal></modal>
+    </v-slot:default>
   </content-container>
   
 
@@ -19,6 +22,7 @@ import itemContainer from "./components/base-components/base-item-container.vue"
 import roundButton from "./components/base-components/base-round-button.vue";
 import rectangleButton from "./components/base-components/base-rectangle-button.vue";
 import contentContainer from "./components/base-components/base-content-container.vue";
+import modal from "./components/base-components/base-modal-large.vue";
 
 export default {
   name: "App",
@@ -30,6 +34,7 @@ export default {
     rectangleButton,
     itemContainer,
     contentContainer,
+    modal
   },
 };
 </script>
@@ -45,6 +50,16 @@ export default {
 
 p {
   font-size: 18px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 

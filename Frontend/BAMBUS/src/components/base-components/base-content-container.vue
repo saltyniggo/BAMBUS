@@ -1,9 +1,9 @@
 <template>
     <div class="content-container">
-        <slot name="header">
-        </slot>
-        <slot name="body">
-        </slot>
+
+        <h1><slot name="header"></slot></h1>
+
+        <p><slot name="body"></slot></p>
         <slot></slot>
     </div>
 
@@ -21,12 +21,11 @@ div.content-container{
     min-width: 300px;
     min-height: 300px;
 
-    border-radius: 10px;
+    border-radius: 1rem;
     border: none;
     box-sizing: border-box;
 
-    margin: 10px;
-    padding: 10px;
+    padding: 2rem;
     background-color: #7ca692;
     box-shadow: 0px 0px 5px 0px #222126;
 
@@ -45,6 +44,4 @@ div.content-container:hover {
 h1, h2, h3, p, i {
     color: #F2EAE4;
 }
-
-
 </style>
