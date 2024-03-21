@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
 export default {
@@ -34,6 +35,7 @@ export default {
     LoginUser() {
       console.log("Username: " + this.username);
       console.log("Password: " + this.password);
+      router.push("/");
     },
   },
 };
