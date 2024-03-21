@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     scrollDownShow(category) {
-      const catalog = this.$el.querySelector("#catalog");
       this.$el.querySelector("#catalog").scrollIntoView({ behavior: "smooth" });
       this.category = category;
     },
@@ -30,8 +29,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.catalog-view {
-  scroll-behavior: smooth;
-}
-</style>

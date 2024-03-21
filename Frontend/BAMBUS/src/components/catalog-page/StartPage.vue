@@ -34,7 +34,6 @@ export default {
   align-items: center;
   background-image: url(../../assets/bambooBackground.jpg);
   background-color: #84bf9e;
-  scroll-behavior: smooth;
 }
 
 .startpage h1 {
