@@ -6,11 +6,15 @@ import Getters from "./getters.js";
 
 import UserStore from "./modules/user/index.js";
 import ItemStore from "./modules/item/index.js";
+import ModalStore from "./modules/modal/index.js";
+import RatingStore from "./modules/rating/index.js";
 
 const store = createStore({
   modules: {
-    user: UserStore,
+    userStore: UserStore,
     itemStore: ItemStore,
+    modalStore: ModalStore,
+    ratingStore: RatingStore,
   },
   state: { },
   mutations: Mutations,

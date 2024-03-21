@@ -53,5 +53,6 @@ export default {
         grid-gap: 2rem;
         padding: 2rem;
         align-items: stretch;
+        justify-items: center;
     }
 </style>

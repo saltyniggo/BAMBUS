@@ -5,8 +5,7 @@ import Getters from "./getters.js";
 export default {
   namespaced: true,
   state: {
-    role: 0,
- 
+    modalStatus: false,
   },
   mutations: Mutations,
   actions: Actions,

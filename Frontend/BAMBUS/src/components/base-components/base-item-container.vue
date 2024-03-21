@@ -6,7 +6,7 @@
 
               <div class="item-header-rating">
                 <i v-for="index in 5" :key="index" :class="getStarClass(index)" style="color: #222126;"></i>
-                <p style="font-size: smaller;">Lese hier Bewertungen</p>
+                <a style="font-size: smaller;" @click="openRatingModal(item.id)">Lese hier Bewertungen</a>
               </div>
             
             <div class="item-header-category">
@@ -25,12 +25,19 @@
      
       
         <div class="item-description">
-            <p>{{ item.category }}</p>
             <p v-if="item.available"> Verfügbar</p>
             <p v-else> Nicht verfügbar</p>
+            <p>{{ item.category }}</p>
+
         </div>
     <p v-if="item.ISBN">ISBN {{item.ISBN}}</p>
     <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
+
+        <div class="item-footer">
+            <base-round-button v-if="role == 1" @click="openEditModal(item.id)"><i class="fa-regular fa-pen-to-square" style="color: #222126;"></i></base-round-button>
+            <base-round-button v-if="role == 1" @click="deleteItem(item.id)"><i class="fa-solid fa-trash-can" style="color: #222126;"></i></base-round-button>
+            <base-round-button v-if="role == 0" @click="addToCart(item.id)"><i class="fa-solid fa-basket-shopping" style="color: #222126;"></i></base-round-button>
+        </div>
     </div>
     </v-slot:deafault>
        
@@ -38,11 +45,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import baseContentContainer from "./base-content-container.vue";
+import baseRoundButton from "./base-round-button.vue";
+
 export default {
     name: "base-item-container",
     components: {
         baseContentContainer,
+        baseRoundButton,
     },
     props: {
         item: {
@@ -58,17 +70,35 @@ export default {
             }
             return this.item.rating;
         },
+        ...mapGetters({
+        role: "userStore/getRole",
+      })
     },
 
     methods: {
-      getStarClass(index) {
-        const roundedNumber = Math.round(this.number);
-        if (index <= roundedNumber) {
-          return 'fa-solid fa-star';
-        } else {
-           return 'fa-regular fa-star';
-        }
-      },
+        getStarClass(index) {
+            const roundedNumber = Math.round(this.number);
+            if (index <= roundedNumber) {
+            return 'fa-solid fa-star';
+            } else {
+            return 'fa-regular fa-star';
+            }
+        },
+        openRatingModal(id) {
+            
+        },
+
+        openEditModal(id) {
+
+        },
+
+        deleteItem(id) {
+            this.$store.dispatch("itemStore/deleteItem", id);
+        },
+
+        addToCart(id) {
+            this.$store.dispatch("cartStore/addToCart", id);
+        },
     },
 };
 
@@ -76,9 +106,7 @@ export default {
 </script>
 
 <style scoped>
-base-content-container {
-    justify-content: none;
-}
+
 div.item-container {
     width: 100%;
     height: 100%;
@@ -93,6 +121,13 @@ div.item-header, div.item-description {
     align-items: center;
 }
 
+div.item-footer {
+    margin-top: 10%;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
 div.item-header {
     position: relative;
