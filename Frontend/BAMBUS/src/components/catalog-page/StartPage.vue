@@ -1,25 +1,24 @@
 <template>
   <div class="startpage">
     <h1>Was willst Du heute entdecken?</h1>
-    <a class="startpage-shortcut" @click="scrollDownShow('Bücher')"> Bücher </a>
-    <a class="startpage-shortcut" @click="scrollDownShow('Zeitschriften')">
-      Zeitschriften
-    </a>
-    <a class="startpage-shortcut" @click="scrollDownShow('Spiele')"> Spiele </a>
-    <a
-      class="startpage-shortcut"
-      @click="scrollDownShow('Alles')"
-      style="scroll-behavior: smooth"
+    <shortcut-button @click="scrollDownShow('Bücher')">Bücher</shortcut-button>
+    <shortcut-button @click="scrollDownShow('Zeitschriften')"
+      >Zeitschriften</shortcut-button
     >
-      Alles
-    </a>
+    <shortcut-button @click="scrollDownShow('Spiele')">Spiele</shortcut-button>
+    <shortcut-button @click="scrollDownShow('Alles')">Alles</shortcut-button>
   </div>
 </template>
 
 <script>
+import ShortcutButton from "./ShortcutButton.vue";
+
 export default {
   name: "StartPage",
   emits: ["scrollDownShow"],
+  components: {
+    ShortcutButton,
+  },
   methods: {
     scrollDownShow(category) {
       this.$emit("scrollDownShow", category);
@@ -45,27 +44,6 @@ export default {
   font-size: 5em;
   text-align: center;
   color: #f2eae4;
-  text-shadow: 4px 4px 10px #3c4e45;
-}
-
-.startpage-shortcut {
-  width: 20rem;
-  margin: 20px;
-  padding: 20px;
-  font-size: 3rem;
-  color: #f2eae4;
-  background-color: #d9910d;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 2px 2px 10px #446354;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  scroll-behavior: smooth;
-}
-
-.startpage-shortcut:hover {
-  background-color: #f2eae4;
-  color: #d9910d;
+  text-shadow: 0.2rem 0.2rem 0.5rem #3c4e45;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="register-page">
     <BaseContentContainer>
       <h1 slot="header">Register</h1>
-      <h2>Please enter your credentials to log in.</h2>
+      <h2>Please enter your credentials to register.</h2>
       <register-credential-form />
       <p>Already have an account?</p>
       <base-text-button @click="$emit('redirectLogin')">

@@ -42,7 +42,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
+
   background-color: #3b8c84;
 }
 </style>

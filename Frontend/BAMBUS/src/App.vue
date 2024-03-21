@@ -46,12 +46,10 @@ h2 {
 .app-base {
   display: flex;
   flex-direction: row;
-
   height: 100vh;
 }
 
 .app-base-side-nav {
-  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
