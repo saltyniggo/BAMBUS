@@ -1,0 +1,38 @@
+<template>
+  <div class="reservation-item">
+    <h2>hallo</h2>
+    <div class="reservation-item-content">
+      <item-information />
+      <p>Hier Liste von ausleiern</p>
+      <base-text-button>Item reservieren</base-text-button>
+    </div>
+    <hr />
+  </div>
+</template>
+
+<script>
+import ItemInformation from "../ItemInformation.vue";
+import BaseTextButton from "../../../base-components/BaseTextButton.vue";
+
+export default {
+  name: "ReservationItem",
+  components: {
+    ItemInformation,
+    BaseTextButton,
+  },
+};
+</script>
+
+<style scoped>
+.reservation-item {
+  width: 100%;
+}
+
+.reservation-item-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+</style>
