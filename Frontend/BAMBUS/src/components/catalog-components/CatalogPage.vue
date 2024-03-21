@@ -4,14 +4,7 @@
         <CatalogFilter></CatalogFilter>
 
         <div class="catalog-items">
-            <item-container></item-container>
-            <item-container></item-container>
-            <item-container></item-container>
-            <item-container></item-container>
-            <item-container></item-container>
-            <item-container></item-container>
-            <item-container></item-container>
-            <item-container></item-container>
+            <item-container v-for="item in items" :key="item.id" :item="item"></item-container>
         </div>
     </div>
 </template>
@@ -19,6 +12,7 @@
 <script>
 import CatalogFilter from './CatalogFilter.vue';
 import itemContainer from "../base-components/base-item-container.vue";
+import { mapGetters } from "vuex";
 export default {
     name: "CatalogPage",
     components: {
@@ -28,7 +22,13 @@ export default {
     props: {
         category: {
             type: String,
-            default: "all"
+            default: "Alle"
+        }
+    },
+    methods: {...mapGetters(["getItems"] )},
+    computed:{
+        items(){
+            return this.getItems();
         }
     },
     watch: {

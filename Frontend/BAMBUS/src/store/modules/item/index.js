@@ -15,6 +15,7 @@ export default {
         author: "Author 1",
         category: "Category 1",
         ISSN: "1144-875X",
+        rating: 4.5,
       },
       {
         itemId: 2,
@@ -26,6 +27,7 @@ export default {
         author: "Author 2",
         category: "Category 2",
         ISBN: "978-3-16-148410-0",
+        rating: 3.5,
       },
       {
         itemId: 3,
@@ -34,6 +36,7 @@ export default {
         condition: 1,
         available: true,
         name: "Item 3",
+        rating: 5,
       },
       {
         itemId: 4,
@@ -45,6 +48,7 @@ export default {
         author: "J.R.R. Tolkien",
         category: "Fantasy",
         ISBN: "978-0395489314",
+        rating: 2,
       },
       {
         itemId: 5,
