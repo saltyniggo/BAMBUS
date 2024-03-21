@@ -1,14 +1,21 @@
 <template>
-  <div>
-    <RouterView />
+  <div class="app-base">
+    <side-nav class="app-base-side-nav"></side-nav>
+    <RouterView class="app-base-content" />
   </div>
 </template>
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
+import SideNav from "./components/AppSideNav.vue";
 
 export default {
   name: "App",
+  components: {
+    RouterLink,
+    RouterView,
+    SideNav,
+  },
 };
 </script>
 
@@ -34,5 +41,27 @@ h1 {
 h2 {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.app-base {
+  display: flex;
+  flex-direction: row;
+
+  height: 100vh;
+}
+
+.app-base-side-nav {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20vw;
+  height: 100vh;
+}
+
+.app-base-content {
+  margin-left: 20vw;
+  width: 80vw;
+  scroll-behavior: smooth;
 }
 </style>

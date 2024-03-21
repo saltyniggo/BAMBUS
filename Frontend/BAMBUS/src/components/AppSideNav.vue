@@ -48,12 +48,8 @@ export default {
 
 <style scoped>
 .SideNav {
-  display: fixed;
-  border-right: 0.25em solid #f2eae4;
   background-color: #222126;
   padding: 0.5%;
-  width: 20vw;
-  height: 100vh;
 }
 
 .SideNav-Top-Branding {

@@ -31,18 +31,17 @@ export default {
 <style scoped>
 .startpage {
   display: flex;
+  height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 80vw;
-  margin-left: 20vw;
   background-image: url(../../assets/bambooBackground.jpg);
   background-color: #84bf9e;
   scroll-behavior: smooth;
 }
 
 .startpage h1 {
+  margin: 5% 0%;
   font-size: 5em;
   text-align: center;
   color: #f2eae4;
