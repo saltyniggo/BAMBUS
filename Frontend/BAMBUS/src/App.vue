@@ -1,17 +1,11 @@
 <template>
-  <app-side-nav id="app-base-sidenav"></app-side-nav>
-  <div class="app-base-content">
-    <router-view name="view"></router-view>
+  <div>
+    <RouterView />
   </div>
- 
-
-  <RouterView />
 </template>
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
-
-
 
 export default {
   name: "App",

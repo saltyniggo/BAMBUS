@@ -1,41 +1,44 @@
 <template>
-    <div class="catalog-view">
-        <startPage @scrollDownShow="scrollDownShow"></startPage>
-        <catalogPage :category></catalogPage>
+  <div class="catalog-view">
+    <side-nav></side-nav>
+    <div class="catalog-view-content">
+      <startPage @scrollDownShow="scrollDownShow"></startPage>
+      <catalogPage :category></catalogPage>
     </div>
+  </div>
 </template>
 
 <script>
-import catalogPage from "../components/catalog-components/CatalogPage.vue";
-import startPage from "../components/catalog-components/StartPage.vue";
+import CatalogPage from "../components/catalog-page/CatalogPage.vue";
+import StartPage from "../components/catalog-page/StartPage.vue";
+import SideNav from "../components/AppSideNav.vue";
 
 export default {
-    name: "CatalogView",
-    data() {
-        return {
-            category: "all"
-        };
+  name: "CatalogView",
+  components: {
+    CatalogPage,
+    StartPage,
+    SideNav,
+  },
+  data() {
+    return {
+      category: "all",
+    };
+  },
+  methods: {
+    scrollDownShow(category) {
+      const catalog = this.$el.querySelector("#catalog");
+      this.$el.querySelector("#catalog").scrollIntoView({ behavior: "smooth" });
+      this.category = category;
     },
-
-    components: {
-        catalogPage,
-        startPage
-    },
-    methods: {
-        scrollDownShow(category) {
-            const catalog = this.$el.querySelector("#catalog");
-            this.$el.querySelector("#catalog").scrollIntoView({ behavior: "smooth" });
-            this.category = category;
-
-        }
-    },
+  },
 };
-
 </script>
 
 <style scoped>
-    .catalog-view {
-        scroll-behavior: smooth;
-    }
-
+.catalog-view {
+  height: 100vh;
+  width: 100vw;
+  scroll-behavior: smooth;
+}
 </style>
