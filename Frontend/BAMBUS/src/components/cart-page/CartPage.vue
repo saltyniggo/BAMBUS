@@ -50,7 +50,7 @@ export default {
   width: 80vw;
   background-color: #3b8c84;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-direction: column;
 }
 </style>

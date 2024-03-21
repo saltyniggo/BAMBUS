@@ -2,9 +2,15 @@
   <div class="rental-item">
     <h2>{{ rentalItem.title }}</h2>
     <div class="rental-item-content">
-      <item-information />
-      <item-form />
-      <base-text-button>Item ausleihen</base-text-button>
+      <item-information
+        class="rental-item-content-row"
+        :id="rentalItem.id"
+        :condition="rentalItem.condition"
+      />
+      <item-form class="rental-item-content-row" />
+      <base-text-button class="rental-item-content-row"
+        >Item ausleihen</base-text-button
+      >
     </div>
     <hr />
   </div>
@@ -30,6 +36,7 @@ export default {
 
 <style scoped>
 .rental-item {
+  border: 1px solid black;
   width: 100%;
 }
 
@@ -38,6 +45,10 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+}
+
+.rental-item-content-row {
+  width: 15%;
+  margin: 2% 0;
 }
 </style>

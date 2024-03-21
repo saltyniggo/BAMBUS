@@ -19,7 +19,7 @@ export default {
       {
         id: 3,
         reservations: [],
-        condition: 1,
+        condition: 2,
         available: true,
         title: "Test Item",
         author: "Test Author",
@@ -29,7 +29,7 @@ export default {
       {
         id: 4,
         reservations: [],
-        condition: 1,
+        condition: 3,
         available: true,
         title: "Test Item",
         author: "Test Author",

@@ -1,7 +1,7 @@
 <template>
   <div class="item-information">
-    <p>Item ID: {{ item.id }}</p>
-    <p>Item Zustand: {{ item.condition }}</p>
+    <p>Item ID: {{ id }}</p>
+    <p>Item Zustand: {{ condition }}</p>
   </div>
 </template>
 
@@ -11,20 +11,6 @@ export default {
   props: {
     id: Number,
     condition: Number,
-  },
-  data() {
-    return {
-      item: {
-        id: 1,
-        reservations: [],
-        condition: 1,
-        available: true,
-        title: "Test Item",
-        author: "Test Author",
-        category: "Test Category",
-        ISBN: "Test ISBN",
-      },
-    };
   },
 };
 </script>
