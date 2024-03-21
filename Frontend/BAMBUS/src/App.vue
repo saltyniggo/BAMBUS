@@ -1,43 +1,20 @@
 <template>
-  <app-side-nav id="app-base-sidenav"></app-side-nav>
-  <div class="app-base-content">
-    <router-view name="view"></router-view>
-      <catalog-view></catalog-view>
-
-  
+  <div class="app-base">
+    <side-nav class="app-base-side-nav"></side-nav>
+    <RouterView class="app-base-content" />
   </div>
- 
-
-  <RouterView />
 </template>
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
-
-import AppSideNav from "./components/AppSideNav.vue";
-import itemContainer from "./components/base-components/base-item-container.vue";
-import roundButton from "./components/base-components/base-round-button.vue";
-import rectangleButton from "./components/base-components/base-rectangle-button.vue";
-import contentContainer from "./components/base-components/base-content-container.vue";
-import modalL from "./components/base-components/base-modal-large.vue";
-import modalS from "./components/base-components/base-modal-small.vue";
-import baseTabHeader from "./components/base-components/base-tab-header.vue";
-import catalogView from "./views/CatalogView.vue";
+import SideNav from "./components/AppSideNav.vue";
 
 export default {
   name: "App",
   components: {
     RouterLink,
     RouterView,
-    AppSideNav,
-    roundButton,
-    rectangleButton,
-    itemContainer,
-    contentContainer,
-    modalL,
-    modalS,
-    baseTabHeader,
-    catalogView
+    SideNav,
   },
 };
 </script>
@@ -66,17 +43,23 @@ h2 {
   font-weight: bold;
 }
 
-.app-base-content {
-  margin-left: 15%;
+.app-base {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
 }
 
-#app-base-sidenav {
+.app-base-side-nav {
   position: fixed;
   top: 0;
   left: 0;
-  width: 15%;
-  height: 100%;
-  z-index: 100;
+  width: 20vw;
+  height: 100vh;
+}
+
+.app-base-content {
+  margin-left: 20vw;
+  width: 80vw;
+  scroll-behavior: smooth;
 }
 </style>
-./components/base-components/base-item-container.vue./components/base-components/base-rectangle-button.vue./components/base-components/base-round-button.vue./components/AppSideNav.vue

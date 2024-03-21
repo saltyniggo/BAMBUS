@@ -1,7 +1,7 @@
 <template>
   <div class="SideNav">
     <section class="SideNav-Top-Branding">
-      <img src="/logo.jpg" alt="Bambus Logo" />
+      <img src="/logo.jpg" alt="Bambus Logo" id="side-nav-logo" />
       <h1>BAMBUS</h1>
     </section>
     <div class="SideNav-Base-Link-Tree">
@@ -48,7 +48,6 @@ export default {
 
 <style scoped>
 .SideNav {
-  border-right: 0.25em solid #f2eae4;
   background-color: #222126;
   padding: 0.5%;
 }
@@ -65,11 +64,6 @@ export default {
   font-size: 2rem;
   margin-left: 5%;
   color: #f2eae4;
-}
-
-.SideNav-Top-Branding img {
-  height: 75%;
-  width: auto;
 }
 
 .SideNav-Base-Link-Tree {
@@ -118,5 +112,12 @@ export default {
   display: inline-flex;
   color: #f2eae4;
   margin-bottom: 5%;
+}
+
+#side-nav-logo {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  margin-right: 5%;
 }
 </style>

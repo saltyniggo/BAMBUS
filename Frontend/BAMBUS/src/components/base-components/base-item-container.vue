@@ -105,22 +105,23 @@ div.item-header-category {
 }
 
 div.item-title {
-    margin-bottom: 5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-div.item-title h1, h2, i {
-    margin: 5% 0;
+div.item-title h1,
+h2,
+i {
+  margin: 5% 0;
 }
 
 h3, h2, h1, p, i {
     color: #222126; 
     text-align: center;
 }
-
 
 h1 {
     font-size: 1.3rem;
@@ -140,5 +141,4 @@ div.star-container {
     text-align: center;
     box-sizing: border-box;
 }
-
 </style>
