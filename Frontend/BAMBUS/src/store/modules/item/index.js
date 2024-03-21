@@ -5,6 +5,8 @@ import Getters from "./getters.js";
 export default {
   namespaced: true,
   state: {
+    editItemId: null,
+    ratingsItemId: null,
     items: [
       {
         itemId: 1,

@@ -18,7 +18,8 @@
         </div>
    
         <div class="item-title">
-            <h1 v-if="item.title">{{ item.title}}</h1>
+            <h2 v-if="role == 1">Id: {{ item.itemId }}</h2>
+            <h1 v-if="item.title">{{ item.title}}</h1> 
             <h1 v-else>{{ item.name}}</h1>
             <i v-if="item.author">{{ item.author }}</i>
         </div>
@@ -85,11 +86,11 @@ export default {
             }
         },
         openRatingModal(id) {
-            
+            this.$emit("openRatingsModal", id);
         },
 
         openEditModal(id) {
-
+            this.$emit("openEditModal", id);
         },
 
         deleteItem(id) {

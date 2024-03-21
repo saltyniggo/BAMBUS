@@ -1,7 +1,7 @@
 <template>
     <base-modal-large>
         <template v-slot:modal-title>
-            <h1 class="text-center">Ratings</h1>
+            <h1>Bewertungen</h1>
         </template>
         <template v-slot:modal-content>
         </template>
@@ -15,6 +15,12 @@ export default {
     name: "ratings-modal",
     components: {
         baseModalLarge,
+    },
+    props: {
+        ratingsId: {
+            type: Number,
+            required: true,
+        },
     },
 }
 

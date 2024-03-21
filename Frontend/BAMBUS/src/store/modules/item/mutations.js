@@ -9,4 +9,14 @@ export default {
     editItem(state, item) {
         state.items = state.items.map((i) => (i.id === item.id ? item : i));
     },
+    setEditItemId(state, id) {
+        state.editItemId = id;
+    },
+    setRatingsItemId(state, id) {
+        state.ratingsItemId = id;
+    },
+    deleteAllModalIds(state) {
+        state.editItemId = null;
+        state.ratingsItemId = null;
+    }
 };

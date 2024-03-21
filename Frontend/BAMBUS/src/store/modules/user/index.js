@@ -5,7 +5,7 @@ import Getters from "./getters.js";
 export default {
   namespaced: true,
   state: {
-    role: 0,
+    role: 1,
  
   },
   mutations: Mutations,

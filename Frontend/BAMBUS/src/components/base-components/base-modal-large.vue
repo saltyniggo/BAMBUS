@@ -20,7 +20,7 @@
             </slot>
         </div>
 
-        <base-rectangle-button @click = closeModal()> Close</base-rectangle-button>
+        <base-rectangle-button @click = closeModal()> <slot name = "modal-button">Close</slot> </base-rectangle-button>
 
        
        
@@ -43,9 +43,16 @@ export default {
   },
   methods: {
     closeModal() {
+      
+  
      
       this.isShowing = false;
+      setTimeout(() => {
+        this.$store.dispatch("modalStore/closeAllModals");
+      }, 500);
+      this.$store.dispatch("itemStore/deleteAllModalIds");
     },
+    
   },
 
   mounted() {

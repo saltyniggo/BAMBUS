@@ -4,21 +4,28 @@
         <CatalogFilter></CatalogFilter>
 
         <div class="catalog-items" v-if="items">
-            <item-container v-for="item in items" :key="item.id" :item="item"></item-container>
+            <item-container v-for="item in items" :key="item.id" :item="item" @openEditModal="openEditModal" @openRatingsModal="openRatingsModal"></item-container>
         </div>
+        <EditModal v-if="showsEditModal"></EditModal>
+        <RatingsModal v-if="showsRatingsModal"></RatingsModal>
+
     </div>
 </template>
 
 <script>
 import CatalogFilter from './CatalogFilter.vue';
 import itemContainer from "../base-components/base-item-container.vue";
+import EditModal from "./EditItemModal.vue";
+import RatingsModal from "./RatingsModal.vue";
 import { mapGetters } from "vuex";
 
 export default {
     name: "CatalogPage",
     components: {
         CatalogFilter,
-        itemContainer
+        itemContainer,
+        EditModal,
+        RatingsModal,
     },
     props: {
         category: {
@@ -26,15 +33,27 @@ export default {
             default: "Alle"
         }
     },
-    methods: {},
+
     computed:{
-        ...mapGetters({items: "itemStore/getItems"}),
+        ...mapGetters({items: "itemStore/getItems", showsEditModal: "modalStore/getEditModalStatus", showsRatingsModal: "modalStore/getRatingsModalStatus"}),
     },
     watch: {
         category() {
             console.log("Category changed to: " + this.category);
             console.log("Items: " + this.items);
         }
+    },
+    methods: {
+        openEditModal(id) {
+            this.$store.dispatch("modalStore/closeAllModals");
+            this.$store.dispatch("ItemStore/setEditItemId", id);
+            this.$store.dispatch("modalStore/toggleEditModal");
+        },
+        openRatingsModal(id) {
+            this.$store.dispatch("modalStore/closeAllModals");
+            this.$store.dispatch("itemStore/setRatingsId", id);
+            this.$store.dispatch("modalStore/toggleRatingsModal");
+        },
     },
 };
 

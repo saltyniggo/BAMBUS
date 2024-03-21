@@ -43,8 +43,11 @@ export default {
   },
   methods: {
     closeModal() {
-     
+  
       this.isShowing = false;
+      setTimeout(() => {
+        this.$store.dispatch("modalStore/closeAllModals");
+      }, 500);
     },
   },
 
