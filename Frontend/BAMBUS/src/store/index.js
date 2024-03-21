@@ -10,9 +10,9 @@ import ItemStore from "./modules/item/index.js";
 const store = createStore({
   modules: {
     user: UserStore,
-    item: ItemStore,
+    itemStore: ItemStore,
   },
-  state: {},
+  state: { },
   mutations: Mutations,
   actions: Actions,
   getters: Getters,

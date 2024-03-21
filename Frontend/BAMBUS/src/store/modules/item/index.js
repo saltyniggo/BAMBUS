@@ -3,6 +3,7 @@ import Actions from "./actions.js";
 import Getters from "./getters.js";
 
 export default {
+  namespaced: true,
   state: {
     items: [
       {
@@ -217,3 +218,5 @@ export default {
   actions: Actions,
   getters: Getters,
 };
+
+

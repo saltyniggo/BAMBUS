@@ -3,7 +3,7 @@
 
         <CatalogFilter></CatalogFilter>
 
-        <div class="catalog-items">
+        <div class="catalog-items" v-if="items">
             <item-container v-for="item in items" :key="item.id" :item="item"></item-container>
         </div>
     </div>
@@ -13,6 +13,7 @@
 import CatalogFilter from './CatalogFilter.vue';
 import itemContainer from "../base-components/base-item-container.vue";
 import { mapGetters } from "vuex";
+
 export default {
     name: "CatalogPage",
     components: {
@@ -25,17 +26,16 @@ export default {
             default: "Alle"
         }
     },
-    methods: {...mapGetters(["getItems"] )},
+    methods: {},
     computed:{
-        items(){
-            return this.getItems();
-        }
+        ...mapGetters({items: "itemStore/getItems"}),
     },
     watch: {
         category() {
             console.log("Category changed to: " + this.category);
+            console.log("Items: " + this.items);
         }
-    }
+    },
 };
 
 </script>

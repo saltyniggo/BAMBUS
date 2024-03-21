@@ -50,11 +50,16 @@ export default {
             required: true,
         },
     },
-    data() {
-        return {
-            number: this.item.rating,
-        };
+
+    computed: {
+        number() {
+            if (this.item.rating == null) {
+                return 0;
+            }
+            return this.item.rating;
+        },
     },
+
     methods: {
       getStarClass(index) {
         const roundedNumber = Math.round(this.number);

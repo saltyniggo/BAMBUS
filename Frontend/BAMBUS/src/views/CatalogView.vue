@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      category: "all",
+      category: "Alles",
     };
   },
   methods: {
