@@ -7,7 +7,7 @@
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
-import SideNav from "./components/AppSideNav.vue";
+import SideNav from "./components/side-nav/SideNav.vue";
 
 export default {
   name: "App",
