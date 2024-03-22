@@ -1,6 +1,6 @@
 <template>
   <div class="catalog" id="catalog">
-    <CatalogFilter></CatalogFilter>
+    <catalog-filter></catalog-filter>
 
     <div class="catalog-items" v-if="items">
       <item-container
@@ -11,14 +11,14 @@
         @openRatingsModal="openRatingsModal"
       ></item-container>
     </div>
-    <EditModal v-if="showsEditModal"></EditModal>
-    <RatingsModal v-if="showsRatingsModal"></RatingsModal>
+    <edit-modal v-if="showsEditModal"></edit-modal>
+    <ratings-modal v-if="showsRatingsModal"></ratings-modal>
   </div>
 </template>
 
 <script>
 import CatalogFilter from "./CatalogFilter.vue";
-import itemContainer from "../base-components/base-item-container.vue";
+import ItemContainer from "../base-components/base-item-container.vue";
 import EditModal from "./EditItemModal.vue";
 import RatingsModal from "./RatingsModal.vue";
 import { mapGetters } from "vuex";
@@ -27,7 +27,7 @@ export default {
   name: "CatalogPage",
   components: {
     CatalogFilter,
-    itemContainer,
+    ItemContainer,
     EditModal,
     RatingsModal,
   },
