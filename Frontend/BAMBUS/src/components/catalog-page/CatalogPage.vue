@@ -1,7 +1,6 @@
 <template>
-     <div class="catalog" id="catalog">
-
-        <CatalogFilter></CatalogFilter>
+  <div class="catalog" id="catalog">
+    <catalog-filter></catalog-filter>
 
         <div class="catalog-items" v-if="items">
             <item-container v-for="item in items" :key="item.itemId" :item="item" @openEditModal="openEditModal(item.itemId)" @openRatingsModal="openRatingsModal(item.itemId)"></item-container>
@@ -13,25 +12,24 @@
 </template>
 
 <script>
-import CatalogFilter from './CatalogFilter.vue';
-import itemContainer from "../base-components/base-item-container.vue";
+import CatalogFilter from "./CatalogFilter.vue";
+import ItemContainer from "../base-components/base-item-container.vue";
 import EditModal from "./EditItemModal.vue";
 import RatingsModal from "./RatingsModal.vue";
 import { mapGetters } from "vuex";
 
 export default {
-    name: "CatalogPage",
-    components: {
-        CatalogFilter,
-        itemContainer,
-        EditModal,
-        RatingsModal,
-    },
-    props: {
-        category: {
-            type: String,
-            default: "Alle"
-        }
+  name: "CatalogPage",
+  components: {
+    CatalogFilter,
+    ItemContainer,
+    EditModal,
+    RatingsModal,
+  },
+  props: {
+    category: {
+      type: String,
+      default: "Alle",
     },
 
     computed:{
@@ -55,23 +53,23 @@ export default {
             await this.$store.dispatch("modalStore/toggleRatingsModal");
         },
     },
+  },
 };
-
 </script>
 
 <style scoped>
-   .catalog {
-        min-height: 100vh;
-        width: 100%;
-        background-color: #3b8c84;
-    }
+.catalog {
+  min-height: 100vh
+  width: 100%;
+  background-color: #3b8c84;
+}
 
-    .catalog-items {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-gap: 2rem;
-        padding: 2rem;
-        align-items: stretch;
-        justify-items: center;
-    }
+.catalog-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 2rem;
+  padding: 2rem;
+  align-items: stretch;
+  justify-items: center;
+}
 </style>
