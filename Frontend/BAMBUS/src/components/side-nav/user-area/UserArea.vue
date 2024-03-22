@@ -2,6 +2,7 @@
   <div class="SideNav-Content">
     <cart-link
       class="SideNav-Content-Section"
+      v-if="isLoggedIn"
       @click="redirectTo('/cart')"
     ></cart-link>
     <section class="SideNav-Content-User-Area">
@@ -30,6 +31,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import CartLink from "./CartLink.vue";
 import UserLogin from "./UserLogin.vue";
 import UserEmployee from "./UserEmployee.vue";
@@ -45,22 +48,17 @@ export default {
     UserManager,
     UserAdmin,
   },
-  data() {
-    return {
-      isLoggedIn: false,
-      userRole: 1,
-    };
-  },
   methods: {
-    login() {
-      this.isLoggedIn = true;
-    },
-    logout() {
-      this.isLoggedIn = false;
-    },
     redirectTo(path) {
       this.$router.push(path);
     },
+  },
+  computed: {
+    ...mapGetters("userStore", {
+      isLoggedIn: "isUserAuthenticated",
+      currentUser: "getUser",
+      userRole: "getUserRole",
+    }),
   },
 };
 </script>
@@ -75,13 +73,17 @@ export default {
   justify-content: start;
 }
 
+.SideNav-Content-Section.is-hidden {
+  visibility: hidden;
+}
+
 .SideNav-Content-Section p {
   display: inline-flex;
   font-size: 1.5vw;
   color: #f2eae4;
 }
 
-.SideNav-ContentSection-Section p:hover {
+.SideNav-Content-Section p:hover {
   cursor: pointer;
   color: #d9910d;
   transition: 0.3s;
