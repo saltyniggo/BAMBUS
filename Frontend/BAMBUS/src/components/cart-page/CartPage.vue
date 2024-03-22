@@ -34,10 +34,17 @@ export default {
     RentalItem,
     ReservationItem,
   },
+  // computed: {
+  //   ...mapGetters("cartStore", {
+  //     cartRentalItems: "getCartRentalItems",
+  //     cartReservationItems: "getCartReservationItems",
+  //   }),
+  // },
   computed: {
-    ...mapGetters("cartStore", {
-      cartRentalItems: "getCartRentalItems",
-      cartReservationItems: "getCartReservationItems",
+    ...mapGetters({ items: "itemStore/getItems" }),
+    ...mapGetters({ cartRentalItems: "cartStore/getCartRentalItems" }),
+    ...mapGetters({
+      cartReservationItems: "cartStore/getCartReservationItems",
     }),
   },
 };

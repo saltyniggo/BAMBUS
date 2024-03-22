@@ -1,26 +1,32 @@
 <template>
-  <section class="SideNav-Content">
-    <user-login
-      class="SideNav-Content"
-      v-if="!isLoggedIn"
-      @clickedLogin="login"
-    />
-    <user-employee
-      class="SideNav-Content"
-      v-else-if="isLoggedIn && userRole === 0"
-      @clickedLogout="logout"
-    />
-    <user-manager
-      class="SideNav-Content"
-      v-else-if="isLoggedIn && userRole === 1"
-      @clickedLogout="logout"
-    />
-    <user-admin
-      class="SideNav-Content"
-      v-else-if="isLoggedIn && userRole === 2"
-      @clickedLogout="logout"
-    />
-  </section>
+  <div class="SideNav-Content">
+    <section class="SideNav-Content-Section">
+      <i class="fa-regular fa-user" style="color: #f2eae4"></i>
+      <p @click="$emit('clickedLogout')" style="color: #f2eae4">Cart</p>
+    </section>
+    <section class="SideNav-Content-User-Area">
+      <user-login
+        class="SideNav-Content-Section"
+        v-if="!isLoggedIn"
+        @clickedLogin="login"
+      />
+      <user-employee
+        class="SideNav-Content-Section"
+        v-else-if="isLoggedIn && userRole === 0"
+        @clickedLogout="logout"
+      />
+      <user-manager
+        class="SideNav-Content-Section"
+        v-else-if="isLoggedIn && userRole === 1"
+        @clickedLogout="logout"
+      />
+      <user-admin
+        class="SideNav-Content-Section"
+        v-else-if="isLoggedIn && userRole === 2"
+        @clickedLogout="logout"
+      />
+    </section>
+  </div>
 </template>
 
 <script>
@@ -55,7 +61,7 @@ export default {
 </script>
 
 <style>
-.SideNav-Content {
+.SideNav-Content-Section {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -64,19 +70,19 @@ export default {
   justify-content: start;
 }
 
-.SideNav-Content p {
+.SideNav-Content-Section p {
   display: inline-flex;
   font-size: 1.5vw;
   color: #f2eae4;
 }
 
-.SideNav-Content p:hover {
+.SideNav-ContentSection-Section p:hover {
   cursor: pointer;
   color: #d9910d;
   transition: 0.3s;
 }
 
-.SideNav-Content i {
+.SideNav-Content-Section i {
   width: 2.5rem;
   font-size: 1.5vw;
   display: inline-flex;

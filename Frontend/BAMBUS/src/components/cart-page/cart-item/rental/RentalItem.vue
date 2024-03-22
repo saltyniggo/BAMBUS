@@ -7,8 +7,10 @@
         :id="rentalItem.id"
         :condition="rentalItem.condition"
       />
-      <item-form class="rental-item-content-row" />
-      <base-text-button class="rental-item-content-row"
+      <item-form class="rental-item-content-row" :id="rentalItem.id" />
+      <base-text-button
+        class="rental-item-content-row"
+        @click="rentItem(rentalItem)"
         >Item ausleihen</base-text-button
       >
     </div>
@@ -17,6 +19,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import ItemInformation from "../ItemInformation.vue";
 import ItemForm from "./ItemForm.vue";
 import BaseTextButton from "../../../base-components/BaseTextButton.vue";
@@ -31,13 +35,16 @@ export default {
     ItemForm,
     BaseTextButton,
   },
+  methods: {
+    ...mapActions("cartStore", ["rentItem"]),
+  },
 };
 </script>
 
 <style scoped>
 .rental-item {
-  border: 1px solid black;
   width: 100%;
+  margin-bottom: 2vh;
 }
 
 .rental-item-content {
@@ -49,6 +56,6 @@ export default {
 
 .rental-item-content-row {
   width: 15%;
-  margin: 2% 0;
+  margin: 1vw, 0;
 }
 </style>

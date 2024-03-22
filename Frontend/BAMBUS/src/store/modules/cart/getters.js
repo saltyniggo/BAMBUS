@@ -1,8 +1,8 @@
 export default {
-  getCartRentalItems: (state) => {
+  getCartRentalItems(state) {
     return state.cartRentalItems;
   },
-  getCartReservationItems: (state) => {
+  getCartReservationItems(state) {
     return state.cartReservationItems;
   },
 };

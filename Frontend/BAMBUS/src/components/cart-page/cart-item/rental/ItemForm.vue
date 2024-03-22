@@ -2,14 +2,34 @@
   <form class="rental-item-form">
     <label for="fromDate">Ausleihen vom:</label>
     <p name="fromDate">{{ formattedFromDate }}</p>
-    <label for="tillDate">Bis zum:</label>
-    <input type="date" name="tillDate" :min="minDate" :max="maxDate" />
+    <label for="returnDate">Bis zum:</label>
+    <input
+      type="date"
+      name="returnDate"
+      :min="minDate"
+      :max="maxDate"
+      v-model="returnDate"
+      @change="addReturnDate({ returnDate: this.returnDate, id: this.id })"
+    />
   </form>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "ItemForm",
+  props: {
+    id: Number,
+  },
+  data() {
+    return {
+      returnDate: "",
+    };
+  },
+  methods: {
+    ...mapActions("cartStore", ["addReturnDate"]),
+  },
   computed: {
     formattedFromDate() {
       const date = new Date(this.fromDate);
