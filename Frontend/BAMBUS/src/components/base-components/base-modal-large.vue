@@ -124,7 +124,7 @@ h1, h2, h3, p, i {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 19;
+  z-index: 150;
   background-color: rgba(0, 0, 0, 0.8);
 }
 </style>
