@@ -14,6 +14,9 @@ const store = createStore({
   modules: {
     userStore: UserStore,
     itemStore: ItemStore,
+    modalStore: ModalStore,
+    ratingStore: RatingStore,
+    cartStore: CartStore,
   },
   state: {},
   mutations: Mutations,

@@ -18,9 +18,6 @@ import EditModal from "./EditItemModal.vue";
 import RatingsModal from "./RatingsModal.vue";
 import { mapGetters } from "vuex";
 
-import CatalogFilter from "./CatalogFilter.vue";
-import itemContainer from "../base-components/base-item-container.vue";
-
 export default {
   name: "CatalogPage",
   components: {
