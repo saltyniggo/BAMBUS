@@ -1,35 +1,36 @@
 <template>
   <div class="SideNav-Content">
-    <section class="SideNav-Content-Section">
-      <i class="fa-regular fa-user" style="color: #f2eae4"></i>
-      <p @click="$emit('clickedLogout')" style="color: #f2eae4">Cart</p>
-    </section>
+    <cart-link
+      class="SideNav-Content-Section"
+      @click="redirectTo('/cart')"
+    ></cart-link>
     <section class="SideNav-Content-User-Area">
       <user-login
         class="SideNav-Content-Section"
         v-if="!isLoggedIn"
-        @clickedLogin="login"
+        @click="redirectTo('/login')"
       />
       <user-employee
         class="SideNav-Content-Section"
         v-else-if="isLoggedIn && userRole === 0"
-        @clickedLogout="logout"
+        @click="redirectTo('/my-view')"
       />
       <user-manager
         class="SideNav-Content-Section"
         v-else-if="isLoggedIn && userRole === 1"
-        @clickedLogout="logout"
+        @click="redirectTo('/managing')"
       />
       <user-admin
         class="SideNav-Content-Section"
         v-else-if="isLoggedIn && userRole === 2"
-        @clickedLogout="logout"
+        @click="redirectTo('/admin')"
       />
     </section>
   </div>
 </template>
 
 <script>
+import CartLink from "./CartLink.vue";
 import UserLogin from "./UserLogin.vue";
 import UserEmployee from "./UserEmployee.vue";
 import UserManager from "./UserManager.vue";
@@ -38,6 +39,7 @@ import UserAdmin from "./UserAdmin.vue";
 export default {
   name: "SideNavUserArea",
   components: {
+    CartLink,
     UserLogin,
     UserEmployee,
     UserManager,
@@ -55,6 +57,9 @@ export default {
     },
     logout() {
       this.isLoggedIn = false;
+    },
+    redirectTo(path) {
+      this.$router.push(path);
     },
   },
 };
