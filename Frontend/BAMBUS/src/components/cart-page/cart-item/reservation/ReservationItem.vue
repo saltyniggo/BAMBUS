@@ -10,7 +10,7 @@
       <p class="reservation-item-content-row">Hier Liste von ausleiern</p>
       <base-text-button
         class="reservation-item-content-row"
-        @click="reserveItem(reservationItem)"
+        @click="reserveItem(reservationItem.itemId)"
         >Item reservieren</base-text-button
       >
     </div>

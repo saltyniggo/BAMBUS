@@ -1,6 +1,6 @@
 <template>
   <div class="item-information">
-    <p>Item ID: {{ id }}</p>
+    <p>Item ID: {{ itemId }}</p>
     <p>Item Zustand: {{ condition }}</p>
   </div>
 </template>
@@ -9,7 +9,7 @@
 export default {
   name: "ItemInformation",
   props: {
-    id: Number,
+    itemId: Number,
     condition: Number,
   },
 };

@@ -1,19 +1,19 @@
 <template>
   <div class="cart-page">
-    <h1>Temporärer Einkaufskorb Seiten Header Name</h1>
-    <cart-container>
+    <h1>Bisher</h1>
+    <cart-container v-if="cartRentalItems.length > 0">
       <h1 slot="header">Ausleihen</h1>
       <rental-item
         v-for="rentalItem in cartRentalItems"
-        :key="rentalItem.id"
+        :key="rentalItem.itemId"
         :rentalItem="rentalItem"
       ></rental-item>
     </cart-container>
-    <cart-container>
+    <cart-container v-if="cartReservationItems.length > 0">
       <h1 slot="header">Reservieren</h1>
       <reservation-item
         v-for="reservationItem in cartReservationItems"
-        :key="reservationItem.id"
+        :key="reservationItem.itemId"
         :reservationItem="reservationItem"
       ></reservation-item>
     </cart-container>
@@ -34,17 +34,10 @@ export default {
     RentalItem,
     ReservationItem,
   },
-  // computed: {
-  //   ...mapGetters("cartStore", {
-  //     cartRentalItems: "getCartRentalItems",
-  //     cartReservationItems: "getCartReservationItems",
-  //   }),
-  // },
   computed: {
-    ...mapGetters({ items: "itemStore/getItems" }),
-    ...mapGetters({ cartRentalItems: "cartStore/getCartRentalItems" }),
-    ...mapGetters({
-      cartReservationItems: "cartStore/getCartReservationItems",
+    ...mapGetters("cartStore", {
+      cartRentalItems: "getCartRentalItems",
+      cartReservationItems: "getCartReservationItems",
     }),
   },
 };

@@ -2,10 +2,14 @@ export default {
   addReturnDate(state, { payload, index }) {
     state.cartRentalItems[index].returnDate = payload.returnDate;
   },
-  reserveItem(state, { payload, currentUserId }) {
-    state.cartRentalItems.push({
-      id: payload.id,
-      userId: currentUserId,
-    });
+  removeRentalItemFromCart(state, itemId) {
+    state.cartRentalItems = state.cartRentalItems.filter(
+      (item) => item.itemId !== itemId
+    );
+  },
+  removeReservationItemFromCart(state, itemId) {
+    state.cartReservationItems = state.cartReservationItems.filter(
+      (item) => item.itemId !== itemId
+    );
   },
 };

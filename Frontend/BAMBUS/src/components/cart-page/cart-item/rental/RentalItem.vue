@@ -4,10 +4,10 @@
     <div class="rental-item-content">
       <item-information
         class="rental-item-content-row"
-        :id="rentalItem.id"
+        :itemId="rentalItem.itemId"
         :condition="rentalItem.condition"
       />
-      <item-form class="rental-item-content-row" :id="rentalItem.id" />
+      <item-form class="rental-item-content-row" :itemId="rentalItem.itemId" />
       <base-text-button
         class="rental-item-content-row"
         @click="rentItem(rentalItem)"
