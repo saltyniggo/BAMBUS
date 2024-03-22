@@ -97,12 +97,6 @@ export default {
         baseRectangleButton,
         loadingSpinner,
     },
-    props: {
-        editId: {
-            type: Number,
-            required: true,
-        },
-    },
     data() {
         return {
             isLoading:true,
@@ -130,8 +124,10 @@ export default {
             this.$store.dispatch("modalStore/closeAllModals");
         },
     },
-    async onMount() {
+    async mounted() {
         this.item = await this.getEditItem;
+        this.isLoading = false;
+    
     },
 }
 

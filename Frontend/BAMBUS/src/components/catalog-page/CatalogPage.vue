@@ -4,7 +4,7 @@
         <CatalogFilter></CatalogFilter>
 
         <div class="catalog-items" v-if="items">
-            <item-container v-for="item in items" :key="item.id" :item="item" @openEditModal="openEditModal" @openRatingsModal="openRatingsModal"></item-container>
+            <item-container v-for="item in items" :key="item.itemId" :item="item" @openEditModal="openEditModal(item.itemId)" @openRatingsModal="openRatingsModal(item.itemId)"></item-container>
         </div>
         <EditModal v-if="showsEditModal"></EditModal>
         <RatingsModal v-if="showsRatingsModal"></RatingsModal>
@@ -44,15 +44,15 @@ export default {
         }
     },
     methods: {
-        openEditModal(id) {
-            this.$store.dispatch("modalStore/closeAllModals");
-            this.$store.dispatch("ItemStore/setEditItemId", id);
-            this.$store.dispatch("modalStore/toggleEditModal");
+       async  openEditModal(id) {
+            await this.$store.dispatch("modalStore/closeAllModals");
+            await this.$store.dispatch("itemStore/setEditItemId", id);
+            await this.$store.dispatch("modalStore/toggleEditModal");
         },
-        openRatingsModal(id) {
-            this.$store.dispatch("modalStore/closeAllModals");
-            this.$store.dispatch("itemStore/setRatingsId", id);
-            this.$store.dispatch("modalStore/toggleRatingsModal");
+        async openRatingsModal(id) {
+            await this.$store.dispatch("modalStore/closeAllModals");
+            await this.$store.dispatch("itemStore/setRatingsId", id);
+            await this.$store.dispatch("modalStore/toggleRatingsModal");
         },
     },
 };

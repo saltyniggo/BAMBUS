@@ -1,6 +1,6 @@
 <template>
 <base-content-container>
-    <v-slot:deafault>
+    <template v-slot:default>
         <div class="item-container">
         <div class="item-header">
 
@@ -40,8 +40,7 @@
             <base-round-button v-if="role == 0" @click="addToCart(item.id)"><i class="fa-solid fa-basket-shopping" style="color: #222126;"></i></base-round-button>
         </div>
     </div>
-    </v-slot:deafault>
-       
+</template>
 </base-content-container>
 </template>
 
