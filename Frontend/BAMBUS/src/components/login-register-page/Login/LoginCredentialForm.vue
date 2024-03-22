@@ -22,6 +22,7 @@
 <script>
 import { mapActions } from "vuex";
 
+import router from "@/router";
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
 export default {
@@ -37,6 +38,13 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["login"]),
+    ...mapActions("cartStore", ["addReturnDate"]),
+    LoginUser() {
+      console.log("Username: " + this.username);
+      this.login({ username: this.username, password: this.password });
+      // console.log("Password: " + this.password);
+      // router.push("/");
+    },
   },
 };
 </script>
