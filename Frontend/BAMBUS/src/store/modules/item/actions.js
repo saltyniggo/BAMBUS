@@ -1,20 +1,20 @@
 export default {
     deleteItem({ commit }, id) {
-        commit(mutations.deleteItem, id);
+        commit("deleteItem", id);
     },
     addItem({ commit }, item) {
-        commit(mutations.addItem, item);
+        commit("addItem", item);
     },
     editItem({ commit }, item) {
-        commit(mutations.editItem, item);
+        commit("editItem", item);
     },
     setEditItemId({ commit }, id) {
-        commit(mutations.setEditItemId, id);
+        commit("setEditItemId", id);
     },
     setRatingsItemId({ commit }, id) {
-        commit(mutations.setRatingsItemId, id);
+        commit("setRatingsItemId", id);
     },
     deleteAllModalIds({ commit }) {
-        commit(mutations.deleteAllModalIds);
+        commit("deleteAllModalIds");
     }
 };

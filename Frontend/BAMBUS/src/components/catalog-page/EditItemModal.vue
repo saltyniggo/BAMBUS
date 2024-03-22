@@ -4,7 +4,10 @@
             <h1>Bearbeiten</h1>
         </template>
         <template v-slot:modal-content>
-            <div class="edit-container">
+            <div v-if="isLoading">
+                <loading-spinner></loading-spinner>
+            </div>
+            <div class="edit-container" v-else>
                 <div class="type">
                     <label for="type">Typ </label>
                     <select v-model="item.itemCategory">
@@ -85,12 +88,14 @@
 import { mapGetters } from "vuex";
 import baseModalLarge from "../base-components/base-modal-large.vue";
 import baseRectangleButton from "../base-components/base-rectangle-button.vue";
+import loadingSpinner from "../base-components/base-loading-spinner.vue";
 
 export default {
     name: "edit-modal",
     components: {
         baseModalLarge,
         baseRectangleButton,
+        loadingSpinner,
     },
     props: {
         editId: {
@@ -100,6 +105,7 @@ export default {
     },
     data() {
         return {
+            isLoading:true,
             item: {
                 itemCategory: 0,
                 itemID: "",
@@ -124,19 +130,8 @@ export default {
             this.$store.dispatch("modalStore/closeAllModals");
         },
     },
-    beforeMount() {
-        let item = this.getEditItem();
-        this.item.itemCategory = item.itemCategory;
-        this.item.title = item.title;
-        this.item.author = item.author;
-        this.item.category = item.category;
-        this.item.ISBN = item.ISBN;
-        this.item.ISSN = item.ISSN;
-        this.item.available = item.available;
-        this.item.itemID = item.itemID;
-        this.item.condition = item.condition;
-        this.item.reservations = item.reservations;
-        this.item.name = item.name;
+    async onMount() {
+        this.item = await this.getEditItem;
     },
 }
 
