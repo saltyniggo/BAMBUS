@@ -9,7 +9,9 @@
       :min="minDate"
       :max="maxDate"
       v-model="returnDate"
-      @change="addReturnDate({ returnDate: this.returnDate, id: this.id })"
+      @change="
+        addReturnDate({ returnDate: this.returnDate, itemId: this.itemId })
+      "
     />
   </form>
 </template>
@@ -20,7 +22,7 @@ import { mapActions } from "vuex";
 export default {
   name: "ItemForm",
   props: {
-    id: Number,
+    itemId: Number,
   },
   data() {
     return {
