@@ -12,11 +12,16 @@
       placeholder="Password"
       v-model="password"
     />
-    <base-text-button @click="LoginUser">Login</base-text-button>
+    <base-text-button
+      @click="login({ username: this.username, password: this.password })"
+      >Login</base-text-button
+    >
   </form>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import router from "@/router";
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
@@ -32,10 +37,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions("userStore", ["login"]),
+    ...mapActions("cartStore", ["addReturnDate"]),
     LoginUser() {
       console.log("Username: " + this.username);
-      console.log("Password: " + this.password);
-      router.push("/");
+      this.login({ username: this.username, password: this.password });
+      // console.log("Password: " + this.password);
+      // router.push("/");
     },
   },
 };
