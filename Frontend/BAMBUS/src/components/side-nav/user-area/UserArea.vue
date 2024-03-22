@@ -1,29 +1,36 @@
 <template>
-  <section class="SideNav-Content">
-    <user-login
-      class="SideNav-Content"
-      v-if="!isLoggedIn"
-      @clickedLogin="login"
-    />
-    <user-employee
-      class="SideNav-Content"
-      v-else-if="isLoggedIn && userRole === 0"
-      @clickedLogout="logout"
-    />
-    <user-manager
-      class="SideNav-Content"
-      v-else-if="isLoggedIn && userRole === 1"
-      @clickedLogout="logout"
-    />
-    <user-admin
-      class="SideNav-Content"
-      v-else-if="isLoggedIn && userRole === 2"
-      @clickedLogout="logout"
-    />
-  </section>
+  <div class="SideNav-Content">
+    <cart-link
+      class="SideNav-Content-Section"
+      @click="redirectTo('/cart')"
+    ></cart-link>
+    <section class="SideNav-Content-User-Area">
+      <user-login
+        class="SideNav-Content-Section"
+        v-if="!isLoggedIn"
+        @click="redirectTo('/login')"
+      />
+      <user-employee
+        class="SideNav-Content-Section"
+        v-else-if="isLoggedIn && userRole === 0"
+        @click="redirectTo('/my-view')"
+      />
+      <user-manager
+        class="SideNav-Content-Section"
+        v-else-if="isLoggedIn && userRole === 1"
+        @click="redirectTo('/managing')"
+      />
+      <user-admin
+        class="SideNav-Content-Section"
+        v-else-if="isLoggedIn && userRole === 2"
+        @click="redirectTo('/admin')"
+      />
+    </section>
+  </div>
 </template>
 
 <script>
+import CartLink from "./CartLink.vue";
 import UserLogin from "./UserLogin.vue";
 import UserEmployee from "./UserEmployee.vue";
 import UserManager from "./UserManager.vue";
@@ -32,6 +39,7 @@ import UserAdmin from "./UserAdmin.vue";
 export default {
   name: "SideNavUserArea",
   components: {
+    CartLink,
     UserLogin,
     UserEmployee,
     UserManager,
@@ -50,12 +58,15 @@ export default {
     logout() {
       this.isLoggedIn = false;
     },
+    redirectTo(path) {
+      this.$router.push(path);
+    },
   },
 };
 </script>
 
 <style>
-.SideNav-Content {
+.SideNav-Content-Section {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -64,19 +75,19 @@ export default {
   justify-content: start;
 }
 
-.SideNav-Content p {
+.SideNav-Content-Section p {
   display: inline-flex;
   font-size: 1.5vw;
   color: #f2eae4;
 }
 
-.SideNav-Content p:hover {
+.SideNav-ContentSection-Section p:hover {
   cursor: pointer;
   color: #d9910d;
   transition: 0.3s;
 }
 
-.SideNav-Content i {
+.SideNav-Content-Section i {
   width: 2.5rem;
   font-size: 1.5vw;
   display: inline-flex;
