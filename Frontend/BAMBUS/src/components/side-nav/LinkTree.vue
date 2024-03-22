@@ -1,8 +1,16 @@
 <template>
   <div class="SideNav-Item-Link-Tree">
-    <p>Toller Buch Bums</p>
-    <p>Toller Magazin Bums</p>
-    <p>Toller Spiele Bums</p>
+    <router-link to="/books">
+      Toller Buch Bums
+    </router-link>
+    <br>
+    <router-link to="/magazines">
+      Toller Magazin Bums
+    </router-link>
+    <br>
+    <router-link to="/games">
+      Toller Spiele Bums
+    </router-link>
   </div>
 </template>
 
@@ -13,10 +21,11 @@ export default {
 </script>
 
 <style scoped>
-.SideNav-Item-Link-Tree p {
+.SideNav-Item-Link-Tree a {
   font-size: 1.2vw;
   color: #f2eae4;
   margin-bottom: 5%;
+  text-decoration: none;
 }
 
 .SideNav-Item-Link-Tree p:hover {
