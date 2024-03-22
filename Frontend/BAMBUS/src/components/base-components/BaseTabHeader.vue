@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "base-tab-header",
+  name: "BaseTabHeader",
   data() {
     return {
       active: 0,

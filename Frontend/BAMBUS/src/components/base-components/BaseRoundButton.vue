@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "base-round-button",
+  name: "BaseRoundButton",
 };
 </script>
 

@@ -1,22 +1,27 @@
 <template>
   <div class="catalog" id="catalog">
-    
     <catalog-filter></catalog-filter>
-        <div class="catalog-items" v-if="items">
-            <item-container v-for="item in items" :key="item.itemId" :item="item" @openEditModal="openEditModal(item.itemId)" @openRatingsModal="openRatingsModal(item.itemId)"></item-container>
-        </div>
-        <EditModal v-if="showsEditModal"></EditModal>
-        <RatingsModal v-if="showsRatingsModal"></RatingsModal>
-
+    <div class="catalog-items" v-if="items">
+      <item-container
+        v-for="item in items"
+        :key="item.itemId"
+        :item="item"
+        @openEditModal="openEditModal(item.itemId)"
+        @openRatingsModal="openRatingsModal(item.itemId)"
+      ></item-container>
     </div>
+    <edit-modal v-if="showsEditModal"></edit-modal>
+    <ratings-modal v-if="showsRatingsModal"></ratings-modal>
+  </div>
 </template>
 
 <script>
-import CatalogFilter from "./CatalogFilter.vue";
-import ItemContainer from "../base-components/base-item-container.vue";
+import { mapGetters } from "vuex";
+
+import CatalogFilter from "./catalog-filter/CatalogFilter.vue";
+import ItemContainer from "../base-components/BaseItemContainer.vue";
 import EditModal from "./EditItemModal.vue";
 import RatingsModal from "./RatingsModal.vue";
-import { mapGetters } from "vuex";
 
 export default {
   name: "CatalogPage",
@@ -31,28 +36,32 @@ export default {
       type: String,
       default: "Alle",
     },
-},
-computed:{
-        ...mapGetters({items: "itemStore/getItems", showsEditModal: "modalStore/getEditModalStatus", showsRatingsModal: "modalStore/getRatingsModalStatus"}),
+  },
+  computed: {
+    ...mapGetters({
+      items: "itemStore/getItems",
+      showsEditModal: "modalStore/getEditModalStatus",
+      showsRatingsModal: "modalStore/getRatingsModalStatus",
+    }),
+  },
+  watch: {
+    category() {
+      console.log("Category changed to: " + this.category);
+      console.log("Items: " + this.items);
     },
-    watch: {
-        category() {
-            console.log("Category changed to: " + this.category);
-            console.log("Items: " + this.items);
-        }
+  },
+  methods: {
+    async openEditModal(id) {
+      await this.$store.dispatch("modalStore/closeAllModals");
+      await this.$store.dispatch("itemStore/setEditItemId", id);
+      await this.$store.dispatch("modalStore/toggleEditModal");
     },
-    methods: {
-       async  openEditModal(id) {
-            await this.$store.dispatch("modalStore/closeAllModals");
-            await this.$store.dispatch("itemStore/setEditItemId", id);
-            await this.$store.dispatch("modalStore/toggleEditModal");
-        },
-        async openRatingsModal(id) {
-            await this.$store.dispatch("modalStore/closeAllModals");
-            await this.$store.dispatch("ratingStore/setItemId", id);
-            await this.$store.dispatch("modalStore/toggleRatingsModal");
-        },
+    async openRatingsModal(id) {
+      await this.$store.dispatch("modalStore/closeAllModals");
+      await this.$store.dispatch("ratingStore/setItemId", id);
+      await this.$store.dispatch("modalStore/toggleRatingsModal");
     },
+  },
 };
 </script>
 

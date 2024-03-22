@@ -4,7 +4,11 @@
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: "ShortcutButton",
+};
+</script>
 
 <style scoped>
 p {

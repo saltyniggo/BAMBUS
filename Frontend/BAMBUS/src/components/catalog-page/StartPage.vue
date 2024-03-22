@@ -2,7 +2,9 @@
   <div class="startpage">
     <h1>Was willst Du heute entdecken?</h1>
     <shortcut-button @click="scrollDownShow('Bücher')">Bücher</shortcut-button>
-    <shortcut-button @click="scrollDownShow('Zeitschriften')">Zeitschriften</shortcut-button>
+    <shortcut-button @click="scrollDownShow('Zeitschriften')"
+      >Zeitschriften</shortcut-button
+    >
     <shortcut-button @click="scrollDownShow('Spiele')">Spiele</shortcut-button>
     <shortcut-button @click="scrollDownShow('Alles')">Alles</shortcut-button>
   </div>

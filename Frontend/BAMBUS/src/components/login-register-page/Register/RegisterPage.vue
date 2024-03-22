@@ -1,6 +1,6 @@
 <template>
   <div class="register-page">
-    <BaseContentContainer>
+    <base-content-container>
       <h1 slot="header">Register</h1>
       <h2>Please enter your credentials to register.</h2>
       <register-credential-form />
@@ -8,12 +8,12 @@
       <base-text-button @click="$emit('redirectLogin')">
         Login
       </base-text-button>
-    </BaseContentContainer>
+    </base-content-container>
   </div>
 </template>
 
 <script>
-import BaseContentContainer from "../../base-components/base-content-container.vue";
+import BaseContentContainer from "../../base-components/BaseContentContainer.vue";
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 import RegisterCredentialForm from "./RegisterCredentialForm.vue";
 
