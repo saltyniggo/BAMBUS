@@ -1,3 +1,3 @@
 export default {
-    getRole: (state) => state.userRole,
+  getRole: (state) => state.userRole,
 };
