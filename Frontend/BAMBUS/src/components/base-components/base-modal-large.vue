@@ -3,6 +3,7 @@
     
     <Transition>
     <div class="modal" v-if="isShowing">
+      <base-round-button v-if="hasCloseButton" class="round-button" @click = closeModal()>X</base-round-button>
         <h1>
             <slot name="modal-title">
                 <h1>Modal Title</h1>
@@ -12,15 +13,12 @@
         <div class="modal-content">         
             <slot name="modal-content">
                 <p>Modal Content</p>
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
             </slot>
         </div>
 
-        <base-rectangle-button @click = closeModal()> Close</base-rectangle-button>
+        <slot name = "modal-button" @click = closeModal()><base-rectangle-button > Schließen </base-rectangle-button></slot>
+
+        
 
        
        
@@ -30,11 +28,19 @@
 
 <script>
 import baseRectangleButton from "./base-rectangle-button.vue";
+import baseRoundButton from "./base-round-button.vue";
 
 export default {
     name: "base-modal",
     components: {
-        baseRectangleButton
+        baseRectangleButton,
+        baseRoundButton
+    },
+    props: {
+      hasCloseButton: {
+        type: Boolean,
+        default: false,
+      },
     },
   data() {
     return {
@@ -43,9 +49,13 @@ export default {
   },
   methods: {
     closeModal() {
-     
       this.isShowing = false;
+      setTimeout(() => {
+        this.$store.dispatch("modalStore/closeAllModals");
+      }, 500);
+      this.$store.dispatch("itemStore/deleteAllModalIds");
     },
+    
   },
 
   mounted() {
@@ -78,7 +88,7 @@ export default {
   height: 60vh;
   top: 20vh;
   left: 20vw;
-  z-index: 20;
+  z-index: 200;
   transition: all 1s;
     background-color: #7ca692;
     border-radius: 2rem;
@@ -97,6 +107,13 @@ export default {
   max-height: 70%;
 }
 
+.round-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+}
+
 h1, h2, h3, p, i {
   color: #F2EAE4;
 }
@@ -107,7 +124,7 @@ h1, h2, h3, p, i {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 19;
+  z-index: 150;
   background-color: rgba(0, 0, 0, 0.8);
 }
 </style>

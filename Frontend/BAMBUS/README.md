@@ -1,6 +1,13 @@
 # BAMBUS
 
 ---
+## For Full Functionality
+
+Enable smooth scrooling in Browser
+
+### Chrome: 
+1. chrome//flags
+2. enable smooth scrolling
 
 ## Overview
 

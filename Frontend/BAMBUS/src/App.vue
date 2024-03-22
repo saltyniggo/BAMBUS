@@ -60,6 +60,5 @@ h2 {
 .app-base-content {
   margin-left: 20vw;
   width: 80vw;
-  scroll-behavior: smooth;
 }
 </style>

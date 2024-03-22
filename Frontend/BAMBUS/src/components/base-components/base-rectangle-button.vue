@@ -1,12 +1,12 @@
 <template>
     <button class="rectangle-button">
-        <slot>
+        <p><slot>
             <i class="fa-solid fa-dog" style="color: #f2eae4;"></i>
           
             <i class="fa-solid fa-otter" style="color: #f2eae4;"></i>
            
             <i class="fa-solid fa-dragon" style="color: #f2eae4;"></i>
-        </slot>
+        </slot></p>
     </button>
 </template>
 
@@ -28,5 +28,18 @@ button.rectangle-button {
     cursor: pointer;
     transition: 0.3s;
     font-size: 1rem;
+}
+
+button.rectangle-button:hover {
+    background-color: #F2EAE4;
+    color: #D9910D;
+}
+
+button.rectangle-button:hover p{
+    color: #D9910D;
+}
+
+p {
+    color: #F2EAE4;
 }
 </style>

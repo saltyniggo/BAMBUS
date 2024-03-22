@@ -28,6 +28,7 @@ export default {
     currentUser: null,
     userIsAuth: false,
     userRole: null,
+ 
   },
   mutations: Mutations,
   actions: Actions,

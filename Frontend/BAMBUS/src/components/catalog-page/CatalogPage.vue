@@ -1,18 +1,21 @@
 <template>
   <div class="catalog" id="catalog">
-    <CatalogFilter></CatalogFilter>
+    
+    <catalog-filter></catalog-filter>
+        <div class="catalog-items" v-if="items">
+            <item-container v-for="item in items" :key="item.itemId" :item="item" @openEditModal="openEditModal(item.itemId)" @openRatingsModal="openRatingsModal(item.itemId)"></item-container>
+        </div>
+        <EditModal v-if="showsEditModal"></EditModal>
+        <RatingsModal v-if="showsRatingsModal"></RatingsModal>
 
-    <div class="catalog-items" v-if="items">
-      <item-container
-        v-for="item in items"
-        :key="item.id"
-        :item="item"
-      ></item-container>
     </div>
-  </div>
 </template>
 
 <script>
+import CatalogFilter from "./CatalogFilter.vue";
+import ItemContainer from "../base-components/base-item-container.vue";
+import EditModal from "./EditItemModal.vue";
+import RatingsModal from "./RatingsModal.vue";
 import { mapGetters } from "vuex";
 
 import CatalogFilter from "./CatalogFilter.vue";
@@ -22,24 +25,37 @@ export default {
   name: "CatalogPage",
   components: {
     CatalogFilter,
-    itemContainer,
+    ItemContainer,
+    EditModal,
+    RatingsModal,
   },
   props: {
     category: {
       type: String,
       default: "Alle",
     },
-  },
-  methods: {},
-  computed: {
-    ...mapGetters({ items: "itemStore/getItems" }),
-  },
-  watch: {
-    category() {
-      console.log("Category changed to: " + this.category);
-      console.log("Items: " + this.items);
+},
+computed:{
+        ...mapGetters({items: "itemStore/getItems", showsEditModal: "modalStore/getEditModalStatus", showsRatingsModal: "modalStore/getRatingsModalStatus"}),
     },
-  },
+    watch: {
+        category() {
+            console.log("Category changed to: " + this.category);
+            console.log("Items: " + this.items);
+        }
+    },
+    methods: {
+       async  openEditModal(id) {
+            await this.$store.dispatch("modalStore/closeAllModals");
+            await this.$store.dispatch("itemStore/setEditItemId", id);
+            await this.$store.dispatch("modalStore/toggleEditModal");
+        },
+        async openRatingsModal(id) {
+            await this.$store.dispatch("modalStore/closeAllModals");
+            await this.$store.dispatch("ratingStore/setItemId", id);
+            await this.$store.dispatch("modalStore/toggleRatingsModal");
+        },
+    },
 };
 </script>
 
@@ -48,7 +64,6 @@ export default {
   min-height: 100vh;
   width: 100%;
   background-color: #3b8c84;
-  scroll-behavior: smooth;
 }
 
 .catalog-items {
@@ -57,5 +72,6 @@ export default {
   grid-gap: 2rem;
   padding: 2rem;
   align-items: stretch;
+  justify-items: center;
 }
 </style>

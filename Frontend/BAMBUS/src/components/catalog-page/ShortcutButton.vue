@@ -20,7 +20,6 @@ p {
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  scroll-behavior: smooth;
 }
 
 p:hover {

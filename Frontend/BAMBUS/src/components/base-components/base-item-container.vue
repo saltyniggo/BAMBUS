@@ -1,12 +1,13 @@
 <template>
-<base-content-container>
-    <v-slot:deafault>
+<base-content-container class="base">
+    <template v-slot:default>
         <div class="item-container">
         <div class="item-header">
 
               <div class="item-header-rating">
                 <i v-for="index in 5" :key="index" :class="getStarClass(index)" style="color: #222126;"></i>
-                <p style="font-size: smaller;">Lese hier Bewertungen</p>
+                <br>
+                <a style="font-size: smaller;" @click="openRatingsModal(item.id)">Lese hier Bewertungen</a>
               </div>
             
             <div class="item-header-category">
@@ -18,31 +19,43 @@
         </div>
    
         <div class="item-title">
-            <h1 v-if="item.title">{{ item.title}}</h1>
+            <h2 v-if="role == 1">Id: {{ item.itemId }}</h2>
+            <h1 v-if="item.title">{{ item.title}}</h1> 
             <h1 v-else>{{ item.name}}</h1>
             <i v-if="item.author">{{ item.author }}</i>
         </div>
      
       
         <div class="item-description">
-            <p>{{ item.category }}</p>
             <p v-if="item.available"> Verfügbar</p>
             <p v-else> Nicht verfügbar</p>
+            <p>{{ item.category }}</p>
+
         </div>
     <p v-if="item.ISBN">ISBN {{item.ISBN}}</p>
     <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
+
+        <div class="item-footer">
+            <base-round-button v-if="role == 1" @click="openEditModal(item.id)"><i class="fa-regular fa-pen-to-square" style="color: #222126;"></i></base-round-button>
+            <base-round-button v-if="role == 1" @click="deleteItem(item.id)"><i class="fa-solid fa-trash-can" style="color: #222126;"></i></base-round-button>
+            <base-round-button v-if="role == 0" @click="addToCart(item.id)"><i class="fa-solid fa-basket-shopping" style="color: #222126;"></i></base-round-button>
+        </div>
     </div>
-    </v-slot:deafault>
-       
+</template>
 </base-content-container>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 import baseContentContainer from "./base-content-container.vue";
+import baseRoundButton from "./base-round-button.vue";
+
 export default {
     name: "base-item-container",
     components: {
         baseContentContainer,
+        baseRoundButton,
     },
     props: {
         item: {
@@ -58,17 +71,35 @@ export default {
             }
             return this.item.rating;
         },
+        ...mapGetters({
+        role: "userStore/getRole",
+      })
     },
 
     methods: {
-      getStarClass(index) {
-        const roundedNumber = Math.round(this.number);
-        if (index <= roundedNumber) {
-          return 'fa-solid fa-star';
-        } else {
-           return 'fa-regular fa-star';
-        }
-      },
+        getStarClass(index) {
+            const roundedNumber = Math.round(this.number);
+            if (index <= roundedNumber) {
+            return 'fa-solid fa-star';
+            } else {
+            return 'fa-regular fa-star';
+            }
+        },
+        openRatingsModal(id) {
+            this.$emit("openRatingsModal", id);
+        },
+
+        openEditModal(id) {
+            this.$emit("openEditModal", id);
+        },
+
+        deleteItem(id) {
+            this.$store.dispatch("itemStore/deleteItem", id);
+        },
+
+        addToCart(id) {
+            this.$store.dispatch("cartStore/addToCart", id);
+        },
     },
 };
 
@@ -76,12 +107,14 @@ export default {
 </script>
 
 <style scoped>
-base-content-container {
-    justify-content: none;
-}
+
 div.item-container {
     width: 100%;
     height: 100%;
+}
+
+.base {
+    width: 33%;
 }
 
 div.item-header, div.item-description {
@@ -93,6 +126,13 @@ div.item-header, div.item-description {
     align-items: center;
 }
 
+div.item-footer {
+    margin-top: 10%;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 
 div.item-header {
     position: relative;
@@ -138,6 +178,10 @@ h2 {
     font-weight: normal;
 }
 
+a {
+    color: #222126;
+    text-decoration: underline;
+}
 div.star-container {
 
     display: flex;

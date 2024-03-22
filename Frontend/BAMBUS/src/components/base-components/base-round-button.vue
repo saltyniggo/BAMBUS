@@ -25,4 +25,9 @@ button.round-button {
   transition: 0.3s;
   font-size: 1.4rem;
 }
+
+button.round-button:hover {
+  background-color: #f2eae4;
+  color: #d9910d;
+}
 </style>
