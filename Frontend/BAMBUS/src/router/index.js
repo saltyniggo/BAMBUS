@@ -13,7 +13,7 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     if (to.name === 'books' || to.name === 'magazines' || to.name === 'games') {
       console.log('scrolling to catalog');
-      return { x: 100, behavior: 'smooth'}; 
+      return { selector: '#catalog', behavior: 'smooth'}; 
     } else {
       return { x: 0, y: 0 };
     }
