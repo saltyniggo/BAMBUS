@@ -8,12 +8,11 @@ export default {
       commit("userRentsItem", { payload, index });
     }
   },
-  userReservesItem({ commit, state }, payload) {
-    const index = state.items.findIndex(
-      (item) => item.itemId === payload.itemId
-    );
+  userReservesItem({ commit, state, rootState }, payload) {
+    const index = state.items.findIndex((item) => item.itemId === payload);
     if (index !== -1) {
-      commit("userReservesItem", { payload, index });
+      const userId = rootState.userStore.currentUserId;
+      commit("userReservesItem", { userId, index });
     }
   },
 };

@@ -19,8 +19,7 @@ export default {
       // );
     }
   },
-  reserveItem({ commit, rootState }, itemId) {
-    console.log(currentUserId);
+  reserveItem({ commit, dispatch, rootState }, itemId) {
     const index = rootState.itemStore.items.findIndex(
       (item) => item.itemId === itemId
     );
