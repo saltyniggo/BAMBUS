@@ -6,7 +6,8 @@
 
               <div class="item-header-rating">
                 <i v-for="index in 5" :key="index" :class="getStarClass(index)" style="color: #222126;"></i>
-                <a style="font-size: smaller;" @click="openRatingModal(item.id)">Lese hier Bewertungen</a>
+                <br>
+                <a style="font-size: smaller;" @click="openRatingsModal(item.id)">Lese hier Bewertungen</a>
               </div>
             
             <div class="item-header-category">
@@ -84,7 +85,7 @@ export default {
             return 'fa-regular fa-star';
             }
         },
-        openRatingModal(id) {
+        openRatingsModal(id) {
             this.$emit("openRatingsModal", id);
         },
 
@@ -173,6 +174,10 @@ h2 {
     font-weight: normal;
 }
 
+a {
+    color: #222126;
+    text-decoration: underline;
+}
 div.star-container {
 
     display: flex;

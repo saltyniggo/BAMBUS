@@ -1,7 +1,7 @@
 <template>
   <div class="catalog" id="catalog">
+    
     <catalog-filter></catalog-filter>
-
         <div class="catalog-items" v-if="items">
             <item-container v-for="item in items" :key="item.itemId" :item="item" @openEditModal="openEditModal(item.itemId)" @openRatingsModal="openRatingsModal(item.itemId)"></item-container>
         </div>
@@ -31,8 +31,8 @@ export default {
       type: String,
       default: "Alle",
     },
-
-    computed:{
+},
+computed:{
         ...mapGetters({items: "itemStore/getItems", showsEditModal: "modalStore/getEditModalStatus", showsRatingsModal: "modalStore/getRatingsModalStatus"}),
     },
     watch: {
@@ -49,17 +49,16 @@ export default {
         },
         async openRatingsModal(id) {
             await this.$store.dispatch("modalStore/closeAllModals");
-            await this.$store.dispatch("itemStore/setRatingsId", id);
+            await this.$store.dispatch("ratingStore/setItemId", id);
             await this.$store.dispatch("modalStore/toggleRatingsModal");
         },
     },
-  },
 };
 </script>
 
 <style scoped>
 .catalog {
-  min-height: 100vh
+  min-height: 100vh;
   width: 100%;
   background-color: #3b8c84;
 }

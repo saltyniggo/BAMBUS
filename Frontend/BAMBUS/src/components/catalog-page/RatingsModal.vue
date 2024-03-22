@@ -3,25 +3,66 @@
         <template v-slot:modal-title>
             <h1>Bewertungen</h1>
         </template>
-        <template v-slot:modal-content>
+        
+        <template v-slot:modal-content >
+            <div v-if="isLoading">
+                <loading-spinner ></loading-spinner>
+            </div>
+            <div v-else>
+                <base-content-container v-for="rating in ratings">
+                <template v-slot:header>
+                  Rating:   {{ rating.rating }}
+                </template>
+                <template v-slot:body>
+                    <p>{{ rating.comment }}</p>
+
+                    <p v-if= rating.isRecommended> Weiterzuempfehelen</p>
+                    <p v-else> Nicht weiterzuempfehlen</p>
+                </template>
+        </base-content-container>
+            </div>
+        </template>
+        <template v-slot:modal-button >
+            <p @click="edit">Speichern</p>
         </template>
     </base-modal-large>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import baseModalLarge from "../base-components/base-modal-large.vue";
+import baseContentContainer from "../base-components/base-content-container.vue";
+import loadingSpinner from "../base-components/base-loading-spinner.vue";
+
 
 export default {
     name: "ratings-modal",
     components: {
         baseModalLarge,
+        baseContentContainer,
+        loadingSpinner,
     },
-    props: {
-        ratingsId: {
-            type: Number,
-            required: true,
+    data() {
+        return {
+            isLoading: true,  
+            ratings: []
+        }
+    },
+    computetd: {
+      ...mapGetters("ratingStore", ["getRatingsByItemId"]),
+    },
+    methods: {
+         async edit() {
+            console.log("Edit");
+            this.ratings =  await this.getRatingsByItemId;
+            console.log(this.ratings);
         },
     },
+    async mounted() {
+        this.ratings = await this.getRatingsByItemId;
+        if (this.ratings != null || this.ratings != undefined) {
+            this.isLoading = false;
+        }
+    },
 }
-
 </script>

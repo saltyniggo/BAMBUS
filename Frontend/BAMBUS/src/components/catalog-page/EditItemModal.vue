@@ -126,8 +126,9 @@ export default {
     },
     async mounted() {
         this.item = await this.getEditItem;
-        this.isLoading = false;
-    
+        if(this.item.itemID != "") {
+            this.isLoading = false;
+        }
     },
 }
 
