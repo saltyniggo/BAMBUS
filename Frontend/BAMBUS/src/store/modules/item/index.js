@@ -6,7 +6,6 @@ export default {
   namespaced: true,
   state: {
     editItemId: null,
-    ratingsItemId: null,
     items: [
       {
         itemId: 1,

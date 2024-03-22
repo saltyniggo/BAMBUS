@@ -12,9 +12,7 @@ export default {
     setEditItemId(state, id) {
         state.editItemId = id;
     },
-    setRatingsItemId(state, id) {
-        state.ratingsItemId = id;
-    },
+
     deleteAllModalIds(state) {
         state.editItemId = null;
         state.ratingsItemId = null;

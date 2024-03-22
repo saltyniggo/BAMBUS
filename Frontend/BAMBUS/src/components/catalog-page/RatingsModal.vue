@@ -9,7 +9,7 @@
                 <loading-spinner ></loading-spinner>
             </div>
             <div v-else>
-                <base-content-container v-for="rating in ratings">
+                <base-content-container v-for="rating in ratings" class="ratings">
                 <template v-slot:header>
                   Rating:   {{ rating.rating }}
                 </template>
@@ -52,17 +52,25 @@ export default {
       ...mapGetters("ratingStore", ["getRatingsByItemId"]),
     },
     methods: {
-         async edit() {
-            console.log("Edit");
-            this.ratings =  await this.getRatingsByItemId;
-            console.log(this.ratings);
-        },
     },
     async mounted() {
-        this.ratings = await this.getRatingsByItemId;
+
+        this.ratings = await this.$store.getters["ratingStore/getRatingsByItemId"];
+        
         if (this.ratings != null || this.ratings != undefined) {
             this.isLoading = false;
+        }
+        else {
+            this.isLoading = false;
+            this.ratings = [{rating: 5, comment: "Gut", isRecommended: true}, {rating: 1, comment: "Schlecht", isRecommended: false}];
         }
     },
 }
 </script>
+
+<style scoped>
+.ratings {
+    margin-top: 2rem;
+    width: 50vw;
+}
+</style>

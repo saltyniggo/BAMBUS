@@ -1,5 +1,5 @@
 <template>
-<base-content-container>
+<base-content-container class="base">
     <template v-slot:default>
         <div class="item-container">
         <div class="item-header">
@@ -111,6 +111,10 @@ export default {
 div.item-container {
     width: 100%;
     height: 100%;
+}
+
+.base {
+    width: 33%;
 }
 
 div.item-header, div.item-description {

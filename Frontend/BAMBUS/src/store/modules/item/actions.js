@@ -11,9 +11,7 @@ export default {
     setEditItemId({ commit }, id) {
         commit("setEditItemId", id);
     },
-    setRatingsItemId({ commit }, id) {
-        commit("setRatingsItemId", id);
-    },
+
     deleteAllModalIds({ commit }) {
         commit("deleteAllModalIds");
     }

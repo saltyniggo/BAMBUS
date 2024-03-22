@@ -15,7 +15,7 @@ export default {
 
 <style scoped>
 div.content-container{
-    width: 33%;
+    /* width: 33%; */
     min-width: 300px;
     min-height: 150px;
 
