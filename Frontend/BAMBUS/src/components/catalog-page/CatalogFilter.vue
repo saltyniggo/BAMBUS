@@ -51,6 +51,7 @@ export default {
       .catalog-filter {
         position: sticky;
         top: 0;
+        z-index: 100;
         width: 100%;
         background-color: #f2eae4;
         display: flex;

@@ -16,20 +16,19 @@
                 <template v-slot:body>
                     <p>{{ rating.comment }}</p>
 
-                    <p v-if= rating.isRecommended> Weiterzuempfehelen</p>
-                    <p v-else> Nicht weiterzuempfehlen</p>
+                    <p v-if= rating.isRecommended> Zu empfehelen</p>
+                    <p v-else> Nicht zu empfehlen</p>
                 </template>
         </base-content-container>
             </div>
         </template>
         <template v-slot:modal-button >
-            <p @click="edit">Speichern</p>
+            
         </template>
     </base-modal-large>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import baseModalLarge from "../base-components/base-modal-large.vue";
 import baseContentContainer from "../base-components/base-content-container.vue";
 import loadingSpinner from "../base-components/base-loading-spinner.vue";
@@ -48,9 +47,6 @@ export default {
             ratings: []
         }
     },
-    computetd: {
-      ...mapGetters("ratingStore", ["getRatingsByItemId"]),
-    },
     methods: {
     },
     async mounted() {
@@ -59,10 +55,6 @@ export default {
         
         if (this.ratings != null || this.ratings != undefined) {
             this.isLoading = false;
-        }
-        else {
-            this.isLoading = false;
-            this.ratings = [{rating: 5, comment: "Gut", isRecommended: true}, {rating: 1, comment: "Schlecht", isRecommended: false}];
         }
     },
 }

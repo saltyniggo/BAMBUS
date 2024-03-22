@@ -1,5 +1,5 @@
 <template>
-    <base-modal-large>
+    <base-modal-large :hasCloseButton="true">
         <template v-slot:modal-title>
             <h1>Bearbeiten</h1>
         </template>
@@ -78,8 +78,8 @@
                 </div>
             </div>
         </template>
-        <template v-slot:modal-button @click="edit">
-            Speichern
+        <template v-slot:modal-button>
+            <base-rectangle-button @click = edit> Speichern </base-rectangle-button>
         </template>
     </base-modal-large>
 </template>

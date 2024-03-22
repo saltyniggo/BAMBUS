@@ -12,16 +12,10 @@
         <div class="modal-content">         
             <slot name="modal-content">
                 <p>Modal Content</p>
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
-                <!-- <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia qui quis suscipit velit repellendus dolorum tenetur. Incidunt aperiam necessitatibus aliquid vel iste. Quo consequatur, distinctio accusamus voluptates quaerat pariatur a.</p> -->
             </slot>
         </div>
 
-        <base-rectangle-button @click = closeModal()> Close</base-rectangle-button>
-
+        <slot name="modal-button" @click = closeModal()><base-rectangle-button > Schließen </base-rectangle-button></slot>
        
        
     </div>
@@ -81,7 +75,7 @@ export default {
   height: 20vh;
   top: 40vh;
   left: 25vw;
-  z-index: 20;
+  z-index: 200;
   transition: all 1s;
     background-color: #7ca692;
     border-radius: 2rem;
