@@ -4,10 +4,7 @@
       <h1>Bearbeiten</h1>
     </template>
     <template v-slot:modal-content>
-      <div v-if="isLoading">
-        <loading-spinner></loading-spinner>
-      </div>
-      <div class="edit-container" v-else>
+      <div class="edit-container">
         <div class="type">
           <label for="type">Typ </label>
           <select v-model="item.itemCategory">
@@ -112,49 +109,26 @@
 <script>
 import { mapGetters } from "vuex";
 
-import BaseModalLarge from "../base-components/BaseModalLarge.vue";
-import BaseRectangleButton from "../base-components/BaseRectangleButton.vue";
-import LoadingSpinner from "../base-components/BaseLoadingSpinner.vue";
+import BaseModalLarge from "../../base-components/BaseModalLarge.vue";
+import BaseRectangleButton from "../../base-components/BaseRectangleButton.vue";
 
 export default {
   name: "edit-modal",
   components: {
     BaseModalLarge,
     BaseRectangleButton,
-    LoadingSpinner,
-  },
-  data() {
-    return {
-      isLoading: true,
-      item: {
-        itemCategory: 0,
-        itemID: "",
-        condition: "",
-        reservations: [],
-        title: "",
-        name: "",
-        author: "",
-        category: "",
-        ISBN: "",
-        ISSN: "",
-        available: "",
-      },
-    };
   },
   computed: {
-    ...mapGetters("itemStore", ["getEditItem"]),
+    ...mapGetters({
+      ratings: "ratingStore/getRatingsByItemId",
+      item: "itemStore/getEditItem",
+    }),
   },
   methods: {
     edit() {
       this.$store.dispatch("itemStore/editItem", this.item);
       this.$store.dispatch("modalStore/closeAllModals");
     },
-  },
-  async mounted() {
-    this.item = await this.getEditItem;
-    if (this.item.itemID != "") {
-      this.isLoading = false;
-    }
   },
 };
 </script>

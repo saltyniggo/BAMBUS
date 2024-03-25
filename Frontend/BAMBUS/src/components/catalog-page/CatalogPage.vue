@@ -10,7 +10,7 @@
         @openRatingsModal="openRatingsModal(item.itemId)"
       ></item-container>
     </div>
-    <edit-modal v-if="showsEditModal"></edit-modal>
+    <edit-item-modal v-if="showsEditModal"></edit-item-modal>
     <ratings-modal v-if="showsRatingsModal"></ratings-modal>
   </div>
 </template>
@@ -20,7 +20,7 @@ import { mapGetters } from "vuex";
 
 import CatalogFilter from "./catalog-filter/CatalogFilter.vue";
 import ItemContainer from "../base-components/BaseItemContainer.vue";
-import EditModal from "./EditItemModal.vue";
+import EditItemModal from "./edit-item-modal/EditItemModal.vue";
 import RatingsModal from "./RatingsModal.vue";
 
 export default {
@@ -28,7 +28,7 @@ export default {
   components: {
     CatalogFilter,
     ItemContainer,
-    EditModal,
+    EditItemModal,
     RatingsModal,
   },
   props: {

@@ -5,10 +5,7 @@
     </template>
 
     <template v-slot:modal-content>
-      <div v-if="isLoading">
-        <loading-spinner></loading-spinner>
-      </div>
-      <div v-else>
+      <div>
         <base-content-container v-for="rating in ratings" class="ratings">
           <template v-slot:header> Rating: {{ rating.rating }} </template>
           <template v-slot:body>
@@ -25,30 +22,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import BaseModalLarge from "../base-components/BaseModalLarge.vue";
 import BaseContentContainer from "../base-components/BaseContentContainer.vue";
-import LoadingSpinner from "../base-components/BaseLoadingSpinner.vue";
 
 export default {
   name: "ratings-modal",
   components: {
     BaseModalLarge,
     BaseContentContainer,
-    LoadingSpinner,
   },
-  data() {
-    return {
-      isLoading: true,
-      ratings: [],
-    };
-  },
-  methods: {},
-  async mounted() {
-    this.ratings = await this.$store.getters["ratingStore/getRatingsByItemId"];
-
-    if (this.ratings != null || this.ratings != undefined) {
-      this.isLoading = false;
-    }
+  computed: {
+    ...mapGetters({
+      ratings: "ratingStore/getRatingsByItemId",
+    }),
   },
 };
 </script>
