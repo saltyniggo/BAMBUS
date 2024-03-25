@@ -38,11 +38,15 @@
         v-model="repeatPassword"
       />
     </section>
-    <base-text-button @click="RegisterUser">Register</base-text-button>
+    <base-text-button @click="registerUser(registerForm)"
+      >Register</base-text-button
+    >
   </form>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
 export default {
@@ -60,15 +64,20 @@ export default {
       lastName: "",
     };
   },
-  methods: {
-    RegisterUser() {
-      console.log("Username: " + this.username);
-      console.log("Email: " + this.email);
-      console.log("Password: " + this.password);
-      console.log("Repeat Password: " + this.repeatPassword);
-      console.log("First Name: " + this.firstName);
-      console.log("Last Name: " + this.lastName);
+  computed: {
+    registerForm: function () {
+      return {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+        repeatPassword: this.repeatPassword,
+        firstName: this.firstName,
+        lastName: this.lastName,
+      };
     },
+  },
+  methods: {
+    ...mapActions("userStore", ["registerUser"]),
   },
 };
 </script>

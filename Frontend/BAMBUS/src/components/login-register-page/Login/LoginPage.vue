@@ -5,7 +5,7 @@
       <h2>Please enter your credentials to log in.</h2>
       <login-credential-form />
       <p>Don't have an account yet?</p>
-      <base-text-button @click="$emit('redirectRegister')">
+      <base-text-button @click="$router.push('/register')">
         Register
       </base-text-button>
     </base-content-container>

@@ -1,34 +1,22 @@
 <template>
   <div>
-    <login-page class="login-view-content" />
+    <register-page class="register-view-content" />
   </div>
 </template>
 
 <script>
-import LoginPage from "../components/login-register-page/Login/LoginPage.vue";
 import RegisterPage from "../components/login-register-page/Register/RegisterPage.vue";
 
 export default {
   name: "LoginView",
   components: {
-    LoginPage,
     RegisterPage,
-  },
-  data() {
-    return {
-      onLogin: true,
-    };
-  },
-  methods: {
-    changePage() {
-      this.onLogin = !this.onLogin;
-    },
   },
 };
 </script>
 
 <style scoped>
-.login-view-content {
+.register-view-content {
   display: flex;
   justify-content: center;
   align-items: center;

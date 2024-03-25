@@ -4,4 +4,7 @@ export default {
     state.userIsAuth = true;
     state.userRole = user.role;
   },
+  register(state, newUser) {
+    state.users.push(newUser);
+  },
 };

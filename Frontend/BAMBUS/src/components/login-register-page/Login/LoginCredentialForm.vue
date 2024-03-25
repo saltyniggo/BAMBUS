@@ -12,10 +12,7 @@
       placeholder="Password"
       v-model="password"
     />
-    <base-text-button
-      @click="login({ username: this.username, password: this.password })"
-      >Login</base-text-button
-    >
+    <base-text-button @click="loginUser(loginForm)">Login</base-text-button>
   </form>
 </template>
 
@@ -35,8 +32,16 @@ export default {
       password: "",
     };
   },
+  computed: {
+    loginForm() {
+      return {
+        username: this.username,
+        password: this.password,
+      };
+    },
+  },
   methods: {
-    ...mapActions("userStore", ["login"]),
+    ...mapActions("userStore", ["loginUser"]),
   },
 };
 </script>
