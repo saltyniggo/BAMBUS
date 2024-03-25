@@ -1,6 +1,8 @@
 <template>
   <div class="cart-page">
-    <h1>Bisher</h1>
+    <h1 v-if="!cartRentalItems.length && !cartReservationItems.length">
+      Der Korb ist leer.
+    </h1>
     <cart-container v-if="cartRentalItems.length > 0">
       <h1 slot="header">Ausleihen</h1>
       <rental-item

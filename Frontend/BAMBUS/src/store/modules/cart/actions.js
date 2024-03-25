@@ -8,10 +8,9 @@ export default {
     }
   },
   rentItem({ commit, dispatch }, payload) {
-    if (payload.returnDate == undefined) {
+    if (!payload.returnDate) {
       alert("Please select a return date");
     } else {
-      console.log(payload);
       commit("removeRentalItemFromCart", payload.itemId);
       dispatch("itemStore/userRentsItem", payload, { root: true });
       // alert(
@@ -27,5 +26,11 @@ export default {
       dispatch("itemStore/userReservesItem", itemId, { root: true });
       commit("removeReservationItemFromCart", itemId);
     }
+  },
+  removeRentalItemFromCart({ commit }, itemId) {
+    commit("removeRentalItemFromCart", itemId);
+  },
+  removeReservationItemFromCart({ commit }, itemId) {
+    commit("removeReservationItemFromCart", itemId);
   },
 };

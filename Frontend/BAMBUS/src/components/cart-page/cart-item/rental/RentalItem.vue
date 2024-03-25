@@ -8,11 +8,18 @@
         :condition="rentalItem.condition"
       />
       <item-form class="rental-item-content-row" :itemId="rentalItem.itemId" />
-      <base-text-button
-        class="rental-item-content-row"
-        @click="rentItem(rentalItem)"
-        >Item ausleihen</base-text-button
-      >
+      <section class="rental-item-content-row">
+        <base-text-button
+          class="rental-item-content-row-button"
+          @click="rentItem(rentalItem)"
+          >Item ausleihen</base-text-button
+        >
+        <base-text-button
+          class="rental-item-content-row-button"
+          @click="removeRentalItemFromCart(rentalItem.itemId)"
+          >Aus Korb entfernen</base-text-button
+        >
+      </section>
     </div>
     <hr />
   </div>
@@ -36,7 +43,7 @@ export default {
     BaseTextButton,
   },
   methods: {
-    ...mapActions("cartStore", ["rentItem"]),
+    ...mapActions("cartStore", ["rentItem", "removeRentalItemFromCart"]),
   },
 };
 </script>
@@ -55,7 +62,15 @@ export default {
 }
 
 .rental-item-content-row {
-  width: 15%;
+  width: 100%;
   margin: 1vw, 0;
+}
+
+.rental-item-content-row-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-left: 25%;
 }
 </style>

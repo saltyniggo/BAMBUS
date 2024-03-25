@@ -4,6 +4,7 @@
     <p name="fromDate">{{ formattedFromDate }}</p>
     <label for="returnDate">Bis zum:</label>
     <input
+      id="inputReturnDate"
       type="date"
       name="returnDate"
       :min="minDate"
@@ -62,5 +63,9 @@ export default {
   flex-direction: column;
   width: 15%;
   margin: 2% 0;
+}
+
+#inputReturnDate {
+  width: 33%;
 }
 </style>

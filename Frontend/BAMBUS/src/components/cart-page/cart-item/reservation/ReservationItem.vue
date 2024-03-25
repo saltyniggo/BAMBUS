@@ -8,11 +8,18 @@
         :condition="reservationItem.condition"
       />
       <p class="reservation-item-content-row">Hier Liste von ausleiern</p>
-      <base-text-button
-        class="reservation-item-content-row"
-        @click="reserveItem(reservationItem.itemId)"
-        >Item reservieren</base-text-button
-      >
+      <section class="reservation-item-content-row">
+        <base-text-button
+          class="reservation-item-content-row-button"
+          @click="reserveItem(reservationItem.itemId)"
+          >Item reservieren</base-text-button
+        >
+        <base-text-button
+          class="reservation-item-content-row-button"
+          @click="removeReservationItemFromCart(reservationItem.itemId)"
+          >Aus Korb entfernen</base-text-button
+        >
+      </section>
     </div>
     <hr />
   </div>
@@ -34,7 +41,10 @@ export default {
     BaseTextButton,
   },
   methods: {
-    ...mapActions("cartStore", ["reserveItem"]),
+    ...mapActions("cartStore", [
+      "reserveItem",
+      "removeReservationItemFromCart",
+    ]),
   },
 };
 </script>
@@ -53,7 +63,15 @@ export default {
 }
 
 .reservation-item-content-row {
-  width: 15%;
+  width: 100%;
   margin: 1vw, 0;
+}
+
+.reservation-item-content-row-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-left: 25%;
 }
 </style>
