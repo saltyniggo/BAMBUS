@@ -13,95 +13,15 @@
             <option value="2">Spiel</option>
           </select>
         </div>
-        <div
-          class="edit-container-fields"
-          id="editBook"
-          v-if="item.itemCategory == 1"
-        >
-          <div class="field">
-            <label for="title">Titel </label>
-            <input type="text" id="title" v-model="item.title" required />
-          </div>
-          <div class="field">
-            <label for="author">Autor </label>
-            <input type="text" id="author" v-model="item.author" required />
-          </div>
-          <div class="field">
-            <label for="ISBN">ISBN </label>
-            <input type="text" id="ISBN" v-model="item.ISBN" required />
-          </div>
-          <div class="field">
-            <label for="category">Kategorie </label>
-            <input type="text" id="category" v-model="item.category" required />
-          </div>
-          <div class="field">
-            <label for="available">Verfügbarkeit </label>
-            <input
-              type="text"
-              id="available"
-              v-model="item.available"
-              required
-            />
-          </div>
-        </div>
-
-        <div
-          class="edit-container-fields"
-          id="editMagazin"
-          v-if="item.itemCategory == 0"
-        >
-          <div class="field">
-            <label for="title">Titel </label>
-            <input type="text" id="title" v-model="item.title" required />
-          </div>
-
-          <div class="field">
-            <label for="ISSN">ISSN </label>
-            <input type="text" id="ISSN" v-model="item.ISSN" required />
-          </div>
-
-          <div class="field">
-            <label for="category">Kategorie </label>
-            <input type="text" id="category" v-model="item.category" required />
-          </div>
-          <div class="field">
-            <label for="available">Verfügbarkeit </label>
-            <input
-              type="text"
-              id="available"
-              v-model="item.available"
-              required
-            />
-          </div>
-        </div>
-
-        <div
-          class="edit-container-fields"
-          id="editGame"
-          v-if="item.itemCategory == 2"
-        >
-          <div class="field">
-            <label for="name">Name </label>
-            <input type="text" id="name" v-model="item.name" required />
-          </div>
-          <div class="field">
-            <label for="category">Kategorie </label>
-            <input type="text" id="category" v-model="category" required />
-          </div>
-          <div class="field">
-            <label for="available">Verfügbarkeit </label>
-            <input
-              type="text"
-              id="available"
-              v-model="item.available"
-              required
-            />
-          </div>
-        </div>
+        <magazine-form v-if="item.itemCategory == 0" :item="item" />
+        <book-form v-if="item.itemCategory == 1" :item="item" />
+        <game-form v-if="item.itemCategory == 2" :item="item" />
       </div>
     </template>
     <template v-slot:modal-button>
-      <base-rectangle-button @click="edit"> Speichern </base-rectangle-button>
+      <base-rectangle-button @click="saveEdit">
+        Speichern
+      </base-rectangle-button>
     </template>
   </base-modal-large>
 </template>
@@ -111,12 +31,18 @@ import { mapGetters } from "vuex";
 
 import BaseModalLarge from "../../base-components/BaseModalLarge.vue";
 import BaseRectangleButton from "../../base-components/BaseRectangleButton.vue";
+import BookForm from "./BookForm.vue";
+import MagazineForm from "./MagazineForm.vue";
+import GameForm from "./GameForm.vue";
 
 export default {
-  name: "edit-modal",
+  name: "EditItemModal",
   components: {
     BaseModalLarge,
     BaseRectangleButton,
+    BookForm,
+    MagazineForm,
+    GameForm,
   },
   computed: {
     ...mapGetters({
@@ -125,8 +51,9 @@ export default {
     }),
   },
   methods: {
-    edit() {
-      this.$store.dispatch("itemStore/editItem", this.item);
+    saveEdit() {
+      // this.$store.dispatch("itemStore/editItem", this.item);
+      this.$store.dispatch("editStore/saveEditItem");
       this.$store.dispatch("modalStore/closeAllModals");
     },
   },

@@ -23,4 +23,8 @@ export default {
     state.editItemId = null;
     state.ratingsItemId = null;
   },
+  saveEditItem(state, { payload, index }) {
+    console.log(payload);
+    // state.items[index] = payload;
+  },
 };
