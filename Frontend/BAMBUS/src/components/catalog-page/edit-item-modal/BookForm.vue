@@ -119,6 +119,10 @@ export default {
     // this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
+
+//
+// TODO: Fix that it saves the input values to the store
+//
 </script>
 
 <style scoped>
