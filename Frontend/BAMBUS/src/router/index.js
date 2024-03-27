@@ -32,7 +32,7 @@ const router = createRouter({
           component: UserView,
         },
         {
-          path: "arsch",
+          path: "arsch", // TODO: Change to orders or something like that - I dont know what to call it yet :D
           name: "user-view-arsch",
           component: UserView,
         },
