@@ -1,15 +1,15 @@
 <template>
   <div class="base-tab-header">
     <div
-      v-for="{ title, route, index } in tabs"
+      v-for="(tab, index) in tabs"
       :key="index"
       :id="index"
       class="tab"
-      :class="{ active: active == index }"
-      @click="$router.push(route)"
+      :class="{ active: activeRoute === tab.title.toLowerCase() }"
+      @click="$router.push(tab.route)"
     >
       <h2>
-        <slot :name="'tab' + index">{{ title }}</slot>
+        <slot :name="'tab' + index">{{ tab.title }}</slot>
       </h2>
     </div>
   </div>
@@ -18,12 +18,7 @@
 <script>
 export default {
   name: "BaseTabHeader",
-  props: ["tabs"],
-  data() {
-    return {
-      active: 0,
-    };
-  },
+  props: ["tabs", "activeRoute"],
 };
 </script>
 

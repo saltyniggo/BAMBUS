@@ -27,20 +27,41 @@ const router = createRouter({
       redirect: { name: "user-view-overview" },
       children: [
         {
-          path: "overview",
+          path: ":overview",
           name: "user-view-overview",
           component: UserView,
+          props: true,
         },
         {
-          path: "arsch", // TODO: Change to orders or something like that - I dont know what to call it yet :D
-          name: "user-view-arsch",
+          path: ":orders",
+          name: "user-view-orders",
           component: UserView,
+          props: true,
         },
         {
-          path: "account",
+          path: ":account",
           name: "user-view-account",
           component: UserView,
+          props: true,
         },
+        // {
+        //   path: "overview",
+        //   name: "user-view-overview",
+        //   component: UserView,
+        //   props: { tab: 0 },
+        // },
+        // {
+        //   path: "arsch", // TODO: Change to orders or something like that - I dont know what to call it yet :D
+        //   name: "user-view-arsch",
+        //   component: UserView,
+        //   props: { tab: 1 },
+        // },
+        // {
+        //   path: "account",
+        //   name: "user-view-account",
+        //   component: UserView,
+        //   props: { tab: 2 },
+        // },
       ],
     },
     {

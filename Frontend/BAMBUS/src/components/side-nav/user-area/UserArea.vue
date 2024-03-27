@@ -14,7 +14,7 @@
       <user-employee
         class="SideNav-Content-Section"
         v-else-if="isLoggedIn && userRole === 0"
-        @click="redirectTo('/my-view')"
+        @click="redirectTo('/my-view/overview')"
       />
       <user-manager
         class="SideNav-Content-Section"
