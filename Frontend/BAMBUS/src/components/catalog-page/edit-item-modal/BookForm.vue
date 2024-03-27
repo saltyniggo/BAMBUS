@@ -24,6 +24,10 @@
 </template>
 
 <script>
+//
+// TODO: Fix that it saves the input values directly to the store
+//
+
 export default {
   name: "BookForm",
   props: ["item"],
@@ -78,33 +82,6 @@ export default {
       },
     },
   },
-  // watch: {
-  //   title: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemTitle", value);
-  //     },
-  //   },
-  //   author: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemAuthor", value);
-  //     },
-  //   },
-  //   ISBN: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemISBN", value);
-  //     },
-  //   },
-  //   category: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemCategory", value);
-  //     },
-  //   },
-  //   available: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemAvailability", value);
-  //     },
-  //   },
-  // },
   beforeMount() {
     this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;
@@ -116,13 +93,8 @@ export default {
     } else {
       this.available = "Nein";
     }
-    // this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
-
-//
-// TODO: Fix that it saves the input values to the store
-//
 </script>
 
 <style scoped>
