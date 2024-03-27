@@ -1,15 +1,15 @@
 <template>
   <div class="base-tab-header">
     <div
-      v-for="(tab, index) in tabs"
+      v-for="{ title, route, index } in tabs"
       :key="index"
       :id="index"
       class="tab"
       :class="{ active: active == index }"
-      @click="showTab"
+      @click="$router.push(route)"
     >
       <h2>
-        <slot :name="'tab' + index">{{ tab }}</slot>
+        <slot :name="'tab' + index">{{ title }}</slot>
       </h2>
     </div>
   </div>
@@ -18,18 +18,11 @@
 <script>
 export default {
   name: "BaseTabHeader",
+  props: ["tabs"],
   data() {
     return {
       active: 0,
-      tabs: ["1", "2", "3"],
     };
-  },
-  methods: {
-    showTab(event) {
-      console.log(event.target.parentElement.id);
-      this.active = event.target.parentElement.id;
-      console.log(this.active);
-    },
   },
 };
 </script>
