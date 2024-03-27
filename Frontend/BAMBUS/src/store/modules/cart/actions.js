@@ -1,3 +1,5 @@
+import item from "../item";
+
 export default {
   addReturnDate({ commit, state }, payload) {
     const index = state.cartRentalItems.findIndex(
@@ -13,9 +15,6 @@ export default {
     } else {
       commit("removeRentalItemFromCart", payload.itemId);
       dispatch("itemStore/userRentsItem", payload, { root: true });
-      // alert(
-      //   `${currentUserId} hat das Item ${payload.itemId} ausgeliehen, bis zum ${payload.returnDate}`
-      // );
     }
   },
   reserveItem({ commit, dispatch, rootState }, itemId) {
@@ -32,5 +31,20 @@ export default {
   },
   removeReservationItemFromCart({ commit }, itemId) {
     commit("removeReservationItemFromCart", itemId);
+  },
+
+  addItemToCart({ commit, state }, payload) {
+    const itemIsInCartAlready =
+      state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
+      state.cartReservationItems.find((item) => item.itemId === payload.itemId);
+    if (itemIsInCartAlready) {
+      alert("Item is already in cart");
+    } else if (payload.available === true) {
+      commit("addItemToRentalCart", payload);
+    } else if (payload.available === false) {
+      commit("addItemToReservationCart", payload);
+    } else {
+      alert("Item is not available for rent or reservation");
+    }
   },
 };

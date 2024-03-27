@@ -49,18 +49,7 @@
         </div>
         <p v-if="item.ISBN">ISBN {{ item.ISBN }}</p>
         <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
-
-        <div class="item-footer">
-          <base-round-button v-if="role == 1" @click="openEditModal(item.id)"
-            ><i class="fa-regular fa-pen-to-square" style="color: #222126"></i
-          ></base-round-button>
-          <base-round-button v-if="role == 1" @click="deleteItem(item.id)"
-            ><i class="fa-solid fa-trash-can" style="color: #222126"></i
-          ></base-round-button>
-          <base-round-button v-if="role == 0" @click="addToCart(item.id)"
-            ><i class="fa-solid fa-basket-shopping" style="color: #222126"></i
-          ></base-round-button>
-        </div>
+        <item-buttons :item="item" :role="role" />
       </div>
     </template>
   </base-content-container>
@@ -69,14 +58,16 @@
 <script>
 import { mapGetters } from "vuex";
 
-import BaseContentContainer from "./BaseContentContainer.vue";
-import BaseRoundButton from "./BaseRoundButton.vue";
+import BaseContentContainer from "../../base-components/BaseContentContainer.vue";
+import BaseRoundButton from "../../base-components/BaseRoundButton.vue";
+import ItemButtons from "./ItemButtons.vue";
 
 export default {
   name: "BaseItemContainer",
   components: {
     BaseContentContainer,
     BaseRoundButton,
+    ItemButtons,
   },
   props: {
     item: {
@@ -110,17 +101,17 @@ export default {
       this.$emit("openRatingsModal", id);
     },
 
-    openEditModal(id) {
-      this.$emit("openEditModal", id);
-    },
+    // openEditModal(id) {
+    //   this.$emit("openEditModal", id);
+    // },
 
-    deleteItem(id) {
-      this.$store.dispatch("itemStore/deleteItem", id);
-    },
+    // deleteItem(id) {
+    //   this.$store.dispatch("itemStore/deleteItem", id);
+    // },
 
-    addToCart(id) {
-      this.$store.dispatch("cartStore/addToCart", id);
-    },
+    // addToCart(id) {
+    //   this.$store.dispatch("cartStore/addToCart", id);
+    // },
   },
 };
 </script>
@@ -143,14 +134,6 @@ div.item-description {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-div.item-footer {
-  margin-top: 10%;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
 }
 
 div.item-header {

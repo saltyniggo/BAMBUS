@@ -3,7 +3,7 @@ export default {
     commit("deleteItem", id);
   },
   addItem({ commit }, item) {
-    commit("addItem", item);
+    commit("addItemToCart", item);
   },
   editItem({ commit }, item) {
     commit("editItem", item);
