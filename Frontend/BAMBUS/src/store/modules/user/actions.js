@@ -128,10 +128,16 @@ export default {
   },
 
   deleteAccount({ commit, state }) {
-    if (confirm("Are you sure you want to delete your account?")) {
+    if (confirm("Are you sure you want to delete the account?")) {
       commit("deleteAccount", state.user.userId);
       commit("logout");
       router.push("/");
     }
+  },
+  adminDeleteAccount({ commit }, payload) {
+    commit("deleteAccount", payload);
+  },
+  adminChangePassword({ commit }, payload) {
+    commit("adminChangePassword", payload);
   },
 };

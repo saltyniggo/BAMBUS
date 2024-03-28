@@ -3,4 +3,7 @@ export default {
   getUser(state) {
     return state.user;
   },
+  getAllUsers(state) {
+    return state.users;
+  },
 };

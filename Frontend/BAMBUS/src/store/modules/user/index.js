@@ -13,7 +13,7 @@ export default {
         role: 0,
         email: "user@example.com",
         firstName: "Max",
-        lastName: "Mustermann",
+        lastName: "Usermann",
       },
       {
         userId: 2,
@@ -22,7 +22,7 @@ export default {
         role: 1,
         email: "user@example.com",
         firstName: "Max",
-        lastName: "Mustermann",
+        lastName: "Managermann",
       },
       {
         userId: 3,
@@ -31,7 +31,7 @@ export default {
         role: 2,
         email: "user@example.com",
         firstName: "Max",
-        lastName: "Mustermann",
+        lastName: "Adminmann",
       },
     ],
     userIsAuth: false,

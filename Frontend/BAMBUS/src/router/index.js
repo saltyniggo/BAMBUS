@@ -49,6 +49,7 @@ const router = createRouter({
     {
       path: "/admin",
       name: "admin-view",
+      redirect: { name: "admin-view-overview" },
       children: [
         {
           path: ":overview",
@@ -57,8 +58,14 @@ const router = createRouter({
           props: true,
         },
         {
-          path: ":user-management",
-          name: "admin-view-user-management",
+          path: ":management",
+          name: "admin-view-management",
+          component: AdminView,
+          props: true,
+        },
+        {
+          path: ":settings",
+          name: "admin-view-settings",
           component: AdminView,
           props: true,
         },
@@ -67,7 +74,27 @@ const router = createRouter({
     {
       path: "/managing",
       name: "manager-view",
-      component: ManagerView,
+      redirect: { name: "manager-view-overview" },
+      children: [
+        {
+          path: ":overview",
+          name: "manager-view-overview",
+          component: ManagerView,
+          props: true,
+        },
+        {
+          path: ":management",
+          name: "manager-view-management",
+          component: ManagerView,
+          props: true,
+        },
+        {
+          path: ":statistics",
+          name: "manager-view-statistics",
+          component: ManagerView,
+          props: true,
+        },
+      ],
     },
     {
       path: "/login",

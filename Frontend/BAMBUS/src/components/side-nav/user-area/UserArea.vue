@@ -19,12 +19,12 @@
       <user-manager
         class="SideNav-Content-Section"
         v-else-if="isLoggedIn && user.role === 1"
-        @click="redirectTo('/managing')"
+        @click="redirectTo('/managing/overview')"
       />
       <user-admin
         class="SideNav-Content-Section"
         v-else-if="isLoggedIn && user.role === 2"
-        @click="redirectTo('/admin')"
+        @click="redirectTo('/admin/overview')"
       />
     </section>
   </div>

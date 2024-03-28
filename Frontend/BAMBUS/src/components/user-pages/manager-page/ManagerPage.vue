@@ -1,10 +1,10 @@
 <template>
-  <div class="admin-page">
+  <div class="manager-page">
     <user-tabs :tabs="tabs" :activeRoute="activeRoute" />
-    <section class="admin-page-content">
+    <section class="manager-page-content">
       <overview-tab v-if="activeRoute == 'overview'" />
-      <user-management-tab v-else-if="activeRoute == 'management'" />
-      <settings-tab v-else-if="activeRoute == 'settings'" />
+      <management-tab v-else-if="activeRoute == 'management'" />
+      <statistic-tab v-else-if="activeRoute == 'statistics'" />
     </section>
   </div>
 </template>
@@ -12,23 +12,23 @@
 <script>
 import UserTabs from "../UserTabs.vue";
 import OverviewTab from "./OverviewTab.vue";
-import UserManagementTab from "./UserManagementTab.vue";
-import SettingsTab from "./SettingsTab.vue";
+import ManagementTab from "./ManagementTab.vue";
+import StatisticTab from "./StatisticTab.vue";
 
 export default {
-  name: "AdminPage",
+  name: "ManagerPage",
   components: {
     UserTabs,
     OverviewTab,
-    UserManagementTab,
-    SettingsTab,
+    ManagementTab,
+    StatisticTab,
   },
   data() {
     return {
       tabs: [
-        { title: "Overview", route: "/admin/overview" },
-        { title: "Management", route: "/admin/management" },
-        { title: "Settings", route: "/admin/settings" },
+        { title: "Overview", route: "/managing/overview" },
+        { title: "Management", route: "/managing/management" },
+        { title: "Statistics", route: "/managing/statistics" },
       ],
       activeRoute: undefined,
     };
@@ -45,14 +45,14 @@ export default {
 </script>
 
 <style scoped>
-.admin-page {
+.manager-page {
   height: 100vh;
   background-color: #f2eae4;
   padding: 1%;
   color: #222126;
 }
 
-.admin-page-content {
+.manager-page-content {
   margin-top: 1%;
 }
 </style>
