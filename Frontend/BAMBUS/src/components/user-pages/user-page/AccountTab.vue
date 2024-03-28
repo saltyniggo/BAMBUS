@@ -92,7 +92,7 @@ export default {
     ]),
   },
   computed: {
-    ...mapGetters("userStore", { user: "getUserObject" }),
+    ...mapGetters("userStore", { user: "getUser" }),
   },
 };
 </script>

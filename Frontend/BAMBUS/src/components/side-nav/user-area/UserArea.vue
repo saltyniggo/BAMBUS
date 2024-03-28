@@ -13,17 +13,17 @@
       />
       <user-employee
         class="SideNav-Content-Section"
-        v-else-if="isLoggedIn && userRole === 0"
+        v-else-if="isLoggedIn && user.role === 0"
         @click="redirectTo('/my-view/overview')"
       />
       <user-manager
         class="SideNav-Content-Section"
-        v-else-if="isLoggedIn && userRole === 1"
+        v-else-if="isLoggedIn && user.role === 1"
         @click="redirectTo('/managing')"
       />
       <user-admin
         class="SideNav-Content-Section"
-        v-else-if="isLoggedIn && userRole === 2"
+        v-else-if="isLoggedIn && user.role === 2"
         @click="redirectTo('/admin')"
       />
     </section>
@@ -57,7 +57,7 @@ export default {
     ...mapGetters("userStore", {
       isLoggedIn: "isUserAuthenticated",
       currentUser: "getUser",
-      userRole: "getUserRole",
+      user: "getUser",
     }),
   },
 };

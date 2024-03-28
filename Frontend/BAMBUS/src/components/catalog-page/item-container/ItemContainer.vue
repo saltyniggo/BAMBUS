@@ -36,7 +36,7 @@
         </div>
 
         <div class="item-title">
-          <h2 v-if="role == 1">Id: {{ item.itemId }}</h2>
+          <h2 v-if="user.role == 1">Id: {{ item.itemId }}</h2>
           <h1 v-if="item.title">{{ item.title }}</h1>
           <h1 v-else>{{ item.name }}</h1>
           <i v-if="item.author">{{ item.author }}</i>
@@ -49,7 +49,7 @@
         </div>
         <p v-if="item.ISBN">ISBN {{ item.ISBN }}</p>
         <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
-        <item-buttons :item="item" :role="role" />
+        <item-buttons :item="item" :role="user.role" />
       </div>
     </template>
   </base-content-container>
@@ -84,7 +84,7 @@ export default {
       return this.item.rating;
     },
     ...mapGetters({
-      role: "userStore/getUserRole",
+      user: "userStore/getUser",
     }),
   },
 

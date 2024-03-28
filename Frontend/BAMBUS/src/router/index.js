@@ -44,30 +44,25 @@ const router = createRouter({
           component: UserView,
           props: true,
         },
-        // {
-        //   path: "overview",
-        //   name: "user-view-overview",
-        //   component: UserView,
-        //   props: { tab: 0 },
-        // },
-        // {
-        //   path: "arsch", // TODO: Change to orders or something like that - I dont know what to call it yet :D
-        //   name: "user-view-arsch",
-        //   component: UserView,
-        //   props: { tab: 1 },
-        // },
-        // {
-        //   path: "account",
-        //   name: "user-view-account",
-        //   component: UserView,
-        //   props: { tab: 2 },
-        // },
       ],
     },
     {
       path: "/admin",
       name: "admin-view",
-      component: AdminView,
+      children: [
+        {
+          path: ":overview",
+          name: "admin-view-overview",
+          component: AdminView,
+          props: true,
+        },
+        {
+          path: ":user-management",
+          name: "admin-view-user-management",
+          component: AdminView,
+          props: true,
+        },
+      ],
     },
     {
       path: "/managing",

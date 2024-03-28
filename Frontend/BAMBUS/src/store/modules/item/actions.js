@@ -28,7 +28,7 @@ export default {
   userReservesItem({ commit, state, rootState }, payload) {
     const index = state.items.findIndex((item) => item.itemId === payload);
     if (index !== -1) {
-      const userId = rootState.userStore.currentUser;
+      const userId = rootState.userStore.user.userId;
       if (userId == null) {
         alert("Please log in to reserve an item");
       } else {

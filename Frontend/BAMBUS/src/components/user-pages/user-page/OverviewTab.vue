@@ -1,9 +1,7 @@
 <template>
   <div>
-    <h1>Hier</h1>
-    <h2>kann</h2>
-    <h3>irgendwas</h3>
-    <p>sein</p>
+    <h1>Benachrichtigungen</h1>
+    <p>Benachrichtigungen werden hier angezeigt</p>
   </div>
 </template>
 

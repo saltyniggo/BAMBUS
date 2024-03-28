@@ -1,6 +1,6 @@
 export default {
   isUserAuthenticated: (state) => state.userIsAuth,
-  getUser: (state) => state.currentUser,
-  getUserRole: (state) => state.userRole,
-  getUserObject: (state) => state.user,
+  getUser(state) {
+    return state.user;
+  },
 };

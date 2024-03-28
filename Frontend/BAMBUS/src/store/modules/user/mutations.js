@@ -1,8 +1,6 @@
 export default {
   login(state, user) {
-    state.currentUser = user.userId;
     state.userIsAuth = true;
-    state.userRole = user.role;
     state.user = user;
   },
   register(state, newUser) {
@@ -36,9 +34,7 @@ export default {
     state.users = state.users.filter((user) => user.userId !== payload);
   },
   logout(state) {
-    state.currentUser = null;
     state.userIsAuth = false;
-    state.userRole = null;
     state.user = null;
   },
 };
