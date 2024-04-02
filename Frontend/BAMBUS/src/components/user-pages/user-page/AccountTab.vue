@@ -59,8 +59,8 @@
         <h2>Account Daten</h2>
         <p><strong>Benutzername:</strong> {{ user.username }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Vorname:</strong> {{ user.firstname }}</p>
-        <p><strong>Nachname:</strong> {{ user.lastname }}</p>
+        <p><strong>Vorname:</strong> {{ user.firstName }}</p>
+        <p><strong>Nachname:</strong> {{ user.lastName }}</p>
       </div>
     </div>
   </div>

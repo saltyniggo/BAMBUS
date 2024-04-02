@@ -14,6 +14,7 @@ export default {
         email: "user@example.com",
         firstName: "Max",
         lastName: "Usermann",
+        notifications: [],
       },
       {
         userId: 2,
@@ -23,6 +24,7 @@ export default {
         email: "user@example.com",
         firstName: "Max",
         lastName: "Managermann",
+        notifications: [],
       },
       {
         userId: 3,
@@ -32,6 +34,7 @@ export default {
         email: "user@example.com",
         firstName: "Max",
         lastName: "Adminmann",
+        notifications: [],
       },
     ],
     userIsAuth: false,
@@ -43,6 +46,7 @@ export default {
       email: null,
       firstName: null,
       lastName: null,
+      notifications: null,
     },
   },
   mutations: Mutations,
