@@ -12,7 +12,7 @@
 <script>
 import UserTabs from "../UserTabs.vue";
 import OverviewTab from "./OverviewTab.vue";
-import OrdersTab from "./OrdersTab.vue";
+import OrdersTab from "./rented-page/OrdersTab.vue";
 import AccountTab from "./AccountTab.vue";
 
 export default {
