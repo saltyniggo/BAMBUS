@@ -1,12 +1,11 @@
 <template>
   <div class="startpage">
     <h1>Was willst Du heute entdecken?</h1>
-    <shortcut-button @click="scrollDownShow('Bücher')">Bücher</shortcut-button>
-    <shortcut-button @click="scrollDownShow('Zeitschriften')"
-      >Zeitschriften</shortcut-button
-    >
-    <shortcut-button @click="scrollDownShow('Spiele')">Spiele</shortcut-button>
-    <shortcut-button @click="scrollDownShow('Alles')">Alles</shortcut-button>
+    <shortcut-button><router-link :to="{ name: 'catalog-category', params: { category: 'all' }, hash: '#catalog' }" >Alles</router-link> </shortcut-button>
+    <shortcut-button><router-link :to="{ name: 'catalog-category', params: { category: 'books' }, hash: '#catalog' }" >Bücher</router-link></shortcut-button>
+    <shortcut-button><router-link :to="{ name: 'catalog-category', params: { category: 'magazines' }, hash: '#catalog' }" >Zeitschriften</router-link> </shortcut-button>
+    <shortcut-button><router-link :to="{ name: 'catalog-category', params: { category: 'games' }, hash: '#catalog' }" >Spiele</router-link></shortcut-button>
+    
   </div>
 </template>
 
@@ -15,14 +14,8 @@ import ShortcutButton from "./ShortcutButton.vue";
 
 export default {
   name: "StartPage",
-  emits: ["scrollDownShow"],
   components: {
     ShortcutButton,
-  },
-  methods: {
-    scrollDownShow(category) {
-      this.$emit("scrollDownShow", category);
-    },
   },
 };
 </script>
@@ -44,5 +37,10 @@ export default {
   text-align: center;
   color: #f2eae4;
   text-shadow: 0.2rem 0.2rem 0.5rem #3c4e45;
+}
+
+a {
+  text-decoration: none;
+  color: #f2eae4;
 }
 </style>

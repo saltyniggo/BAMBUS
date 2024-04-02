@@ -31,13 +31,6 @@ const router = createRouter({
           component: CatalogView,
           props: true,
         },
-        {
-          path: "all",
-          name: "catalog-all",
-          component: CatalogView,
-          props: { category: "test" },
-        },
-      
       ],
     },
     {

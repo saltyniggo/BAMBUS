@@ -1,6 +1,6 @@
 <template>
   <div class="catalog-view">
-    <startPage @scrollDownShow="scrollDownShow"></startPage>
+    <startPage></startPage>
     <catalogPage :category="this.$route.params.category" id="catalog"></catalogPage>
     <p>{{ category }}</p>
   </div>
@@ -21,17 +21,6 @@ export default {
   components: {
     CatalogPage,
     StartPage,
-  },
-  watch: {
-    category() {
-      console.log("Category changed to: " + this.category);
-    },
-  },
-  methods: {
-    scrollDownShow(category) {
-      this.$el.querySelector("#catalog").scrollIntoView({ behavior: "smooth" });
-      this.category = category;
-    },
   },
 };
 </script>

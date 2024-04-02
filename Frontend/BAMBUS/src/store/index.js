@@ -10,7 +10,7 @@ import ModalStore from "./modules/modal/index.js";
 import RatingStore from "./modules/rating/index.js";
 import CartStore from "./modules/cart/index.js";
 import EditStore from "./modules/edit/index.js";
-import RouterStore from "./modules/router/index.js";
+
 
 const store = createStore({
   modules: {
@@ -20,7 +20,7 @@ const store = createStore({
     ratingStore: RatingStore,
     cartStore: CartStore,
     editStore: EditStore,
-    routerStore: RouterStore,
+
   },
   state: {},
   mutations: Mutations,

@@ -44,12 +44,6 @@ export default {
       showsRatingsModal: "modalStore/getRatingsModalStatus",
     }),
   },
-  watch: {
-    category() {
-      console.log("Category changed to: " + this.category);
-      console.log("Items: " + this.items);
-    },
-  },
   methods: {
     async openEditModal(id) {
       await this.$store.dispatch("modalStore/closeAllModals");
