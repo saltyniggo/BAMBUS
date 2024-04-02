@@ -38,7 +38,7 @@ export default {
         username: "TestUser2",
         password: "password123",
         role: 0,
-        email: "user@exampleppppppppppppppppppppppppppppppppppppp.com",
+        email: "user@example.com",
         firstName: "Max",
         lastName: "Usermann2",
       }
