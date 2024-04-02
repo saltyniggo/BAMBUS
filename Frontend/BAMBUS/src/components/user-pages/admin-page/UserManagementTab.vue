@@ -21,20 +21,4 @@ export default {
 </script>
 
 <style scoped>
-select {
-  width: 100%;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.content {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 </style>
