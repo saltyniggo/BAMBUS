@@ -18,11 +18,36 @@ const router = createRouter({
       return { x: 0, y: 0 };
     }
   },
+  scrollBehavior(to, from, savedPosition) {
+    if (to.name === 'books' || to.name === 'magazines' || to.name === 'games') {
+      console.log('scrolling to catalog');
+      return { selector: '#catalog', behavior: 'smooth'}; 
+    } else {
+      return { x: 0, y: 0 };
+    }
+  },
   routes: [
     {
       path: "/",
       name: "catalog",
       component: CatalogView,
+      children: [
+       { path: "books",
+        name: "books",
+        component: CatalogPage,
+        props: { category: "books" },
+      }, 
+      {path: "magazines",
+        name: "magazines",
+        component: CatalogPage,
+        props: { category: "magazines" }
+      },
+      {path: "games",
+        name: "games",
+        component: CatalogPage,
+        props: { category: "games" }
+      },
+      ]
       children: [
        { path: "books",
         name: "books",
