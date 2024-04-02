@@ -1,6 +1,6 @@
 <template>
   <div class="catalog-filter">
-    <filter-selection />
+    <filter-selection :category="category"/>
     <sort-selection />
 
     <div>
@@ -24,6 +24,11 @@ import SortSelection from "./SortSelection.vue";
 
 export default {
   name: "CatalogFilter",
+  props: {
+    category: {
+      type: String,
+    },
+  },
   components: {
     RectangleButton,
     FilterSelection,

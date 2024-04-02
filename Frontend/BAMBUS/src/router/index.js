@@ -10,11 +10,35 @@ import ManagerView from "../views/ManagerView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: "smooth",
+      };
+    }
+    return { x: 0, y: 0 };
+  },
   routes: [
     {
       path: "/",
       name: "catalog",
       component: CatalogView,
+      children: [
+        {
+          path: ":category",
+          name: "catalog-category",
+          component: CatalogView,
+          props: true,
+        },
+        {
+          path: "all",
+          name: "catalog-all",
+          component: CatalogView,
+          props: { category: "test" },
+        },
+      
+      ],
     },
     {
       path: "/cart",

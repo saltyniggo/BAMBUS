@@ -1,7 +1,8 @@
 <template>
   <div class="catalog-view">
     <startPage @scrollDownShow="scrollDownShow"></startPage>
-    <catalogPage :category></catalogPage>
+    <catalogPage :category="this.$route.params.category" id="catalog"></catalogPage>
+    <p>{{ category }}</p>
   </div>
 </template>
 
@@ -11,14 +12,20 @@ import StartPage from "../components/catalog-page/StartPage.vue";
 
 export default {
   name: "CatalogView",
+  props: {
+    category: {
+      type: String,
+      default: "all",
+    },
+  },
   components: {
     CatalogPage,
     StartPage,
   },
-  data() {
-    return {
-      category: "Alles",
-    };
+  watch: {
+    category() {
+      console.log("Category changed to: " + this.category);
+    },
   },
   methods: {
     scrollDownShow(category) {

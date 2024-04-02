@@ -1,6 +1,6 @@
 <template>
-  <div class="catalog" id="catalog">
-    <catalog-filter></catalog-filter>
+  <div class="catalog">
+    <catalog-filter :category="category"></catalog-filter>
     <div class="catalog-items" v-if="items">
       <item-container
         v-for="item in items"
@@ -34,7 +34,7 @@ export default {
   props: {
     category: {
       type: String,
-      default: "Alle",
+      default: "all",
     },
   },
   computed: {
