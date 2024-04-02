@@ -9,7 +9,7 @@ export default {
   },
 
   deleteItem(state, id) {
-    state.items = state.items.filter((item) => item.id !== id);
+    state.items = state.items.filter((item) => item.itemId !== id);
   },
   addItem(state, item) {
     state.items.push(item);

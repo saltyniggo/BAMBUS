@@ -1,9 +1,9 @@
 <template>
   <div class="item-footer">
-    <base-round-button v-if="role == 1" @click="openEditModal(item.id)"
+    <base-round-button v-if="role == 1" @click="openEditModal(item.itemId)"
       ><i class="fa-regular fa-pen-to-square" style="color: #222126"></i
     ></base-round-button>
-    <base-round-button v-if="role == 1" @click="deleteItem(item.id)"
+    <base-round-button v-if="role == 1" @click="deleteItem(item.itemId)"
       ><i class="fa-solid fa-trash-can" style="color: #222126"></i
     ></base-round-button>
     <base-round-button v-if="role == 0" @click="addToCart(item)"
