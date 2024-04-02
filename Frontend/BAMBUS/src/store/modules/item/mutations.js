@@ -29,4 +29,7 @@ export default {
     console.log(payload);
     // state.items[index] = payload;
   },
+  requestExtension(state, payload) {
+    state.items[payload.index].returnDate = payload.newReturnDate;
+  },
 };

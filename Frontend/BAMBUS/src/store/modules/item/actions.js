@@ -46,7 +46,7 @@ export default {
     );
     commit("saveEditItem", { payload, index });
   },
-  requestExtension({ rootState }, payload) {
+  requestExtension({ commit, rootState }, payload) {
     if (!payload.newReturnDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
       return;
@@ -71,5 +71,9 @@ export default {
     alert(
       `Benutzer ${userId} beantragt eine Verlängerung für Artikel ${payload.item.itemId} bis zum ${payload.newReturnDate}`
     );
+    const index = rootState.itemStore.items.findIndex(
+      (item) => item.itemId === payload.item.itemId
+    );
+    commit("requestExtension", { index, newReturnDate: payload.newReturnDate });
   },
 };
