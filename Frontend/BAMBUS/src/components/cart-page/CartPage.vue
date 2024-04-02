@@ -48,11 +48,11 @@ export default {
 <style scoped>
 .cart-page {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   width: 80vw;
   background-color: #3b8c84;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-direction: column;
 }
 </style>

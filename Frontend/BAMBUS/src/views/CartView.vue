@@ -17,10 +17,10 @@ export default {
 
 <style scoped>
 .cart-view-content {
-  display: flex;
+  display: fixed;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #3b8c84;
 }
 </style>

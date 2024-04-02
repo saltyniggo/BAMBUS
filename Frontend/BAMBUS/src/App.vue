@@ -47,6 +47,7 @@ h2 {
   display: flex;
   flex-direction: row;
   height: 100vh;
+  width: 100vw;
 }
 
 .app-base-side-nav {
@@ -59,6 +60,7 @@ h2 {
 
 .app-base-content {
   margin-left: 20vw;
+  min-height: 100vh;
   width: 80vw;
 }
 </style>
