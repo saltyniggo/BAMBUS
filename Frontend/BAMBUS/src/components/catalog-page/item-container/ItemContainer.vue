@@ -49,7 +49,7 @@
         </div>
         <p v-if="item.ISBN">ISBN {{ item.ISBN }}</p>
         <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
-        <item-buttons :item="item" :role="user.role" />
+        <item-buttons :item="item" :role="user.role" @openEditModal="openEditModal"/>
       </div>
     </template>
   </base-content-container>
@@ -101,9 +101,9 @@ export default {
       this.$emit("openRatingsModal", id);
     },
 
-    // openEditModal(id) {
-    //   this.$emit("openEditModal", id);
-    // },
+    openEditModal(id) {
+      this.$emit("openEditModal", id);
+    },
 
     // deleteItem(id) {
     //   this.$store.dispatch("itemStore/deleteItem", id);

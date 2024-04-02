@@ -1,54 +1,24 @@
 <template>
   <div>
     <h1>User Management</h1>
-    <select v-model="selectedUser">
-      <option v-for="user in users" :key="user.id" :value="user.userId">
-        {{ user.firstName }} {{ user.lastName }}
-      </option>
-    </select>
-    <div v-if="selectedUser">
-      <input
-        type="password"
-        v-model="newPassword"
-        placeholder="Neues Passwort"
-      />
-      <button
-        @click="
-          adminChangePassword({
-            newPassword: newPassword,
-            userId: selectedUser,
-          })
-        "
-      >
-        Passwort aktualisieren
-      </button>
-      <button @click="adminDeleteAccount(selectedUser)">User Löschen</button>
-    </div>
+    <br>
+  <all-users-table></all-users-table> 
   </div>
 </template>
 
+
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import BaseContentContainer from "@/components/base-components/BaseContentContainer.vue";
+import AllUsersTable from "./AllUsersTable.vue";
 
 export default {
-  data() {
-    return {
-      selectedUser: null,
-      newPassword: "",
-    };
+  name: "UserManagementTab",
+  components: {
+    BaseContentContainer,
+    AllUsersTable,
   },
-  methods: {
-    ...mapActions("userStore", ["adminChangePassword", "adminDeleteAccount"]),
-    updatePassword() {
-      this.updateUserPassword({
-        userId: this.selectedUser,
-        password: this.newPassword,
-      });
-    },
-  },
-  computed: {
-    ...mapGetters("userStore", { users: "getAllUsers" }),
-  },
-};
+}
 </script>
+
+<style scoped>
+</style>

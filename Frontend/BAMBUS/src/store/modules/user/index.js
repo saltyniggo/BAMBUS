@@ -36,6 +36,15 @@ export default {
         lastName: "Adminmann",
         notifications: [],
       },
+      {
+        userId: 4,
+        username: "TestUser2",
+        password: "password123",
+        role: 0,
+        email: "user@example.com",
+        firstName: "Max",
+        lastName: "Usermann2",
+      }
     ],
     userIsAuth: false,
     user: {

@@ -40,44 +40,29 @@ export default {
       available: "",
     };
   },
-  computed: {
+  watch: {
     title: {
-      get() {
-        return this.$store.state.editStore.editItem.title;
-      },
-      set(value) {
+      handler: function (value) {
         this.$store.dispatch("editStore/updateEditItemTitle", value);
       },
     },
     author: {
-      get() {
-        return this.$store.state.editStore.editItem.author;
-      },
-      set(value) {
+      handler: function (value) {
         this.$store.dispatch("editStore/updateEditItemAuthor", value);
       },
     },
     ISBN: {
-      get() {
-        return this.$store.state.editStore.editItem.ISBN;
-      },
-      set(value) {
+      handler: function (value) {
         this.$store.dispatch("editStore/updateEditItemISBN", value);
       },
     },
     category: {
-      get() {
-        return this.$store.state.editStore.editItem.category;
-      },
-      set(value) {
+      handler: function (value) {
         this.$store.dispatch("editStore/updateEditItemCategory", value);
       },
     },
     available: {
-      get() {
-        return this.$store.state.editStore.editItem.availability;
-      },
-      set(value) {
+      handler: function (value) {
         this.$store.dispatch("editStore/updateEditItemAvailability", value);
       },
     },
@@ -93,6 +78,7 @@ export default {
     } else {
       this.available = "Nein";
     }
+    this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
 </script>

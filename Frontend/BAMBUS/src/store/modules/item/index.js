@@ -48,7 +48,7 @@ export default {
       },
       {
         itemId: 4,
-        itemCategory: 0,
+        itemCategory: 1,
         reservations: [],
         condition: 1,
         available: false,
@@ -62,7 +62,7 @@ export default {
       },
       {
         itemId: 5,
-        itemCategory: 0,
+        itemCategory: 1,
         reservations: [],
         condition: 1,
         available: false,
@@ -75,7 +75,7 @@ export default {
       },
       {
         itemId: 6,
-        itemCategory: 0,
+        itemCategory: 1,
         reservations: [],
         condition: 1,
         available: true,

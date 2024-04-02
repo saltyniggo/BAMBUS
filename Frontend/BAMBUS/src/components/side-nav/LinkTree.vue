@@ -52,7 +52,7 @@ export default {
   text-decoration: none;
 }
 
-.SideNav-Item-Link-Tree p:hover {
+.SideNav-Item-Link-Tree a:hover {
   cursor: pointer;
   color: #d9910d;
   transition: 0.3s;
