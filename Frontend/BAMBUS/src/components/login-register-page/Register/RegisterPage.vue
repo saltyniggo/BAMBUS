@@ -1,10 +1,10 @@
 <template>
   <div class="register-page">
     <base-content-container>
-      <h1 slot="header">Register</h1>
-      <h2>Please enter your credentials to register.</h2>
+      <h1 slot="header">Registrieren</h1>
+      <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich zu registrieren.</h2>
       <register-credential-form />
-      <p>Already have an account?</p>
+      <p>Bereits registriert?</p>
       <base-text-button @click="$router.push('/login')">
         Login
       </base-text-button>

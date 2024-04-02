@@ -2,11 +2,11 @@
   <div class="login-page">
     <base-content-container>
       <h1 slot="header">Login</h1>
-      <h2>Please enter your credentials to log in.</h2>
+      <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich anzumelden.</h2>
       <login-credential-form />
-      <p>Don't have an account yet?</p>
+      <p>Noch kein Konto?</p>
       <base-text-button @click="$router.push('/register')">
-        Register
+        Registrieren
       </base-text-button>
     </base-content-container>
   </div>

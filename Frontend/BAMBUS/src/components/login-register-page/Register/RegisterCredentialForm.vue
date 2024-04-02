@@ -16,30 +16,30 @@
       <input
         class="register-credential-form-input"
         type="text"
-        placeholder="First Name"
+        placeholder="Vorname"
         v-model="firstName"
       />
       <input
         class="register-credential-form-input"
         type="text"
-        placeholder="Last Name"
+        placeholder="Nachname"
         v-model="lastName"
       />
       <input
         class="register-credential-form-input"
         type="password"
-        placeholder="Password"
+        placeholder="Passwort"
         v-model="password"
       />
       <input
         class="register-credential-form-input"
         type="password"
-        placeholder="Repeat Password"
+        placeholder="Passwort wiederholen"
         v-model="repeatPassword"
       />
     </section>
     <base-text-button @click="registerUser(registerForm)"
-      >Register</base-text-button
+      >Registrieren</base-text-button
     >
   </form>
 </template>

@@ -7,7 +7,11 @@
       </option>
     </select>
     <div v-if="selectedUser">
-      <input type="password" v-model="newPassword" placeholder="New Password" />
+      <input
+        type="password"
+        v-model="newPassword"
+        placeholder="Neues Passwort"
+      />
       <button
         @click="
           adminChangePassword({
@@ -16,9 +20,9 @@
           })
         "
       >
-        Update Password
+        Passwort aktualisieren
       </button>
-      <button @click="adminDeleteAccount(selectedUser)">Delete User</button>
+      <button @click="adminDeleteAccount(selectedUser)">User Löschen</button>
     </div>
   </div>
 </template>
