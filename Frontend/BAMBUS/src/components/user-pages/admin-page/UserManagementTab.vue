@@ -1,50 +1,40 @@
 <template>
   <div>
     <h1>User Management</h1>
-    <select v-model="selectedUser">
-      <option v-for="user in users" :key="user.id" :value="user.userId">
-        {{ user.firstName }} {{ user.lastName }}
-      </option>
-    </select>
-    <div v-if="selectedUser">
-      <input type="password" v-model="newPassword" placeholder="New Password" />
-      <button
-        @click="
-          adminChangePassword({
-            newPassword: newPassword,
-            userId: selectedUser,
-          })
-        "
-      >
-        Update Password
-      </button>
-      <button @click="adminDeleteAccount(selectedUser)">Delete User</button>
-    </div>
+    <br>
+  <all-users-table></all-users-table> 
   </div>
 </template>
 
+
 <script>
-import { mapGetters } from "vuex";
-import { mapActions } from "vuex";
+import BaseContentContainer from "@/components/base-components/BaseContentContainer.vue";
+import AllUsersTable from "./AllUsersTable.vue";
 
 export default {
-  data() {
-    return {
-      selectedUser: null,
-      newPassword: "",
-    };
+  name: "UserManagementTab",
+  components: {
+    BaseContentContainer,
+    AllUsersTable,
   },
-  methods: {
-    ...mapActions("userStore", ["adminChangePassword", "adminDeleteAccount"]),
-    updatePassword() {
-      this.updateUserPassword({
-        userId: this.selectedUser,
-        password: this.newPassword,
-      });
-    },
-  },
-  computed: {
-    ...mapGetters("userStore", { users: "getAllUsers" }),
-  },
-};
+}
 </script>
+
+<style scoped>
+select {
+  width: 100%;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+</style>

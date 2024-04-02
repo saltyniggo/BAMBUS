@@ -33,6 +33,15 @@ export default {
         firstName: "Max",
         lastName: "Adminmann",
       },
+      {
+        userId: 4,
+        username: "TestUser2",
+        password: "password123",
+        role: 0,
+        email: "user@exampleppppppppppppppppppppppppppppppppppppp.com",
+        firstName: "Max",
+        lastName: "Usermann2",
+      }
     ],
     userIsAuth: false,
     user: {
