@@ -1,6 +1,8 @@
 export default {
-  userRentsItem(state, { payload, index }) {
-    state.items[index] = payload;
+  userRentsItem(state, payload) {
+    state.items[payload.index].available = false;
+    state.items[payload.index].rentedBy = payload.userId;
+    state.items[payload.index].returnDate = payload.returnDate;
   },
   userReservesItem(state, { userId, index }) {
     state.items[index].reservations.push(userId);

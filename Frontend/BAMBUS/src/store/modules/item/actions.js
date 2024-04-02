@@ -16,13 +16,17 @@ export default {
     commit("deleteAllModalIds");
   },
 
-  userRentsItem({ commit, state }, payload) {
-    payload.available = false;
+  userRentsItem({ commit, state, rootState }, payload) {
+    const userId = rootState.userStore.user.userId;
     const index = state.items.findIndex(
       (item) => item.itemId === payload.itemId
     );
     if (index !== -1) {
-      commit("userRentsItem", { payload, index });
+      commit("userRentsItem", {
+        returnDate: payload.returnDate,
+        userId: userId,
+        index: index,
+      });
     }
   },
   userReservesItem({ commit, state, rootState }, payload) {
