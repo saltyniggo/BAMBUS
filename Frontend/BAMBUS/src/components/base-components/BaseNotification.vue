@@ -1,7 +1,7 @@
 <template>
   <div class="base-notification-element">
     <h2>{{ notification.title }}</h2>
-    <h3>Von {{ notification.author }} am {{ notification.date }}</h3>
+    <h3>Von {{ notification.senderId }} am {{ notification.date }}</h3>
     <p>{{ notification.message }}</p>
   </div>
 </template>

@@ -135,12 +135,10 @@ export default {
     commit("adminChangePassword", payload);
   },
   addNotification({ commit, state }, payload) {
-    const userId = state.user.userId;
     const notificationId =
       Math.random().toString(36).substring(2) + Date.now().toString(36);
-    console.log(notificationId);
     payload.notificationId = notificationId;
-    switch (payload.title) {
+    switch (payload.type) {
       case 1:
         payload.title = "Erinnerung an den Rückgabezeitpunkt";
         break;
@@ -153,11 +151,14 @@ export default {
       case 4:
         payload.title = "Benachrichtigung über die Rückgabe";
         break;
+      case 5:
+        payload.title = "Anfrage zur Verlängerung einer Ausleihe";
+        break;
     }
-    commit("addNotification", { userId, notification: payload });
+    commit("addNotification", payload);
   },
-  deleteNotificationsWithTitle({ commit, state }, payload) {
+  deleteNotificationsWithType({ commit, state }, payload) {
     const userId = state.user.userId;
-    commit("deleteNotificationsWithTitle", { userId, title: payload });
+    commit("deleteNotificationsWithType", { userId, type: payload });
   },
 };

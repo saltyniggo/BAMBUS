@@ -43,13 +43,13 @@ export default {
   },
   addNotification(state, payload) {
     state.users
-      .find((user) => user.userId === payload.userId)
-      .notifications.push(payload.notification);
+      .find((user) => user.userId === payload.receiverId)
+      .notifications.push(payload);
   },
-  deleteNotificationsWithTitle(state, payload) {
+  deleteNotificationsWithType(state, payload) {
     const user = state.user;
     user.notifications = user.notifications.filter(
-      (notification) => notification.title !== payload.title
+      (notification) => notification.type !== payload.type
     );
   },
 };
