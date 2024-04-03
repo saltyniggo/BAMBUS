@@ -34,6 +34,38 @@ export default {
     });
   },
 
+  checkAllReturnDates({ dispatch, rootState }) {
+    const today = new Date();
+    const loans = rootState.itemStore.items.filter(
+      (item) => item.rentedBy !== null
+    );
+    loans.forEach((loan) => {
+      const daysOverdue = Math.floor(
+        (today - new Date(loan.returnDate)) / (1000 * 60 * 60 * 24)
+      );
+      if (daysOverdue > 0) {
+        const notification = {
+          notificationId: null,
+          type: 6,
+          title: null,
+          message: null,
+          senderId: 0,
+          receiverId: 2,
+          date: new Date().toLocaleDateString("de-DE"),
+          payload: loan,
+        };
+        if (daysOverdue > 1) {
+          notification.message = `${loan.rentedBy} hat ${loan.title} seit ${daysOverdue} Tagen überfällig`;
+        } else if (daysOverdue === 1) {
+          notification.message = `${loan.rentedBy} hat ${loan.title} seit einem Tag überfällig`;
+        }
+        dispatch("userStore/addNotification", notification, {
+          root: true,
+        });
+      }
+    });
+  },
+
   checkReservedItems({ dispatch, rootState }) {
     const user = rootState.userStore.user;
     rootState.itemStore.items.forEach((item) => {

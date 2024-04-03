@@ -11,6 +11,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 import BaseNotification from "../../base-components/BaseNotification.vue";
 
@@ -19,8 +20,16 @@ export default {
   components: {
     BaseNotification,
   },
+  methods: {
+    ...mapActions("notificationStore", ["checkAllReturnDates"]),
+    ...mapActions("userStore", ["deleteNotificationsWithType"]),
+  },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),
+  },
+  beforeMount() {
+    this.deleteNotificationsWithType(6);
+    this.checkAllReturnDates();
   },
 };
 </script>

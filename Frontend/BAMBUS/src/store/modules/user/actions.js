@@ -154,6 +154,12 @@ export default {
       case 5:
         payload.title = "Anfrage zur Verlängerung einer Ausleihe";
         break;
+      case 6:
+        payload.title = "Rückgabe ist überfällig";
+        break;
+    }
+    if (payload.senderId === 0) {
+      payload.senderId = "System";
     }
     commit("addNotification", payload);
   },
