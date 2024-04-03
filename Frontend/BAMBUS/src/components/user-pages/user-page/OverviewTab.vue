@@ -25,13 +25,14 @@ export default {
       "checkReturnDates",
       "checkReservedItems",
     ]),
-    ...mapActions("userStore", ["deleteNotificationsWithTitle"]),
+    ...mapActions("userStore", ["deleteNotificationsWithType"]),
   },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),
   },
   beforeMount() {
-    this.deleteNotificationsWithTitle("Erinnerung an den Rückgabezeitpunkt");
+    this.deleteNotificationsWithType(1);
+    this.deleteNotificationsWithType(2);
     this.checkReservedItems();
     this.checkReturnDates();
   },

@@ -36,7 +36,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions("itemStore", ["requestExtension"]),
+    // ...mapActions("itemStore", ["requestExtension"]),
+    ...mapActions("notificationStore", {
+      requestExtension: "userRequestsLoanExtension",
+    }),
   },
   computed: {
     ...mapGetters("userStore", {
