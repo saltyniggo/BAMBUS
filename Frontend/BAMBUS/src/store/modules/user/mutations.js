@@ -41,4 +41,9 @@ export default {
     const user = state.users.find((user) => user.userId === payload.userId);
     user.password = payload.newPassword;
   },
+  addNotification(state, payload) {
+    state.users
+      .find((user) => user.userId === payload.userId)
+      .notifications.push(payload.notification);
+  },
 };

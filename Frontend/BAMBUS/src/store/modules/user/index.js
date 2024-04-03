@@ -55,7 +55,7 @@ export default {
       email: null,
       firstName: null,
       lastName: null,
-      notifications: null,
+      notifications: [],
     },
   },
   mutations: Mutations,

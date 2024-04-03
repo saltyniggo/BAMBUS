@@ -62,7 +62,7 @@ export default {
 <style scoped>
 .catalog {
   min-height: 100vh;
-  width: 100%;
+  width: 80vw;
   background-color: #3b8c84;
 }
 

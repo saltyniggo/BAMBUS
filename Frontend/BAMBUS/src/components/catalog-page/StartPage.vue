@@ -1,11 +1,39 @@
 <template>
   <div class="startpage">
     <h1>Was willst Du heute entdecken?</h1>
-    <router-link :to="{ name: 'catalog-category', params: { category: 'all' }, hash: '#catalog' }" > <shortcut-button>Alles</shortcut-button></router-link> 
-    <router-link :to="{ name: 'catalog-category', params: { category: 'books' }, hash: '#catalog' }" ><shortcut-button>Bücher</shortcut-button></router-link>
-    <router-link :to="{ name: 'catalog-category', params: { category: 'magazines' }, hash: '#catalog' }" ><shortcut-button>Zeitschriften</shortcut-button></router-link> 
-    <router-link :to="{ name: 'catalog-category', params: { category: 'games' }, hash: '#catalog' }" ><shortcut-button>Spiele</shortcut-button></router-link>
-    
+    <router-link
+      :to="{
+        name: 'catalog-category',
+        params: { category: 'all' },
+        hash: '#catalog',
+      }"
+    >
+      <shortcut-button>Alles</shortcut-button></router-link
+    >
+    <router-link
+      :to="{
+        name: 'catalog-category',
+        params: { category: 'books' },
+        hash: '#catalog',
+      }"
+      ><shortcut-button>Bücher</shortcut-button></router-link
+    >
+    <router-link
+      :to="{
+        name: 'catalog-category',
+        params: { category: 'magazines' },
+        hash: '#catalog',
+      }"
+      ><shortcut-button>Zeitschriften</shortcut-button></router-link
+    >
+    <router-link
+      :to="{
+        name: 'catalog-category',
+        params: { category: 'games' },
+        hash: '#catalog',
+      }"
+      ><shortcut-button>Spiele</shortcut-button></router-link
+    >
   </div>
 </template>
 
@@ -24,6 +52,7 @@ export default {
 .startpage {
   display: flex;
   height: 100vh;
+  width: 80vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -46,6 +75,5 @@ a {
 
 a:hover {
   color: #d9910d;
-} 
+}
 </style>
-

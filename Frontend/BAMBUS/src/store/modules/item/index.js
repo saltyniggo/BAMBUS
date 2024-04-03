@@ -66,7 +66,7 @@ export default {
         reservations: [],
         condition: 1,
         available: false,
-        returnDate: "2024-04-01",
+        returnDate: "2024-03-16",
         title: "Lord of the Rings The Two Towers",
         author: "J.R.R. Tolkien",
         category: "Fantasy",
