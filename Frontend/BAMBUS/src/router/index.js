@@ -12,10 +12,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: "smooth",
-      };
+      let el = document.querySelector(to.hash);
+      if (el) {
+        let offsetTop = el.offsetTop; // Position des Elements relativ zum sichtbaren Bereich
+        let scrollY = offsetTop - (window.innerHeight - el.offsetHeight); // Berücksichtigen der Scrollleiste
+        return {
+          top: scrollY,
+          behavior: "smooth", 
+        };
+      }
     }
     return { x: 0, y: 0 };
   },

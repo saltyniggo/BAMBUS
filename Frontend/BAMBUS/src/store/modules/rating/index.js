@@ -12,7 +12,7 @@ export default {
         itemId: 1,
         userId: 1,
         rating: 4.5,
-        comment: "Great book!",
+        comment: "Great book! I loved it! I recommend it! Like really! It's awesome! Read it! It's worth it! I promise! I'm not lying! I swear! I'm serious! I'm not kidding! I'm not joking! I'm not fooling",
         isRecommended: true,},
       { ratingId: 2,
         itemId: 1,

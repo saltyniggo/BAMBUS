@@ -11,7 +11,7 @@
       ></item-container>
     </div>
     <edit-item-modal v-if="showsEditModal"></edit-item-modal>
-    <ratings-modal v-if="showsRatingsModal"></ratings-modal>
+    <ratings-modal v-if="showsRatingsModal" :role></ratings-modal>
   </div>
 </template>
 
