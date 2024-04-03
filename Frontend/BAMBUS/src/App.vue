@@ -63,4 +63,8 @@ h2 {
   min-height: 100vh;
   width: 80vw;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+}
 </style>
