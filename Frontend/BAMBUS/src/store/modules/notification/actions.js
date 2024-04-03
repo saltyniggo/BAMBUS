@@ -117,4 +117,24 @@ export default {
     };
     dispatch("userStore/addNotification", notification, { root: true });
   },
+
+  userRequestsPasswordReset({ dispatch }, payload) {
+    // check if an user with the given username exists
+    if (!this.state.userStore.users.find((user) => user.username === payload)) {
+      alert("User does not exist");
+      return;
+    } else {
+      const notification = {
+        notificationId: null,
+        type: 8,
+        title: null,
+        message: `${payload} hat eine Zurücksetzung des Passworts angefragt`,
+        senderId: 0,
+        receiverId: 3,
+        date: new Date().toLocaleDateString("de-DE"),
+        payload: payload,
+      };
+      dispatch("userStore/addNotification", notification, { root: true });
+    }
+  },
 };
