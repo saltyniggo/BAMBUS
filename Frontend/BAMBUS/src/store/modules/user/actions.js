@@ -157,6 +157,8 @@ export default {
       case 6:
         payload.title = "Rückgabe ist überfällig";
         break;
+      case 7:
+        payload.title = "User hat sich registriert";
     }
     if (payload.senderId === 0) {
       payload.senderId = "System";
