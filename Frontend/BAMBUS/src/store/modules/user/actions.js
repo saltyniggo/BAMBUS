@@ -13,7 +13,7 @@ export default {
       alert("Invalid username or password");
     }
   },
-  registerUser({ commit, state }, payload) {
+  registerUser({ commit, state, dispatch }, payload) {
     const user = state.users.find((user) => user.username === payload.username);
     if (user) {
       alert("Username already exists");
@@ -64,6 +64,7 @@ export default {
     };
 
     commit("register", newUser);
+    dispatch("notificationStore/userRegistersAccount", newUser, { root: true });
     router.push("/login");
   },
   changeUsername({ commit, state }, payload) {

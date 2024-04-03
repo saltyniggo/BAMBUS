@@ -103,4 +103,18 @@ export default {
     };
     dispatch("userStore/addNotification", notification, { root: true });
   },
+
+  userRegistersAccount({ dispatch }, payload) {
+    const notification = {
+      notificationId: null,
+      type: 7,
+      title: null,
+      message: `${payload.username} hat sich registriert`,
+      senderId: 0,
+      receiverId: 3,
+      date: new Date().toLocaleDateString("de-DE"),
+      payload: payload,
+    };
+    dispatch("userStore/addNotification", notification, { root: true });
+  },
 };
