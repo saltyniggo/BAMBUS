@@ -6,4 +6,7 @@ export default {
   getAllUsers(state) {
     return state.users;
   },
+  getEmployees(state) {
+    return state.users.filter((user) => user.role == 0);
+  }
 };

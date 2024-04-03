@@ -2,7 +2,10 @@
   <div>
     <h1>User Management</h1>
     <br>
-  <all-users-table></all-users-table> 
+
+    <base-content-container>
+      <all-users-table></all-users-table>
+    </base-content-container>
   </div>
 </template>
 
@@ -20,5 +23,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
