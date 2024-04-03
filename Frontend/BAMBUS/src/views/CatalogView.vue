@@ -1,7 +1,10 @@
 <template>
   <div class="catalog-view">
     <startPage></startPage>
-    <catalogPage :category="this.$route.params.category" id="catalog"></catalogPage>
+    <catalogPage
+      :category="this.$route.params.category"
+      id="catalog"
+    ></catalogPage>
     <p>{{ category }}</p>
   </div>
 </template>
@@ -15,7 +18,6 @@ export default {
   props: {
     category: {
       type: String,
-      default: "all",
     },
   },
   components: {
@@ -24,4 +26,3 @@ export default {
   },
 };
 </script>
-

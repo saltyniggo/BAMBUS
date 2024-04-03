@@ -43,16 +43,16 @@ export default {
     },
     minDate() {
       const minDate = new Date();
-      return minDate.toISOString().split("T")[0];
+      return minDate.toLocaleDateString("de-DE");
     },
     maxDate() {
       const maxDate = new Date();
       maxDate.setDate(maxDate.getDate() + 31);
-      return maxDate.toISOString().split("T")[0];
+      return maxDate.toLocaleDateString("de-DE");
     },
   },
   beforeMount() {
-    this.fromDate = new Date();
+    this.fromDate = new Date().toLocaleDateString("de-DE");
   },
 };
 </script>

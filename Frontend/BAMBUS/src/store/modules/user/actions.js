@@ -13,7 +13,6 @@ export default {
       alert("Invalid username or password");
     }
   },
-
   registerUser({ commit, state }, payload) {
     const user = state.users.find((user) => user.username === payload.username);
     if (user) {
@@ -67,7 +66,6 @@ export default {
     commit("register", newUser);
     router.push("/login");
   },
-
   changeUsername({ commit, state }, payload) {
     const userExists = state.users.find((user) => user.username === payload);
     if (userExists) {
@@ -80,7 +78,6 @@ export default {
     }
     commit("changeUsername", payload);
   },
-
   changeEmail({ commit, state }, payload) {
     const emailExists = state.users.find((user) => user.email === payload);
     if (emailExists) {
@@ -97,7 +94,6 @@ export default {
     }
     commit("changeEmail", payload);
   },
-
   changeName({ commit }, payload) {
     if (!payload.firstName && !payload.lastName) {
       alert("Please provide your first or last name");
@@ -106,7 +102,6 @@ export default {
     if (payload.firstName) commit("changeFirstName", payload.firstName);
     if (payload.lastName) commit("changeLastName", payload.lastName);
   },
-
   changePassword({ commit }, payload) {
     if (!payload.currentPassword) {
       alert("Please enter your current password");
@@ -126,7 +121,6 @@ export default {
     }
     commit("changePassword", payload.newPassword);
   },
-
   deleteAccount({ commit, state }) {
     if (confirm("Are you sure you want to delete the account?")) {
       commit("deleteAccount", state.user.userId);
@@ -139,5 +133,9 @@ export default {
   },
   adminChangePassword({ commit }, payload) {
     commit("adminChangePassword", payload);
+  },
+  addNotification({ commit, state }, payload) {
+    const userId = state.user.userId;
+    commit("addNotification", { userId, notification: payload });
   },
 };

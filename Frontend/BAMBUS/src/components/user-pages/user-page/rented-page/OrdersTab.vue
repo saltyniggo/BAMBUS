@@ -35,7 +35,7 @@ export default {
     maxDate() {
       const maxDate = new Date();
       maxDate.setDate(maxDate.getDate() + 31);
-      return maxDate.toISOString().split("T")[0];
+      return maxDate.toLocaleDateString("de-DE");
     },
   },
 };
