@@ -10,7 +10,7 @@ export default {
       {
         itemId: 1,
         itemCategory: 0,
-        reservations: [],
+        reservations: [1, 2, 3],
         condition: 1,
         available: true,
         returnDate: undefined,

@@ -136,6 +136,28 @@ export default {
   },
   addNotification({ commit, state }, payload) {
     const userId = state.user.userId;
+    const notificationId =
+      Math.random().toString(36).substring(2) + Date.now().toString(36);
+    console.log(notificationId);
+    payload.notificationId = notificationId;
+    switch (payload.title) {
+      case 1:
+        payload.title = "Erinnerung an den Rückgabezeitpunkt";
+        break;
+      case 2:
+        payload.title = "Benachrichtigung über die Reservierung";
+        break;
+      case 3:
+        payload.title = "Benachrichtigung über die Ausleihe";
+        break;
+      case 4:
+        payload.title = "Benachrichtigung über die Rückgabe";
+        break;
+    }
     commit("addNotification", { userId, notification: payload });
+  },
+  deleteNotificationsWithTitle({ commit, state }, payload) {
+    const userId = state.user.userId;
+    commit("deleteNotificationsWithTitle", { userId, title: payload });
   },
 };

@@ -21,12 +21,18 @@ export default {
     BaseNotification,
   },
   methods: {
-    ...mapActions("notificationStore", ["checkReturnDates"]),
+    ...mapActions("notificationStore", [
+      "checkReturnDates",
+      "checkReservedItems",
+    ]),
+    ...mapActions("userStore", ["deleteNotificationsWithTitle"]),
   },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),
   },
   beforeMount() {
+    this.deleteNotificationsWithTitle("Erinnerung an den Rückgabezeitpunkt");
+    this.checkReservedItems();
     this.checkReturnDates();
   },
 };
