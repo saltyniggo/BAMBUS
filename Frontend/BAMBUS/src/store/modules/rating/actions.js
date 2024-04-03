@@ -4,5 +4,8 @@ export default {
     }, 
     deleteItemId({ commit }) {
         commit('deleteItemId');
+    },
+    deleteRatingById({ commit }, ratingId) {
+        commit('deleteRatingById', ratingId);
     }
 };

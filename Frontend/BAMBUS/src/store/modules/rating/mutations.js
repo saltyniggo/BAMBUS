@@ -4,5 +4,8 @@ export default {
     },
     deleteItemId(state) {
         state.itemId = null;
-    }
+    },
+    deleteRatingById(state, id) {
+        state.ratings = state.ratings.filter(rating => rating.ratingId !== id);
+    },    
 };
