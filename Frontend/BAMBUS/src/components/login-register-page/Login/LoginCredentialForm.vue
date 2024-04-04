@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent class="login-credential-form">
+    <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich anzumelden.</h2>
     <input
       class="login-credential-form-input"
       type="text"
@@ -8,10 +9,15 @@
     />
     <input
       class="login-credential-form-input"
+      id="inputPassword"
       type="password"
       placeholder="Password"
       v-model="password"
     />
+    <button class="button-toggle-password" @click="togglePassword">
+      <i v-if="showPassword" class="fas fa-eye"></i>
+      <i v-else class="fa-regular fa-eye"></i>
+    </button>
     <base-text-button @click="loginUser(loginForm)">Login</base-text-button>
   </form>
 </template>
@@ -32,6 +38,17 @@ export default {
       password: "",
     };
   },
+  methods: {
+    ...mapActions("userStore", ["loginUser"]),
+    togglePassword() {
+      var btn = document.getElementById("inputPassword");
+      if (btn.type === "password") {
+        btn.type = "text";
+      } else {
+        btn.type = "password";
+      }
+    },
+  },
   computed: {
     loginForm() {
       return {
@@ -39,9 +56,6 @@ export default {
         password: this.password,
       };
     },
-  },
-  methods: {
-    ...mapActions("userStore", ["loginUser"]),
   },
 };
 </script>
@@ -70,5 +84,11 @@ export default {
 
 .login-credential-form-input:active {
   box-shadow: 0px 0px 5px 0px #222126;
+}
+
+.button-toggle-password {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 </style>

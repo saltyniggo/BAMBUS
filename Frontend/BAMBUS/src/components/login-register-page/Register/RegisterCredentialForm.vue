@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent class="register-credential-form">
+    <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich zu registrieren.</h2>
     <section>
       <input
         class="register-credential-form-input"
@@ -27,17 +28,26 @@
       />
       <input
         class="register-credential-form-input"
+        id="inputPassword"
         type="password"
         placeholder="Passwort"
         v-model="password"
       />
       <input
         class="register-credential-form-input"
+        id="inputPasswordRepeat"
         type="password"
         placeholder="Passwort wiederholen"
         v-model="repeatPassword"
       />
     </section>
+    <button
+      class="button-toggle-password"
+      @click="togglePassword(['inputPassword', 'inputPasswordRepeat'])"
+    >
+      <i v-if="showPassword" class="fas fa-eye"></i>
+      <i v-else class="fa-regular fa-eye"></i>
+    </button>
     <base-text-button @click="registerUser(registerForm)"
       >Registrieren</base-text-button
     >
@@ -78,6 +88,16 @@ export default {
   },
   methods: {
     ...mapActions("userStore", ["registerUser"]),
+    togglePassword(payload) {
+      payload.forEach((elementId) => {
+        var btn = document.getElementById(elementId);
+        if (btn.type === "password") {
+          btn.type = "text";
+        } else {
+          btn.type = "password";
+        }
+      });
+    },
   },
 };
 </script>
@@ -106,5 +126,10 @@ export default {
 
 .register-credential-form-input:active {
   box-shadow: 0px 0px 5px 0px #222126;
+}
+.button-toggle-password {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 </style>
