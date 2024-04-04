@@ -51,6 +51,6 @@ export default {
 #user-area {
   position: fixed;
   bottom: 0;
-  padding: 0.5%;
+  padding: 0.25%;
 }
 </style>
