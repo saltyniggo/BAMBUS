@@ -1,10 +1,8 @@
 <template>
   <div class="SideNav">
     <SideNavBranding />
-    <div class="SideNav-Base-Content">
-      <LinkTree />
-      <UserArea />
-    </div>
+    <LinkTree />
+    <UserArea id="user-area" />
   </div>
 </template>
 
@@ -48,5 +46,11 @@ export default {
   justify-content: space-between;
   margin-top: 5%;
   height: 90%;
+}
+
+#user-area {
+  position: fixed;
+  bottom: 0;
+  padding: 0.5%;
 }
 </style>
