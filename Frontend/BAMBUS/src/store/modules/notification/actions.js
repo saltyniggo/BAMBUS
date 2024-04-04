@@ -119,7 +119,6 @@ export default {
   },
 
   userRequestsPasswordReset({ dispatch }, payload) {
-    // check if an user with the given username exists
     if (!this.state.userStore.users.find((user) => user.username === payload)) {
       alert("User does not exist");
       return;
