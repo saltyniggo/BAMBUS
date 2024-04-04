@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import store from "../store/index.js";
+
 import CatalogView from "../views/CatalogView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
@@ -25,6 +27,7 @@ const router = createRouter({
     }
     return { x: 0, y: 0 };
   },
+
   routes: [
     {
       path: "/",
@@ -43,11 +46,26 @@ const router = createRouter({
       path: "/cart",
       name: "cart",
       component: CartView,
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 0) {
+        } else {
+          next(false);
+        }
+      },
     },
+
     {
       path: "/my-view",
       name: "user-view",
       redirect: { name: "user-view-overview" },
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 0) {
+        } else {
+          next(false);
+        }
+      },
       children: [
         {
           path: ":overview",
@@ -73,6 +91,13 @@ const router = createRouter({
       path: "/admin",
       name: "admin-view",
       redirect: { name: "admin-view-overview" },
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 2) {
+        } else {
+          next(false);
+        }
+      },
       children: [
         {
           path: ":overview",
@@ -98,6 +123,13 @@ const router = createRouter({
       path: "/managing",
       name: "manager-view",
       redirect: { name: "manager-view-overview" },
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 1) {
+        } else {
+          next(false);
+        }
+      },
       children: [
         {
           path: ":overview",

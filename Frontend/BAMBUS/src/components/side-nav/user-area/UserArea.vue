@@ -2,7 +2,7 @@
   <div class="SideNav-Content">
     <cart-link
       class="SideNav-Content-Section"
-      v-if="isLoggedIn"
+      v-if="isLoggedIn && user.role === 0"
       @click="redirectTo('/cart')"
     ></cart-link>
     <section class="SideNav-Content-User-Area">
@@ -56,7 +56,6 @@ export default {
   computed: {
     ...mapGetters("userStore", {
       isLoggedIn: "isUserAuthenticated",
-      currentUser: "getUser",
       user: "getUser",
     }),
   },
