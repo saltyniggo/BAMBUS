@@ -7,6 +7,7 @@ import CartView from "../views/CartView.vue";
 import UserView from "../views/UserView.vue";
 import AdminView from "../views/AdminView.vue";
 import ManagerView from "../views/ManagerView.vue";
+import PasswordResetView from "../views/PasswordResetView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,7 +19,7 @@ const router = createRouter({
         let scrollY = offsetTop - (window.innerHeight - el.offsetHeight); // Berücksichtigen der Scrollleiste
         return {
           top: scrollY,
-          behavior: "smooth", 
+          behavior: "smooth",
         };
       }
     }
@@ -127,6 +128,11 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: RegisterView,
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: PasswordResetView,
     },
     {
       path: "/:pathMatch(.*)*",

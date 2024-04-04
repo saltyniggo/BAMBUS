@@ -5,24 +5,12 @@
 </template>
 
 <script>
-import LoginPage from "../components/login-register-page/Login/LoginPage.vue";
-import RegisterPage from "../components/login-register-page/Register/RegisterPage.vue";
+import LoginPage from "../components/login-register-page/login/LoginPage.vue";
 
 export default {
   name: "LoginView",
   components: {
     LoginPage,
-    RegisterPage,
-  },
-  data() {
-    return {
-      onLogin: true,
-    };
-  },
-  methods: {
-    changePage() {
-      this.onLogin = !this.onLogin;
-    },
   },
 };
 </script>

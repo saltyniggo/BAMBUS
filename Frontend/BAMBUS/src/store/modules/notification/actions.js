@@ -135,6 +135,8 @@ export default {
         payload: payload,
       };
       dispatch("userStore/addNotification", notification, { root: true });
+      alert("Passwort zurücksetzen angefordert.");
+      this.$router.push({ name: "Login" });
     }
   },
 };
