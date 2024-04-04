@@ -49,6 +49,7 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const userRole = store.state.userStore.user.role;
         if (userRole === 0) {
+          next();
         } else {
           next(false);
         }
@@ -62,6 +63,7 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const userRole = store.state.userStore.user.role;
         if (userRole === 0) {
+          next();
         } else {
           next(false);
         }
@@ -94,6 +96,7 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const userRole = store.state.userStore.user.role;
         if (userRole === 2) {
+          next();
         } else {
           next(false);
         }
@@ -126,6 +129,7 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const userRole = store.state.userStore.user.role;
         if (userRole === 1) {
+          next();
         } else {
           next(false);
         }

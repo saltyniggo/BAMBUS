@@ -2,9 +2,7 @@
   <div class="SideNav">
     <SideNavBranding />
     <LinkTree />
-    <button @click="$router.push('/my-view/overview')">
-      click me for test reasons
-    </button>
+    <button @click="navigateToOverview()">click me for test reasons</button>
     <UserArea id="user-area" />
   </div>
 </template>
@@ -20,6 +18,11 @@ export default {
     SideNavBranding,
     LinkTree,
     UserArea,
+  },
+  methods: {
+    navigateToOverview() {
+      this.$router.push("/my-view/overview");
+    },
   },
 };
 </script>
