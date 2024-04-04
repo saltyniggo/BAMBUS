@@ -32,4 +32,8 @@ export default {
   requestExtension(state, payload) {
     state.items[payload.index].returnDate = payload.newReturnDate;
   },
+  logout(state) {
+    state.editItemId = null;
+    state.items = [];
+  },
 };

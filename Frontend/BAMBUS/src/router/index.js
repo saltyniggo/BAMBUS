@@ -17,8 +17,8 @@ const router = createRouter({
     if (to.hash) {
       let el = document.querySelector(to.hash);
       if (el) {
-        let offsetTop = el.offsetTop; // Position des Elements relativ zum sichtbaren Bereich
-        let scrollY = offsetTop - (window.innerHeight - el.offsetHeight); // Berücksichtigen der Scrollleiste
+        let offsetTop = el.offsetTop;
+        let scrollY = offsetTop - (window.innerHeight - el.offsetHeight);
         return {
           top: scrollY,
           behavior: "smooth",

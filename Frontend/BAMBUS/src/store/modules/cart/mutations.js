@@ -22,4 +22,9 @@ export default {
   addItemToReservationCart(state, payload) {
     state.cartReservationItems.push(payload);
   },
+
+  logout(state) {
+    state.cartRentalItems = [];
+    state.cartReservationItems = [];
+  },
 };

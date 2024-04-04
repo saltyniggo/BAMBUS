@@ -31,4 +31,15 @@ export default {
   updateEditItemAvailability(state, payload) {
     state.editItem.available = payload;
   },
+  logout(state) {
+    state.editItem = {
+      id: undefined,
+      title: undefined,
+      author: undefined,
+      availability: undefined,
+      category: undefined,
+      ISBN: undefined,
+      ISSN: undefined,
+    };
+  },
 };

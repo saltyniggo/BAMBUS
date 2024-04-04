@@ -52,4 +52,17 @@ export default {
       (notification) => notification.type !== payload.type
     );
   },
+  logout(state) {
+    state.userIsAuth = false;
+    state.user = {
+      userId: null,
+      username: null,
+      password: null,
+      role: null,
+      email: null,
+      firstName: null,
+      lastName: null,
+      notifications: [],
+    };
+  },
 };

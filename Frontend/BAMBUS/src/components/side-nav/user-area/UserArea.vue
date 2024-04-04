@@ -27,6 +27,7 @@
         @click="redirectTo('/admin/overview')"
       />
     </section>
+    <user-logout class="SideNav-Content-Section" v-if="isLoggedIn" />
   </div>
 </template>
 
@@ -38,6 +39,7 @@ import UserLogin from "./UserLogin.vue";
 import UserEmployee from "./UserEmployee.vue";
 import UserManager from "./UserManager.vue";
 import UserAdmin from "./UserAdmin.vue";
+import UserLogout from "./UserLogout.vue";
 
 export default {
   name: "SideNavUserArea",
@@ -47,6 +49,7 @@ export default {
     UserEmployee,
     UserManager,
     UserAdmin,
+    UserLogout,
   },
   methods: {
     redirectTo(path) {
@@ -68,7 +71,7 @@ export default {
   flex-direction: row;
   align-items: center;
   height: 10%;
-  margin-left: 1%;
+  margin: 5% 1%;
   justify-content: start;
 }
 
