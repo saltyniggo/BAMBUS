@@ -9,6 +9,7 @@
             <div class=rating>
                 <h3>Wie hat dir deine Ausleihe gefallen?</h3>
             <p> Wie viele Sterne würdest du vergeben?</p>
+            <i v-if="showAlert">Bitte gebe Sterne an, wenn du bewertest.</i>
 
             <div class="stars">
                 <div id="star1"  @click="changeStar">
@@ -90,7 +91,7 @@ export default {
             recommendation: null,
             isDamaged: null,
             stars: [false, false, false, false, false],
-
+            showAlert: false,
         };
     },
     computed: {
@@ -103,13 +104,14 @@ export default {
         checkRecommendation() {
             if (yesRecommend.checked) {
                 this.recommendation = true;
+            } else if (noRecommend.checked) {
+                this.recommendation = false;  
             } else {
-                this.recommendation = false;
+                this.recommendation = null;
             }
         },
 
         checkIsDamaged() {
-            console.log("Check Is Damaged");
             if (yesBroken.checked) {
                 this.isDamaged = true;
             } else {
@@ -118,12 +120,16 @@ export default {
         },
 
         processReturn() {
-            console.log("Process Return");
             this.checkRecommendation();
             this.checkIsDamaged();
             
-            if (this.rating != 0 && this.comment.trim() != "" && this.recommendation != null && this.isDamaged != null) {
-                console.log("Rating: " + this.rating);
+            if (this.rating != 0 ||this.comment.trim() != "" || this.recommendation != null || this.isDamaged != false) {
+
+                if (this.rating == 0) {
+                    this.showAlert = true;
+                    return;
+                }
+                this.showAlert = false;
                 let rating = {
                     ratingId: new Date().toISOString(),
                     itemId: this.id,
@@ -133,7 +139,7 @@ export default {
                     isRecommended: this.recommendation,
                 }
 
-                this.$store.dispatch("ratingStore/createRating", rating);
+                this.$store.dispatch("ratingStore/addRating", rating);
             }
 
             this.$store.dispatch("itemStore/changeItemAvailability",( {id: this.id, isDamaged: this.isDamaged} ));
@@ -144,7 +150,6 @@ export default {
         changeStar(event) {
 
             const starId = event.target.id.slice(-1);
-            console.log(starId);
          
             this.rating = starId;
 

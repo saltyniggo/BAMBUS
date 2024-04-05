@@ -15,4 +15,9 @@ export default {
     addRating(state, rating) {
         state.ratings.push(rating);
     },   
+  
+  updateRating(state, rating) {
+    const index = state.ratings.findIndex((r) => r.ratingId === rating.ratingId);
+    state.ratings[index] = rating;
+  }
 };
