@@ -10,6 +10,8 @@ export default {
     ratingsModalStatus: false,
     ratingsItemId: null,
     addModalStatus: false,
+    returnItemModalStatus: false,
+    returnItemId: null,
     
   },
   mutations: Mutations,

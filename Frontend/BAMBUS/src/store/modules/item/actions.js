@@ -11,6 +11,9 @@ export default {
   setEditItemId({ commit }, id) {
     commit("setEditItemId", id);
   },
+  setReturnItemId({ commit }, id) {
+    commit("setReturnItemId", id);
+  },
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
@@ -75,5 +78,9 @@ export default {
       (item) => item.itemId === payload.item.itemId
     );
     commit("requestExtension", { index, newReturnDate: payload.newReturnDate });
+  },
+
+  changeItemAvailability({ commit }, id) {
+    commit("changeItemAvailability", { id });
   },
 };

@@ -50,7 +50,8 @@ export default {
       requestExtension: "userRequestsLoanExtension",
     }),
     returnItem() {
-      console.log("returnItem " + this.item.itemId);
+      this.$emit("openReturnModal");
+
     }
   },
   computed: {

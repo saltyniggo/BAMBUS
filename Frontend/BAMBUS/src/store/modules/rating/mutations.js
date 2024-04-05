@@ -7,5 +7,8 @@ export default {
     },
     deleteRatingById(state, id) {
         state.ratings = state.ratings.filter(rating => rating.ratingId !== id);
-    },    
+    }, 
+    addRating(state, rating) {
+        state.ratings.push(rating);
+    },   
 };

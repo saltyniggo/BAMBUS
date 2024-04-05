@@ -34,27 +34,31 @@
             </div>
             <p v-if="rating!= 0"> {{rating}} Sterne</p>
             <p> Möchtest du noch etwas hinzufügen?</p>
-            <textarea id="comment" name="comment" rows="5" cols="60"></textarea>
+            <textarea id="comment" name="comment" rows="5" cols="60" v-model="comment" ></textarea>
             </div>
             <div class = recommendation>
                 <h3>Würdest du den Gegenstand weiter empfehlen?</h3>
                 <div class="radio-group">
-                    <input type="radio" id="yes" name="recommendation" value="yes">
+                    <input type="radio" id="yesRecommend" name="recommendation" value="yes">
             <label for="yes">Ja</label>
-            <input type="radio" id="no" name="recommendation" value="no">
+            <input type="radio" id="noRecommend" name="recommendation" value="no">
             <label for="no">Nein</label>
                 </div>
             
             </div>
             <div class = condition>
             <h3>Ist der Gegenstand beschädigt worden?</h3>
-            <div class="radio-group"><input type="radio" id="yes" name="condition" value="yes">
+            <div class="radio-group"><input type="radio" id="yesBroken" name="condition" value="yes">
             <label for="yes">Ja</label>
-            <input type="radio" id="no" name="condition" value="no">
+            <input type="radio" id="noNotBroken" name="condition" value="no">
             <label for="no">Nein</label></div>
 
             
             </div>
+
+            <p>{{ user.userId }}</p>
+            <p> itemId  </p>
+            <p>{{ id }} </p>
 
         </div>
         </template>
@@ -69,6 +73,8 @@
 import BaseModalLarge from "@/components/base-components/BaseModalLarge.vue";
 import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
 import BaseRoundButton from "@/components/base-components/BaseRoundButton.vue";
+import { mapGetters } from "vuex";
+
 
 export default {
     name: "ReturnModal",
@@ -81,14 +87,57 @@ export default {
         return {
             rating: 0,
             comment: "",
-            recommendation: "",
-            condition: "",
+            recommendation: null,
+            condition: null,
             stars: [false, false, false, false, false],
+
         };
     },
+    computed: {
+        ...mapGetters("userStore", { user: "getUser"}),
+        ...mapGetters("itemStore", { id: "getReturnItemId" }),
+        
+    },
     methods: {
+
+        checkRecommendation() {
+            if (yesRecommend.checked) {
+                this.recommendation = true;
+            } else {
+                this.recommendation = false;
+            }
+        },
+
+        checkCondition() {
+            if (yesBroken.checked) {
+                this.condition = true;
+            } else {
+                this.condition = false;
+            }
+        },
+
         processReturn() {
-            console.log("processReturn");
+            this.checkRecommendation();
+            this.checkCondition();
+            
+            if (this.rating != 0 && this.comment.trim() != "" && this.recommendation != null && this.condition != null) {
+                console.log("Rating: " + this.rating);
+                let rating = {
+                    ratingId: new Date().toISOString(),
+                    itemId: this.id,
+                    userId: this.user.userId,
+                    rating: this.rating,
+                    comment: this.comment,
+                    isRecommended: this.recommendation,
+                }
+
+                this.$store.dispatch("ratingStore/createRating", rating);
+            }
+
+            this.$store.dispatch("itemStore/changeItemAvailability", this.id);
+            this.$store.dispatch("modalStore/closeAllModals");
+        
+
         },
         changeStar(event) {
 
@@ -99,15 +148,9 @@ export default {
 
             for (let i = 1; i <= 5; i++) {
                 if (i <= starId) {
-                    if ((starId == i && this.stars[starId-1] == true && this.stars[i] == false) || (this.stars[starId-1] == true && starId == 5)){
+                    if ((starId == i && this.stars[starId-1] == true && this.stars[i] == false) || (this.stars[starId-1] == true && starId == 5 && i == 5)){
                         this.stars= [false, false, false, false, false];
-
-                        
-             
                         this.rating = 0;
-                        
-                        console.log(this.rating);
-                        console.log(this.stars);
                     } else {
                         this.stars[i-1] = true;
                     }
@@ -117,6 +160,7 @@ export default {
             }
 
         },
+
     },
 }
 </script>

@@ -17,4 +17,10 @@ export default {
     setRatingsItemId({ commit }, id) {
         commit("setRatingsItemId", id);
     },
+    setReturnItemId({ commit }, id) {
+        commit("setReturnItemId", id);
+    },
+    toggleReturnModal({ commit }) {
+        commit("toggleReturnModal");
+    },
 };

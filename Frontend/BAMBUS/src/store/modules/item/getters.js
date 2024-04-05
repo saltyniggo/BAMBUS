@@ -8,6 +8,8 @@ export default {
     return state.items.find((item) => item.itemId === state.editItemId);
   },
 
+  getReturnItemId: (state) =>state.returnItemId,
+
   getItemsRentedByUser: (state) => (userId) => {
     return state.items.filter((item) => item.rentedBy === userId);
   },
