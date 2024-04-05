@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent class="login-credential-form">
+  <form class="login-credential-form" @submit.prevent>
     <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich anzumelden.</h2>
     <input
       class="login-credential-form-input"
@@ -10,11 +10,15 @@
     <input
       class="login-credential-form-input"
       id="inputPassword"
-      type="password"
+      :type="showPassword ? 'text' : 'password'"
       placeholder="Password"
       v-model="password"
     />
-    <button class="button-toggle-password" @click="togglePassword">
+    <button
+      class="button-toggle-password"
+      type="button"
+      @click="togglePassword()"
+    >
       <i v-if="showPassword" class="fas fa-eye"></i>
       <i v-else class="fa-regular fa-eye"></i>
     </button>
@@ -36,17 +40,16 @@ export default {
     return {
       username: "",
       password: "",
+      showPassword: false,
     };
   },
   methods: {
     ...mapActions("userStore", ["loginUser"]),
     togglePassword() {
-      var btn = document.getElementById("inputPassword");
-      if (btn.type === "password") {
-        btn.type = "text";
-      } else {
-        btn.type = "password";
-      }
+      this.showPassword = !this.showPassword;
+    },
+    loginUser() {
+      this.$store.dispatch("userStore/loginUser", this.loginForm);
     },
   },
   computed: {
