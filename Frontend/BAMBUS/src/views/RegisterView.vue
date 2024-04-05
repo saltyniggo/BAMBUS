@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import RegisterPage from "../components/login-register-page/Register/RegisterPage.vue";
+import RegisterPage from "../components/login-register-page/register/RegisterPage.vue";
 
 export default {
   name: "LoginView",
