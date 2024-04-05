@@ -28,7 +28,10 @@ export default {
     BaseNotification,
   },
   methods: {
-    ...mapActions("notificationStore", ["checkdueDates", "checkReservedItems"]),
+    ...mapActions("notificationStore", [
+      "checkdueDates",
+      "checkReservedItems",
+    ]),
     ...mapActions("userStore", ["deleteNotificationsWithType"]),
   },
   computed: {

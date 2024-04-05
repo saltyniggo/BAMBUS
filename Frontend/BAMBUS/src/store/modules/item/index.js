@@ -6,6 +6,7 @@ export default {
   namespaced: true,
   state: {
     editItemId: null,
+    returnItemId: null,
     items: [
       {
         itemId: 1,

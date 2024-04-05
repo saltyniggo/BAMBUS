@@ -10,6 +10,9 @@ export default {
   },
   logout(state) {
     state.itemId = null;
-    state.ratings = [];
+ state.ratings = [];
   },
+    addRating(state, rating) {
+        state.ratings.push(rating);
+    },   
 };

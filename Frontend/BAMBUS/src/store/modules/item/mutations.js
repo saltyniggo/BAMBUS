@@ -20,10 +20,13 @@ export default {
   setEditItemId(state, id) {
     state.editItemId = id;
   },
+  setReturnItemId(state, id) {
+    state.returnItemId = id;
+  },
 
   deleteAllModalIds(state) {
     state.editItemId = null;
-    state.ratingsItemId = null;
+    state.returnItemId = null;
   },
   saveEditItem(state, { payload, index }) {
     console.log(payload);
@@ -36,4 +39,16 @@ export default {
     state.editItemId = null;
     state.items = [];
   },
+
+  changeItemAvailability(state, {id}) {
+    state.items.forEach(item => {
+      if (item.itemId === id) {
+        item.available = !item.available;
+        if (item.available) {
+          item.rentedBy = undefined;
+          item.dueDate = undefined;
+        }
+      } 
+    });
+  }
 };

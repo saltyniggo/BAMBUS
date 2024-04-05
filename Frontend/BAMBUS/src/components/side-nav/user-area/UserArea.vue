@@ -1,10 +1,18 @@
 <template>
   <div class="SideNav-Content">
+    
+   
     <cart-link
       class="SideNav-Content-Section"
       v-if="isLoggedIn && user.role === 0"
       @click="redirectTo('/cart')"
     ></cart-link>
+    <br>
+    <return-link
+      class="SideNav-Content-Section"
+      v-if="isLoggedIn"
+      @click="redirectTo('/my-view/orders')"
+    ></return-link>
     <section class="SideNav-Content-User-Area">
       <user-login
         class="SideNav-Content-Section"
@@ -39,6 +47,7 @@ import UserLogin from "./UserLogin.vue";
 import UserEmployee from "./UserEmployee.vue";
 import UserManager from "./UserManager.vue";
 import UserAdmin from "./UserAdmin.vue";
+import ReturnLink from "./ReturnLink.vue";
 import UserLogout from "./UserLogout.vue";
 
 export default {
@@ -49,6 +58,7 @@ export default {
     UserEmployee,
     UserManager,
     UserAdmin,
+    ReturnLink,
     UserLogout,
   },
   methods: {

@@ -7,5 +7,8 @@ export default {
     },
     deleteRatingById({ commit }, ratingId) {
         commit('deleteRatingById', ratingId);
-    }
+    }, 
+    addRating({ commit }, rating) {
+        commit('addRating', rating);
+    },
 };

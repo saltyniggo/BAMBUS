@@ -6,4 +6,7 @@ export default {
 
     getRatingsModalStatus: (state) => state.ratingsModalStatus,
     getRatingsItemId: (state) => state.ratingsItemId,
+
+    getReturnModalStatus: (state) => state.returnItemModalStatus,
+    getReturnItemId: (state) => state.returnItemId,
 };

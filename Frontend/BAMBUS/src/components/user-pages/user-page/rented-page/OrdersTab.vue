@@ -1,16 +1,25 @@
 <template>
-  <div>
-    <h1>Derzeit ausgeliehen</h1>
+  <div class="content">
+    <div class="rented">
+      <h1>Derzeit ausgeliehen</h1>
     <rented-item
       v-for="item in rentedItems(user.userId)"
       :key="item.itemId"
       :item="item"
-      class=""
+      @openReturnModal="openReturnModal(item.itemId)"
     />
-    <h1>Reserviert für dich</h1>
-    <div v-for="item in reservedItems(user.userId)" :key="item.itemId" class="">
-      <h2>{{ item.title }}</h2>
     </div>
+   
+    <div class="reserved">
+      <h1>Reserviert für dich</h1>
+      <reserved-item
+      v-for="item in reservedItems(user.userId)"
+      :key="item.itemId"
+      :item="item"
+    />
+
+    </div>
+   
   </div>
 </template>
 
@@ -18,11 +27,13 @@
 import { mapGetters } from "vuex";
 
 import RentedItem from "./RentedItem.vue";
+import ReservedItem from "./ReservedItem.vue";
 
 export default {
   name: "OrdersTab",
   components: {
     RentedItem,
+    ReservedItem,
   },
   computed: {
     ...mapGetters("itemStore", {
@@ -38,7 +49,30 @@ export default {
       return maxDate.toLocaleDateString("de-DE");
     },
   },
+  methods: {
+    openReturnModal(id) {
+      this.$emit("openReturnModal", id);
+    },
+  },
 };
 </script>
 
-<style></style>
+<style scoped>
+.content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "rented reserved";
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.rented {
+  grid-area: rented;
+}
+
+.reserved {
+  grid-area: reserved;
+}
+
+</style>
