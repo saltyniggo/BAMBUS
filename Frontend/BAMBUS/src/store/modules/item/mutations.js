@@ -2,7 +2,7 @@ export default {
   userRentsItem(state, payload) {
     state.items[payload.index].available = false;
     state.items[payload.index].rentedBy = payload.userId;
-    state.items[payload.index].returnDate = payload.returnDate;
+    state.items[payload.index].dueDate = payload.dueDate;
   },
   userReservesItem(state, { userId, index }) {
     state.items[index].reservations.push(userId);
@@ -30,7 +30,7 @@ export default {
     // state.items[index] = payload;
   },
   requestExtension(state, payload) {
-    state.items[payload.index].returnDate = payload.newReturnDate;
+    state.items[payload.index].dueDate = payload.newdueDate;
   },
   logout(state) {
     state.editItemId = null;

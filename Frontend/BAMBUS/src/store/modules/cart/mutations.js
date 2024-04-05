@@ -1,6 +1,6 @@
 export default {
-  addReturnDate(state, { payload, index }) {
-    state.cartRentalItems[index].returnDate = payload.returnDate;
+  adddueDate(state, { payload, index }) {
+    state.cartRentalItems[index].dueDate = payload.dueDate;
   },
 
   removeRentalItemFromCart(state, itemId) {

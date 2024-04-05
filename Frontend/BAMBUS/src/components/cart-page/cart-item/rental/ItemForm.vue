@@ -2,17 +2,15 @@
   <form class="rental-item-form">
     <label for="fromDate">Ausleihen vom:</label>
     <p name="fromDate">{{ formattedFromDate }}</p>
-    <label for="returnDate">Bis zum:</label>
+    <label for="dueDate">Bis zum:</label>
     <input
-      id="inputReturnDate"
+      id="inputdueDate"
       type="date"
-      name="returnDate"
+      name="dueDate"
       :min="minDate"
       :max="maxDate"
-      v-model="returnDate"
-      @change="
-        addReturnDate({ returnDate: this.returnDate, itemId: this.itemId })
-      "
+      v-model="dueDate"
+      @change="adddueDate({ dueDate: this.dueDate, itemId: this.itemId })"
     />
   </form>
 </template>
@@ -27,11 +25,11 @@ export default {
   },
   data() {
     return {
-      returnDate: "",
+      dueDate: "",
     };
   },
   methods: {
-    ...mapActions("cartStore", ["addReturnDate"]),
+    ...mapActions("cartStore", ["adddueDate"]),
   },
   computed: {
     formattedFromDate() {
@@ -65,7 +63,7 @@ export default {
   margin: 2% 0;
 }
 
-#inputReturnDate {
+#inputdueDate {
   width: 33%;
 }
 </style>

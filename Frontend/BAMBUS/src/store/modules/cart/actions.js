@@ -1,16 +1,16 @@
 import item from "../item";
 
 export default {
-  addReturnDate({ commit, state }, payload) {
+  adddueDate({ commit, state }, payload) {
     const index = state.cartRentalItems.findIndex(
       (item) => item.itemId === payload.itemId
     );
     if (index !== -1) {
-      commit("addReturnDate", { payload, index });
+      commit("adddueDate", { payload, index });
     }
   },
   rentItem({ commit, dispatch }, payload) {
-    if (!payload.returnDate) {
+    if (!payload.dueDate) {
       alert("Please select a return date");
     } else {
       commit("removeRentalItemFromCart", payload.itemId);

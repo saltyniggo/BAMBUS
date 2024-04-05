@@ -28,10 +28,7 @@ export default {
     BaseNotification,
   },
   methods: {
-    ...mapActions("notificationStore", [
-      "checkReturnDates",
-      "checkReservedItems",
-    ]),
+    ...mapActions("notificationStore", ["checkdueDates", "checkReservedItems"]),
     ...mapActions("userStore", ["deleteNotificationsWithType"]),
   },
   computed: {
@@ -41,7 +38,7 @@ export default {
     this.deleteNotificationsWithType(1);
     this.deleteNotificationsWithType(2);
     this.checkReservedItems();
-    this.checkReturnDates();
+    this.checkdueDates();
   },
 };
 </script>

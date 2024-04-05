@@ -1,22 +1,20 @@
 <template>
   <div>
     <h2>{{ item.title }}</h2>
-    <p><strong>Ausgeliehen bis zum: </strong>{{ item.returnDate }}</p>
+    <p><strong>Ausgeliehen bis zum: </strong>{{ item.dueDate }}</p>
     <section>
       <p>
         <strong>Verlängern zum: </strong>
       </p>
       <input
-        id="inputNewReturnDate"
+        id="inputNewdueDate"
         type="date"
-        name="newReturnDate"
-        :min="item.returnDate"
+        name="newdueDate"
+        :min="item.dueDate"
         :max="maxDate"
-        v-model="newReturnDate"
+        v-model="newdueDate"
       />
-      <button
-        @click="requestExtension({ item: item, newReturnDate: newReturnDate })"
-      >
+      <button @click="requestExtension({ item: item, newdueDate: newdueDate })">
         click me
       </button>
     </section>
@@ -32,7 +30,7 @@ export default {
   props: ["item"],
   data() {
     return {
-      newReturnDate: "",
+      newdueDate: "",
     };
   },
   methods: {
@@ -46,7 +44,7 @@ export default {
       user: "getUser",
     }),
     maxDate() {
-      let date = new Date(this.item.returnDate);
+      let date = new Date(this.item.dueDate);
       date.setDate(date.getDate() + 31);
       return date.toISOString().split("T")[0];
     },
