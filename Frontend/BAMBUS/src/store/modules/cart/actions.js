@@ -1,5 +1,3 @@
-import item from "../item";
-
 export default {
   adddueDate({ commit, state }, payload) {
     const index = state.cartRentalItems.findIndex(
