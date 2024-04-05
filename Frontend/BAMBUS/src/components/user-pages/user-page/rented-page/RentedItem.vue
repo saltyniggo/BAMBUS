@@ -3,7 +3,7 @@
     <div class="cardContent">
       <div class="informations">
         <h2>{{ item.title }}</h2>
-        <p><strong>Ausgeliehen bis zum: </strong>{{ item.returnDate }}</p>
+        <p><strong>Ausgeliehen bis zum: </strong>{{ item.dueDate }}</p>
       </div>
       <div class="return">
         <base-rectangle-button @click="returnItem">
@@ -14,9 +14,9 @@
         <p>
           <strong>Verlängern zum: </strong>
         </p>
-        <input id="inputNewReturnDate" type="date" name="newReturnDate" :min="item.returnDate" :max="maxDate"
-          v-model="newReturnDate" />
-        <base-rectangle-button @click="requestExtension({ item: item, newReturnDate: newReturnDate })">
+        <input id="inputNewdueDate" type="date" name="newdueDate" :min="item.dueDate" :max="maxDate"
+          v-model="newdueDate" />
+        <base-rectangle-button @click="requestExtension({ item: item, newdueDate: newdueDate })">
           Verlängern
         </base-rectangle-button>
       </div>
@@ -41,7 +41,7 @@ export default {
   props: ["item"],
   data() {
     return {
-      newReturnDate: "",
+      newdueDate: "",
     };
   },
   methods: {
@@ -59,7 +59,7 @@ export default {
       user: "getUser",
     }),
     maxDate() {
-      let date = new Date(this.item.returnDate);
+      let date = new Date(this.item.dueDate);
       date.setDate(date.getDate() + 31);
       return date.toISOString().split("T")[0];
     },
@@ -94,7 +94,7 @@ export default {
   grid-area: extend;
 }
 
-#inputNewReturnDate {
+#inputNewdueDate {
   margin: 0.5rem;
 }
 </style>

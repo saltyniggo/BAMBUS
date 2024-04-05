@@ -1,5 +1,5 @@
 export default {
-  checkReturnDates({ dispatch, rootState }) {
+  checkdueDates({ dispatch, rootState }) {
     const today = new Date();
     const user = rootState.userStore.user;
     const loans = rootState.itemStore.items.filter(
@@ -7,7 +7,7 @@ export default {
     );
     loans.forEach((loan) => {
       const daysUntilReturn = Math.floor(
-        (today - new Date(loan.returnDate)) / (1000 * 60 * 60 * 24)
+        (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
       const notification = {
         notificationId: null,
@@ -34,14 +34,14 @@ export default {
     });
   },
 
-  checkAllReturnDates({ dispatch, rootState }) {
+  checkAlldueDates({ dispatch, rootState }) {
     const today = new Date();
     const loans = rootState.itemStore.items.filter(
       (item) => item.rentedBy !== null
     );
     loans.forEach((loan) => {
       const daysOverdue = Math.floor(
-        (today - new Date(loan.returnDate)) / (1000 * 60 * 60 * 24)
+        (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
       if (daysOverdue > 0) {
         const notification = {
@@ -91,14 +91,14 @@ export default {
       notificationId: null,
       type: 5,
       title: null,
-      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.item.title} bis zum ${payload.newReturnDate} angefragt`,
+      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.item.title} bis zum ${payload.newdueDate} angefragt`,
       senderId: user.userId,
       receiverId: 2,
       date: new Date().toLocaleDateString("de-DE"),
       payload: {
         item: payload.item,
         userId: user.userId,
-        newReturnDate: payload.newReturnDate,
+        newdueDate: payload.newdueDate,
       },
     };
     dispatch("userStore/addNotification", notification, { root: true });

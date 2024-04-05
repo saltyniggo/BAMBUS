@@ -24,7 +24,7 @@ export default {
     );
     if (index !== -1) {
       commit("userRentsItem", {
-        returnDate: payload.returnDate,
+        dueDate: payload.dueDate,
         userId: userId,
         index: index,
       });
@@ -50,20 +50,20 @@ export default {
     commit("saveEditItem", { payload, index });
   },
   requestExtension({ commit, rootState }, payload) {
-    if (!payload.newReturnDate) {
+    if (!payload.newdueDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
       return;
     }
-    if (payload.newReturnDate <= payload.item.returnDate) {
+    if (payload.newdueDate <= payload.item.dueDate) {
       alert(
         "Das neue Rückgabedatum muss nach dem aktuellen Rückgabedatum liegen"
       );
       return;
     }
-    const maxFutureDate = new Date(payload.item.returnDate);
+    const maxFutureDate = new Date(payload.item.dueDate);
     maxFutureDate.setDate(maxFutureDate.getDate() + 31);
     const formattedDate = maxFutureDate.toISOString().split("T")[0];
-    if (payload.newReturnDate > formattedDate) {
+    if (payload.newdueDate > formattedDate) {
       alert(
         "Das neue Rückgabedatum darf nicht mehr als 31 Tage in der Zukunft liegen"
       );
@@ -72,12 +72,12 @@ export default {
     }
     const userId = rootState.userStore.user.userId;
     alert(
-      `Benutzer ${userId} beantragt eine Verlängerung für Artikel ${payload.item.itemId} bis zum ${payload.newReturnDate}`
+      `Benutzer ${userId} beantragt eine Verlängerung für Artikel ${payload.item.itemId} bis zum ${payload.newdueDate}`
     );
     const index = rootState.itemStore.items.findIndex(
       (item) => item.itemId === payload.item.itemId
     );
-    commit("requestExtension", { index, newReturnDate: payload.newReturnDate });
+    commit("requestExtension", { index, newdueDate: payload.newdueDate });
   },
 
   changeItemAvailability({ commit }, id) {
