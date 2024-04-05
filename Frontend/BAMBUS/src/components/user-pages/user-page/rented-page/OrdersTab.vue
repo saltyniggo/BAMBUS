@@ -2,24 +2,22 @@
   <div class="content">
     <div class="rented">
       <h1>Derzeit ausgeliehen</h1>
-    <rented-item
-      v-for="item in rentedItems(user.userId)"
-      :key="item.itemId"
-      :item="item"
-      @openReturnModal="openReturnModal(item.itemId)"
-    />
+      <rented-item
+        v-for="itemObject in rentedItemObjects(user.userId)"
+        :key="itemObject.item.itemId"
+        :itemObject="itemObject"
+        @openReturnModal="openReturnModal(itemObject.item.itemId)"
+      />
     </div>
-   
+
     <div class="reserved">
       <h1>Reserviert für dich</h1>
       <reserved-item
-      v-for="item in reservedItems(user.userId)"
-      :key="item.itemId"
-      :item="item"
-    />
-
+        v-for="item in reservedItems(user.userId)"
+        :key="item.itemId"
+        :item="item"
+      />
     </div>
-   
   </div>
 </template>
 
@@ -37,7 +35,7 @@ export default {
   },
   computed: {
     ...mapGetters("itemStore", {
-      rentedItems: "getItemsRentedByUser",
+      rentedItemObjects: "getItemsRentedByUser",
       reservedItems: "getItemsReservedByUser",
     }),
     ...mapGetters("userStore", {
@@ -74,5 +72,4 @@ export default {
 .reserved {
   grid-area: reserved;
 }
-
 </style>

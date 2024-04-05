@@ -11,6 +11,7 @@ import RatingStore from "./modules/rating/index.js";
 import CartStore from "./modules/cart/index.js";
 import EditStore from "./modules/edit/index.js";
 import NotificationStore from "./modules/notification/index.js";
+import LoanStore from "./modules/loan/index.js";
 
 const store = createStore({
   modules: {
@@ -21,6 +22,7 @@ const store = createStore({
     cartStore: CartStore,
     editStore: EditStore,
     notificationStore: NotificationStore,
+    loanStore: LoanStore,
   },
   state: {},
   mutations: Mutations,
