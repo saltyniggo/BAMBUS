@@ -5,7 +5,7 @@
       <item-information
         class="reservation-item-content-row"
         :id="reservationItem.id"
-        :condition="reservationItem.condition"
+        :isDamaged="reservationItem.isDamaged"
       />
       <p class="reservation-item-content-row">Hier Liste von ausleiern</p>
       <section class="reservation-item-content-row">

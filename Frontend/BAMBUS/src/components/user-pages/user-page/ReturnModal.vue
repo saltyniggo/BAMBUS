@@ -46,7 +46,7 @@
                 </div>
             
             </div>
-            <div class = condition>
+            <div class = isDamaged>
             <h3>Ist der Gegenstand beschädigt worden?</h3>
             <div class="radio-group"><input type="radio" id="yesBroken" name="condition" value="yes">
             <label for="yes">Ja</label>
@@ -88,7 +88,7 @@ export default {
             rating: 0,
             comment: "",
             recommendation: null,
-            condition: null,
+            isDamaged: null,
             stars: [false, false, false, false, false],
 
         };
@@ -108,19 +108,21 @@ export default {
             }
         },
 
-        checkCondition() {
+        checkIsDamaged() {
+            console.log("Check Is Damaged");
             if (yesBroken.checked) {
-                this.condition = true;
+                this.isDamaged = true;
             } else {
-                this.condition = false;
+                this.isDamaged = false;
             }
         },
 
         processReturn() {
+            console.log("Process Return");
             this.checkRecommendation();
-            this.checkCondition();
+            this.checkIsDamaged();
             
-            if (this.rating != 0 && this.comment.trim() != "" && this.recommendation != null && this.condition != null) {
+            if (this.rating != 0 && this.comment.trim() != "" && this.recommendation != null && this.isDamaged != null) {
                 console.log("Rating: " + this.rating);
                 let rating = {
                     ratingId: new Date().toISOString(),
@@ -134,7 +136,7 @@ export default {
                 this.$store.dispatch("ratingStore/createRating", rating);
             }
 
-            this.$store.dispatch("itemStore/changeItemAvailability", this.id);
+            this.$store.dispatch("itemStore/changeItemAvailability",( {id: this.id, isDamaged: this.isDamaged} ));
             this.$store.dispatch("modalStore/closeAllModals");
         
 
@@ -172,7 +174,7 @@ export default {
     border-radius: 1rem;
 }
 
-.rating, .recommendation, .condition {
+.rating, .recommendation, .isDamaged {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -190,7 +192,7 @@ export default {
     margin-top: 1rem;
 }
 
-.condition {
+.isDamaged {
     margin-top: 1rem;
 }
 

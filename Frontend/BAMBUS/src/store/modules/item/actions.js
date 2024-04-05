@@ -80,7 +80,7 @@ export default {
     commit("requestExtension", { index, newdueDate: payload.newdueDate });
   },
 
-  changeItemAvailability({ commit }, id) {
-    commit("changeItemAvailability", { id });
+  changeItemAvailability({ commit }, payload) {
+    commit("changeItemAvailability", payload);
   },
 };

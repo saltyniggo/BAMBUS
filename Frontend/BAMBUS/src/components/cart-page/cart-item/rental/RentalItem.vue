@@ -5,7 +5,7 @@
       <item-information
         class="rental-item-content-row"
         :itemId="rentalItem.itemId"
-        :condition="rentalItem.condition"
+        :isDamaged="rentalItem.isDamaged"
       />
       <item-form class="rental-item-content-row" :itemId="rentalItem.itemId" />
       <section class="rental-item-content-row">

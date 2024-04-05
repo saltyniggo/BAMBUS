@@ -157,7 +157,7 @@
         <mxCell id="po1jDYeh4Vm40g4C0sUP-4" value="- reservations: List&lt;userId&gt;" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="Z_tapN1HvOzov5fVeBzJ-123">
           <mxGeometry y="52" width="160" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-128" value="- condition: enum" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-123" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-128" value="- isDamaged: enum" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-123" vertex="1">
           <mxGeometry y="78" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="Z_tapN1HvOzov5fVeBzJ-129" value="- available: bool" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-123" vertex="1">
@@ -180,22 +180,22 @@
         <mxCell id="Z_tapN1HvOzov5fVeBzJ-142" value="" style="line;html=1;strokeWidth=1;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="52" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-109" value="+ addMagazine (ISSN, title, author, category, condition)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-109" value="+ addMagazine (ISSN, title, author, category, isDamaged)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="60" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-110" value="+ editMagazine (itemId, ISSN, title, author, category, condition)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-110" value="+ editMagazine (itemId, ISSN, title, author, category, isDamaged)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="104" width="160" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-99" value="+ editBook (itemId, ISBN, title, author, category, condition)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-99" value="+ editBook (itemId, ISBN, title, author, category, isDamaged)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="160" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-98" value="+ addBook (ISBN, title, author, category, condition)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-98" value="+ addBook (ISBN, title, author, category, isDamaged)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="220" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-38" value="+ editGame (itemId, name, condition)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-38" value="+ editGame (itemId, name, isDamaged)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="264" width="160" height="44" as="geometry" />
         </mxCell>
-        <mxCell id="Z_tapN1HvOzov5fVeBzJ-37" value="+ addGame (name, condition)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
+        <mxCell id="Z_tapN1HvOzov5fVeBzJ-37" value="+ addGame (name, isDamaged)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
           <mxGeometry y="308" width="160" height="44" as="geometry" />
         </mxCell>
         <mxCell id="Z_tapN1HvOzov5fVeBzJ-133" value="+ deleteItem (itemId)" style="text;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0;whiteSpace=wrap;" parent="Z_tapN1HvOzov5fVeBzJ-134" vertex="1">
