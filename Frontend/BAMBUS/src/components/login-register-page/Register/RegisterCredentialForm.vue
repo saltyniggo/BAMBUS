@@ -29,21 +29,22 @@
       <input
         class="register-credential-form-input"
         id="inputPassword"
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
         placeholder="Passwort"
         v-model="password"
       />
       <input
         class="register-credential-form-input"
         id="inputPasswordRepeat"
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
         placeholder="Passwort wiederholen"
         v-model="repeatPassword"
       />
     </section>
     <button
       class="button-toggle-password"
-      @click="togglePassword(['inputPassword', 'inputPasswordRepeat'])"
+      type="button"
+      @click="togglePassword()"
     >
       <i v-if="showPassword" class="fas fa-eye"></i>
       <i v-else class="fa-regular fa-eye"></i>
@@ -72,7 +73,14 @@ export default {
       repeatPassword: "",
       firstName: "",
       lastName: "",
+      showPassword: false,
     };
+  },
+  methods: {
+    ...mapActions("userStore", ["registerUser"]),
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
   },
   computed: {
     registerForm: function () {
@@ -84,19 +92,6 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
       };
-    },
-  },
-  methods: {
-    ...mapActions("userStore", ["registerUser"]),
-    togglePassword(payload) {
-      payload.forEach((elementId) => {
-        var btn = document.getElementById(elementId);
-        if (btn.type === "password") {
-          btn.type = "text";
-        } else {
-          btn.type = "password";
-        }
-      });
     },
   },
 };

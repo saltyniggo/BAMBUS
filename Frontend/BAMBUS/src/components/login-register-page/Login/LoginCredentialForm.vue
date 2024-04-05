@@ -48,9 +48,6 @@ export default {
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
-    loginUser() {
-      this.$store.dispatch("userStore/loginUser", this.loginForm);
-    },
   },
   computed: {
     loginForm() {
