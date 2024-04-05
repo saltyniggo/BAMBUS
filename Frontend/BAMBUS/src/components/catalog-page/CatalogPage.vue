@@ -21,7 +21,7 @@ import { mapGetters } from "vuex";
 import CatalogFilter from "./catalog-filter/CatalogFilter.vue";
 import ItemContainer from "./item-container/ItemContainer.vue";
 import EditItemModal from "./edit-item-modal/EditItemModal.vue";
-import RatingsModal from "./RatingsModal.vue";
+import RatingsModal from "./rating-modal/RatingsModal.vue";
 
 export default {
   name: "CatalogPage",

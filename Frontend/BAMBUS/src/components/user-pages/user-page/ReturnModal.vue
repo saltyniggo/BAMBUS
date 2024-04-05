@@ -35,7 +35,7 @@
             </div>
             <p v-if="rating!= 0"> {{rating}} Sterne</p>
             <p> Möchtest du noch etwas hinzufügen?</p>
-            <textarea id="comment" name="comment" rows="5" cols="60" v-model="comment" ></textarea>
+            <textarea id="comment" name="comment" rows="5" cols="60" maxlength="200" v-model="comment" ></textarea>
             </div>
             <div class = recommendation>
                 <h3>Würdest du den Gegenstand weiter empfehlen?</h3>
