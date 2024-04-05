@@ -17,10 +17,8 @@ const router = createRouter({
     if (to.hash) {
       let el = document.querySelector(to.hash);
       if (el) {
-        let offsetTop = el.offsetTop;
-        let scrollY = offsetTop - (window.innerHeight - el.offsetHeight);
         return {
-          top: scrollY,
+          top: el.offsetTop,
           behavior: "smooth",
         };
       }
