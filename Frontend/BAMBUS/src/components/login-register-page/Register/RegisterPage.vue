@@ -2,8 +2,7 @@
   <div class="register-page">
     <base-content-container>
       <h1 slot="header">Registrieren</h1>
-      <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich zu registrieren.</h2>
-      <register-credential-form />
+      <register-credential-form id="register-credential-form" />
       <p>Bereits registriert?</p>
       <base-text-button @click="$router.push('/login')">
         Login
@@ -33,5 +32,9 @@ h2,
 p,
 input::placeholder {
   color: #222126;
+}
+
+#register-credential-form {
+  margin: 2.5% 0;
 }
 </style>

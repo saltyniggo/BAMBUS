@@ -3,6 +3,7 @@
     <label for="fromDate">Ausleihen vom:</label>
     <p name="fromDate">{{ formattedFromDate }}</p>
     <label for="dueDate">Bis zum:</label>
+
     <input
       id="inputdueDate"
       type="date"
@@ -10,9 +11,7 @@
       :min="minDate"
       :max="maxDate"
       v-model="dueDate"
-      @change="
-        adddueDate({ dueDate: this.dueDate, itemId: this.itemId })
-      "
+      @change="adddueDate({ dueDate: this.dueDate, itemId: this.itemId })"
     />
   </form>
 </template>

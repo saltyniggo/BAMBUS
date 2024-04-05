@@ -4,7 +4,7 @@
    
     <cart-link
       class="SideNav-Content-Section"
-      v-if="isLoggedIn"
+      v-if="isLoggedIn && user.role === 0"
       @click="redirectTo('/cart')"
     ></cart-link>
     <br>
@@ -35,6 +35,7 @@
         @click="redirectTo('/admin/overview')"
       />
     </section>
+    <user-logout class="SideNav-Content-Section" v-if="isLoggedIn" />
   </div>
 </template>
 
@@ -47,6 +48,7 @@ import UserEmployee from "./UserEmployee.vue";
 import UserManager from "./UserManager.vue";
 import UserAdmin from "./UserAdmin.vue";
 import ReturnLink from "./ReturnLink.vue";
+import UserLogout from "./UserLogout.vue";
 
 export default {
   name: "SideNavUserArea",
@@ -57,6 +59,7 @@ export default {
     UserManager,
     UserAdmin,
     ReturnLink,
+    UserLogout,
   },
   methods: {
     redirectTo(path) {
@@ -66,7 +69,6 @@ export default {
   computed: {
     ...mapGetters("userStore", {
       isLoggedIn: "isUserAuthenticated",
-      currentUser: "getUser",
       user: "getUser",
     }),
   },
@@ -79,7 +81,7 @@ export default {
   flex-direction: row;
   align-items: center;
   height: 10%;
-  margin-left: 1%;
+  margin: 5% 1%;
   justify-content: start;
 }
 

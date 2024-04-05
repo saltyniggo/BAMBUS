@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import store from "../store/index.js";
+
 import CatalogView from "../views/CatalogView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
@@ -7,6 +9,7 @@ import CartView from "../views/CartView.vue";
 import UserView from "../views/UserView.vue";
 import AdminView from "../views/AdminView.vue";
 import ManagerView from "../views/ManagerView.vue";
+import PasswordResetView from "../views/PasswordResetView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,16 +17,15 @@ const router = createRouter({
     if (to.hash) {
       let el = document.querySelector(to.hash);
       if (el) {
-        let offsetTop = el.offsetTop; // Position des Elements relativ zum sichtbaren Bereich
-        let scrollY = offsetTop - (window.innerHeight - el.offsetHeight); // Berücksichtigen der Scrollleiste
         return {
-          top: scrollY,
-          behavior: "smooth", 
+          top: el.offsetTop,
+          behavior: "smooth",
         };
       }
     }
     return { x: 0, y: 0 };
   },
+
   routes: [
     {
       path: "/",
@@ -42,11 +44,28 @@ const router = createRouter({
       path: "/cart",
       name: "cart",
       component: CartView,
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 0) {
+          next();
+        } else {
+          next(false);
+        }
+      },
     },
+
     {
       path: "/my-view",
       name: "user-view",
       redirect: { name: "user-view-overview" },
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 0) {
+          next();
+        } else {
+          next(false);
+        }
+      },
       children: [
         {
           path: ":overview",
@@ -72,6 +91,14 @@ const router = createRouter({
       path: "/admin",
       name: "admin-view",
       redirect: { name: "admin-view-overview" },
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 2) {
+          next();
+        } else {
+          next(false);
+        }
+      },
       children: [
         {
           path: ":overview",
@@ -97,6 +124,14 @@ const router = createRouter({
       path: "/managing",
       name: "manager-view",
       redirect: { name: "manager-view-overview" },
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 1) {
+          next();
+        } else {
+          next(false);
+        }
+      },
       children: [
         {
           path: ":overview",
@@ -127,6 +162,11 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: RegisterView,
+    },
+    {
+      path: "/reset-password",
+      name: "reset-password",
+      component: PasswordResetView,
     },
     {
       path: "/:pathMatch(.*)*",

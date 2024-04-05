@@ -160,6 +160,10 @@ export default {
         break;
       case 7:
         payload.title = "User hat sich registriert";
+        break;
+      case 8:
+        payload.title = "Anfrage zur Zurücksetzung des Passworts";
+        break;
     }
     if (payload.senderId === 0) {
       payload.senderId = "System";

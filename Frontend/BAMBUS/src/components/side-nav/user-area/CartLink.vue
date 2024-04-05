@@ -10,9 +10,3 @@ export default {
   name: "CartLink",
 };
 </script>
-
-<style scoped>
-.cart-link-base {
-  margin-bottom: 2.5vh;
-}
-</style>

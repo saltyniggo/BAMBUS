@@ -1,10 +1,9 @@
 <template>
   <div class="SideNav">
     <SideNavBranding />
-    <div class="SideNav-Base-Content">
-      <LinkTree />
-      <UserArea />
-    </div>
+    <LinkTree />
+    <button @click="navigateToOverview()">click me for test reasons</button>
+    <UserArea id="user-area" />
   </div>
 </template>
 
@@ -20,17 +19,9 @@ export default {
     LinkTree,
     UserArea,
   },
-  data() {
-    return {
-      isLoggedIn: false,
-    };
-  },
   methods: {
-    login() {
-      this.isLoggedIn = true;
-    },
-    logout() {
-      this.isLoggedIn = false;
+    navigateToOverview() {
+      this.$router.push("/my-view/overview");
     },
   },
 };
@@ -48,5 +39,11 @@ export default {
   justify-content: space-between;
   margin-top: 5%;
   height: 90%;
+}
+
+#user-area {
+  position: fixed;
+  bottom: 0;
+  padding: 0.25%;
 }
 </style>

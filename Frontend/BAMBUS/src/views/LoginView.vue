@@ -11,17 +11,6 @@ export default {
   name: "LoginView",
   components: {
     LoginPage,
-    RegisterPage,
-  },
-  data() {
-    return {
-      onLogin: true,
-    };
-  },
-  methods: {
-    changePage() {
-      this.onLogin = !this.onLogin;
-    },
   },
 };
 </script>

@@ -35,6 +35,10 @@ export default {
   requestExtension(state, payload) {
     state.items[payload.index].dueDate = payload.newdueDate;
   },
+  logout(state) {
+    state.editItemId = null;
+    state.items = [];
+  },
 
   changeItemAvailability(state, {id}) {
     state.items.forEach(item => {
