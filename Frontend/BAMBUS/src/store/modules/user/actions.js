@@ -164,6 +164,9 @@ export default {
       case 8:
         payload.title = "Anfrage zur Zurücksetzung des Passworts";
         break;
+      case 9: 
+        payload.title = "Schaden wurde gemeldet";
+        break;
     }
     if (payload.senderId === 0) {
       payload.senderId = "System";

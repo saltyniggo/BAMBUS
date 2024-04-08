@@ -35,11 +35,14 @@
                 </div>
                 <div class=isDamaged>
                     <h3>Ist der Gegenstand beschädigt worden?</h3>
-                    <div class="radio-group"><input type="radio" id="yesBroken" name="condition" value="yes">
+
+                    <div class="radio-group"><input type="radio" id="yesBroken" name="condition" value="yes" @click="checkIsDamaged">
                         <label for="yes">Ja</label>
-                        <input type="radio" id="noNotBroken" name="condition" value="no">
+                        <input type="radio" id="noNotBroken" name="condition" value="no" @click="checkIsDamaged">
                         <label for="no">Nein</label>
                     </div>
+                    
+                    <input type = "text"  v-if="isDamaged==true" v-model="damageDescription" placeholder="Bitte benenne den Schaden...">
 
                 </div>
             </div>
@@ -73,12 +76,13 @@ export default {
             isDamaged: null,
             stars: [false, false, false, false, false],
             showAlert: false,
+            damageDescription: "",
+            itemTitle: "",
         };
     },
     computed: {
         ...mapGetters("userStore", { user: "getUser" }),
         ...mapGetters("itemStore", { id: "getReturnItemId" }),
-
     },
     methods: {
 
@@ -97,6 +101,7 @@ export default {
                 this.isDamaged = true;
             } else {
                 this.isDamaged = false;
+                this.damageDescription = "";
             }
         },
 
@@ -104,10 +109,7 @@ export default {
             this.checkRecommendation();
             this.checkIsDamaged();
 
-
-            if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null || this.isDamaged != false) {
-
-
+            if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) {
                 if (this.rating == 0) {
                     this.showAlert = true;
                     return;
@@ -121,22 +123,21 @@ export default {
                     comment: this.comment,
                     isRecommended: this.recommendation,
                 }
-
-                console.log(newRating);
-
                 this.$store.dispatch("ratingStore/addRating", newRating);
+            }
+
+            if (this.isDamaged == true) {
+                this.itemTitle = this.$store.getters["itemStore/getItemById"](this.id).title;
+                this.$store.dispatch("notificationStore/userReportsDamage", ({ id: this.id, userId: this.user.userId, title: this.itemTitle  , damageDescription: this.damageDescription }));
             }
 
             this.$store.dispatch("itemStore/changeItemAvailability", ({ id: this.id, isDamaged: this.isDamaged }));
             this.$store.dispatch("modalStore/closeAllModals");
-
-
         },
 
         changeStar(index) {
             this.stars = this.stars.map((star, i) => i < index);
             this.rating = this.stars.filter(star => star).length;
-
         },
     },
 }
@@ -182,5 +183,10 @@ export default {
 
 h1 {
     color: #f2eae4;
+}
+
+input[type="text"] {
+    width: 100%;
+    margin-top: 1rem;
 }
 </style>
