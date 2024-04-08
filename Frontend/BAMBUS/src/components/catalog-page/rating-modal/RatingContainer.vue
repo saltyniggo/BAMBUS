@@ -2,7 +2,6 @@
     <base-content-container>
         <template v-slot:header>
             <i v-for="index in 5" :key="index" :class="getStarClass(index, rating.rating)" style="color: #222126"></i>
-
         </template>
         <template v-slot:body>
             <div class="body">
@@ -10,7 +9,8 @@
                     <p>{{ rating.comment }}</p>
                     <br>
                     <p v-if="rating.isRecommended">Zu empfehelen</p>
-                    <p v-else>Nicht zu empfehlen</p>
+                    <p v-else-if="rating.isRecommended==false">Nicht zu empfehlen</p>
+                    <p v-else>Keine Empfehlung abgegeben</p>
                 </div>
 
                 <div class="buttons" v-if="role == 1 || userId == rating.userId">
@@ -65,7 +65,7 @@ export default {
             this.$emit("toggleEditStatus", id);
         },
         deleteRating(id) {
-            this.$emit("deleteRating", id);
+            this.$store.dispatch("ratingStore/deleteRatingById", id);
         },
     },
 }

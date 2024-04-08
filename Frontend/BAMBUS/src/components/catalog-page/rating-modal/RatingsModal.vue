@@ -11,7 +11,6 @@
         </div>
        
        <div class="edit" v-else-if="!showRating && editId == rating.ratingId">
-        <p>not test</p>
           <edit-rating-container :rating="rating" @toggleEditStatus="toggleEditStatus" @saveEdit="saveEdit"></edit-rating-container>
       </div>
       </div>
@@ -71,11 +70,10 @@ export default {
 
     },
 
-
-
     saveEdit() {
       this.editId = null
       this.showRating = !this.showRating
+      this.$forceUpdate()
     },
 
     closeModal() {
