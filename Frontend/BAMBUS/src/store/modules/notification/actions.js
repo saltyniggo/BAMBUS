@@ -1,5 +1,5 @@
 export default {
-  checkdueDates({ dispatch, rootState }) {
+  checkDueDates({ dispatch, rootState }) {
     const today = new Date();
     const user = rootState.userStore.user;
     const loans = rootState.itemStore.items.filter(
@@ -34,7 +34,7 @@ export default {
     });
   },
 
-  checkAlldueDates({ dispatch, rootState }) {
+  checkAllDueDates({ dispatch, rootState }) {
     const today = new Date();
     const loans = rootState.itemStore.items.filter(
       (item) => item.rentedBy !== null
@@ -91,14 +91,14 @@ export default {
       notificationId: null,
       type: 5,
       title: null,
-      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.item.title} bis zum ${payload.newdueDate} angefragt`,
+      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.item.title} bis zum ${payload.newDueDate} angefragt`,
       senderId: user.userId,
       receiverId: 2,
       date: new Date().toLocaleDateString("de-DE"),
       payload: {
         item: payload.item,
         userId: user.userId,
-        newdueDate: payload.newdueDate,
+        newDueDate: payload.newDueDate,
       },
     };
     dispatch("userStore/addNotification", notification, { root: true });

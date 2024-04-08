@@ -1,5 +1,5 @@
 export default {
-  adddueDate(state, { payload, index }) {
+  addDueDate(state, { payload, index }) {
     state.cartRentalItems[index].dueDate = payload.dueDate;
   },
 

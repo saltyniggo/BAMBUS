@@ -1,10 +1,10 @@
 export default {
-  adddueDate({ commit, state }, payload) {
+  addDueDate({ commit, state }, payload) {
     const index = state.cartRentalItems.findIndex(
       (item) => item.itemId === payload.itemId
     );
     if (index !== -1) {
-      commit("adddueDate", { payload, index });
+      commit("addDueDate", { payload, index });
     }
   },
   rentItem({ commit, dispatch }, payload) {

@@ -5,13 +5,13 @@
     <label for="dueDate">Bis zum:</label>
 
     <input
-      id="inputdueDate"
+      id="inputDueDate"
       type="date"
       name="dueDate"
       :min="minDate"
       :max="maxDate"
       v-model="dueDate"
-      @change="adddueDate({ dueDate: this.dueDate, itemId: this.itemId })"
+      @change="addDueDate({ dueDate: this.dueDate, itemId: this.itemId })"
     />
   </form>
 </template>
@@ -30,7 +30,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("cartStore", ["adddueDate"]),
+    ...mapActions("cartStore", ["addDueDate"]),
   },
   computed: {
     formattedFromDate() {
@@ -64,7 +64,7 @@ export default {
   margin: 2% 0;
 }
 
-#inputdueDate {
+#inputDueDate {
   width: 33%;
 }
 </style>

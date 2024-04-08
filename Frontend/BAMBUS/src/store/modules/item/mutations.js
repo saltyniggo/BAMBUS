@@ -33,7 +33,7 @@ export default {
     // state.items[index] = payload;
   },
   requestExtension(state, payload) {
-    state.items[payload.index].dueDate = payload.newdueDate;
+    state.items[payload.index].dueDate = payload.newDueDate;
   },
   logout(state) {
     state.editItemId = null;

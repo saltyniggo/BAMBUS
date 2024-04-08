@@ -17,16 +17,16 @@
           <strong>Verlängern zum: </strong>
         </p>
         <input
-          id="inputNewdueDate"
+          id="inputNewDueDate"
           type="date"
-          name="newdueDate"
+          name="newDueDate"
           :min="itemObject.loan.dueDate"
           :max="maxDate"
-          v-model="newdueDate"
+          v-model="newDueDate"
         />
         <base-rectangle-button
           @click="
-            requestExtension({ itemObject: itemObject, newdueDate: newdueDate })
+            requestExtension({ itemObject: itemObject, newDueDate: newDueDate })
           "
         >
           Verlängern
@@ -54,7 +54,7 @@ export default {
   props: ["itemObject"],
   data() {
     return {
-      newdueDate: "",
+      newDueDate: "",
     };
   },
   methods: {
@@ -109,7 +109,7 @@ export default {
   grid-area: extend;
 }
 
-#inputNewdueDate {
+#inputNewDueDate {
   margin: 0.5rem;
 }
 </style>
