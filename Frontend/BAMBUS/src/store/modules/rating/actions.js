@@ -11,4 +11,7 @@ export default {
     addRating({ commit }, rating) {
         commit('addRating', rating);
     },
+    updateRating({ commit }, rating) {
+        commit('updateRating', rating);
+    },
 };

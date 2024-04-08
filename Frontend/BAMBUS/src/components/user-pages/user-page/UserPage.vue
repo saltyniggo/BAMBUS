@@ -52,6 +52,8 @@ export default {
     showsReturnModal(newVal) {
       if (!newVal) {
         this.activeRoute = "orders";
+        this.$forceUpdate();
+ 
       }
     },
   },

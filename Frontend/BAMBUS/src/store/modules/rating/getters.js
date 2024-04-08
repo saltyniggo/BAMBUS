@@ -12,7 +12,6 @@ export default {
                 counter++;
             }
         }
-        console.log(temp); //temp is not empty
         return temp;
     },
 };

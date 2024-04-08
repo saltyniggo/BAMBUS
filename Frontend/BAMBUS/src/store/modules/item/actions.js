@@ -5,6 +5,10 @@ export default {
   addItem({ commit }, item) {
     commit("addItemToCart", item);
   },
+
+createItem({ commit }, item) {
+    commit("addItem", item);
+  },
   editItem({ commit }, item) {
     commit("editItem", item);
   },
@@ -80,7 +84,7 @@ export default {
     commit("requestExtension", { index, newdueDate: payload.newdueDate });
   },
 
-  changeItemAvailability({ commit }, id) {
-    commit("changeItemAvailability", { id });
+  changeItemAvailability({ commit }, payload) {
+    commit("changeItemAvailability", payload);
   },
 };

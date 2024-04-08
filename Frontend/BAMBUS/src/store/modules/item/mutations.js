@@ -40,13 +40,16 @@ export default {
     state.items = [];
   },
 
-  changeItemAvailability(state, {id}) {
+  changeItemAvailability(state, payload) {
     state.items.forEach(item => {
-      if (item.itemId === id) {
+      if (item.itemId == payload.id) {
         item.available = !item.available;
         if (item.available) {
           item.rentedBy = undefined;
           item.dueDate = undefined;
+
+          if (item.isDamaged == false) { item.isDamaged = payload.isDamaged;}
+         
         }
       } 
     });

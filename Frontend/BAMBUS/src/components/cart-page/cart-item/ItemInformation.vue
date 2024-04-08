@@ -1,7 +1,7 @@
 <template>
   <div class="item-information">
     <p>Item ID: {{ itemId }}</p>
-    <p>Item Zustand: {{ condition }}</p>
+    <p>Item Zustand: {{ isDamaged }}</p>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   name: "ItemInformation",
   props: {
     itemId: Number,
-    condition: Number,
+    isDamaged: Number,
   },
 };
 </script>

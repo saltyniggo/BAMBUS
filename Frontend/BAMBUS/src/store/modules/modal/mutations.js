@@ -20,8 +20,8 @@ export default {
     state.addModalStatus = false;
     state.ratingsItemId = null;
     state.ratingsModalStatus = false;
-        state.returnItemModalStatus = false;
-        state.returnItemId = null;
+    state.returnItemModalStatus = false;
+    state.returnItemId = null;
   },
   setEditItemId(state, id) {
     state.editItemId = id;
