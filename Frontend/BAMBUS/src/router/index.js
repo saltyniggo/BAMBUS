@@ -49,7 +49,7 @@ const router = createRouter({
         if (userRole === 0) {
           next();
         } else {
-          next(false);
+          next("/");
         }
       },
     },
@@ -63,7 +63,7 @@ const router = createRouter({
         if (userRole === 0) {
           next();
         } else {
-          next(false);
+          next("/");
         }
       },
       children: [
@@ -96,7 +96,7 @@ const router = createRouter({
         if (userRole === 2) {
           next();
         } else {
-          next(false);
+          next("/");
         }
       },
       children: [
@@ -129,7 +129,7 @@ const router = createRouter({
         if (userRole === 1) {
           next();
         } else {
-          next(false);
+          next("/");
         }
       },
       children: [

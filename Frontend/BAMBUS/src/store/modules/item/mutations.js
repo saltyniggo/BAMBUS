@@ -1,8 +1,10 @@
 export default {
-  userRentsItem(state, payload) {
-    state.items[payload.index].available = false;
-    state.items[payload.index].rentedBy = payload.userId;
-    state.items[payload.index].dueDate = payload.dueDate;
+  addLoanIdToItem(state, { itemId, loanId }) {
+    state.items.forEach((item) => {
+      if (item.itemId === itemId) {
+        item.currentLoanId = loanId;
+      }
+    });
   },
   userReservesItem(state, { userId, index }) {
     state.items[index].reservations.push(userId);
@@ -40,15 +42,15 @@ export default {
     state.items = [];
   },
 
-  changeItemAvailability(state, {id}) {
-    state.items.forEach(item => {
+  changeItemAvailability(state, { id }) {
+    state.items.forEach((item) => {
       if (item.itemId === id) {
         item.available = !item.available;
         if (item.available) {
           item.rentedBy = undefined;
           item.dueDate = undefined;
         }
-      } 
+      }
     });
-  }
+  },
 };

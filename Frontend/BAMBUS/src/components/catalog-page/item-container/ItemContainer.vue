@@ -43,13 +43,17 @@
         </div>
 
         <div class="item-description">
-          <p v-if="item.available">Verfügbar</p>
+          <p v-if="!item.currentLoanId">Verfügbar</p>
           <p v-else>Nicht verfügbar</p>
           <p>{{ item.category }}</p>
         </div>
         <p v-if="item.ISBN">ISBN {{ item.ISBN }}</p>
         <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
-        <item-buttons :item="item" :role="user.role" @openEditModal="openEditModal"/>
+        <item-buttons
+          :item="item"
+          :role="user.role"
+          @openEditModal="openEditModal"
+        />
       </div>
     </template>
   </base-content-container>

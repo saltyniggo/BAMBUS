@@ -11,14 +11,12 @@
       :min="minDate"
       :max="maxDate"
       v-model="dueDate"
-      @change="addDueDate({ dueDate: this.dueDate, itemId: this.itemId })"
+      @change="$emit('dueDateEntered', dueDate)"
     />
   </form>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "ItemForm",
   props: {
@@ -28,9 +26,6 @@ export default {
     return {
       dueDate: "",
     };
-  },
-  methods: {
-    ...mapActions("cartStore", ["addDueDate"]),
   },
   computed: {
     formattedFromDate() {

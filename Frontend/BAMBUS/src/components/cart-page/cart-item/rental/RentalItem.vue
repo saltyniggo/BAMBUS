@@ -5,13 +5,17 @@
       <item-information
         class="rental-item-content-row"
         :itemId="rentalItem.itemId"
-        :condition="rentalItem.condition"
+        :isDamaged="rentalItem.isDamaged"
       />
-      <item-form class="rental-item-content-row" :itemId="rentalItem.itemId" />
+      <item-form
+        class="rental-item-content-row"
+        :itemId="rentalItem.itemId"
+        @dueDateEntered="updateDueDate($event)"
+      />
       <section class="rental-item-content-row">
         <base-text-button
           class="rental-item-content-row-button"
-          @click="rentItem(rentalItem)"
+          @click="rentItem({ item: rentalItem, dueDate: dueDate })"
           >Item ausleihen</base-text-button
         >
         <base-text-button
@@ -37,6 +41,11 @@ export default {
   props: {
     rentalItem: Object,
   },
+  data() {
+    return {
+      dueDate: null,
+    };
+  },
   components: {
     ItemInformation,
     ItemForm,
@@ -44,6 +53,9 @@ export default {
   },
   methods: {
     ...mapActions("cartStore", ["rentItem", "removeRentalItemFromCart"]),
+    updateDueDate(dueDate) {
+      this.dueDate = dueDate;
+    },
   },
 };
 </script>

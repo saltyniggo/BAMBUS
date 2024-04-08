@@ -17,18 +17,8 @@ export default {
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
-  userRentsItem({ commit, state, rootState }, payload) {
-    const userId = rootState.userStore.user.userId;
-    const index = state.items.findIndex(
-      (item) => item.itemId === payload.itemId
-    );
-    if (index !== -1) {
-      commit("userRentsItem", {
-        dueDate: payload.dueDate,
-        userId: userId,
-        index: index,
-      });
-    }
+  addLoanIdToItem({ commit }, payload) {
+    commit("addLoanIdToItem", payload);
   },
   userReservesItem({ commit, state, rootState }, payload) {
     const index = state.items.findIndex((item) => item.itemId === payload);
