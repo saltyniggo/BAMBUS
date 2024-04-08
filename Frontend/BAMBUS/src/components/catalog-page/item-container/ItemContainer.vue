@@ -11,7 +11,7 @@
               style="color: #222126"
             ></i>
             <br />
-            <a style="font-size: smaller" @click="openRatingsModal(item.id)"
+            <a v-if="number != 0" style="font-size: smaller" @click="openRatingsModal(item.id)"
               >Lese hier Bewertungen</a
             >
           </div>
