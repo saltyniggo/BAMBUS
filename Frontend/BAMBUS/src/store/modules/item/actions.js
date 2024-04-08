@@ -20,6 +20,9 @@ export default {
   addLoanIdToItem({ commit }, payload) {
     commit("addLoanIdToItem", payload);
   },
+  removeLoanIdFromItem({ commit }, payload) {
+    commit("removeLoanIdFromItem", payload);
+  },
   userReservesItem({ commit, state, rootState }, payload) {
     const index = state.items.findIndex((item) => item.itemId === payload);
     if (index !== -1) {

@@ -20,4 +20,12 @@ export default {
       { root: true }
     );
   },
+  returnItem({ commit, dispatch, rootState }, itemId) {
+    const returnDate = new Date().toLocaleDateString("de-DE");
+    const loanId = rootState.itemStore.items.find(
+      (item) => item.itemId === itemId
+    ).currentLoanId;
+    commit("returnItem", { loanId: loanId, returnDate: returnDate });
+    dispatch("itemStore/removeLoanIdFromItem", itemId, { root: true });
+  },
 };
