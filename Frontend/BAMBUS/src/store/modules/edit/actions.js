@@ -5,14 +5,14 @@ export default {
   clearEditItem({ commit }) {
     commit("clearEditItem");
   },
-  updateEditItemAvailability({ commit }, payload) {
-    if (payload) {
-      if (payload === "Ja") payload = true;
-      else if (payload === "Nein") payload = false;
-      else payload = null;
-      commit("updateEditItemAvailability", payload);
-    }
-  },
+  // updateEditItemAvailability({ commit }, payload) {
+  //   if (payload) {
+  //     if (payload === "Ja") payload = true;
+  //     else if (payload === "Nein") payload = false;
+  //     else payload = null;
+  //     commit("updateEditItemAvailability", payload);
+  //   }
+  // },
   updateEditItemCategory({ commit }, payload) {
     commit("updateEditItemCategory", payload);
   },

@@ -41,16 +41,4 @@ export default {
     state.editItemId = null;
     state.items = [];
   },
-
-  changeItemAvailability(state, { id }) {
-    state.items.forEach((item) => {
-      if (item.itemId === id) {
-        item.available = !item.available;
-        if (item.available) {
-          item.rentedBy = undefined;
-          item.dueDate = undefined;
-        }
-      }
-    });
-  },
 };

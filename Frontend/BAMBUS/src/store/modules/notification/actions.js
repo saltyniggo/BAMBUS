@@ -2,8 +2,8 @@ export default {
   checkDueDates({ dispatch, rootState }) {
     const today = new Date();
     const user = rootState.userStore.user;
-    const loans = rootState.itemStore.items.filter(
-      (item) => item.rentedBy === user.userId
+    const loans = rootState.loanStore.loans.filter(
+      (loan) => loan.userId === user.userId
     );
     loans.forEach((loan) => {
       const daysUntilReturn = Math.floor(

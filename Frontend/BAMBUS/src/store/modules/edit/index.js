@@ -9,7 +9,6 @@ export default {
       id: undefined,
       title: undefined,
       author: undefined,
-      availability: undefined,
       category: undefined,
       ISBN: undefined,
       ISSN: undefined,

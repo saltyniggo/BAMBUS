@@ -20,8 +20,8 @@ export default {
     state.addModalStatus = false;
     state.ratingsItemId = null;
     state.ratingsModalStatus = false;
-        state.returnItemModalStatus = false;
-        state.returnItemId = null;
+    state.returnItemModalStatus = false;
+    state.returnItemId = null;
   },
   setEditItemId(state, id) {
     state.editItemId = id;
@@ -29,12 +29,12 @@ export default {
   setRatingsItemId(state, id) {
     state.ratingsItemId = id;
   },
-    setReturnItemId(state, id) {
-        state.returnItemId = id;
-    },
-    toggleReturnModal(state) {
-        state.returnItemModalStatus = !state.returnItemModalStatus;
-    },
+  setReturnItemId(state, id) {
+    state.returnItemId = id;
+  },
+  toggleReturnModal(state) {
+    state.returnItemModalStatus = !state.returnItemModalStatus;
+  },
   logout(state) {
     state.editItemModalStatus = false;
     state.editItemId = null;

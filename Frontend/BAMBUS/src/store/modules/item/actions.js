@@ -32,8 +32,6 @@ export default {
     }
   },
   saveEditItem({ commit, state }, payload) {
-    console.log(payload);
-    console.log("das sollte hier nur einmal ausgeführt werden");
     const index = state.items.findIndex(
       (item) => item.itemId === payload.itemId
     );
@@ -68,9 +66,5 @@ export default {
       (item) => item.itemId === payload.item.itemId
     );
     commit("requestExtension", { index, newDueDate: payload.newDueDate });
-  },
-
-  changeItemAvailability({ commit }, id) {
-    commit("changeItemAvailability", { id });
   },
 };
