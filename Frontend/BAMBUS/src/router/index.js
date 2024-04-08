@@ -10,6 +10,7 @@ import UserView from "../views/UserView.vue";
 import AdminView from "../views/AdminView.vue";
 import ManagerView from "../views/ManagerView.vue";
 import PasswordResetView from "../views/PasswordResetView.vue";
+import NewItemView from "../views/NewItemView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,6 +48,20 @@ const router = createRouter({
       beforeEnter: (to, from, next) => {
         const userRole = store.state.userStore.user.role;
         if (userRole === 0) {
+          next();
+        } else {
+          next(false);
+        }
+      },
+    },
+
+    {
+      path: "/new-item",
+      name: "new-item",
+      component: NewItemView,
+      beforeEnter: (to, from, next) => {
+        const userRole = store.state.userStore.user.role;
+        if (userRole === 1) {
           next();
         } else {
           next(false);

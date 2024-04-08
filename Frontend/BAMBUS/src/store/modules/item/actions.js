@@ -5,6 +5,10 @@ export default {
   addItem({ commit }, item) {
     commit("addItemToCart", item);
   },
+
+createItem({ commit }, item) {
+    commit("addItem", item);
+  },
   editItem({ commit }, item) {
     commit("editItem", item);
   },

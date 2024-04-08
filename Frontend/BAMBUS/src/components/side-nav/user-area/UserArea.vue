@@ -10,9 +10,16 @@
     <br>
     <return-link
       class="SideNav-Content-Section"
-      v-if="isLoggedIn"
+      v-if="isLoggedIn && user.role === 0"
       @click="redirectTo('/my-view/orders')"
     ></return-link>
+
+    <new-item-link
+      class="SideNav-Content-Section"
+      v-if="isLoggedIn && user.role === 1"
+      @click="redirectTo('/new-item')"
+    ></new-item-link>
+
     <section class="SideNav-Content-User-Area">
       <user-login
         class="SideNav-Content-Section"
@@ -49,6 +56,7 @@ import UserManager from "./UserManager.vue";
 import UserAdmin from "./UserAdmin.vue";
 import ReturnLink from "./ReturnLink.vue";
 import UserLogout from "./UserLogout.vue";
+import NewItemLink from "./NewItemLink.vue";
 
 export default {
   name: "SideNavUserArea",
@@ -60,6 +68,7 @@ export default {
     UserAdmin,
     ReturnLink,
     UserLogout,
+    NewItemLink,
   },
   methods: {
     redirectTo(path) {
