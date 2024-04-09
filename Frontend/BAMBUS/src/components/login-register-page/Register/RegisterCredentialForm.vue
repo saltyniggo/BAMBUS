@@ -61,7 +61,7 @@
       <i v-if="showPassword" class="fas fa-eye"></i>
       <i v-else class="fa-regular fa-eye"></i>
     </button>
-    <base-text-button @click="registerUser(registerForm)">Registrieren</base-text-button>
+    <base-text-button @click="submitForm()">Registrieren</base-text-button>
   </form>
 </template>
 
@@ -70,6 +70,9 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
 import { mapActions } from "vuex";
+
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength, sameAs } from "@vuelidate/validators";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
@@ -92,13 +95,15 @@ export default {
       showPassword: false,
     };
   },
-  validations: {
-    username: { required, minLength: minLength(3), maxLength: maxLength(20) },
-    email: { required, email },
-    password: { required, minLength: minLength(8), maxLength: maxLength(20) },
-    repeatPassword: { required, minLength: minLength(8), maxLength: maxLength(20) },
-    firstName: { required, minLength: minLength(2), maxLength: maxLength(20) },
-    lastName: { required, minLength: minLength(2), maxLength: maxLength(20) },
+  validations() {
+    return {
+      username: { required, minLength: minLength(3) },
+      email: { required, email },
+      password: { required, minLength: minLength(8) },
+      repeatPassword: { required, sameAsPassword: sameAs("password") },
+      firstName: { required, minLength: minLength(2) },
+      lastName: { required, minLength: minLength(2) },
+    };
   },
   methods: {
     // ...mapActions("userStore", ["registerUser"]),
@@ -107,6 +112,15 @@ export default {
     },
     togglePassword() {
       this.showPassword = !this.showPassword;
+    },
+    async submitForm() {
+      this.v$.$validate();
+      if (this.v$.$error) {
+        alert(this.v$);
+        console.log(this.v$);
+      } else {
+        await this.registerUser(this.registerForm);
+      }
     },
   },
   computed: {
