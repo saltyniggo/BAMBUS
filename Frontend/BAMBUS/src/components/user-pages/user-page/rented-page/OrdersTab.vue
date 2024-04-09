@@ -41,11 +41,6 @@ export default {
     ...mapGetters("userStore", {
       user: "getUser",
     }),
-    maxDate() {
-      const maxDate = new Date();
-      maxDate.setDate(maxDate.getDate() + 31);
-      return maxDate.toLocaleDateString("de-DE");
-    },
   },
   methods: {
     openReturnModal(id) {

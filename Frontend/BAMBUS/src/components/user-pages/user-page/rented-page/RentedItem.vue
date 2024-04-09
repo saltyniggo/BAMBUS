@@ -26,7 +26,12 @@
         />
         <base-rectangle-button
           @click="
-            requestExtension({ itemObject: itemObject, newDueDate: newDueDate })
+            console.log(itemObject),
+              requestExtension({
+                itemTitle: itemObject.item.title,
+                loanId: itemObject.loan.loanId,
+                newDueDate: newDueDate,
+              })
           "
         >
           Verlängern
@@ -58,7 +63,6 @@ export default {
     };
   },
   methods: {
-    // ...mapActions("itemStore", ["requestExtension"]),
     ...mapActions("notificationStore", {
       requestExtension: "userRequestsLoanExtension",
     }),

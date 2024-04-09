@@ -11,7 +11,7 @@ export default {
         userId: 1,
         itemId: 4,
         startDate: "15.3.2024",
-        dueDate: "1.4.2024",
+        dueDate: "4.1.2024",
         returnDate: null,
       },
       {
@@ -19,7 +19,7 @@ export default {
         userId: 1,
         itemId: 5,
         startDate: "15.3.2024",
-        dueDate: "1.4.2024",
+        dueDate: "4.1.2024",
         returnDate: null,
       },
       {
@@ -27,7 +27,7 @@ export default {
         userId: 1,
         itemId: 9,
         startDate: "15.3.2024",
-        dueDate: "1.4.2024",
+        dueDate: "4.1.2024",
         returnDate: null,
       },
       {
@@ -35,7 +35,7 @@ export default {
         userId: 1,
         itemId: 10,
         startDate: "15.3.2024",
-        dueDate: "1.4.2024",
+        dueDate: "4.1.2024",
         returnDate: null,
       },
     ],
