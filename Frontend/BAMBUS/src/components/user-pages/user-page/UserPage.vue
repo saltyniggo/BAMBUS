@@ -15,7 +15,7 @@ import UserTabs from "../UserTabs.vue";
 import OverviewTab from "./OverviewTab.vue";
 import OrdersTab from "./rented-page/OrdersTab.vue";
 import AccountTab from "./AccountTab.vue";
-import ReturnModal from "./ReturnModal.vue";
+import ReturnModal from "../user-page/return-modal/ReturnModal.vue";
 import { mapGetters } from "vuex";
 
 export default {
