@@ -6,7 +6,7 @@
         params: { category: 'all' },
         hash: '#catalog',
       }"
-      >Toller Alles Bums</router-link
+      >Zeige mir Alles</router-link
     >
     <br />
     <router-link
@@ -15,7 +15,7 @@
         params: { category: 'books' },
         hash: '#catalog',
       }"
-      >Toller Buch Bums</router-link
+      >Zeige mir Bücher</router-link
     >
     <br />
     <router-link
@@ -24,7 +24,7 @@
         params: { category: 'magazines' },
         hash: '#catalog',
       }"
-      >Toller Magazin Bums</router-link
+      >Zeige mir Zeitschriften</router-link
     >
     <br />
     <router-link
@@ -33,7 +33,7 @@
         params: { category: 'games' },
         hash: '#catalog',
       }"
-      >Toller Spiele Bums</router-link
+      >Zeige mir Spiele</router-link
     >
   </div>
 </template>
