@@ -19,38 +19,6 @@ export default {
       alert("Username already exists");
       return;
     }
-    if (!payload.username) {
-      alert("Please provide a username");
-      return;
-    }
-    if (!payload.password) {
-      alert("Please provide a password");
-      return;
-    }
-    if (!payload.repeatPassword) {
-      alert("Please confirm your password");
-      return;
-    }
-    if (payload.password !== payload.repeatPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    if (payload.password.length < 6) {
-      alert("Password must be at least 6 characters long");
-      return;
-    }
-    if (!payload.email) {
-      alert("Please provide an email address");
-      return;
-    }
-    if (!payload.email.includes("@")) {
-      alert("Please provide a valid email address");
-      return;
-    }
-    if (!payload.firstName || !payload.lastName) {
-      alert("Please provide your first and last name");
-      return;
-    }
     const userId = state.users.length + 1;
 
     const newUser = {
@@ -164,7 +132,7 @@ export default {
       case 8:
         payload.title = "Anfrage zur Zurücksetzung des Passworts";
         break;
-      case 9: 
+      case 9:
         payload.title = "Schaden wurde gemeldet";
         break;
     }
