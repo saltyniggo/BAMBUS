@@ -2,7 +2,23 @@
   <form @submit.prevent class="register-credential-form">
     <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich zu registrieren.</h2>
     <section>
-      <input
+
+      <div>
+        <input
+          class="register-credential-form-input"
+          type="text"
+          placeholder="Username"
+          v-model="username"
+        />
+        <div v-if="v$.username.$dirty">
+          <span v-if="!v$.username.required">Username is required</span>
+          <span v-if="!v$.username.minLength">Username must be at least 3 characters</span>
+          <span v-if="!v$.username.maxLength">Username must be at most 20 characters</span>
+        </div>
+      </div>
+
+
+      <!-- <input
         class="register-credential-form-input"
         type="text"
         placeholder="Username"
@@ -39,23 +55,20 @@
         :type="showPassword ? 'text' : 'password'"
         placeholder="Passwort wiederholen"
         v-model="repeatPassword"
-      />
+      /> -->
     </section>
-    <button
-      class="button-toggle-password"
-      type="button"
-      @click="togglePassword()"
-    >
+    <button class="button-toggle-password" type="button" @click="togglePassword()">
       <i v-if="showPassword" class="fas fa-eye"></i>
       <i v-else class="fa-regular fa-eye"></i>
     </button>
-    <base-text-button @click="registerUser(registerForm)"
-      >Registrieren</base-text-button
-    >
+    <base-text-button @click="registerUser(registerForm)">Registrieren</base-text-button>
   </form>
 </template>
 
 <script>
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength, maxLength } from "@vuelidate/validators";
+
 import { mapActions } from "vuex";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
@@ -64,6 +77,9 @@ export default {
   name: "RegisterCredentialForm",
   components: {
     BaseTextButton,
+  },
+  setup() {
+    return { v$: useVuelidate() };
   },
   data() {
     return {
@@ -76,8 +92,19 @@ export default {
       showPassword: false,
     };
   },
+  validations: {
+    username: { required, minLength: minLength(3), maxLength: maxLength(20) },
+    email: { required, email },
+    password: { required, minLength: minLength(8), maxLength: maxLength(20) },
+    repeatPassword: { required, minLength: minLength(8), maxLength: maxLength(20) },
+    firstName: { required, minLength: minLength(2), maxLength: maxLength(20) },
+    lastName: { required, minLength: minLength(2), maxLength: maxLength(20) },
+  },
   methods: {
-    ...mapActions("userStore", ["registerUser"]),
+    // ...mapActions("userStore", ["registerUser"]),
+    registerUser(registerForm) {
+      console.log(registerForm);
+    },
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
