@@ -136,11 +136,12 @@ export default {
 
 .register-credential-form-input {
   width: 45%;
+  border: 1px solid transparent;
   margin: 2.5%;
   padding: 2%;
   border-radius: 0.5rem;
-  border: none;
   box-shadow: 0px 0px 5px 0px #222126;
+  transition: all 0.3s;
 }
 
 .register-credential-form-input:focus {
@@ -158,6 +159,6 @@ export default {
 
 .is-invalid {
   border: 1px solid red;
-  background-color: red;
+  box-shadow: 0px 0px 5px 0px red;
 }
 </style>
