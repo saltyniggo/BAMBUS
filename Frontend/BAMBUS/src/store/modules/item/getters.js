@@ -15,7 +15,10 @@ export default {
   getItemsRentedByUser: (state, _, __, rootGetters) => (userId) => {
     const loans = rootGetters["loanStore/getActiveLoansFromUserId"](userId);
     const itemLoanObjects = loans.map((loan) => {
-      const item = state.items.find((item) => item.itemId === loan.itemId);
+      const item = state.items.find(
+        (item) => item.currentLoanId === loan.loanId
+      );
+      console.log(item);
       return {
         item: item,
         loan: loan,

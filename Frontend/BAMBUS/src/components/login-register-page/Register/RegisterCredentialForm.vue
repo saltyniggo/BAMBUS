@@ -91,7 +91,7 @@ export default {
       username: { required, minLength: minLength(3) },
       email: { required, email },
       password: { required, minLength: minLength(8) },
-      repeatPassword: { required, sameAsPassword: sameAs("password") },
+      repeatPassword: { required, sameAsPassword: sameAs(this.password) },
       firstName: { required, minLength: minLength(2) },
       lastName: { required, minLength: minLength(2) },
     };
@@ -104,6 +104,7 @@ export default {
     async submitForm() {
       this.v$.$validate();
       if (this.v$.$error) {
+        console.log(this.v$);
         console.log(this.v$);
       } else {
         await this.registerUser(this.registerForm);
