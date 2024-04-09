@@ -1,6 +1,8 @@
 <template>
   <form @submit.prevent class="register-credential-form">
     <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich zu registrieren.</h2>
+    <p>Alle Felder müssen ausgefüllt sein. 
+      <br> Das Passwort muss Groß- und Kleinbuchstaben, mindestens eine Zahl und ein Sonderzeichen beinhalten.</p>
     <section>
       <input
         class="register-credential-form-input"
@@ -63,9 +65,10 @@
 import { mapActions } from "vuex";
 
 import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import { required, email, minLength, maxLength, sameAs } from "@vuelidate/validators";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
+import { errorMessages } from "vue/compiler-sfc";
 
 export default {
   name: "RegisterCredentialForm",
@@ -88,23 +91,37 @@ export default {
   },
   validations() {
     return {
-      username: { required, minLength: minLength(3) },
+      username: { required, minLength: minLength(3), maxLength: maxLength(30)},
       email: { required, email },
-      password: { required, minLength: minLength(8) },
-      repeatPassword: { required, sameAsPassword: sameAs("password") },
-      firstName: { required, minLength: minLength(2) },
-      lastName: { required, minLength: minLength(2) },
+      password: { required, minLength: minLength(8), maxLength: maxLength(30), customPasswordValidation: this.customPasswordValidation},
+      repeatPassword: { required, sameAsPassword: sameAs(this.password),  customPasswordValidation: this.customPasswordValidation },
+      firstName: { required, minLength: minLength(2), maxLength: maxLength(30)},
+      lastName: { required, minLength: minLength(2), maxLength: maxLength(30)},
     };
   },
   methods: {
     ...mapActions("userStore", ["registerUser"]),
+    customPasswordValidation() {
+      const lowerCaseRegex = /[a-z]/;
+      const upperCaseRegex = /[A-Z]/;
+      const numberRegex = /[0-9]/;
+      const specialCharRegex = /[^a-zA-Z0-9]/;
+
+    return (
+        lowerCaseRegex.test(this.password) &&
+        upperCaseRegex.test(this.password) &&
+        numberRegex.test(this.password) &&
+        specialCharRegex.test(this.password)
+    );
+
+    },
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
     async submitForm() {
       this.v$.$validate();
       if (this.v$.$error) {
-        console.log(this.v$);
+        // console.log(this.v$);
       } else {
         await this.registerUser(this.registerForm);
       }
@@ -157,7 +174,11 @@ export default {
 }
 
 .is-invalid {
-  border: 1px solid red;
-  background-color: red;
+  border: 2px solid red;
+ 
+}
+
+p {
+  text-align: center;
 }
 </style>
