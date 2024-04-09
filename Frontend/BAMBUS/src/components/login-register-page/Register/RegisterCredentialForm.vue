@@ -2,23 +2,7 @@
   <form @submit.prevent class="register-credential-form">
     <h2>Bitte geben Sie Ihre Anmeldedaten ein, um sich zu registrieren.</h2>
     <section>
-
-      <div>
-        <input
-          class="register-credential-form-input"
-          type="text"
-          placeholder="Username"
-          v-model="username"
-        />
-        <div v-if="v$.username.$dirty">
-          <span v-if="!v$.username.required">Username is required</span>
-          <span v-if="!v$.username.minLength">Username must be at least 3 characters</span>
-          <span v-if="!v$.username.maxLength">Username must be at most 20 characters</span>
-        </div>
-      </div>
-
-
-      <!-- <input
+      <input
         class="register-credential-form-input"
         type="text"
         placeholder="Username"
@@ -55,7 +39,7 @@
         :type="showPassword ? 'text' : 'password'"
         placeholder="Passwort wiederholen"
         v-model="repeatPassword"
-      /> -->
+      />
     </section>
     <button class="button-toggle-password" type="button" @click="togglePassword()">
       <i v-if="showPassword" class="fas fa-eye"></i>
@@ -70,9 +54,6 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength, maxLength } from "@vuelidate/validators";
 
 import { mapActions } from "vuex";
-
-import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, sameAs } from "@vuelidate/validators";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
