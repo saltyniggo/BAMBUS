@@ -10,7 +10,6 @@ export default {
       ISBN: undefined,
       ISSN: undefined,
       category: undefined,
-      availability: undefined,
     };
   },
   updateEditItemTitle(state, payload) {
@@ -28,15 +27,14 @@ export default {
   updateEditItemCategory(state, payload) {
     state.editItem.category = payload;
   },
-  updateEditItemAvailability(state, payload) {
-    state.editItem.available = payload;
-  },
+  // updateEditItemAvailability(state, payload) {
+  //   state.editItem.available = payload;
+  // },
   logout(state) {
     state.editItem = {
       id: undefined,
       title: undefined,
       author: undefined,
-      availability: undefined,
       category: undefined,
       ISBN: undefined,
       ISSN: undefined,

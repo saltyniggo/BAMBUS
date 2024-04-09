@@ -2,8 +2,10 @@
   <base-container-narrow>
     <div class="cardContent">
       <div class="informations">
-        <h2>{{ item.title }}</h2>
-        <p><strong>Ausgeliehen bis zum: </strong>{{ item.dueDate }}</p>
+        <h2>{{ itemObject.item.title }}</h2>
+        <p>
+          <strong>Ausgeliehen bis zum: </strong>{{ itemObject.loan.dueDate }}
+        </p>
       </div>
       <div class="return">
         <base-rectangle-button @click="returnItem">
@@ -14,9 +16,24 @@
         <p>
           <strong>Verlängern zum: </strong>
         </p>
-        <input id="inputNewdueDate" type="date" name="newdueDate" :min="item.dueDate" :max="maxDate"
-          v-model="newdueDate" />
-        <base-rectangle-button @click="requestExtension({ item: item, newdueDate: newdueDate })">
+        <input
+          id="inputNewDueDate"
+          type="date"
+          name="newDueDate"
+          :min="itemObject.loan.dueDate"
+          :max="maxDate"
+          v-model="newDueDate"
+        />
+        <base-rectangle-button
+          @click="
+            console.log(itemObject),
+              requestExtension({
+                itemTitle: itemObject.item.title,
+                loanId: itemObject.loan.loanId,
+                newDueDate: newDueDate,
+              })
+          "
+        >
           Verlängern
         </base-rectangle-button>
       </div>
@@ -27,6 +44,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+
 import BaseContentContainer from "@/components/base-components/BaseContentContainer.vue";
 import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
 import BaseContainerNarrow from "@/components/base-components/BaseContainerNarrow.vue";
@@ -38,31 +56,32 @@ export default {
     BaseRectangleButton,
     BaseContainerNarrow,
   },
-  props: ["item"],
+  props: ["itemObject"],
   data() {
     return {
-      newdueDate: "",
+      newDueDate: "",
     };
   },
   methods: {
-    // ...mapActions("itemStore", ["requestExtension"]),
     ...mapActions("notificationStore", {
       requestExtension: "userRequestsLoanExtension",
     }),
     returnItem() {
       this.$emit("openReturnModal");
-
-    }
+    },
   },
   computed: {
     ...mapGetters("userStore", {
       user: "getUser",
     }),
     maxDate() {
-      let date = new Date(this.item.dueDate);
+      let date = new Date(this.itemObject.loan.dueDate);
       date.setDate(date.getDate() + 31);
       return date.toISOString().split("T")[0];
     },
+  },
+  onCreated() {
+    console.log(this.itemObject);
   },
 };
 </script>
@@ -94,7 +113,7 @@ export default {
   grid-area: extend;
 }
 
-#inputNewdueDate {
+#inputNewDueDate {
   margin: 0.5rem;
 }
 </style>

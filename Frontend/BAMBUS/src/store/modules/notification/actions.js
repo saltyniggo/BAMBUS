@@ -1,14 +1,17 @@
 export default {
-  checkdueDates({ dispatch, rootState }) {
+  checkDueDates({ dispatch, rootState }) {
     const today = new Date();
     const user = rootState.userStore.user;
-    const loans = rootState.itemStore.items.filter(
-      (item) => item.rentedBy === user.userId
+    const loans = rootState.loanStore.loans.filter(
+      (loan) => loan.userId === user.userId
     );
     loans.forEach((loan) => {
       const daysUntilReturn = Math.floor(
         (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
+      const itemTitle = rootState.itemStore.items.find(
+        (item) => item.itemId === loan.itemId
+      ).title;
       const notification = {
         notificationId: null,
         type: 1,
@@ -20,9 +23,9 @@ export default {
         payload: null,
       };
       if (daysUntilReturn > 1) {
-        notification.message = `${loan.title} ist seit ${daysUntilReturn} Tagen überfällig`;
+        notification.message = `${itemTitle} ist seit ${daysUntilReturn} Tagen überfällig`;
       } else if (daysUntilReturn === 1) {
-        notification.message = `${loan.title} ist seit einem Tag überfällig`;
+        notification.message = `${itemTitle} ist seit einem Tag überfällig`;
       } else if (daysUntilReturn <= 5) {
         notification.message = `${
           loan.title
@@ -34,15 +37,19 @@ export default {
     });
   },
 
-  checkAlldueDates({ dispatch, rootState }) {
+  checkAllDueDates({ dispatch, rootState }) {
     const today = new Date();
-    const loans = rootState.itemStore.items.filter(
-      (item) => item.rentedBy !== null
-    );
+    const loans = rootState.loanStore.loans;
     loans.forEach((loan) => {
       const daysOverdue = Math.floor(
         (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
+      const itemTitle = rootState.itemStore.items.find(
+        (item) => item.itemId === loan.itemId
+      ).title;
+      const username = rootState.userStore.users.find(
+        (user) => user.userId === loan.userId
+      ).username;
       if (daysOverdue > 0) {
         const notification = {
           notificationId: null,
@@ -55,9 +62,9 @@ export default {
           payload: loan,
         };
         if (daysOverdue > 1) {
-          notification.message = `${loan.rentedBy} hat ${loan.title} seit ${daysOverdue} Tagen überfällig`;
+          notification.message = `${username} hat ${itemTitle} seit ${daysOverdue} Tagen überfällig`;
         } else if (daysOverdue === 1) {
-          notification.message = `${loan.rentedBy} hat ${loan.title} seit einem Tag überfällig`;
+          notification.message = `${username} hat ${itemTitle} seit einem Tag überfällig`;
         }
         dispatch("userStore/addNotification", notification, {
           root: true,
@@ -69,7 +76,7 @@ export default {
   checkReservedItems({ dispatch, rootState }) {
     const user = rootState.userStore.user;
     rootState.itemStore.items.forEach((item) => {
-      if (item.reservations[0] === user.userId && item.available === true) {
+      if (item.reservations[0] === user.userId && !item.currentLoanId) {
         const notification = {
           notificationId: null,
           type: 2,
@@ -87,18 +94,19 @@ export default {
 
   userRequestsLoanExtension({ dispatch, rootState }, payload) {
     const user = rootState.userStore.user;
+    const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
     const notification = {
       notificationId: null,
       type: 5,
       title: null,
-      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.item.title} bis zum ${payload.newdueDate} angefragt`,
+      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
       senderId: user.userId,
       receiverId: 2,
       date: new Date().toLocaleDateString("de-DE"),
       payload: {
-        item: payload.item,
+        loanId: payload.loanId,
         userId: user.userId,
-        newdueDate: payload.newdueDate,
+        newDueDate: payload.newDueDate,
       },
     };
     dispatch("userStore/addNotification", notification, { root: true });

@@ -1,8 +1,18 @@
 export default {
-  userRentsItem(state, payload) {
-    state.items[payload.index].available = false;
-    state.items[payload.index].rentedBy = payload.userId;
-    state.items[payload.index].dueDate = payload.dueDate;
+  addLoanIdToItem(state, { itemId, loanId }) {
+    state.items.forEach((item) => {
+      if (item.itemId === itemId) {
+        item.currentLoanId = loanId;
+      }
+    });
+  },
+  removeLoanIdFromItem(state, itemId) {
+    console.log(itemId);
+    state.items.forEach((item) => {
+      if (item.itemId === itemId) {
+        item.currentLoanId = null;
+      }
+    });
   },
   userReservesItem(state, { userId, index }) {
     state.items[index].reservations.push(userId);
@@ -36,29 +46,16 @@ export default {
     // state.items[index] = payload;
   },
   requestExtension(state, payload) {
-    state.items[payload.index].dueDate = payload.newdueDate;
+    state.items[payload.index].dueDate = payload.newDueDate;
   },
   logout(state) {
     state.editItemId = null;
     state.items = [];
   },
 
-  changeItemAvailability(state, payload) {
-    state.items.forEach(item => {
-      if (item.itemId == payload.id) {
-        item.available = !item.available;
-        if (item.available) {
-          item.rentedBy = undefined;
-          item.dueDate = undefined;
-
-          if (item.isDamaged == false) { item.isDamaged = payload.isDamaged;}
-         
-        }
-      } 
-    });
-  },
-
   reportItem(state) {
-    state.items.find(item => item.itemId == state.reportItemId).isDamaged = true;
-  }
+    state.items.find(
+      (item) => item.itemId == state.reportItemId
+    ).isDamaged = true;
+  },
 };

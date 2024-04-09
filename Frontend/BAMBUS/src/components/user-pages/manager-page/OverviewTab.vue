@@ -28,7 +28,7 @@ export default {
     BaseNotification,
   },
   methods: {
-    ...mapActions("notificationStore", ["checkAlldueDates"]),
+    ...mapActions("notificationStore", ["checkAllDueDates"]),
     ...mapActions("userStore", ["deleteNotificationsWithType"]),
   },
   computed: {
@@ -36,7 +36,7 @@ export default {
   },
   beforeMount() {
     this.deleteNotificationsWithType(6);
-    this.checkAlldueDates();
+    this.checkAllDueDates();
   },
 };
 </script>

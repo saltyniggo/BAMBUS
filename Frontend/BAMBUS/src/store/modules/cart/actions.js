@@ -1,20 +1,11 @@
-import item from "../item";
-
 export default {
-  adddueDate({ commit, state }, payload) {
-    const index = state.cartRentalItems.findIndex(
-      (item) => item.itemId === payload.itemId
-    );
-    if (index !== -1) {
-      commit("adddueDate", { payload, index });
-    }
-  },
-  rentItem({ commit, dispatch }, payload) {
-    if (!payload.dueDate) {
+  rentItem({ commit, dispatch }, { item, dueDate }) {
+    if (!dueDate) {
       alert("Please select a return date");
     } else {
-      commit("removeRentalItemFromCart", payload.itemId);
-      dispatch("itemStore/userRentsItem", payload, { root: true });
+      dueDate = new Date(dueDate).toLocaleDateString("de-DE");
+      commit("removeRentalItemFromCart", item.itemId);
+      dispatch("loanStore/createLoan", { item, dueDate }, { root: true });
     }
   },
   reserveItem({ commit, dispatch, rootState }, itemId) {
@@ -39,9 +30,9 @@ export default {
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
-    } else if (payload.available === true) {
+    } else if (!payload.currentLoanId) {
       commit("addItemToRentalCart", payload);
-    } else if (payload.available === false) {
+    } else if (payload.currentLoanId) {
       commit("addItemToReservationCart", payload);
     } else {
       alert("Item is not available for rent or reservation");

@@ -1,8 +1,4 @@
 export default {
-  adddueDate(state, { payload, index }) {
-    state.cartRentalItems[index].dueDate = payload.dueDate;
-  },
-
   removeRentalItemFromCart(state, itemId) {
     state.cartRentalItems = state.cartRentalItems.filter(
       (item) => item.itemId !== itemId

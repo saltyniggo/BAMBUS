@@ -5,20 +5,18 @@
     <label for="dueDate">Bis zum:</label>
 
     <input
-      id="inputdueDate"
+      id="inputDueDate"
       type="date"
       name="dueDate"
       :min="minDate"
       :max="maxDate"
       v-model="dueDate"
-      @change="adddueDate({ dueDate: this.dueDate, itemId: this.itemId })"
+      @change="$emit('dueDateEntered', dueDate)"
     />
   </form>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   name: "ItemForm",
   props: {
@@ -28,9 +26,6 @@ export default {
     return {
       dueDate: "",
     };
-  },
-  methods: {
-    ...mapActions("cartStore", ["adddueDate"]),
   },
   computed: {
     formattedFromDate() {
@@ -64,7 +59,7 @@ export default {
   margin: 2% 0;
 }
 
-#inputdueDate {
+#inputDueDate {
   width: 33%;
 }
 </style>

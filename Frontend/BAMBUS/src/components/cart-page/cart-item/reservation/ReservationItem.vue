@@ -4,7 +4,7 @@
     <div class="reservation-item-content">
       <item-information
         class="reservation-item-content-row"
-        :id="reservationItem.id"
+        :itemId="reservationItem.itemId"
         :isDamaged="reservationItem.isDamaged"
       />
       <p class="reservation-item-content-row">Hier Liste von ausleiern</p>
@@ -45,6 +45,9 @@ export default {
       "reserveItem",
       "removeReservationItemFromCart",
     ]),
+  },
+  onMounted() {
+    console.log(this.reservationItem);
   },
 };
 </script>
