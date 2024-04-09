@@ -4,30 +4,35 @@
     <section>
       <input
         class="register-credential-form-input"
+        :class="{ 'is-invalid': v$.username.$error }"
         type="text"
         placeholder="Username"
         v-model="username"
       />
       <input
         class="register-credential-form-input"
+        :class="{ 'is-invalid': v$.email.$error }"
         type="email"
         placeholder="Email"
         v-model="email"
       />
       <input
         class="register-credential-form-input"
+        :class="{ 'is-invalid': v$.firstName.$error }"
         type="text"
         placeholder="Vorname"
         v-model="firstName"
       />
       <input
         class="register-credential-form-input"
+        :class="{ 'is-invalid': v$.lastName.$error }"
         type="text"
         placeholder="Nachname"
         v-model="lastName"
       />
       <input
         class="register-credential-form-input"
+        :class="{ 'is-invalid': v$.password.$error }"
         id="inputPassword"
         :type="showPassword ? 'text' : 'password'"
         placeholder="Passwort"
@@ -35,6 +40,7 @@
       />
       <input
         class="register-credential-form-input"
+        :class="{ 'is-invalid': v$.repeatPassword.$error }"
         id="inputPasswordRepeat"
         :type="showPassword ? 'text' : 'password'"
         placeholder="Passwort wiederholen"
@@ -97,7 +103,6 @@ export default {
     async submitForm() {
       this.v$.$validate();
       if (this.v$.$error) {
-        alert(this.v$);
         console.log(this.v$);
       } else {
         await this.registerUser(this.registerForm);
@@ -148,5 +153,10 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+
+.is-invalid {
+  border: 1px solid red;
+  background-color: red;
 }
 </style>
