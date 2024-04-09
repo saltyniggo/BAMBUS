@@ -47,7 +47,11 @@
         v-model="repeatPassword"
       />
     </section>
-    <button class="button-toggle-password" type="button" @click="togglePassword()">
+    <button
+      class="button-toggle-password"
+      type="button"
+      @click="togglePassword()"
+    >
       <i v-if="showPassword" class="fas fa-eye"></i>
       <i v-else class="fa-regular fa-eye"></i>
     </button>
@@ -56,10 +60,10 @@
 </template>
 
 <script>
-import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, maxLength } from "@vuelidate/validators";
-
 import { mapActions } from "vuex";
+
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength, sameAs } from "@vuelidate/validators";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
@@ -93,10 +97,7 @@ export default {
     };
   },
   methods: {
-    // ...mapActions("userStore", ["registerUser"]),
-    registerUser(registerForm) {
-      console.log(registerForm);
-    },
+    ...mapActions("userStore", ["registerUser"]),
     togglePassword() {
       this.showPassword = !this.showPassword;
     },
