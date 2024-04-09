@@ -1,14 +1,14 @@
 <template>
   <div class="item-footer">
-    <base-round-button v-if="role == 1" @click="openEditModal(item.itemId)"
-      ><i class="fa-regular fa-pen-to-square" style="color: #222126"></i
-    ></base-round-button>
-    <base-round-button v-if="role == 1" @click="deleteItem(item.itemId)"
-      ><i class="fa-solid fa-trash-can" style="color: #222126"></i
-    ></base-round-button>
-    <base-round-button v-if="role == 0" @click="addToCart(item)"
-      ><i class="fa-solid fa-basket-shopping" style="color: #222126"></i
-    ></base-round-button>
+    <base-round-button v-if="role == 1" @click="openEditModal(item.itemId)"><i class="fa-regular fa-pen-to-square"
+        style="color: #222126"></i></base-round-button>
+    <base-round-button v-if="role == 1" @click="deleteItem(item.itemId)"><i class="fa-solid fa-trash-can"
+        style="color: #222126"></i></base-round-button>
+    <base-round-button v-if="role == 0" @click="addToCart(item)"><i class="fa-solid fa-basket-shopping"
+        style="color: #222126"></i></base-round-button>
+    <base-round-button v-if="role == 0" @click="openReportModal(item.itemId)"><i class="fa-solid fa-flag"
+        style="color: #222126"></i>
+    </base-round-button>
   </div>
 </template>
 
@@ -32,6 +32,9 @@ export default {
 
     deleteItem(id) {
       this.$store.dispatch("itemStore/deleteItem", id);
+    },
+    openReportModal(id) {
+      this.$emit("openReportModal", id);
     },
   },
 };

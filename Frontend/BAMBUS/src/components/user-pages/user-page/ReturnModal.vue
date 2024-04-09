@@ -42,7 +42,7 @@
                         <label for="no">Nein</label>
                     </div>
                     
-                    <input type = "text"  v-if="isDamaged==true" v-model="damageDescription" placeholder="Bitte benenne den Schaden...">
+                    <input type = "text"  v-if="isDamaged==true" v-model="damageDescription" maxlength="150" placeholder="Bitte benenne den Schaden...">
 
                 </div>
             </div>

@@ -10,6 +10,8 @@ export default {
 
   getReturnItemId: (state) =>state.returnItemId,
 
+  getReportItemId: (state) => state.reportItemId,
+
   getItemsRentedByUser: (state) => (userId) => {
     return state.items.filter((item) => item.rentedBy === userId);
   },
@@ -17,4 +19,7 @@ export default {
   getItemsReservedByUser: (state) => (userId) => {
     return state.items.filter((item) => item.reservations.includes(userId));
   },
+  getReportedItem: (state) => {
+    return state.items.find((item) => item.itemId === state.reportItemId);
+  }
 };

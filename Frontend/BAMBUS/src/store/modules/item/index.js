@@ -7,6 +7,7 @@ export default {
   state: {
     editItemId: null,
     returnItemId: null,
+    reportItemId: null,
     items: [
       {
         itemId: 1,

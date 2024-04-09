@@ -9,4 +9,7 @@ export default {
 
     getReturnModalStatus: (state) => state.returnItemModalStatus,
     getReturnItemId: (state) => state.returnItemId,
+
+    getReportModalStatus: (state) => state.reportModalStatus,
+    getReportItemId: (state) => state.reportItemId,
 };

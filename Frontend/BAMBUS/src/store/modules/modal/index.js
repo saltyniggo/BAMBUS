@@ -12,6 +12,8 @@ export default {
     addModalStatus: false,
     returnItemModalStatus: false,
     returnItemId: null,
+    reportModalStatus: false,
+    reportItemId: null,
     
   },
   mutations: Mutations,

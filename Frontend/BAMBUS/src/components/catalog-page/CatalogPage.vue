@@ -8,10 +8,13 @@
         :item="item"
         @openEditModal="openEditModal(item.itemId)"
         @openRatingsModal="openRatingsModal(item.itemId)"
+        @openReportModal="openReportModal(item.itemId)"
       ></item-container>
     </div>
     <edit-item-modal v-if="showsEditModal"></edit-item-modal>
     <ratings-modal v-if="showsRatingsModal" :role></ratings-modal>
+    <report-modal v-if="showsReportModal"></report-modal>
+
   </div>
 </template>
 
@@ -22,6 +25,7 @@ import CatalogFilter from "./catalog-filter/CatalogFilter.vue";
 import ItemContainer from "./item-container/ItemContainer.vue";
 import EditItemModal from "./edit-item-modal/EditItemModal.vue";
 import RatingsModal from "./rating-modal/RatingsModal.vue";
+import ReportModal from "./ReportModal.vue";
 
 export default {
   name: "CatalogPage",
@@ -30,6 +34,7 @@ export default {
     ItemContainer,
     EditItemModal,
     RatingsModal,
+    ReportModal,
   },
   props: {
     category: {
@@ -42,6 +47,7 @@ export default {
       items: "itemStore/getItems",
       showsEditModal: "modalStore/getEditModalStatus",
       showsRatingsModal: "modalStore/getRatingsModalStatus",
+      showsReportModal: "modalStore/getReportModalStatus",
     }),
   },
   methods: {
@@ -54,6 +60,11 @@ export default {
       await this.$store.dispatch("modalStore/closeAllModals");
       await this.$store.dispatch("ratingStore/setItemId", id);
       await this.$store.dispatch("modalStore/toggleRatingsModal");
+    },
+    async openReportModal(id) {
+      await this.$store.dispatch("modalStore/closeAllModals");
+      await this.$store.dispatch("itemStore/setReportItemId", id);
+      await this.$store.dispatch("modalStore/toggleReportModal");
     },
   },
 };

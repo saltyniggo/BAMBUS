@@ -23,10 +23,13 @@ export default {
   setReturnItemId(state, id) {
     state.returnItemId = id;
   },
-
+  setReportItemId(state, id) {
+    state.reportItemId = id;
+  },
   deleteAllModalIds(state) {
     state.editItemId = null;
     state.returnItemId = null;
+    state.reportItemId = null;
   },
   saveEditItem(state, { payload, index }) {
     console.log(payload);
@@ -53,5 +56,9 @@ export default {
         }
       } 
     });
+  },
+
+  reportItem(state) {
+    state.items.find(item => item.itemId == state.reportItemId).isDamaged = true;
   }
 };

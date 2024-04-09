@@ -89,6 +89,7 @@ export default {
 .modal-content {
   overflow-y: auto;
   padding: 1rem;
+  width: 100%;
 }
 
 h1,

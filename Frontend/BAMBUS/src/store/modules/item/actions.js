@@ -6,7 +6,7 @@ export default {
     commit("addItemToCart", item);
   },
 
-createItem({ commit }, item) {
+  createItem({ commit }, item) {
     commit("addItem", item);
   },
   editItem({ commit }, item) {
@@ -17,6 +17,10 @@ createItem({ commit }, item) {
   },
   setReturnItemId({ commit }, id) {
     commit("setReturnItemId", id);
+  },
+
+  setReportItemId({ commit }, id) {
+    commit("setReportItemId", id);
   },
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
@@ -86,5 +90,8 @@ createItem({ commit }, item) {
 
   changeItemAvailability({ commit }, payload) {
     commit("changeItemAvailability", payload);
+  },
+  reportItem({ commit }) {
+    commit("reportItem");
   },
 };

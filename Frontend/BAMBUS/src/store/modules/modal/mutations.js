@@ -14,6 +14,12 @@ export default {
       state.ratingsItemId = null;
     }
   },
+  toggleReportModal(state) {
+    state.reportModalStatus = !state.reportModalStatus;
+    if (state.reportModalStatus === false) {
+      state.reportItemId = null;
+    }
+  },
   closeAllModals(state) {
     state.editItemModalStatus = false;
     state.editItemId = null;
@@ -22,6 +28,8 @@ export default {
     state.ratingsModalStatus = false;
     state.returnItemModalStatus = false;
     state.returnItemId = null;
+    state.reportItemId = null;
+    state.reportModalStatus = false;
   },
   setEditItemId(state, id) {
     state.editItemId = id;
@@ -29,12 +37,16 @@ export default {
   setRatingsItemId(state, id) {
     state.ratingsItemId = id;
   },
-    setReturnItemId(state, id) {
-        state.returnItemId = id;
-    },
-    toggleReturnModal(state) {
-        state.returnItemModalStatus = !state.returnItemModalStatus;
-    },
+  setReturnItemId(state, id) {
+    state.returnItemId = id;
+  },
+  setReportItemId(state, id) {
+    state.reportItemId = id;
+  },
+  toggleReturnModal(state) {
+    state.returnItemModalStatus = !state.returnItemModalStatus;
+  },
+
   logout(state) {
     state.editItemModalStatus = false;
     state.editItemId = null;

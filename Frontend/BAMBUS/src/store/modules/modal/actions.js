@@ -23,4 +23,7 @@ export default {
     toggleReturnModal({ commit }) {
         commit("toggleReturnModal");
     },
+    toggleReportModal({ commit }) {
+        commit("toggleReportModal");
+    },
 };
