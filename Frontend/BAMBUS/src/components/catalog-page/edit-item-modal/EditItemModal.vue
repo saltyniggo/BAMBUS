@@ -13,9 +13,9 @@
             <option value="2">Spiel</option>
           </select>
         </div>
-        <magazine-form v-if="item.itemCategory == 0" :item="item" />
-        <book-form v-if="item.itemCategory == 1" :item="item" />
-        <game-form v-if="item.itemCategory == 2" :item="item" />
+        <magazine-form v-if="item.itemCategory == 0" :item="item" :saveItem="saveItem" @saved="close"/>
+        <book-form v-if="item.itemCategory == 1" :item="item" :saveItem="saveItem" @saved="close"/>
+        <game-form v-if="item.itemCategory == 2" :item="item" :saveItem="saveItem" @saved="close"/>
       </div>
     </template>
     <template v-slot:modal-button>
@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       hideModal: false,
+      saveItem: false,
     };
   },
   computed: {
@@ -57,13 +58,16 @@ export default {
   },
   methods: {
     saveEdit() {
+      this.saveItem = true;
+    },
+    close() {
       this.hideModal = true;
       this.$store.dispatch("editStore/saveEditItem");
       setTimeout(() => {
         this.$store.dispatch("modalStore/closeAllModals");
       }, 500);
       this.$store.dispatch("itemStore/deleteAllModalIds");
-    },
+    }
   },
 };
 </script>

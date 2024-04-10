@@ -18,7 +18,10 @@
     </div>
     <div class="field">
       <label for="available">Verfügbarkeit </label>
-      <input type="text" id="available" v-model="available" required />
+      <select id="available" v-model="available">
+        <option value="Ja">Ja</option>
+        <option value="Nein">Nein</option>
+      </select>
     </div>
   </div>
 </template>
@@ -30,7 +33,7 @@
 
 export default {
   name: "BookForm",
-  props: ["item"],
+  props: ["item", "saveItem"],
   data() {
     return {
       title: "",
@@ -40,33 +43,53 @@ export default {
       available: "",
     };
   },
-  watch: {
-    title: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemTitle", value);
-      },
+
+  watch:{
+  saveItem: {
+    immediate: true,
+    handler: function (newVal) {
+      console.log(newVal);
+      if (newVal===true) {
+        this.$store.dispatch("editStore/updateEditItemTitle", this.title);
+        this.$store.dispatch("editStore/updateEditItemAuthor", this.author);
+        this.$store.dispatch("editStore/updateEditItemISBN", this.ISBN);
+        this.$store.dispatch("editStore/updateEditItemCategory", this.category);
+        if (this.available === "Ja") {
+          this.$store.dispatch("editStore/updateEditItemAvailability", true);
+        } else {
+          this.$store.dispatch("editStore/updateEditItemAvailability", false);
+        }
+        this.$emit("saved");
+      }
     },
-    author: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemAuthor", value);
-      },
-    },
-    ISBN: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemISBN", value);
-      },
-    },
-    category: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemCategory", value);
-      },
-    },
-    available: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemAvailability", value);
-      },
-    },
-  },
+  },},
+  // watch: {
+  //   title: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemTitle", value);
+  //     },
+  //   },
+  //   author: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemAuthor", value);
+  //     },
+  //   },
+  //   ISBN: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemISBN", value);
+  //     },
+  //   },
+  //   category: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemCategory", value);
+  //     },
+  //   },
+  //   available: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemAvailability", value);
+  //     },
+  //   },
+  // },
   beforeMount() {
     this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;

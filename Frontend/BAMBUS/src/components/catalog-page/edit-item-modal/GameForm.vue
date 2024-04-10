@@ -10,7 +10,10 @@
     </div>
     <div class="field">
       <label for="available">Verfügbarkeit </label>
-      <input type="text" id="available" v-model="available" required />
+      <select id="available" v-model="available">
+        <option value="Ja">Ja</option>
+        <option value="Nein">Nein</option>
+      </select>
     </div>
   </div>
 </template>
@@ -18,7 +21,7 @@
 <script>
 export default {
   name: "GameForm",
-  props: ["item"],
+  props: ["item", "saveItem"],
   data() {
     return {
       title: "",
@@ -27,22 +30,40 @@ export default {
     };
   },
   watch: {
-    title: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemTitle", value);
-      },
-    },
-    category: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemCategory", value);
-      },
-    },
-    available: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemAvailability", value);
+    saveItem: {
+      immediate: true,
+      handler: function (newVal) {
+        console.log(newVal);
+        if (newVal) {
+          this.$store.dispatch("editStore/updateEditItemTitle", this.title);
+          this.$store.dispatch("editStore/updateEditItemCategory", this.category);
+          if (this.available === "Ja") {
+            this.$store.dispatch("editStore/updateEditItemAvailability", true);
+          } else {
+            this.$store.dispatch("editStore/updateEditItemAvailability", false);
+          }
+          this.$emit("saved");
+        }
       },
     },
   },
+  // watch: {
+  //   title: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemTitle", value);
+  //     },
+  //   },
+  //   category: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemCategory", value);
+  //     },
+  //   },
+  //   available: {
+  //     handler: function (value) {
+  //       this.$store.dispatch("editStore/updateEditItemAvailability", value);
+  //     },
+  //   },
+  // },
   beforeMount() {
     this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;

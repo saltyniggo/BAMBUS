@@ -42,7 +42,6 @@ export default {
   },
   saveEditItem(state, { payload, index }) {
     console.log(payload);
-    // state.items[index] = payload;
   },
   requestExtension(state, payload) {
     state.items[payload.index].dueDate = payload.newDueDate;
