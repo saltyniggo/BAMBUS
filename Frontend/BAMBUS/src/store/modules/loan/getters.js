@@ -13,4 +13,10 @@ export default {
     return state.loans.filter((loan) => loan.userId === userId);
   },
   getAllLoans: (state) => state.loans,
+
+  getLoanById: (state) => (loanId) => {
+    return state.loans.find(
+      (loan) => loan.loanId === loanId && loan.returnDate === null
+    );
+  },
 };

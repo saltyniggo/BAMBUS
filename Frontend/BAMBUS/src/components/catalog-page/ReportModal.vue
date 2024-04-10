@@ -41,7 +41,6 @@ export default {
     },
     methods: {
         processReport() {
-            console.log("Reported: " + this.damageDescription);
             this.$store.dispatch("itemStore/reportItem");
             this.$store.dispatch("notificationStore/userReportsDamage", ({ id: this.item.itemId, userId: this.user.userId, title: this.item.title  , damageDescription: this.damageDescription }));
             this.$store.dispatch("modalStore/closeAllModals");

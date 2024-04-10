@@ -66,7 +66,6 @@ export default {
       alert(
         "Das neue Rückgabedatum darf nicht mehr als 31 Tage in der Zukunft liegen"
       );
-      console.log(formattedDate);
       return;
     }
     const userId = rootState.userStore.user.userId;

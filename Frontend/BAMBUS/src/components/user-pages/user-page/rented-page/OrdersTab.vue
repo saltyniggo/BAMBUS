@@ -3,10 +3,10 @@
     <div class="rented">
       <h1>Derzeit ausgeliehen</h1>
       <rented-item
-        v-for="itemObject in rentedItemObjects(user.userId)"
-        :key="itemObject.item.itemId"
-        :itemObject="itemObject"
-        @openReturnModal="openReturnModal(itemObject.item.itemId)"
+        v-for="item in rentedItems(user.userId)"
+        :key="item.itemId"
+        :item="item"
+        @openReturnModal="console.log(item), openReturnModal(item.itemId)"
       />
     </div>
 
@@ -33,9 +33,10 @@ export default {
     RentedItem,
     ReservedItem,
   },
+
   computed: {
     ...mapGetters("itemStore", {
-      rentedItemObjects: "getItemsRentedByUser",
+      rentedItems: "getItemsRentedByUser",
       reservedItems: "getItemsReservedByUser",
     }),
     ...mapGetters("userStore", {
@@ -44,6 +45,7 @@ export default {
   },
   methods: {
     openReturnModal(id) {
+      console.log(this.rentedItems(this.user.userId));
       this.$emit("openReturnModal", id);
     },
   },

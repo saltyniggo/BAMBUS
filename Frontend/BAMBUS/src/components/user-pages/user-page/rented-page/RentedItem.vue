@@ -2,10 +2,8 @@
   <base-container-narrow>
     <div class="cardContent">
       <div class="informations">
-        <h2>{{ itemObject.item.title }}</h2>
-        <p>
-          <strong>Ausgeliehen bis zum: </strong>{{ itemObject.loan.dueDate }}
-        </p>
+        <h2>{{ item.title }}</h2>
+        <p><strong>Ausgeliehen bis zum: </strong>{{ loan.dueDate }}</p>
       </div>
       <div class="return">
         <base-rectangle-button @click="returnItem">
@@ -20,18 +18,17 @@
           id="inputNewDueDate"
           type="date"
           name="newDueDate"
-          :min="itemObject.loan.dueDate"
+          :min="loan.dueDate"
           :max="maxDate"
           v-model="newDueDate"
         />
         <base-rectangle-button
           @click="
-            console.log(itemObject),
-              requestExtension({
-                itemTitle: itemObject.item.title,
-                loanId: itemObject.loan.loanId,
-                newDueDate: newDueDate,
-              })
+            requestExtension({
+              itemTitle: item.title,
+              loanId: loan.loanId,
+              newDueDate: newDueDate,
+            })
           "
         >
           Verlängern
@@ -56,7 +53,7 @@ export default {
     BaseRectangleButton,
     BaseContainerNarrow,
   },
-  props: ["itemObject"],
+  props: ["item"],
   data() {
     return {
       newDueDate: "",
@@ -74,14 +71,19 @@ export default {
     ...mapGetters("userStore", {
       user: "getUser",
     }),
-    maxDate() {
-      let date = new Date(this.itemObject.loan.dueDate);
-      date.setDate(date.getDate() + 31);
-      return date.toISOString().split("T")[0];
+    loan() {
+      console.log(this.item);
+      console.log(this.item.currentLoanId);
+      return this.$store.getters["loanStore/getLoanById"](
+        this.item.currentLoanId
+      );
     },
-  },
-  onCreated() {
-    console.log(this.itemObject);
+    maxDate() {
+      console.log(this.loan);
+      let date = new Date(this.loan.dueDate);
+      date.setDate(date.getDate() + 31);
+      return date;
+    },
   },
 };
 </script>

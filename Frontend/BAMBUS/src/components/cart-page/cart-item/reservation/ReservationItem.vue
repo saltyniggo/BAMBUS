@@ -46,9 +46,6 @@ export default {
       "removeReservationItemFromCart",
     ]),
   },
-  onMounted() {
-    console.log(this.reservationItem);
-  },
 };
 </script>
 

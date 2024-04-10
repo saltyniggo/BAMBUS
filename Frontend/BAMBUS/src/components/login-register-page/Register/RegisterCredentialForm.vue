@@ -103,10 +103,7 @@ export default {
     },
     async submitForm() {
       this.v$.$validate();
-      if (this.v$.$error) {
-        console.log(this.v$);
-        console.log(this.v$);
-      } else {
+      if (!this.v$.$error) {
         await this.registerUser(this.registerForm);
       }
     },
