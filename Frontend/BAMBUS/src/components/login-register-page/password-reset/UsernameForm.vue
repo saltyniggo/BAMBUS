@@ -3,10 +3,10 @@
     <label for="email"
       >Bitte gebe Deine Emailadresse ein, um eine Passwortzurücksetzung zu benatragen.
     </label>
-    <Form v-slot="{validate}" @submit.prevent="onSubmit">
-      <Field name="email" type=email :rules="validateEmail" class="email-form-input" v-model="email" placeholder="Emailadresse"/>
+    <Form v-slot="{validate}" @submit="onSubmit">
+      <Field name="email" type=email :rules="validateEmail" class="email-form-input" placeholder="Emailadresse"/>
       <ErrorMessage name="email" />
-    <base-text-button>
+    <base-text-button @click="validate">
       Passwort zurücksetzen
     </base-text-button>
   </Form>
@@ -16,7 +16,6 @@
 <script>
 import { mapActions } from "vuex";
 import {Form, Field, ErrorMessage} from "vee-validate";
-import { required, email } from "@vee-validate/rules";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
@@ -28,23 +27,12 @@ export default {
     Field, 
     ErrorMessage
   },
-  data() {
-    return {
-      email: "",
-    };
-  },
   methods: {
     ...mapActions("notificationStore", {
       requestPasswordReset: "userRequestsPasswordReset",
     }),
     onSubmit(values) {
-      console.log("Form submitted", values);
-      this.$refs.Form.validate('email').then((success) => {
-        if (success) {
-          console.log("Form submitted", values);
-          this.requestPasswordReset(values.email);
-        }
-      });
+      this.requestPasswordReset(values.email);
     },
     validateEmail(value) {
       if (!value) {
