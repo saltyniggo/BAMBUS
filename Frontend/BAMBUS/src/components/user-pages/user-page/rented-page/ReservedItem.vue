@@ -2,11 +2,17 @@
   <base-container-narrow>
     <div class="cardContent">
       <h2>{{ item.title }}</h2>
-      <div class="button">
-        <base-round-button @click="addToCart(item.itemId)">
+      <div class="button-area">
+        <base-round-button
+          class="button"
+          @click="addToCart({ itemId: item.itemId, userId: userId })"
+          v-if="isItemAvailable(item.itemId, userId)"
+        >
           <i class="fa-solid fa-basket-shopping" style="color: #f2eae4"></i>
         </base-round-button>
-        <base-round-button @click="cancelReservation(item.itemId)">
+        <base-round-button
+          @click="cancelReservation({ itemId: item.itemId, userId: userId })"
+        >
           <i class="fa-solid fa-trash-can" style="color: #f2eae4"></i>
         </base-round-button>
       </div>
@@ -15,6 +21,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 import BaseContainerNarrow from "@/components/base-components/BaseContainerNarrow.vue";
 import BaseRoundButton from "@/components/base-components/BaseRoundButton.vue";
 
@@ -24,14 +32,17 @@ export default {
     BaseContainerNarrow,
     BaseRoundButton,
   },
-  props: ["item"],
+  props: ["item", "userId"],
   methods: {
-    addToCart(itemId) {
-      console.log("addToCart " + itemId);
-    },
-    cancelReservation(itemId) {
-      console.log("cancelReservation " + itemId);
-    },
+    ...mapActions("cartStore", {
+      addToCart: "addReservedItemToCart",
+    }),
+    ...mapActions("itemStore", ["cancelReservation"]),
+  },
+  computed: {
+    ...mapGetters("itemStore", {
+      isItemAvailable: "isReservedItemAvailableForRenting",
+    }),
   },
 };
 </script>
@@ -54,11 +65,14 @@ h2 {
   word-wrap: break-word;
 }
 
-.button {
+.button-area {
   width: 110px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: end;
+}
+
+.button {
+  margin-right: 10px;
 }
 </style>

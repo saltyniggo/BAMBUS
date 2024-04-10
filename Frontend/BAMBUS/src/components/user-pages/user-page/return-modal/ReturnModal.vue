@@ -131,6 +131,7 @@ export default {
     ...mapActions("modalStore", ["closeAllModals"]),
     ...mapActions("ratingStore", ["addRating"]),
     ...mapActions("notificationStore", ["userReportsDamage"]),
+    ...mapActions("loanStore", ["returnItem"]),
 
     checkRecommendation() {
       if (yesRecommend.checked) {
@@ -187,7 +188,7 @@ export default {
           damageDescription: this.damageDescription,
         });
       }
-
+      this.returnItem(this.id);
       this.removeLoanIdFromItem(this.id);
       this.closeAllModals();
     },

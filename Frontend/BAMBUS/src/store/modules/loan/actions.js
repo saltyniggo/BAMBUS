@@ -2,7 +2,7 @@ export default {
   createLoan({ commit, dispatch, rootState }, payload) {
     const loanId = Math.floor(Math.random() * (69420 - 1 + 1)) + 1;
     const userId = rootState.userStore.user.userId;
-    const currentDay = new Date().toLocaleDateString("de-DE");
+    const currentDay = new Date().toISOString().split("T")[0];
     const loan = {
       loanId: loanId,
       userId: userId,
@@ -20,7 +20,7 @@ export default {
     );
   },
   returnItem({ commit, dispatch, rootState }, itemId) {
-    const returnDate = new Date().toLocaleDateString("de-DE");
+    const returnDate = new Date().toISOString().split("T")[0];
     const loanId = rootState.itemStore.items.find(
       (item) => item.itemId === itemId
     ).currentLoanId;

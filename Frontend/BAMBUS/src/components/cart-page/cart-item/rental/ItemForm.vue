@@ -29,24 +29,16 @@ export default {
   },
   computed: {
     formattedFromDate() {
-      const date = new Date(this.fromDate);
-      const day = date.getDate().toString().padStart(2, "0");
-      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-      const year = date.getFullYear();
-      return `${day}.${month}.${year}`;
+      return new Date().toLocaleDateString("de-DE");
     },
     minDate() {
-      const minDate = new Date();
-      return minDate.toLocaleDateString("de-DE");
+      return new Date().toISOString().split("T")[0];
     },
     maxDate() {
       const maxDate = new Date();
       maxDate.setDate(maxDate.getDate() + 31);
-      return maxDate.toLocaleDateString("de-DE");
+      return maxDate.toISOString().split("T")[0];
     },
-  },
-  beforeMount() {
-    this.fromDate = new Date().toLocaleDateString("de-DE");
   },
 };
 </script>

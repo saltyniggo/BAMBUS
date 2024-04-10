@@ -3,8 +3,11 @@
     <user-tabs :tabs="tabs" :activeRoute="activeRoute" />
     <section class="user-page-content">
       <overview-tab v-if="activeRoute == 'overview'" />
-      <orders-tab v-else-if="activeRoute == 'orders'" @openReturnModal="openReturnModal" />
-      <account-tab v-else-if="activeRoute == 'account'" /> 
+      <orders-tab
+        v-else-if="activeRoute == 'orders'"
+        @openReturnModal="openReturnModal"
+      />
+      <account-tab v-else-if="activeRoute == 'account'" />
     </section>
     <return-modal v-if="showsReturnModal"></return-modal>
   </div>
@@ -53,7 +56,6 @@ export default {
       if (!newVal) {
         this.activeRoute = "orders";
         this.$forceUpdate();
- 
       }
     },
   },
@@ -63,13 +65,13 @@ export default {
       await this.$store.dispatch("itemStore/setReturnItemId", id);
       await this.$store.dispatch("modalStore/toggleReturnModal");
     },
-  }
+  },
 };
 </script>
 
 <style scoped>
 .user-page {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f2eae4;
   padding: 1%;
   color: #222126;

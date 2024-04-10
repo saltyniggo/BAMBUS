@@ -81,4 +81,8 @@ export default {
   reportItem({ commit }) {
     commit("reportItem");
   },
+
+  cancelReservation({ commit }, payload) {
+    commit("removeReservationFromItem", payload);
+  },
 };

@@ -3,7 +3,7 @@
     <div class="cardContent">
       <div class="informations">
         <h2>{{ item.title }}</h2>
-        <p><strong>Ausgeliehen bis zum: </strong>{{ loan.dueDate }}</p>
+        <p><strong>Ausgeliehen bis zum: </strong>{{ dueDate }}</p>
       </div>
       <div class="return">
         <base-rectangle-button @click="returnItem">
@@ -72,14 +72,14 @@ export default {
       user: "getUser",
     }),
     loan() {
-      console.log(this.item);
-      console.log(this.item.currentLoanId);
       return this.$store.getters["loanStore/getLoanById"](
         this.item.currentLoanId
       );
     },
+    dueDate() {
+      return new Date(this.loan.dueDate).toLocaleDateString("de-DE");
+    },
     maxDate() {
-      console.log(this.loan);
       let date = new Date(this.loan.dueDate);
       date.setDate(date.getDate() + 31);
       return date;

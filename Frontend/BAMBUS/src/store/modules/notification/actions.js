@@ -9,31 +9,31 @@ export default {
       const daysUntilReturn = Math.floor(
         (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
-      const itemTitle = rootState.itemStore.items.find(
-        (item) => item.itemId === loan.itemId
-      ).title;
-      const notification = {
-        notificationId: null,
-        type: 1,
-        title: null,
-        message: null,
-        senderId: 0,
-        receiverId: user.userId,
-        date: new Date().toLocaleDateString("de-DE"),
-        payload: null,
-      };
-      if (daysUntilReturn > 1) {
-        notification.message = `${itemTitle} ist seit ${daysUntilReturn} Tagen überfällig`;
-      } else if (daysUntilReturn === 1) {
-        notification.message = `${itemTitle} ist seit einem Tag überfällig`;
-      } else if (daysUntilReturn <= 5) {
-        notification.message = `${
-          loan.title
-        } ist in ${-daysUntilReturn} Tagen fällig`;
+      if (!daysUntilReturn < 5 && loan.returnDate === null) {
+        const itemTitle = rootState.itemStore.items.find(
+          (item) => item.itemId === loan.itemId
+        ).title;
+        const notification = {
+          notificationId: null,
+          type: 1,
+          title: null,
+          message: null,
+          senderId: 0,
+          receiverId: user.userId,
+          date: new Date().toLocaleDateString("de-DE"),
+          payload: null,
+        };
+        if (daysUntilReturn > 1) {
+          notification.message = `${itemTitle} ist seit ${daysUntilReturn} Tagen überfällig`;
+        } else if (daysUntilReturn === 1) {
+          notification.message = `${itemTitle} ist seit einem Tag überfällig`;
+        } else if (daysUntilReturn <= 5) {
+          notification.message = `${itemTitle} ist in ${-daysUntilReturn} Tagen fällig`;
+        }
+        dispatch("userStore/addNotification", notification, {
+          root: true,
+        });
       }
-      dispatch("userStore/addNotification", notification, {
-        root: true,
-      });
     });
   },
 
@@ -161,5 +161,5 @@ export default {
       payload: payload,
     };
     dispatch("userStore/addNotification", notification, { root: true });
-  }
+  },
 };

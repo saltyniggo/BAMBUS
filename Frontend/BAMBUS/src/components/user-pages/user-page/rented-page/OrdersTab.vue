@@ -6,7 +6,7 @@
         v-for="item in rentedItems(user.userId)"
         :key="item.itemId"
         :item="item"
-        @openReturnModal="console.log(item), openReturnModal(item.itemId)"
+        @openReturnModal="openReturnModal(item.itemId)"
       />
     </div>
 
@@ -16,6 +16,7 @@
         v-for="item in reservedItems(user.userId)"
         :key="item.itemId"
         :item="item"
+        :userId="user.userId"
       />
     </div>
   </div>
@@ -45,7 +46,6 @@ export default {
   },
   methods: {
     openReturnModal(id) {
-      console.log(this.rentedItems(this.user.userId));
       this.$emit("openReturnModal", id);
     },
   },

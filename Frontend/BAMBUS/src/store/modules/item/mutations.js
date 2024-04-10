@@ -17,6 +17,11 @@ export default {
     state.items[index].reservations.push(userId);
   },
 
+  removeReservationFromItem(state, { itemId, userId }) {
+    const item = state.items.find((item) => item.itemId === itemId);
+    item.reservations = item.reservations.filter((id) => id !== userId);
+  },
+
   deleteItem(state, id) {
     state.items = state.items.filter((item) => item.itemId !== id);
   },
