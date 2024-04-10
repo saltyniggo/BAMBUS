@@ -5,20 +5,24 @@ export default {
   addItem({ commit }, item) {
     commit("addItemToCart", item);
   },
-
   createItem({ commit }, item) {
     commit("addItem", item);
-  },
-  editItem({ commit }, item) {
-    commit("editItem", item);
   },
   setEditItemId({ commit }, id) {
     commit("setEditItemId", id);
   },
+  editBook({ commit }, payload) {
+    commit("editBook", payload);
+  },
+  editGame({ commit }, payload) {
+    commit("editGame", payload);
+  },
+  editMagazine({ commit }, payload) {
+    commit("editMagazine", payload);
+  },
   setReturnItemId({ commit }, id) {
     commit("setReturnItemId", id);
   },
-
   setReportItemId({ commit }, id) {
     commit("setReportItemId", id);
   },
@@ -77,7 +81,6 @@ export default {
     );
     commit("requestExtension", { index, newDueDate: payload.newdueDate });
   },
-
   reportItem({ commit }) {
     commit("reportItem");
   },

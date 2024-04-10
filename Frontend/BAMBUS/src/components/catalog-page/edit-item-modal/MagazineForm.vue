@@ -4,6 +4,10 @@
       <label for="title">Titel </label>
       <input type="text" id="title" v-model="title" required />
     </div>
+    <div class="field">
+      <label for="author">Autor</label>
+      <input type="text" id="author" v-model="author" required />
+    </div>
 
     <div class="field">
       <label for="ISSN">ISSN </label>
@@ -34,60 +38,38 @@ export default {
       ISSN: "",
       category: "",
       available: "",
+      author: "",
     };
   },
   watch: {
     saveItem: {
       immediate: true,
       handler: function (newVal) {
-        console.log(newVal);
         if (newVal === true) {
-          this.$store.dispatch("editStore/updateEditItemTitle", this.title);
-          this.$store.dispatch("editStore/updateEditItemISSN", this.ISSN);
-          this.$store.dispatch("editStore/updateEditItemCategory", this.category);
-          if (this.available === "Ja") {
-            this.$store.dispatch("editStore/updateEditItemAvailability", true);
-          } else {
-            this.$store.dispatch("editStore/updateEditItemAvailability", false);
-          }
+          console.log("this.item.itemId", this.item.itemId)
+          this.$store.dispatch("itemStore/editMagazine", {
+            itemId: this.item.itemId,
+            title: this.title,
+            ISSN: this.ISSN,
+            category: this.category,
+            available: this.available === "Ja" ? true : false,
+            author: this.author,
+          });
           this.$emit("saved");
         }
       },
     },
   },
-  // watch: {
-    // title: {
-    //   handler: function (value) {
-    //     this.$store.dispatch("editStore/updateEditItemTitle", value);
-    //   },
-    // },
-    // ISSN: {
-    //   handler: function (value) {
-    //     this.$store.dispatch("editStore/updateEditItemISSN", value);
-    //   },
-    // },
-    // category: {
-    //   handler: function (value) {
-    //     this.$store.dispatch("editStore/updateEditItemCategory", value);
-    //   },
-    // },
-    // available: {
-    //   handler: function (value) {
-    //     this.$store.dispatch("editStore/updateEditItemAvailability", value);
-    //   },
-    // },
-  // },
   mounted() {
-    this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;
     this.ISSN = this.item.ISSN;
     this.category = this.item.category;
+    this.author = this.item.author;
     if (this.item.available === true) {
       this.available = "Ja";
     } else {
       this.available = "Nein";
     }
-    this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
 </script>

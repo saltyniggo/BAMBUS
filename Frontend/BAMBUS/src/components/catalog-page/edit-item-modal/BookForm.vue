@@ -48,50 +48,15 @@ export default {
   saveItem: {
     immediate: true,
     handler: function (newVal) {
-      console.log(newVal);
       if (newVal===true) {
-        this.$store.dispatch("editStore/updateEditItemTitle", this.title);
-        this.$store.dispatch("editStore/updateEditItemAuthor", this.author);
-        this.$store.dispatch("editStore/updateEditItemISBN", this.ISBN);
-        this.$store.dispatch("editStore/updateEditItemCategory", this.category);
-        if (this.available === "Ja") {
-          this.$store.dispatch("editStore/updateEditItemAvailability", true);
-        } else {
-          this.$store.dispatch("editStore/updateEditItemAvailability", false);
-        }
+        this.$store.dispatch("itemStore/editBook", {
+          itemId: this.item.itemId, title: this.title, author: this.author, ISBN: this.ISBN, category: this.category, available: this.available === "Ja" ? true : false,});
         this.$emit("saved");
       }
     },
-  },},
-  // watch: {
-  //   title: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemTitle", value);
-  //     },
-  //   },
-  //   author: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemAuthor", value);
-  //     },
-  //   },
-  //   ISBN: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemISBN", value);
-  //     },
-  //   },
-  //   category: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemCategory", value);
-  //     },
-  //   },
-  //   available: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemAvailability", value);
-  //     },
-  //   },
-  // },
+  },
+},
   beforeMount() {
-    this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;
     this.author = this.item.author;
     this.ISBN = this.item.ISBN;
@@ -101,7 +66,6 @@ export default {
     } else {
       this.available = "Nein";
     }
-    this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
 </script>

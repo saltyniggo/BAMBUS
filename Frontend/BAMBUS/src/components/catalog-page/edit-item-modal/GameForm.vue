@@ -33,39 +33,19 @@ export default {
     saveItem: {
       immediate: true,
       handler: function (newVal) {
-        console.log(newVal);
         if (newVal) {
-          this.$store.dispatch("editStore/updateEditItemTitle", this.title);
-          this.$store.dispatch("editStore/updateEditItemCategory", this.category);
-          if (this.available === "Ja") {
-            this.$store.dispatch("editStore/updateEditItemAvailability", true);
-          } else {
-            this.$store.dispatch("editStore/updateEditItemAvailability", false);
-          }
+          this.$store.dispatch("itemStore/editGame", {
+            itemId: this.item.itemId,
+            title: this.title,
+            category: this.category,
+            available: this.available === "Ja" ? true : false,
+          })
           this.$emit("saved");
         }
       },
     },
   },
-  // watch: {
-  //   title: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemTitle", value);
-  //     },
-  //   },
-  //   category: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemCategory", value);
-  //     },
-  //   },
-  //   available: {
-  //     handler: function (value) {
-  //       this.$store.dispatch("editStore/updateEditItemAvailability", value);
-  //     },
-  //   },
-  // },
   beforeMount() {
-    this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;
     this.category = this.item.category;
     if (this.item.available === true) {
@@ -73,7 +53,6 @@ export default {
     } else {
       this.available = "Nein";
     }
-    this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
 </script>

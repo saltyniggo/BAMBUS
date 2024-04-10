@@ -62,7 +62,6 @@ export default {
     },
     close() {
       this.hideModal = true;
-      this.$store.dispatch("editStore/saveEditItem");
       setTimeout(() => {
         this.$store.dispatch("modalStore/closeAllModals");
       }, 500);

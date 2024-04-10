@@ -9,7 +9,6 @@ import ItemStore from "./modules/item/index.js";
 import ModalStore from "./modules/modal/index.js";
 import RatingStore from "./modules/rating/index.js";
 import CartStore from "./modules/cart/index.js";
-import EditStore from "./modules/edit/index.js";
 import NotificationStore from "./modules/notification/index.js";
 import LoanStore from "./modules/loan/index.js";
 
@@ -20,7 +19,6 @@ const store = createStore({
     modalStore: ModalStore,
     ratingStore: RatingStore,
     cartStore: CartStore,
-    editStore: EditStore,
     notificationStore: NotificationStore,
     loanStore: LoanStore,
   },
