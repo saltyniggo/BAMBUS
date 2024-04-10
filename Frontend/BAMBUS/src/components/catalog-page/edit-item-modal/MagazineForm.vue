@@ -4,6 +4,10 @@
       <label for="title">Titel </label>
       <input type="text" id="title" v-model="title" required />
     </div>
+    <div class="field">
+      <label for="author">Autor</label>
+      <input type="text" id="author" v-model="author" required />
+    </div>
 
     <div class="field">
       <label for="ISSN">ISSN </label>
@@ -16,7 +20,10 @@
     </div>
     <div class="field">
       <label for="available">Verfügbarkeit </label>
-      <input type="text" id="available" v-model="available" required />
+      <select id="available" v-model="available">
+        <option value="Ja">Ja</option>
+        <option value="Nein">Nein</option>
+      </select>
     </div>
   </div>
 </template>
@@ -24,48 +31,45 @@
 <script>
 export default {
   name: "MagazineForm",
-  props: ["item"],
+  props: ["item", "saveItem"],
   data() {
     return {
       title: "",
       ISSN: "",
       category: "",
       available: "",
+      author: "",
     };
   },
   watch: {
-    title: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemTitle", value);
-      },
-    },
-    ISSN: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemISSN", value);
-      },
-    },
-    category: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemCategory", value);
-      },
-    },
-    available: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemAvailability", value);
+    saveItem: {
+      immediate: true,
+      handler: function (newVal) {
+        if (newVal === true) {
+          console.log("this.item.itemId", this.item.itemId)
+          this.$store.dispatch("itemStore/editMagazine", {
+            itemId: this.item.itemId,
+            title: this.title,
+            ISSN: this.ISSN,
+            category: this.category,
+            available: this.available === "Ja" ? true : false,
+            author: this.author,
+          });
+          this.$emit("saved");
+        }
       },
     },
   },
   mounted() {
-    this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;
     this.ISSN = this.item.ISSN;
     this.category = this.item.category;
+    this.author = this.item.author;
     if (this.item.available === true) {
       this.available = "Ja";
     } else {
       this.available = "Nein";
     }
-    this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
 </script>

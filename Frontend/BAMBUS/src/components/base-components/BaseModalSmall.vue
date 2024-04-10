@@ -4,7 +4,7 @@
   ></Transition>
 
   <Transition>
-    <div class="modal" v-if="isShowing">
+    <div class="modal" v-if="isShowing ">
       <h1>
         <slot name="modal-title">
           <h1>Modal Title</h1>
@@ -32,17 +32,37 @@ export default {
   components: {
     BaseRectangleButton,
   },
+  props: {
+    hideModal: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       isShowing: false,
     };
   },
+  watch: {
+    hideModal: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          this.isShowing = false;
+        }
+      },
+    },
+  },
   methods: {
+    hideModel() {
+      this.isShowing = false;
+    },
     closeModal() {
       this.isShowing = false;
       setTimeout(() => {
         this.$store.dispatch("modalStore/closeAllModals");
       }, 500);
+      this.$store.dispatch("itemStore/deleteAllModalIds");
     },
   },
 

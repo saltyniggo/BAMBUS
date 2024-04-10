@@ -28,12 +28,47 @@ export default {
   addItem(state, item) {
     state.items.push(item);
   },
-  editItem(state, item) {
-    state.items = state.items.map((i) => (i.id === item.id ? item : i));
-  },
   setEditItemId(state, id) {
     state.editItemId = id;
   },
+  editBook(state, payload) {
+    const index = state.items.findIndex(
+      (item) => item.itemId === payload.itemId
+    );
+    state.items[index].title = payload.title;
+    state.items[index].author = payload.author;
+    state.items[index].ISBN = payload.ISBN;
+    state.items[index].type = 1;
+    state.items[index].available = payload.available;
+    state.items[index].category = payload.category;
+    delete state.items[index].issn;
+  },
+
+  editGame(state, payload) {
+    const index = state.items.findIndex(
+      (item) => item.itemId === payload.itemId
+    );
+    state.items[index].title = payload.title;
+    state.items[index].category = payload.category;
+    state.items[index].type = 2;
+    state.items[index].available = payload.available;
+    delete state.items[index].issn;
+    delete state.items[index].isbn;
+    delete state.items[index].author;
+  },
+  editMagazine(state, payload) {
+    const index = state.items.findIndex(
+      (item) => item.itemId === payload.itemId
+    );
+    state.items[index].title = payload.title;
+    state.items[index].ISSN = payload.ISSN;
+    state.items[index].author = payload.author;
+    state.items[index].category = payload.category;
+    state.items[index].type = 0;
+    state.items[index].available = payload.available;
+    delete state.items[index].isbn;
+  },
+
   setReturnItemId(state, id) {
     state.returnItemId = id;
   },
@@ -44,10 +79,6 @@ export default {
     state.editItemId = null;
     state.returnItemId = null;
     state.reportItemId = null;
-  },
-  saveEditItem(state, { payload, index }) {
-    console.log(payload);
-    // state.items[index] = payload;
   },
   requestExtension(state, payload) {
     state.items[payload.index].dueDate = payload.newDueDate;

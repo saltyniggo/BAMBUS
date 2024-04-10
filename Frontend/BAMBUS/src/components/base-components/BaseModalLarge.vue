@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { watch } from "vue";
 import BaseRectangleButton from "./BaseRectangleButton.vue";
 import BaseRoundButton from "./BaseRoundButton.vue";
 
@@ -43,11 +44,25 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideModal: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       isShowing: false,
     };
+  },
+  watch: {
+    hideModal: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          this.isShowing = false;
+        }
+      },
+    },
   },
   methods: {
     closeModal() {

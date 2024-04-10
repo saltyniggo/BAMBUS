@@ -1,5 +1,5 @@
 <template>
-  <base-modal-large>
+  <base-modal-large :hideModal>
     <template v-slot:modal-title>
       <h1>Bewertungen</h1>
     </template>
@@ -50,6 +50,7 @@ export default {
       itemId: "",
       creatorId: "",
       stars: [false, false, false, false, false],
+      hideModal: false,
     };
   },
   computed: {
@@ -77,7 +78,11 @@ export default {
     },
 
     closeModal() {
-      this.$store.dispatch("modalStore/closeAllModals")
+      this.hideModal = true;
+      setTimeout(() => {
+        this.$store.dispatch("modalStore/closeAllModals");
+      }, 500);
+      this.$store.dispatch("ratingStore/deleteItemId")
     },
   },
 };

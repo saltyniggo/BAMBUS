@@ -1,6 +1,6 @@
 <template>
     <div class="report-modal">
-        <base-modal-small>
+        <base-modal-small :hideModal>
             <template v-slot:modal-title>
                 <h1>Artikel beschädigt melden</h1>
             </template>
@@ -33,6 +33,7 @@ export default {
     data() {
         return {
             damageDescription: "",
+            hideModal: false,
         };
     },
     computed: {
@@ -43,7 +44,11 @@ export default {
         processReport() {
             this.$store.dispatch("itemStore/reportItem");
             this.$store.dispatch("notificationStore/userReportsDamage", ({ id: this.item.itemId, userId: this.user.userId, title: this.item.title  , damageDescription: this.damageDescription }));
-            this.$store.dispatch("modalStore/closeAllModals");
+            this.hideModal = true;
+            setTimeout(() => {
+                this.$store.dispatch("modalStore/closeAllModals");
+            }, 500);
+            this.$store.dispatch("itemStore/deleteAllModalIds");
         },
     },
 

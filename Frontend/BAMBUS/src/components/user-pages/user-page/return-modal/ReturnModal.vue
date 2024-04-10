@@ -1,5 +1,5 @@
 <template>
-  <base-modal-large :hasCloseButton="true">
+  <base-modal-large :hasCloseButton="true" :hideModal>
     <template v-slot:modal-title>
       <h1>Rückgabe</h1>
     </template>
@@ -120,6 +120,7 @@ export default {
       showAlert: false,
       damageDescription: "",
       itemTitle: "",
+      hideModal: false,
     };
   },
   computed: {
@@ -190,7 +191,12 @@ export default {
       }
       this.returnItem(this.id);
       this.removeLoanIdFromItem(this.id);
-      this.closeAllModals();
+
+      this.hideModal = true;
+      setTimeout(() => {
+        this.$store.dispatch("modalStore/closeAllModals");
+      }, 500);
+      this.$store.dispatch("itemStore/deleteAllModalIds");
     },
 
     changeStar(index) {

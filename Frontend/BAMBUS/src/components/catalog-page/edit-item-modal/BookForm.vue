@@ -18,7 +18,10 @@
     </div>
     <div class="field">
       <label for="available">Verfügbarkeit </label>
-      <input type="text" id="available" v-model="available" required />
+      <select id="available" v-model="available">
+        <option value="Ja">Ja</option>
+        <option value="Nein">Nein</option>
+      </select>
     </div>
   </div>
 </template>
@@ -30,7 +33,7 @@
 
 export default {
   name: "BookForm",
-  props: ["item"],
+  props: ["item", "saveItem"],
   data() {
     return {
       title: "",
@@ -40,35 +43,20 @@ export default {
       available: "",
     };
   },
-  watch: {
-    title: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemTitle", value);
-      },
-    },
-    author: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemAuthor", value);
-      },
-    },
-    ISBN: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemISBN", value);
-      },
-    },
-    category: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemCategory", value);
-      },
-    },
-    available: {
-      handler: function (value) {
-        this.$store.dispatch("editStore/updateEditItemAvailability", value);
-      },
+
+  watch:{
+  saveItem: {
+    immediate: true,
+    handler: function (newVal) {
+      if (newVal===true) {
+        this.$store.dispatch("itemStore/editBook", {
+          itemId: this.item.itemId, title: this.title, author: this.author, ISBN: this.ISBN, category: this.category, available: this.available === "Ja" ? true : false,});
+        this.$emit("saved");
+      }
     },
   },
+},
   beforeMount() {
-    this.$store.dispatch("editStore/clearEditItem");
     this.title = this.item.title;
     this.author = this.item.author;
     this.ISBN = this.item.ISBN;
@@ -78,7 +66,6 @@ export default {
     } else {
       this.available = "Nein";
     }
-    this.$store.dispatch("editStore/setEditItem", this.item);
   },
 };
 </script>

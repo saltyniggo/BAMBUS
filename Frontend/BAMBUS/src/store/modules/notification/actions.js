@@ -127,15 +127,16 @@ export default {
   },
 
   userRequestsPasswordReset({ dispatch }, payload) {
-    if (!this.state.userStore.users.find((user) => user.username === payload)) {
+    if (!this.state.userStore.users.find((user) => user.email === payload)) {
       alert("User does not exist");
       return;
     } else {
+      const username = this.state.userStore.users.find((user) => user.email === payload).username;
       const notification = {
         notificationId: null,
         type: 8,
         title: null,
-        message: `${payload} hat eine Zurücksetzung des Passworts angefragt`,
+        message: `${username} mit der Adresse ${payload} hat eine Zurücksetzung des Passworts angefragt`,
         senderId: 0,
         receiverId: 3,
         date: new Date().toLocaleDateString("de-DE"),
