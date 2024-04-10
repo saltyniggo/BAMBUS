@@ -1,5 +1,5 @@
 <template>
-  <base-modal-large :hasCloseButton="true">
+  <base-modal-large :hasCloseButton="true" :hideModal>
     <template v-slot:modal-title>
       <h1>Bearbeiten</h1>
     </template>
@@ -44,6 +44,11 @@ export default {
     MagazineForm,
     GameForm,
   },
+  data() {
+    return {
+      hideModal: false,
+    };
+  },
   computed: {
     ...mapGetters({
       ratings: "ratingStore/getRatingsByItemId",
@@ -52,9 +57,12 @@ export default {
   },
   methods: {
     saveEdit() {
-      // this.$store.dispatch("itemStore/editItem", this.item);
+      this.hideModal = true;
       this.$store.dispatch("editStore/saveEditItem");
-      this.$store.dispatch("modalStore/closeAllModals");
+      setTimeout(() => {
+        this.$store.dispatch("modalStore/closeAllModals");
+      }, 500);
+      this.$store.dispatch("itemStore/deleteAllModalIds");
     },
   },
 };

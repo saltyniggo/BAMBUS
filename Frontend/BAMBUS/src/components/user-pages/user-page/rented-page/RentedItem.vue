@@ -26,7 +26,6 @@
         />
         <base-rectangle-button
           @click="
-            console.log(itemObject),
               requestExtension({
                 itemTitle: itemObject.item.title,
                 loanId: itemObject.loan.loanId,
@@ -79,9 +78,6 @@ export default {
       date.setDate(date.getDate() + 31);
       return date.toISOString().split("T")[0];
     },
-  },
-  onCreated() {
-    console.log(this.itemObject);
   },
 };
 </script>

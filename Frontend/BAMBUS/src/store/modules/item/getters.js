@@ -21,7 +21,6 @@ export default {
         loan: loan,
       };
     });
-    console.log(itemLoanObjects);
     return itemLoanObjects;
   },
 

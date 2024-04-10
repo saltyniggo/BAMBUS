@@ -1,15 +1,15 @@
 <template>
-  <form @submit.prevent class="username-form">
-    <label for="username"
-      >Bitte geben Sie Ihren Usernamen ein, um Ihr Passwort zurückzusetzen.
+  <form @submit.prevent class="email-form">
+    <label for="email"
+      >Bitte gebe Deine Emailadresse ein, um eine Passwortzurücksetzung zu benatragen.
     </label>
     <input
-      class="username-form-input"
+      class="email-form-input"
       type="text"
-      placeholder="Username"
-      v-model="username"
+      placeholder="Emailadresse"
+      v-model="email"
     />
-    <base-text-button @click="submitPasswordReset()">
+    <base-text-button @click="submitPasswordReset()" >
       Passwort zurücksetzen
     </base-text-button>
   </form>
@@ -27,12 +27,12 @@ export default {
   },
   data() {
     return {
-      username: "",
+      email: "",
     };
   },
   methods: {
     submitPasswordReset() {
-      this.requestPasswordReset(this.username);
+      this.requestPasswordReset(this.email);
     },
     ...mapActions("notificationStore", {
       requestPasswordReset: "userRequestsPasswordReset",

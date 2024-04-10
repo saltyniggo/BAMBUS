@@ -6,15 +6,9 @@ export default {
   namespaced: true,
   state: {
     editItemModalStatus: false,
-    editItemId: null,
     ratingsModalStatus: false,
-    ratingsItemId: null,
-    addModalStatus: false,
     returnItemModalStatus: false,
-    returnItemId: null,
     reportModalStatus: false,
-    reportItemId: null,
-    
   },
   mutations: Mutations,
   actions: Actions,

@@ -7,7 +7,6 @@ export default {
     });
   },
   removeLoanIdFromItem(state, itemId) {
-    console.log(itemId);
     state.items.forEach((item) => {
       if (item.itemId === itemId) {
         item.currentLoanId = null;
