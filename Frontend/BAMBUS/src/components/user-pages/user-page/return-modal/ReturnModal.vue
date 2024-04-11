@@ -183,7 +183,7 @@ export default {
           this.id
         ).title;
         this.userReportsDamage({
-          id: this.id,
+          itemId: this.id,
           userId: this.user.userId,
           title: this.itemTitle,
           damageDescription: this.damageDescription,
