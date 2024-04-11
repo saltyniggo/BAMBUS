@@ -135,11 +135,23 @@ export default {
       case 9:
         payload.title = "Schaden wurde gemeldet";
         break;
+      case 10:
+        payload.title = "Ein neues Item wurde hinzugefügt";
+        break;
     }
     if (payload.senderId === 0) {
       payload.senderId = "System";
     }
-    commit("addNotification", payload);
+    if (payload.receiverId !== "users") {
+      commit("addNotification", payload);
+    } else {
+      state.users.forEach((user) => {
+        if (user.role === 0) {
+          payload.receiverId = user.userId;
+          commit("addNotification", payload);
+        }
+      });
+    }
   },
   deleteNotificationsWithType({ commit, state }, payload) {
     const userId = state.user.userId;

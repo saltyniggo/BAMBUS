@@ -131,7 +131,9 @@ export default {
       alert("User does not exist");
       return;
     } else {
-      const username = this.state.userStore.users.find((user) => user.email === payload).username;
+      const username = this.state.userStore.users.find(
+        (user) => user.email === payload
+      ).username;
       const notification = {
         notificationId: null,
         type: 8,
@@ -157,7 +159,20 @@ export default {
       title: null,
       message: `${payload.title} (${payload.id}) ist von ${userName} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: ${payload.description}.`,
       senderId: payload.userId,
-      receiverId: 2,
+      receiverId: null,
+      date: new Date().toLocaleDateString("de-DE"),
+      payload: payload,
+    };
+    dispatch("userStore/addNotification", notification, { root: true });
+  },
+  managerAddsItem({ dispatch }, payload) {
+    const notification = {
+      notificationId: null,
+      type: 10,
+      title: null,
+      message: `Ein neuer Artikel (${payload.title}) wurde hinzugefügt`,
+      senderId: 0,
+      receiverId: "users",
       date: new Date().toLocaleDateString("de-DE"),
       payload: payload,
     };

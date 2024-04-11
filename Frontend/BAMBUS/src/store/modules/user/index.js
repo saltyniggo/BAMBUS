@@ -50,6 +50,7 @@ export default {
         numberLoans: 1,
         numberExtensions: 2,
         numberMissedReturns: 3,
+        notifications: [],
       },
       {
         userId: 5,
@@ -62,8 +63,8 @@ export default {
         numberLoans: 3,
         numberExtensions: 1,
         numberMissedReturns: 2,
-
-      }
+        notifications: [],
+      },
     ],
     userIsAuth: false,
     user: {
