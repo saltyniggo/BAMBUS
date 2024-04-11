@@ -1,3 +1,5 @@
+import router from "../../../router/index.js";
+
 export default {
   checkDueDates({ dispatch, rootState }) {
     const today = new Date();
@@ -93,6 +95,10 @@ export default {
   },
 
   userRequestsLoanExtension({ commit, dispatch, rootState }, payload) {
+    if (payload.newDueDate === null || payload.newDueDate === "") {
+      alert("Bitte geben Sie ein neues Rückgabedatum an.");
+      return;
+    }
     const user = rootState.userStore.user;
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
     const notification = {
@@ -149,7 +155,7 @@ export default {
       };
       dispatch("userStore/addNotification", notification, { root: true });
       alert("Passwort zurücksetzen angefordert.");
-      this.$router.push({ name: "Login" });
+      router.push({ name: "login" });
     }
   },
   userReportsDamage({ dispatch, rootState }, payload) {
