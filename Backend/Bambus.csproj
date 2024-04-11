@@ -42,9 +42,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="oida\oida" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include=".vs\Bambus\v17\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
