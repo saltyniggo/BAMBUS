@@ -91,7 +91,7 @@ export default {
   reportItem(state) {
     state.items.find(
       (item) => item.itemId == state.reportItemId
-    ).isDamaged = true;
+    ).isDamaged = 1;
   },
   setFilteredBy(state, filterBy) {
     if (filterBy === "books") {

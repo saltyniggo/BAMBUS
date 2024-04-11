@@ -129,6 +129,7 @@ export default {
   },
   methods: {
     ...mapActions("itemStore", ["removeLoanIdFromItem"]),
+    ...mapActions("itemStore", ["reportItem"]),
     ...mapActions("modalStore", ["closeAllModals"]),
     ...mapActions("ratingStore", ["addRating"]),
     ...mapActions("notificationStore", ["userReportsDamage"]),
@@ -182,6 +183,7 @@ export default {
         this.itemTitle = this.$store.getters["itemStore/getItemById"](
           this.id
         ).title;
+        this.reportItem();
         this.userReportsDamage({
           id: this.id,
           userId: this.user.userId,
