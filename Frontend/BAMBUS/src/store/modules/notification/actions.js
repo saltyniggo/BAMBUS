@@ -43,6 +43,9 @@ export default {
     const today = new Date();
     const loans = rootState.loanStore.loans;
     loans.forEach((loan) => {
+      if (loan.returnDate) {
+        return;
+      }
       const daysOverdue = Math.floor(
         (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
@@ -194,7 +197,7 @@ export default {
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
     const notification = {
       notificationId: null,
-      type: 5,
+      type: 11,
       title: null,
       message: null,
       senderId: 2,

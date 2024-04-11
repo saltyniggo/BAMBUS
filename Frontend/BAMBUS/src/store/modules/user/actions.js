@@ -138,6 +138,10 @@ export default {
       case 10:
         payload.title = "Ein neuer Artikel ist im System verfügbar!";
         break;
+      case 11:
+        payload.title =
+          "Der Manager hat deine Anfrage zur Verlängerung der Ausleihe bearbeitet";
+        break;
     }
     if (payload.senderId === 0) {
       payload.senderName = "System";
