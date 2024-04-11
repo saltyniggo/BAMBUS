@@ -93,4 +93,24 @@ export default {
       (item) => item.itemId == state.reportItemId
     ).isDamaged = true;
   },
+  setFilteredBy(state, filterBy) {
+    if (filterBy === "books") {
+      state.filteredBy = 1;
+    } else if (filterBy === "games") {
+      state.filteredBy = 2;
+    } else if (filterBy === "magazines") {
+      state.filteredBy = 0;
+    } else {
+      state.filteredBy = filterBy;
+    }
+  },
+  setSortedBy(state, sortBy) {
+    state.sortedBy = sortBy;
+  },
+  setOnlyAvailable(state, onlyAvailable) {
+    state.onlyAvailable = onlyAvailable;
+  },
+  setSearch(state, search) {
+    state.search = search;
+  },
 };

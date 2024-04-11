@@ -88,4 +88,17 @@ export default {
   cancelReservation({ commit }, payload) {
     commit("removeReservationFromItem", payload);
   },
+
+  setSortedBy({ commit }, payload) {
+    commit("setSortedBy", payload);
+  },
+  setFilteredBy({ commit }, payload) {
+    commit("setFilteredBy", payload);
+  },
+  setOnlyAvailable({ commit }, payload) {
+    commit("setOnlyAvailable", payload);
+  },
+  setSearch({ commit }, payload) {
+    commit("setSearch", payload);
+  },
 };

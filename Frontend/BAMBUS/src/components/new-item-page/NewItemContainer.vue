@@ -78,11 +78,11 @@ export default {
                 this.showAlert = true;
                 return;
             }
-            else if (this.itemCategory.trim() == 1 && (this.author.trim() == "" || this.ISBN.trim() == "")) {
+            else if (this.itemCategory == 1 && (this.author.trim() == "" || this.ISBN.trim() == "")) {
                 this.showAlert = true;
                 return;
             }
-            else if (this.itemCategory.trim() == 0 && (this.author.trim() == "" || this.ISBN.trim() == "")) {
+            else if (this.itemCategory == 0 && (this.author.trim() == "" || this.ISBN.trim() == "")) {
                 this.showAlert = true;
                 return;
             }

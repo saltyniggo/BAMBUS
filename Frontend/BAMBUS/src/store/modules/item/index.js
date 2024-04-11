@@ -8,6 +8,10 @@ export default {
     editItemId: null,
     returnItemId: null,
     reportItemId: null,
+    filteredBy: null,
+    sortedBy: null,
+    onlyAvailable: false,
+    search: "",
     items: [
       {
         itemId: 1,
