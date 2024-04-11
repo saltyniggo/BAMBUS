@@ -3,7 +3,7 @@
     <user-tabs :tabs="tabs" :activeRoute="activeRoute" />
     <section class="manager-page-content">
       <overview-tab v-if="activeRoute == 'overview'" />
-      <management-tab v-else-if="activeRoute == 'management'" />
+      <management-tab v-else-if="activeRoute == 'beschaedigungen'" />
       <statistic-tab v-else-if="activeRoute == 'statistics'" />
     </section>
   </div>
@@ -27,7 +27,7 @@ export default {
     return {
       tabs: [
         { title: "Overview", route: "/managing/overview" },
-        { title: "Management", route: "/managing/management" },
+        { title: "Beschaedigungen", route: "/managing/beschaedigungen" },
         { title: "Statistics", route: "/managing/statistics" },
       ],
       activeRoute: undefined,
