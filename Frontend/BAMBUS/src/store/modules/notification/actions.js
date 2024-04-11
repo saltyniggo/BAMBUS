@@ -149,20 +149,22 @@ export default {
       this.$router.push({ name: "Login" });
     }
   },
-  userReportsDamage({ dispatch }, payload) {
-    const userName = this.state.userStore.users.find(
+  userReportsDamage({ dispatch, rootState }, payload) {
+    const userName = rootState.userStore.users.find(
       (user) => user.userId === payload.userId
     ).username;
+    console.log(userName);
     const notification = {
       notificationId: null,
       type: 9,
       title: null,
-      message: `${payload.title} (${payload.id}) ist von ${userName} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: ${payload.description}.`,
+      message: `${payload.title} (${payload.itemId}) ist von ${userName} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       senderId: payload.userId,
-      receiverId: null,
+      receiverId: 1,
       date: new Date().toLocaleDateString("de-DE"),
       payload: payload,
     };
+    console.log(notification);
     dispatch("userStore/addNotification", notification, { root: true });
   },
   managerAddsItem({ dispatch }, payload) {

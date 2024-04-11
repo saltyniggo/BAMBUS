@@ -20,9 +20,11 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
 import BaseContentContainer from "../base-components/BaseContentContainer.vue";
 import BaseModalSmall from "../base-components/BaseModalSmall.vue";
+
 export default {
     name: "ReturnModal",
     components: {
@@ -43,7 +45,7 @@ export default {
     methods: {
         processReport() {
             this.$store.dispatch("itemStore/reportItem");
-            this.$store.dispatch("notificationStore/userReportsDamage", ({ id: this.item.itemId, userId: this.user.userId, title: this.item.title  , damageDescription: this.damageDescription }));
+            this.$store.dispatch("notificationStore/userReportsDamage", ({ itemId: this.item.itemId, userId: this.user.userId, title: this.item.title  , damageDescription: this.damageDescription }));
             this.hideModal = true;
             setTimeout(() => {
                 this.$store.dispatch("modalStore/closeAllModals");

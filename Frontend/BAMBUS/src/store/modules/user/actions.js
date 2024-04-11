@@ -141,6 +141,11 @@ export default {
     }
     if (payload.senderId === 0) {
       payload.senderId = "System";
+    } else {
+      const sender = state.users.find(
+        (user) => user.userId === payload.senderId
+      );
+      payload.senderId = sender.username;
     }
     if (payload.receiverId !== "users") {
       commit("addNotification", payload);
