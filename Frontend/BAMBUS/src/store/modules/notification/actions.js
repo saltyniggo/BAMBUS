@@ -181,4 +181,32 @@ export default {
     };
     dispatch("userStore/addNotification", notification, { root: true });
   },
+  managerRespondsToExtensionRequest({ dispatch, rootState }, payload) {
+    const userId = rootState.loanStore.loans.find(
+      (loan) => loan.loanId === payload.loanId
+    ).userId;
+    const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
+    const notification = {
+      notificationId: null,
+      type: 5,
+      title: null,
+      message: null,
+      senderId: 2,
+      receiverId: userId,
+      date: new Date().toLocaleDateString("de-DE"),
+      payload: payload,
+    };
+    const loan = rootState.loanStore.loans.find(
+      (loan) => loan.loanId === payload.loanId
+    );
+    const itemTitle = rootState.itemStore.items.find(
+      (item) => item.itemId === loan.itemId
+    ).title;
+    if (payload.response === "accept") {
+      notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} bis zum ${dateGerman} bestätigt`;
+    } else if (payload.response === "decline") {
+      notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} abgelehnt`;
+    }
+    dispatch("userStore/addNotification", notification, { root: true });
+  },
 };

@@ -27,7 +27,7 @@ export default {
     commit("returnItem", { loanId: loanId, returnDate: returnDate });
     dispatch("itemStore/removeLoanIdFromItem", itemId, { root: true });
   },
-  extensionRequestResponse({ commit }, payload) {
+  extensionRequestResponse({ commit, dispatch }, payload) {
     if (payload.response === "accept") {
       commit("setExtensionRequestInactive", payload.loanId);
       commit("extendLoan", {
@@ -37,5 +37,16 @@ export default {
     } else if (payload.response === "decline") {
       commit("setExtensionRequestInactive", payload.loanId);
     }
+    dispatch(
+      "notificationStore/managerRespondsToExtensionRequest",
+      {
+        newDueDate: payload.newDueDate,
+        loanId: payload.loanId,
+        response: payload.response,
+      },
+      {
+        root: true,
+      }
+    );
   },
 };
