@@ -170,7 +170,7 @@ export default {
       notificationId: null,
       type: 10,
       title: null,
-      message: `Ein neuer Artikel (${payload.title}) wurde hinzugefügt`,
+      message: `Ein Manager hat den Artikel ${payload.title} hinzugefügt.`,
       senderId: 0,
       receiverId: "users",
       date: new Date().toLocaleDateString("de-DE"),

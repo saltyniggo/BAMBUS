@@ -136,7 +136,7 @@ export default {
         payload.title = "Schaden wurde gemeldet";
         break;
       case 10:
-        payload.title = "Ein neues Item wurde hinzugefügt";
+        payload.title = "Ein neuer Artikel ist im System verfügbar!";
         break;
     }
     if (payload.senderId === 0) {
