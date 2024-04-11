@@ -113,6 +113,7 @@ export default {
         }
         this.managerAddsItem(item);
         this.$store.dispatch("itemStore/createItem", item);
+        this.$router.push({ name: "catalog" });
       }
     },
   },

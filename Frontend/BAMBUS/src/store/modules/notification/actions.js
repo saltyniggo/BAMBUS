@@ -160,7 +160,7 @@ export default {
       title: null,
       message: `${payload.title} (${payload.itemId}) ist von ${userName} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       senderId: payload.userId,
-      receiverId: 1,
+      receiverId: 2,
       date: new Date().toLocaleDateString("de-DE"),
       payload: payload,
     };
