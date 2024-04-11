@@ -25,7 +25,23 @@ export default {
       (item) => item.itemId === itemId
     ).currentLoanId;
     commit("returnItem", { loanId: loanId, returnDate: returnDate });
+    dispatch("endActiveExtensionRequest", loanId);
     dispatch("itemStore/removeLoanIdFromItem", itemId, { root: true });
+  },
+  endActiveExtensionRequest({ commit, dispatch, rootState }, loanId) {
+    console.log(loanId);
+    console.log(rootState);
+    const notificationId = rootState.userStore.users[1].notifications.find(
+      (notification) => notification.payload.loanId === loanId
+    ).notificationId;
+    console.log(notificationId);
+    const userId = rootState.userStore.users[1].userId;
+    dispatch(
+      "userStore/deleteNotification",
+      { userId, notificationId },
+      { root: true }
+    );
+    commit("setExtensionRequestInactive", loanId);
   },
   extensionRequestResponse({ commit, dispatch }, payload) {
     if (payload.response === "accept") {
