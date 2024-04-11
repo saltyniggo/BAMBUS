@@ -140,12 +140,12 @@ export default {
         break;
     }
     if (payload.senderId === 0) {
-      payload.senderId = "System";
+      payload.senderName = "System";
     } else {
       const sender = state.users.find(
         (user) => user.userId === payload.senderId
       );
-      payload.senderId = sender.username;
+      payload.senderName = sender.username;
     }
     if (payload.receiverId !== "users") {
       commit("addNotification", payload);
@@ -158,6 +158,11 @@ export default {
       });
     }
   },
+
+  deleteNotification({ commit }, payload) {
+    commit("deleteNotification", payload);
+  },
+
   deleteNotificationsWithType({ commit, state }, payload) {
     const userId = state.user.userId;
     commit("deleteNotificationsWithType", { userId, type: payload });

@@ -92,7 +92,7 @@ export default {
     });
   },
 
-  userRequestsLoanExtension({ dispatch, rootState }, payload) {
+  userRequestsLoanExtension({ commit, dispatch, rootState }, payload) {
     const user = rootState.userStore.user;
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
     const notification = {
@@ -109,6 +109,9 @@ export default {
         newDueDate: payload.newDueDate,
       },
     };
+    commit("loanStore/setExtensionRequestActive", payload.loanId, {
+      root: true,
+    });
     dispatch("userStore/addNotification", notification, { root: true });
   },
 
@@ -153,7 +156,6 @@ export default {
     const userName = rootState.userStore.users.find(
       (user) => user.userId === payload.userId
     ).username;
-    console.log(userName);
     const notification = {
       notificationId: null,
       type: 9,
@@ -164,7 +166,6 @@ export default {
       date: new Date().toLocaleDateString("de-DE"),
       payload: payload,
     };
-    console.log(notification);
     dispatch("userStore/addNotification", notification, { root: true });
   },
   managerAddsItem({ dispatch }, payload) {

@@ -10,7 +10,7 @@
           Rückgabe
         </base-rectangle-button>
       </div>
-      <div class="extend">
+      <div class="extend" v-if="!loan.extensionRequestActive">
         <p>
           <strong>Verlängern zum: </strong>
         </p>

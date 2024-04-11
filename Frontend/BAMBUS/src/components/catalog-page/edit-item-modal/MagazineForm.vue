@@ -46,7 +46,6 @@ export default {
       immediate: true,
       handler: function (newVal) {
         if (newVal === true) {
-          console.log("this.item.itemId", this.item.itemId)
           this.$store.dispatch("itemStore/editMagazine", {
             itemId: this.item.itemId,
             title: this.title,

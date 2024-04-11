@@ -46,6 +46,12 @@ export default {
       .find((user) => user.userId === payload.receiverId)
       .notifications.push(payload);
   },
+  deleteNotification(state, payload) {
+    const user = state.users.find((user) => user.userId === payload.userId);
+    user.notifications = user.notifications.filter(
+      (notification) => notification.notificationId !== payload.notificationId
+    );
+  },
   deleteNotificationsWithType(state, payload) {
     const user = state.user;
     user.notifications = user.notifications.filter(

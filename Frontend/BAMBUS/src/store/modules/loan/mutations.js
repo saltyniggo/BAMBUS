@@ -6,4 +6,16 @@ export default {
     const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
     loan.returnDate = payload.returnDate;
   },
+  setExtensionRequestActive(state, payload) {
+    const loan = state.loans.find((loan) => loan.loanId === payload);
+    loan.extensionRequestActive = true;
+  },
+  setExtensionRequestInactive(state, payload) {
+    const loan = state.loans.find((loan) => loan.loanId === payload);
+    loan.extensionRequestActive = false;
+  },
+  extendLoan(state, payload) {
+    const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
+    loan.dueDate = payload.newDueDate;
+  },
 };

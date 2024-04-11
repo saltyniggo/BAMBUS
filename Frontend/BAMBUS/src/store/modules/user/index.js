@@ -27,7 +27,20 @@ export default {
         email: "user@example.com",
         firstName: "Max",
         lastName: "Managermann",
-        notifications: [],
+        notifications: [
+          {
+            notificationId: "jm1fr3a2vqkluuzgkiy",
+            type: 5,
+            title: "Anfrage zur Verlängerung einer Ausleihe",
+            message:
+              "TestUser hat eine Verlängerung der Ausleihe von Lord of the Rings The Two Towers bis zum 14.4.2024 angefragt",
+            senderId: 1,
+            senderName: "TestUser",
+            receiverId: 2,
+            date: "11.4.2024",
+            payload: { loanId: 2, userId: 1, newDueDate: "2024-04-14" },
+          },
+        ],
       },
       {
         userId: 3,
