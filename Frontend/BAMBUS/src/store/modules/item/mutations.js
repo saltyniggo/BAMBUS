@@ -113,4 +113,10 @@ export default {
   setSearch(state, search) {
     state.search = search;
   },
+  acceptDamage(state, itemId) {
+    state.items.find((item) => item.itemId === itemId).isDamaged = 2;
+  },
+  rejectDamage(state, itemId) {
+    state.items.find((item) => item.itemId === itemId).isDamaged = 0;
+  },
 };

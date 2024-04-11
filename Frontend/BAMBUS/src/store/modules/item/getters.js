@@ -88,5 +88,8 @@ export default {
       return match;
     });
     return searchResults; 
-  }
+  },
+  getReportedItems: (state) => {
+    return state.items.filter((item) => item.isDamaged == 1);
+  },
 };

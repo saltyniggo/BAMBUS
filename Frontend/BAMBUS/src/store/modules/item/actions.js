@@ -101,4 +101,12 @@ export default {
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },
+  acceptDamage({ commit }, payload) {
+    console.log(payload);
+    commit("acceptDamage", payload);
+  },
+  rejectDamage({ commit }, payload) {
+    console.log(payload);
+    commit("rejectDamage", payload);
+  },
 };
