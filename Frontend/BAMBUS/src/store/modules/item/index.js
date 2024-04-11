@@ -78,7 +78,7 @@ export default {
       },
       {
         itemId: 7,
-        itemCategory: 0,
+        itemCategory: 1,
         reservations: [],
         isDamaged: true,
         currentLoanId: null,

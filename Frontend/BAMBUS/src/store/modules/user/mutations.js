@@ -33,10 +33,6 @@ export default {
   deleteAccount(state, payload) {
     state.users = state.users.filter((user) => user.userId !== payload);
   },
-  logout(state) {
-    state.userIsAuth = false;
-    state.user = null;
-  },
   adminChangePassword(state, payload) {
     const user = state.users.find((user) => user.userId === payload.userId);
     user.password = payload.newPassword;

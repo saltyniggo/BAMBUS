@@ -85,7 +85,7 @@ export default {
   },
   logout(state) {
     state.editItemId = null;
-    state.items = [];
+    // state.items = [];
   },
 
   reportItem(state) {

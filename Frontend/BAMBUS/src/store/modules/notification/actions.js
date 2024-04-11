@@ -11,7 +11,7 @@ export default {
       const daysUntilReturn = Math.floor(
         (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
-      if (!daysUntilReturn < 5 && loan.returnDate === null) {
+      if (daysUntilReturn > -5 && loan.returnDate === null) {
         const itemTitle = rootState.itemStore.items.find(
           (item) => item.itemId === loan.itemId
         ).title;
