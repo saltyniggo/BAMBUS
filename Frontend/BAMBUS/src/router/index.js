@@ -155,8 +155,8 @@ const router = createRouter({
           props: true,
         },
         {
-          path: ":management",
-          name: "manager-view-management",
+          path: ":beschädigungen",
+          name: "manager-view-beschaedigungen",
           component: ManagerView,
           props: true,
         },

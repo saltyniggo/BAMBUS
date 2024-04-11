@@ -24,11 +24,15 @@ export default {
     };
   },
   watch: {
-    category(newValue) {
-      this.selected = newValue;
+    selected(newValue) {
+      this.$store.dispatch("itemStore/setFilteredBy", newValue);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+label {
+  margin-right: 0.5rem;
+}
+</style>

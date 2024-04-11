@@ -59,6 +59,8 @@
           @openReportModal="openReportModal"
         />
       </div>
+      <p v-if="item.isDamaged==2" class="damged-item-warning">!!!Beschädigt!!!</p>
+      <p v-if="item.isDamaged==1" class="damged-item-warning">ggf. bschädigt</p>
     </template>
   </base-content-container>
 </template>
@@ -116,14 +118,6 @@ export default {
     openReportModal(id) {
       this.$emit("openReportModal", id);
     },
-
-    // deleteItem(id) {
-    //   this.$store.dispatch("itemStore/deleteItem", id);
-    // },
-
-    // addToCart(id) {
-    //   this.$store.dispatch("cartStore/addToCart", id);
-    // },
   },
 };
 </script>
@@ -205,5 +199,12 @@ div.star-container {
   align-items: center;
   text-align: center;
   box-sizing: border-box;
+}
+
+.damged-item-warning {
+  color: red;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 </style>

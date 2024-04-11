@@ -55,52 +55,51 @@ import BaseContentContainer from "../base-components/BaseContentContainer.vue";
 import BaseRectangleButton from "../base-components/BaseRectangleButton.vue";
 
 export default {
-  name: "NewItemContainer",
-  components: {
-    BaseContentContainer,
-    BaseRectangleButton,
-  },
-  data() {
-    return {
-      title: "",
-      author: "",
-      category: "",
-      ISBN: "",
-      ISSN: "",
-      isDamaged: false,
-      isAvailable: true,
-      itemCategory: 1,
-      showAlert: false,
-    };
-  },
-  methods: {
-    ...mapActions("notificationStore", ["managerAddsItem"]),
-
-    createNewItem() {
-      if (this.title.trim() == "" || !this.category.trim) {
-        this.showAlert = true;
-        return;
-      } else if (
-        this.itemCategory &&
-        (this.author.trim() == "" || this.ISBN.trim() == "")
-      ) {
-        this.showAlert = true;
-        return;
-      } else if (
-        this.itemCategory &&
-        (this.author.trim() == "" || this.ISBN.trim() == "")
-      ) {
-        this.showAlert = true;
-        return;
-      } else {
-        const item = {
-          title: this.title,
-          itemCategory: this.itemCategory,
-          category: this.category,
-          reservations: [],
-          isDamaged: false,
-          itemId: new Date().getTime().toString(),
+    name: "NewItemContainer",
+    components: {
+        BaseContentContainer,
+        BaseRectangleButton,
+    },
+    data() {
+        return {
+            title: "",
+            author: "",
+            category: "",
+            ISBN: "",
+            ISSN: "",
+            isDamaged: 0,
+            isAvailable: true,
+            itemCategory: 1,
+            showAlert: false,
         };
+    },
+    methods: {
+      ...mapActions("notificationStore", ["managerAddsItem"]),
+        createNewItem() {
+            if (this.title.trim() == "" || this.category.trim() == "") {
+                this.showAlert = true;
+                return;
+            }
+            else if (this.itemCategory && (this.author.trim() == "" || this.ISBN.trim() == "")) {
+                this.showAlert = true;
+                return;
+            }
+            else if (this.itemCategory && (this.author.trim() == "" || this.ISBN.trim() == "")) {
+                this.showAlert = true;
+                return;
+            }
+            else {
+                const item = {
+                    title: this.title,
+                    itemCategory: this.itemCategory,
+                    category: this.category,
+                    reservations: [],
+                    isDamaged: 0,
+                    available: true,
+                    dueDate: undefined,
+                    rentedBy: undefined,
+                    itemId: new Date().getTime().toString(),
+                };
 
         if (this.itemCategory == 0 || this.itemCategory == 1) {
           item.author = this.author;

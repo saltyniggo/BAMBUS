@@ -30,4 +30,66 @@ export default {
     const item = state.items.find((item) => item.itemId === itemId);
     return item.reservations[0] === userId && item.currentLoanId === null;
   },
+  getFilteredItems: (state, _, __, rootGetters) => {
+
+    if (state.search !== "") {
+      let searchResults = rootGetters["itemStore/getSearch"];
+      return searchResults;
+      
+    } else {
+
+      let filteredItems = [];
+
+      if (state.filteredBy === null || state.filteredBy == "all") {
+        filteredItems = state.items;
+      }
+
+      else {
+        filteredItems = state.items.filter((item) => item.itemCategory === state.filteredBy);
+      }
+
+      let sortedItems = rootGetters["itemStore/getSortedItems"](filteredItems);
+      let availableItems = rootGetters["itemStore/getOnlyAvailableItems"](sortedItems);
+      return availableItems;
+    }
+  },
+  getSortedItems: (state) => (items) => {
+    const sortOptions = {
+      default: (a, b) => 0,
+      rating: (a, b) => (a.rating || 0) - (b.rating || 0),
+      title: (a, b) => a.title.localeCompare(b.title),
+      author: (a, b) => (a.author || '').localeCompare(b.author || ''),
+      ratingDesc: (a, b) => (b.rating || 0) - (a.rating || 0),
+      titleDesc: (a, b) => b.title.localeCompare(a.title),
+      authorDesc: (a, b) => (b.author || '').localeCompare(a.author || ''),
+    };
+  
+    const sortFunction = sortOptions[state.sortedBy] || sortOptions.default;
+    return [...items].sort(sortFunction);
+  },
+  getOnlyAvailableItems: (state) => (items) => {
+    if (state.onlyAvailable) {
+      return items.filter((item) => !item.currentLoanId);
+    }
+    return items;
+  },
+  getSearch: (state) => {
+    let searchResults = state.items.filter((item) => {
+      let match = false;
+      if (item.title && item.title.toLowerCase().includes(state.search.toLowerCase())) {
+        match = true;
+      }
+      if (item.author && item.author.toLowerCase().includes(state.search.toLowerCase())) {
+        match = true;
+      }
+      if (item.category && item.category.toLowerCase().includes(state.search.toLowerCase())) {
+        match = true;
+      }
+      return match;
+    });
+    return searchResults; 
+  },
+  getReportedItems: (state) => {
+    return state.items.filter((item) => item.isDamaged == 1);
+  },
 };

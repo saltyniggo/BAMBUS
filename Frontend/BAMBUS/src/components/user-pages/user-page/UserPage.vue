@@ -63,6 +63,7 @@ export default {
     async openReturnModal(id) {
       await this.$store.dispatch("modalStore/closeAllModals");
       await this.$store.dispatch("itemStore/setReturnItemId", id);
+      await this.$store.dispatch("itemStore/setReportItemId", id)
       await this.$store.dispatch("modalStore/toggleReturnModal");
     },
   },
