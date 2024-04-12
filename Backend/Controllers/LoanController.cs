@@ -1,6 +1,6 @@
 namespace Backend.Controllers
 {
-	public class LoanController
+	public class LoanController : ControllerBase
 	{
 		[HttpGet("GetActiveLoansFromUserId")]
 		public async Task<IActionResult> GetActiveLoansFromUserId()
