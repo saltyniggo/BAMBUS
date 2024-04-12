@@ -2,14 +2,14 @@ namespace Backend.Controllers
 {
     public class ItemController : ControllerBase
     {
-        [HttpGet("GetItems")]
-        public async Task<IActionResult> GetItems()
+        [HttpGet("GetAllItems")]
+        public async Task<IActionResult> GetAllItems()
         {
             return Ok("hier alle Items");
         }
 
-        [HttpPost("CreateItem")]
-        public async Task<IActionResult> CreateItem()
+        [HttpPost("AddItem")]
+        public async Task<IActionResult> AddItem()
         {
             return Ok("hier wird ein Item erstellt");
         }
