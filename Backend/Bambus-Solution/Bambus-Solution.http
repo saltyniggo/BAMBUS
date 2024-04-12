@@ -1,0 +1,6 @@
+@Bambus_Solution_HostAddress = http://localhost:5212
+
+GET {{Bambus_Solution_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
