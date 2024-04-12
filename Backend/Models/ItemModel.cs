@@ -6,6 +6,7 @@ namespace Backend.Models
         public int ItemId { get; set; }
         public List<int> Reservations { get; set; }
         public condition Condition { get; set; }
-        public float averageRating { get; set; }
+        public int CurrentLoanId { get; set; }
+        public string Title { get; set; }
     }
 }
