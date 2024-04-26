@@ -1,5 +1,5 @@
 export default {
-  deleteItem({ commit }, id) {
+ deleteItem({ commit }, id) {
     commit("deleteItem", id);
   },
   addItem({ commit }, item) {
@@ -84,11 +84,9 @@ export default {
   reportItem({ commit }) {
     commit("reportItem");
   },
-
   cancelReservation({ commit }, payload) {
     commit("removeReservationFromItem", payload);
   },
-
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
   },
