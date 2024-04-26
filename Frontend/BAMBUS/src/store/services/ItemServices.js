@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { c, i } from 'vite/dist/node/types.d-aGj9QkWt';
 
 async function LoadAllItems() {
     try {

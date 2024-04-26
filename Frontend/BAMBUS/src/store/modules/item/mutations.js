@@ -1,4 +1,8 @@
 export default {
+  setItems(state, items) {
+    state.items = items;
+  },
+
   addLoanIdToItem(state, { itemId, loanId }) {
     state.items.forEach((item) => {
       if (item.itemId === itemId) {

@@ -1,4 +1,14 @@
 export default {
+  async loadItems({ commit }) {
+    await ItemServices.LoadAllItems().then((response) => {
+      if (response.status === 200) {
+        commit("setItems", response.data);
+      }
+      else {
+        $router.push("/error");
+      }
+    });
+  },
  deleteItem({ commit }, id) {
     commit("deleteItem", id);
   },
