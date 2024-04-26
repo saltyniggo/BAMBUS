@@ -11,6 +11,7 @@ import AdminView from "../views/AdminView.vue";
 import ManagerView from "../views/ManagerView.vue";
 import PasswordResetView from "../views/PasswordResetView.vue";
 import NewItemView from "../views/NewItemView.vue";
+import ErrorView from "../views/ErrorView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -188,6 +189,11 @@ const router = createRouter({
       name: "not-found",
       redirect: { name: "catalog" },
     },
+    {
+      path: "/sorry",
+      name: "LoadingProblems",
+      component: ErrorView,
+    }
   ],
 });
 
