@@ -1,30 +1,50 @@
 import ItemServices from "../../services/ItemServices";
+import store from "../../index.js";
 
 export default {
   async loadItems({ commit }) {
     await ItemServices.LoadAllItems().then((response) => {
-      if (response.status === 200) {
+      console.log(response);
+      console.log(store);
+      if (response.data.success == true) {
         commit("setItems", response.data.data);
-      }
-      else {
+      } else {
         $router.push("/error");
       }
     });
   },
- deleteItem({ commit }, id) {
-    commit("deleteItem", id);
+  async deleteItem({ commit }, id) {
+    await ItemServices.DeleteItem(id).then((response) => {
+      if (response.data.success == true) {
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
   addItem({ commit }, item) {
     commit("addItemToCart", item);
   },
-  createItem({ commit }, item) {
-    commit("addItem", item);
+  async createItem({ commit }, item) {
+    await ItemServices.AddItem(item).then((response) => {
+      if (response.data.success == true) {
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
   setEditItemId({ commit }, id) {
     commit("setEditItemId", id);
   },
-  editBook({ commit }, payload) {
-    commit("editBook", payload);
+  async editBook({ commit }, payload) {
+    await ItemServices.UpdateItem(payload).then((response) => {
+      if (response.data.success == true) {
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
   editGame({ commit }, payload) {
     commit("editGame", payload);

@@ -20,14 +20,9 @@ export default {
   userReservesItem(state, { userId, index }) {
     state.items[index].reservations.push(userId);
   },
-
   removeReservationFromItem(state, { itemId, userId }) {
     const item = state.items.find((item) => item.itemId === itemId);
     item.reservations = item.reservations.filter((id) => id !== userId);
-  },
-
-  deleteItem(state, id) {
-    state.items = state.items.filter((item) => item.itemId !== id);
   },
   addItem(state, item) {
     state.items.push(item);
@@ -93,9 +88,7 @@ export default {
   },
 
   reportItem(state) {
-    state.items.find(
-      (item) => item.itemId == state.reportItemId
-    ).condition = 1;
+    state.items.find((item) => item.itemId == state.reportItemId).condition = 1;
   },
   setFilteredBy(state, filterBy) {
     if (filterBy === "books") {
