@@ -3,7 +3,7 @@ import ItemServices from "../../services/ItemServices";
 export default {
   async loadItems({ commit }) {
     await ItemServices.LoadAllItems().then((response) => {
-      if (response.status === 200) {
+      if (response.data.success) {
         commit("setItems", response.data.data);
       }
       else {
@@ -11,13 +11,18 @@ export default {
       }
     });
   },
- deleteItem({ commit }, id) {
-    commit("deleteItem", id);
-  },
-  addItem({ commit }, item) {
-    commit("addItemToCart", item);
+ async deleteItem({ commit }, id) {
+    await ItemServices.DeleteItem(id).then((response) => {
+      if (response.data.success) {
+        commit("setItems", response.data.data);
+      }
+      else {
+        $router.push("/error");
+      }
+    });  
   },
   createItem({ commit }, item) {
+
     commit("addItem", item);
   },
   setEditItemId({ commit }, id) {
@@ -31,6 +36,9 @@ export default {
   },
   editMagazine({ commit }, payload) {
     commit("editMagazine", payload);
+  },
+  addItem({ commit }, item) {
+    commit("addItemToCart", item);
   },
   setReturnItemId({ commit }, id) {
     commit("setReturnItemId", id);
