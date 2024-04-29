@@ -1,17 +1,22 @@
 import axios from "axios";
 
 async function Register(paylaod) {
+    console.log(paylaod);
     try {
         const response = await axios({
-            method: "put",
+            method: "post",
             url: `http://localhost:5240/Register`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*"
+            },
             data: {
                 userName: paylaod.username,
                 password: paylaod.password,
                 email: paylaod.email,
                 firstName: paylaod.firstName,
                 lastName: paylaod.lastName,
-                role: paylaod.role,
+                role: 0,
             },
         });
         return response;
@@ -25,11 +30,16 @@ async function Register(paylaod) {
 
 async function Login(payload) {
     try {
+        console.log(payload);
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/Login`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*"
+            },
             data: {
-                userName: payload.username,
+                email: payload.email,
                 password: payload.password,
             },
         });
@@ -98,4 +108,4 @@ async function GetAllUsers() {
     }
 }
 
-export { Register, Login, UpdateUser, DeleteUser, GetAllUsers };
+export default { Register, Login, UpdateUser, DeleteUser, GetAllUsers };

@@ -94,4 +94,4 @@ async function GetRatingById(payload) {
     }
 }
 
- export { AddRating, UpdateRating, DeleteRating, GetAllRating, GetRatingById };
+ export default { AddRating, UpdateRating, DeleteRating, GetAllRating, GetRatingById };

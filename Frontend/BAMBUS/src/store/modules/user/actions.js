@@ -1,40 +1,34 @@
 import router from "@/router";
+import UserServices from "../../services/UserServices";
 
 export default {
-  loginUser({ commit, state }, payload) {
-    const user = state.users.find(
-      (user) =>
-        user.username === payload.username && user.password === payload.password
+  async loginUser({ commit }, payload) {
+    await UserServices.Login(payload).then((response) => {
+      if (response.data.success) {
+        commit("login", response.data.data, response.data.token);
+        router.push("/");
+      }
+      else {
+        alert("Invalid username or password");
+      }
+    }
     );
-    if (user) {
-      commit("login", user);
-      router.push("/");
-    } else {
-      alert("Invalid username or password");
-    }
   },
-  registerUser({ commit, state, dispatch }, payload) {
-    const user = state.users.find((user) => user.username === payload.username);
-    if (user) {
-      alert("Username already exists");
-      return;
+
+  async registerUser({ commit, dispatch }, payload) {
+    await UserServices.Register(payload).then((response) => {
+      if (response.data.success) {
+        commit("login", response.data.data, response.data.token);
+        dispatch("notificationStore/userRegistersAccount", response.data.data, { root: true });
+        router.push("/");
+      }
+      else {
+        alert(response.data.message);
+      }
     }
-    const userId = state.users.length + 1;
-
-    const newUser = {
-      userId: userId,
-      role: 0,
-      username: payload.username,
-      password: payload.password,
-      email: payload.email,
-      firstName: payload.firstName,
-      lastName: payload.lastName,
-    };
-
-    commit("register", newUser);
-    dispatch("notificationStore/userRegistersAccount", newUser, { root: true });
-    router.push("/login");
+    );
   },
+  
   changeUsername({ commit, state }, payload) {
     const userExists = state.users.find((user) => user.username === payload);
     if (userExists) {
@@ -90,15 +84,28 @@ export default {
     }
     commit("changePassword", payload.newPassword);
   },
-  deleteAccount({ commit, state }) {
+  async deleteAccount({ commit, state }) {
     if (confirm("Are you sure you want to delete the account?")) {
-      commit("deleteAccount", state.user.userId);
-      commit("logout");
-      router.push("/");
+      await UserServices.DeleteUser(state.user.userId).then((response) => {
+        if (response.data.success) {
+            commit("deleteAccount", state.user.userId);
+            commit("logout");
+            router.push("/");
+        }
+        else {
+          alert(response.data.message);
+        }
+      })
     }
   },
-  adminDeleteAccount({ commit }, payload) {
-    commit("deleteAccount", payload);
+  async adminDeleteAccount({ commit }, payload) {
+    await UserServices.DeleteUser(payload).then((response) => {
+      if (response.data.success) {
+        commit("deleteAccount", payload);
+      }
+      else {
+        alert(response.data.message);
+      }})
   },
   adminChangePassword({ commit }, payload) {
     commit("adminChangePassword", payload);
