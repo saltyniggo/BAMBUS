@@ -54,6 +54,7 @@ export default {
   },
   logout(state) {
     state.userIsAuth = false;
+    localStorage.removeItem("token");
     state.user = {
       userId: null,
       username: null,

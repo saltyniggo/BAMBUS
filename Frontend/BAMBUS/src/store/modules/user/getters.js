@@ -15,4 +15,7 @@ export default {
   getUserIdLoggedUser(state) {
     return state.user.userId;
   },
+  getToken(state) {
+    return state.user.token;
+  }
 };

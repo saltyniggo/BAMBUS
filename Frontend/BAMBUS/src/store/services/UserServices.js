@@ -57,6 +57,11 @@ async function UpdateUser(payload) {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/UpdateUser`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 userId: payload.userId,
                 userName: payload.username,
@@ -80,6 +85,11 @@ async function DeleteUser(payload) {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/DeleteUser`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 userId: payload,
             },
@@ -97,6 +107,11 @@ async function GetAllUsers() {
     try {
         const response = await axios({
             method: "post",
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             url: `http://localhost:5240/GetAllUser`,
         });
         return response;
