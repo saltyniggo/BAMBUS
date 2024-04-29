@@ -1,4 +1,5 @@
 import axios from 'axios';
+import userStore from '../modules/user/index.js';
 
 async function LoadAllItems() {
     try {
@@ -23,6 +24,11 @@ async function AddItem (payload) {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/CreateItem`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 title: payload.title,
                 condition : payload.condition,
@@ -44,9 +50,16 @@ async function AddItem (payload) {
 
 async function DeleteItem (payload) {
     try {
+        console.log(userStore.getters.getToken());
+        var token = userStore.getters.getToken();
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/DeleteItem`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + token,
+            },
             data: {
                 itemId: payload,
             },
@@ -65,6 +78,11 @@ async function UpdateItem(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/EditItem`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 itemId: payload.itemId,
                 title: payload.title,
@@ -90,6 +108,11 @@ async function UpdateCondition(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/UpdateCondition`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 itemId: payload.itemId,
                 condition: payload.condition,
@@ -110,6 +133,11 @@ async function AddReservation(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/AddReservation`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 userId: payload.userId,
                 itemId: payload.itemId,
@@ -129,6 +157,11 @@ async function RemoveFirstReservation(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/RemoveReservation`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 itemId: payload,
             },
@@ -147,6 +180,11 @@ async function RemoveReservationByUser(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/RemoveReservationByUserId`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 userId: payload.userId,
                 itemId: payload.itemId,
@@ -166,6 +204,11 @@ async function AddLoan(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/AddCurrentLoan`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 itemId: payload,
             },
@@ -184,6 +227,11 @@ async function RemoveLoan(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/RemoveCurrentLoan`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + store.getters.getToken(),
+            },
             data: {
                 itemId: payload,
             },
