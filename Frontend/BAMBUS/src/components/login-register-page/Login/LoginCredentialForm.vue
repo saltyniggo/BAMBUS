@@ -4,8 +4,8 @@
     <input
       class="login-credential-form-input"
       type="text"
-      placeholder="Username"
-      v-model="username"
+      placeholder="Email"
+      v-model="email"
     />
     <input
       class="login-credential-form-input"
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
       showPassword: false,
     };
@@ -52,7 +52,7 @@ export default {
   computed: {
     loginForm() {
       return {
-        username: this.username,
+        email: this.email,
         password: this.password,
       };
     },

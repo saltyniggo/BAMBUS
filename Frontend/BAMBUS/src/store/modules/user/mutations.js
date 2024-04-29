@@ -1,10 +1,8 @@
 export default {
-  login(state, user) {
+  login(state, user, token) {
     state.userIsAuth = true;
     state.user = user;
-  },
-  register(state, newUser) {
-    state.users.push(newUser);
+    state.user.token = token;
   },
   changeUsername(state, payload) {
     const user = state.users.find((user) => user.userId === state.user.userId);
@@ -56,6 +54,7 @@ export default {
   },
   logout(state) {
     state.userIsAuth = false;
+    localStorage.removeItem("token");
     state.user = {
       userId: null,
       username: null,

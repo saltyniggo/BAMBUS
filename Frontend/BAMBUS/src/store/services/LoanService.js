@@ -125,6 +125,6 @@ async function UpdateDueDate(payload) {
     }
 }
 
-export { GettAllLoans, GetAllLoansFromUser, GetLoanById, CreateLoan, SetReturnDate, EndExtensionREquest, UpdateDueDate };
+export default { GettAllLoans, GetAllLoansFromUser, GetLoanById, CreateLoan, SetReturnDate, EndExtensionREquest, UpdateDueDate };
 
 

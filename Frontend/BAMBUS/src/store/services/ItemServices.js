@@ -9,7 +9,6 @@ async function LoadAllItems() {
                 "accept": "*/*"
             }
         });
-        console.log("Response from getting all items from DB:", response);
         return response;
     }
     catch (error) {

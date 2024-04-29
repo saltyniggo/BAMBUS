@@ -59,5 +59,6 @@ async function DeleteMessage(payload) {
     }
 }
 
-export { GetMessagesFromUserId, CreateMessage, DeleteMessage };
+export default { GetMessagesFromUserId, CreateMessage, DeleteMessage };
 
+ 
