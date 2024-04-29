@@ -46,7 +46,7 @@ export default {
       immediate: true,
       handler: function (newVal) {
         if (newVal === true) {
-          this.$store.dispatch("itemStore/editMagazine", {
+          this.$store.dispatch("itemStore/editItem", {
             itemId: this.item.itemId,
             title: this.title,
             ISSN: this.ISSN,

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 async function Register(paylaod) {
-    console.log(paylaod);
     try {
         const response = await axios({
             method: "post",
@@ -30,7 +29,6 @@ async function Register(paylaod) {
 
 async function Login(payload) {
     try {
-        console.log(payload);
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/Login`,

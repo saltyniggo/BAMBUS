@@ -1,8 +1,9 @@
 export default {
-  login(state, user, token) {
+  login(state, payload) {
     state.userIsAuth = true;
-    state.user = user;
-    state.user.token = token;
+    state.user = payload.data;
+    state.user.token = payload.token;
+    console.log(state.user);
   },
   changeUsername(state, payload) {
     const user = state.users.find((user) => user.userId === state.user.userId);

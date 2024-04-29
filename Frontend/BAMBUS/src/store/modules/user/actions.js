@@ -5,7 +5,7 @@ export default {
   async loginUser({ commit }, payload) {
     await UserServices.Login(payload).then((response) => {
       if (response.data.success) {
-        commit("login", response.data.data, response.data.token);
+        commit("login", response.data);
         router.push("/");
       }
       else {
