@@ -14,22 +14,22 @@
           <input type="text" id="title" v-model="title" />
         </div>
         <div class="input">
-          <label for="itemCategory">Kategorie</label>
-          <select id="itemCategory" v-model="itemCategory">
+          <label for="type">Kategorie</label>
+          <select id="type" v-model="type">
             <option value="1">Buch</option>
             <option value="0">Zeitschrift</option>
             <option value="2">Spiel</option>
           </select>
         </div>
-        <div class="input" v-if="itemCategory == 0 || itemCategory == 1">
+        <div class="input" v-if="type == 0 || type == 1">
           <label for="author">Autor</label>
           <input type="text" id="author" v-model="author" />
         </div>
-        <div class="input" v-if="itemCategory == 1">
+        <div class="input" v-if="type == 1">
           <label for="ISBN">ISBN</label>
           <input type="text" id="ISBN" v-model="ISBN" />
         </div>
-        <div class="input" v-if="itemCategory == 0">
+        <div class="input" v-if="type == 0">
           <label for="ISSN">ISSN</label>
           <input type="text" id="ISSN" v-model="ISSN" />
         </div>
@@ -67,9 +67,9 @@ export default {
             category: "",
             ISBN: "",
             ISSN: "",
-            isDamaged: 0,
+            condition: 0,
             isAvailable: true,
-            itemCategory: 1,
+            type: 1,
             showAlert: false,
         };
     },
@@ -80,34 +80,34 @@ export default {
                 this.showAlert = true;
                 return;
             }
-            else if (this.itemCategory && (this.author.trim() == "" || this.ISBN.trim() == "")) {
+            else if (this.type && (this.author.trim() == "" || this.ISBN.trim() == "")) {
                 this.showAlert = true;
                 return;
             }
-            else if (this.itemCategory && (this.author.trim() == "" || this.ISBN.trim() == "")) {
+            else if (this.type && (this.author.trim() == "" || this.ISBN.trim() == "")) {
                 this.showAlert = true;
                 return;
             }
             else {
                 const item = {
                     title: this.title,
-                    itemCategory: this.itemCategory,
+                    type: this.type,
                     category: this.category,
                     reservations: [],
-                    isDamaged: 0,
+                    condition: 0,
                     available: true,
                     dueDate: undefined,
                     rentedBy: undefined,
                     itemId: new Date().getTime().toString(),
                 };
 
-        if (this.itemCategory == 0 || this.itemCategory == 1) {
+        if (this.type == 0 || this.type == 1) {
           item.author = this.author;
         }
 
-        if (this.itemCategory == 1) {
+        if (this.type == 1) {
           item.ISBN = this.ISBN;
-        } else if (this.itemCategory == 0) {
+        } else if (this.type == 0) {
           item.ISSN = this.ISSN;
         }
         this.managerAddsItem(item);

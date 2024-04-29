@@ -95,7 +95,7 @@ export default {
   reportItem(state) {
     state.items.find(
       (item) => item.itemId == state.reportItemId
-    ).isDamaged = 1;
+    ).condition = 1;
   },
   setFilteredBy(state, filterBy) {
     if (filterBy === "books") {
@@ -118,9 +118,9 @@ export default {
     state.search = search;
   },
   acceptDamage(state, itemId) {
-    state.items.find((item) => item.itemId === itemId).isDamaged = 2;
+    state.items.find((item) => item.itemId === itemId).condition = 2;
   },
   rejectDamage(state, itemId) {
-    state.items.find((item) => item.itemId === itemId).isDamaged = 0;
+    state.items.find((item) => item.itemId === itemId).condition = 0;
   },
 };
