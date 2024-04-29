@@ -1,4 +1,5 @@
 import axios from "axios";
+import userStore from "../modules/user/index.js"
 
 async function Register(paylaod) {
     try {
@@ -10,7 +11,7 @@ async function Register(paylaod) {
                 "accept": "*/*"
             },
             data: {
-                userName: paylaod.username,
+                username: paylaod.username,
                 password: paylaod.password,
                 email: paylaod.email,
                 firstName: paylaod.firstName,
@@ -58,11 +59,11 @@ async function UpdateUser(payload) {
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
-                "Authorization": "Bearer " + store.getters.getToken(),
+                "Authorization": "Bearer " + userStore.state.user.token,
             },
             data: {
                 userId: payload.userId,
-                userName: payload.username,
+                username: payload.username,
                 password: payload.password,
                 email: payload.email,
                 firstName: payload.firstName,
@@ -86,7 +87,7 @@ async function DeleteUser(payload) {
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
-                "Authorization": "Bearer " + store.getters.getToken(),
+                "Authorization": "Bearer " + userStore.state.user.token,
             },
             data: {
                 userId: payload,
@@ -108,7 +109,7 @@ async function GetAllUsers() {
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
-                "Authorization": "Bearer " + store.getters.getToken(),
+                "Authorization": "Bearer " + userStore.state.user.token,
             },
             url: `http://localhost:5240/GetAllUser`,
         });

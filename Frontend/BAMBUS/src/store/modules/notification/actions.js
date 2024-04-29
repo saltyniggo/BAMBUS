@@ -4,6 +4,7 @@ export default {
   checkDueDates({ dispatch, rootState }) {
     const today = new Date();
     const user = rootState.userStore.user;
+    if (rootState.loanStore.loans != null || rootState.loanStore.loans != undefined) {
     const loans = rootState.loanStore.loans.filter(
       (loan) => loan.userId === user.userId
     );
@@ -37,11 +38,18 @@ export default {
         });
       }
     });
+  }
+  else {
+    return;
+  }
   },
 
   checkAllDueDates({ dispatch, rootState }) {
     const today = new Date();
     const loans = rootState.loanStore.loans;
+    if (loans === null || loans === undefined) {
+      return;
+    }
     loans.forEach((loan) => {
       if (loan.returnDate) {
         return;
@@ -81,7 +89,7 @@ export default {
   checkReservedItems({ dispatch, rootState }) {
     const user = rootState.userStore.user;
     rootState.itemStore.items.forEach((item) => {
-      if (item.reservations[0] === user.userId && !item.currentLoanId) {
+      if (item.reservations !== null && item.reservations[0] === user.userId && !item.currentLoanId) {
         const notification = {
           notificationId: null,
           type: 2,
@@ -162,14 +170,14 @@ export default {
     }
   },
   userReportsDamage({ dispatch, rootState }, payload) {
-    const userName = rootState.userStore.users.find(
+    const username = rootState.userStore.users.find(
       (user) => user.userId === payload.userId
     ).username;
     const notification = {
       notificationId: null,
       type: 9,
       title: null,
-      message: `${payload.title} (${payload.itemId}) ist von ${userName} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
+      message: `${payload.title} (${payload.itemId}) ist von ${username} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       senderId: payload.userId,
       receiverId: 2,
       date: new Date().toLocaleDateString("de-DE"),

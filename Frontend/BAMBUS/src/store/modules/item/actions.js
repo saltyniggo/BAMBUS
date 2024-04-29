@@ -1,4 +1,5 @@
 import ItemServices from "../../services/ItemServices";
+import $router from "@/router";
 
 export default {
   async loadItems({ commit }) {
@@ -11,6 +12,7 @@ export default {
       }
     });
   },
+
  async deleteItem({ commit }, id) {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {

@@ -8,7 +8,7 @@
       <i class="fa-solid fa-arrows-rotate"></i>
       <p>Neuladen</p>
     </button>
-    <base-notification
+    <base-notification v-if=" user.notification != null && user.notifications.length > 0"
       v-for="notification in user.notifications"
       :key="notification.id"
       :notification="notification"

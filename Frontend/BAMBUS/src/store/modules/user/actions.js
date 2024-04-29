@@ -1,11 +1,31 @@
 import router from "@/router";
 import UserServices from "../../services/UserServices";
+import LoanService from "@/store/services/LoanService";
+import LoanStore from "../loan/index.js"
 
 export default {
   async loginUser({ commit }, payload) {
     await UserServices.Login(payload).then((response) => {
       if (response.data.success) {
         commit("login", response.data);
+        if (response.data.data.role === 2|| response.data.data.role === 1) {
+          UserServices.GetAllUsers().then((response) => {
+            if (response.data.success) {
+              commit("setUsers", response.data.data);
+              LoanService.GetAllLoans().then((response) => {
+                if (response.data.success) {
+                  commit("loanStore/setLoans", response.data.data, { root: true });
+                }
+                else {
+                  alert(response.data.message);
+                }
+              });
+            }
+            else {
+              alert(response.data.message);
+            }
+          });
+        }
         router.push("/");
       }
       else {

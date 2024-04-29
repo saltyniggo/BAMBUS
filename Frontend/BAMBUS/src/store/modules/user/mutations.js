@@ -5,6 +5,9 @@ export default {
     state.user.token = payload.token;
     console.log(state.user);
   },
+  setUsers(state, payload) {
+    state.users = payload;
+  },
   changeUsername(state, payload) {
     const user = state.users.find((user) => user.userId === state.user.userId);
     user.username = payload;
@@ -37,25 +40,44 @@ export default {
     user.password = payload.newPassword;
   },
   addNotification(state, payload) {
-    state.users
-      .find((user) => user.userId === payload.receiverId)
-      .notifications.push(payload);
+    const user = state.users.find((user) => user.userId === payload.receiverId);
+    if (user && user.notifications) {
+      user.notifications.push(payload);
+    }
+    // state.users
+    //   .find((user) => user.userId === payload.receiverId)
+    //   .notifications.push(payload);
   },
   deleteNotification(state, payload) {
     const user = state.users.find((user) => user.userId === payload.userId);
+  if (user && user.notifications) {
     user.notifications = user.notifications.filter(
       (notification) => notification.notificationId !== payload.notificationId
     );
+  }
+
+    // const user = state.users.find((user) => user.userId === payload.userId);
+    // user.notifications = user.notifications.filter(
+    //   (notification) => notification.notificationId !== payload.notificationId
+    // );
   },
   deleteNotificationsWithType(state, payload) {
     const user = state.user;
+  if (user && user.notifications) {
     user.notifications = user.notifications.filter(
       (notification) => notification.type !== payload.type
     );
+  }
+
+    // const user = state.user;
+    // if (!user.notifications) return;
+    // user.notifications = user.notifications.filter(
+    //   (notification) => notification.type !== payload.type
+    // );
   },
   logout(state) {
     state.userIsAuth = false;
-    localStorage.removeItem("token");
+    state.user.token = null;
     state.user = {
       userId: null,
       username: null,
