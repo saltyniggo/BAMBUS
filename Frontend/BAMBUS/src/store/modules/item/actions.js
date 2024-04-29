@@ -1,8 +1,10 @@
+import ItemServices from "../../services/ItemServices";
+
 export default {
   async loadItems({ commit }) {
     await ItemServices.LoadAllItems().then((response) => {
       if (response.status === 200) {
-        commit("setItems", response.data);
+        commit("setItems", response.data.data);
       }
       else {
         $router.push("/error");

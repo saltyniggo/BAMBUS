@@ -5,7 +5,11 @@ async function LoadAllItems() {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/GetItems`,
+            headers: {
+                "accept": "*/*"
+            }
         });
+        console.log("Response from getting all items from DB:", response);
         return response;
     }
     catch (error) {
@@ -22,8 +26,8 @@ async function AddItem (payload) {
             url: `http://localhost:5240/CreateItem`,
             data: {
                 title: payload.title,
-                condition : payload.isDamaged,
-                type: payload.itemCategory,
+                condition : payload.condition,
+                type: payload.type,
                 author: payload.author,
                 category: payload.category,
                 isbn: payload.ISBN,
@@ -65,8 +69,8 @@ async function UpdateItem(payload) {
             data: {
                 itemId: payload.itemId,
                 title: payload.title,
-                condition : payload.isDamaged,
-                type: payload.itemCategory,
+                condition : payload.condition,
+                type: payload.type,
                 isbn: payload.ISBN,
                 issn: payload.ISSN,
                 category: payload.category,
@@ -194,4 +198,4 @@ async function RemoveLoan(payload) {
     }
 }
 
-export { LoadAllItems, AddItem, DeleteItem, UpdateItem, UpdateCondition, AddReservation, RemoveFirstReservation, RemoveReservationByUser, AddLoan, RemoveLoan };
+export default { LoadAllItems, AddItem, DeleteItem, UpdateItem, UpdateCondition, AddReservation, RemoveFirstReservation, RemoveReservationByUser, AddLoan, RemoveLoan };

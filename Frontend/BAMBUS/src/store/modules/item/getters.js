@@ -45,7 +45,7 @@ export default {
       }
 
       else {
-        filteredItems = state.items.filter((item) => item.itemCategory === state.filteredBy);
+        filteredItems = state.items.filter((item) => item.type === state.filteredBy);
       }
 
       let sortedItems = rootGetters["itemStore/getSortedItems"](filteredItems);
@@ -56,16 +56,22 @@ export default {
   getSortedItems: (state) => (items) => {
     const sortOptions = {
       default: (a, b) => 0,
-      rating: (a, b) => (a.rating || 0) - (b.rating || 0),
+      avgRating: (a, b) => (a.avgRating || 0) - (b.avgRating || 0),
       title: (a, b) => a.title.localeCompare(b.title),
       author: (a, b) => (a.author || '').localeCompare(b.author || ''),
-      ratingDesc: (a, b) => (b.rating || 0) - (a.rating || 0),
+      avgRatingDesc: (a, b) => (b.avgRating || 0) - (a.avgRating || 0),
       titleDesc: (a, b) => b.title.localeCompare(a.title),
       authorDesc: (a, b) => (b.author || '').localeCompare(a.author || ''),
     };
   
     const sortFunction = sortOptions[state.sortedBy] || sortOptions.default;
-    return [...items].sort(sortFunction);
+
+    if (items == null || items == undefined || items.length <= 0) {
+      return [];
+    } else {
+      return [...items].sort(sortFunction);
+    }
+    
   },
   getOnlyAvailableItems: (state) => (items) => {
     if (state.onlyAvailable) {
@@ -90,6 +96,6 @@ export default {
     return searchResults; 
   },
   getReportedItems: (state) => {
-    return state.items.filter((item) => item.isDamaged == 1);
+    return state.items.filter((item) => item.condition == 1);
   },
 };

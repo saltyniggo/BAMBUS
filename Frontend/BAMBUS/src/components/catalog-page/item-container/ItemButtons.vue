@@ -6,7 +6,7 @@
         style="color: #222126"></i></base-round-button>
     <base-round-button v-if="role == 0" @click="addToCart(item)"><i class="fa-solid fa-basket-shopping"
         style="color: #222126"></i></base-round-button>
-    <base-round-button v-if="role == 0 && item.isDamaged==0" @click="openReportModal(item.itemId)"><i class="fa-solid fa-flag"
+    <base-round-button v-if="role == 0 && item.condition==0" @click="openReportModal(item.itemId)"><i class="fa-solid fa-flag"
         style="color: #222126"></i>
     </base-round-button>
   </div>

@@ -70,6 +70,10 @@ export default {
       await this.$store.dispatch("modalStore/toggleReportModal");
     },
   },
+
+  async mounted() {
+    await this.$store.dispatch("itemStore/loadItems");
+  },
 };
 </script>
 

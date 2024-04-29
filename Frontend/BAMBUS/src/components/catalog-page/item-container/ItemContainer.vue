@@ -21,17 +21,17 @@
 
           <div class="item-header-category">
             <i
-              v-if="item.itemCategory == 1"
+              v-if="item.type == 1"
               class="fa-solid fa-book"
               style="color: #222126"
             ></i>
             <i
-              v-if="item.itemCategory == 0"
+              v-if="item.type == 0"
               class="fa-regular fa-newspaper"
               style="color: #222126"
             ></i>
             <i
-              v-if="item.itemCategory == 2"
+              v-if="item.type == 2"
               class="fa-solid fa-dice-d20"
               style="color: #222126"
             ></i>
@@ -59,8 +59,8 @@
           @openReportModal="openReportModal"
         />
       </div>
-      <p v-if="item.isDamaged==2" class="damged-item-warning">!!!Beschädigt!!!</p>
-      <p v-if="item.isDamaged==1" class="damged-item-warning">ggf. bschädigt</p>
+      <p v-if="item.condition==2" class="damged-item-warning">!!!Beschädigt!!!</p>
+      <p v-if="item.condition==1" class="damged-item-warning">ggf. bschädigt</p>
     </template>
   </base-content-container>
 </template>
@@ -88,10 +88,10 @@ export default {
 
   computed: {
     number() {
-      if (this.item.rating == null) {
+      if (this.item.avgRating == null) {
         return 0;
       }
-      return this.item.rating;
+      return this.item.avgRating;
     },
     ...mapGetters({
       user: "userStore/getUser",

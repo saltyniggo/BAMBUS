@@ -7,15 +7,15 @@
       <div class="edit-container">
         <div class="type">
           <label for="type">Typ </label>
-          <select v-model="item.itemCategory">
+          <select v-model="item.type">
             <option value="1">Buch</option>
             <option value="0">Magazin</option>
             <option value="2">Spiel</option>
           </select>
         </div>
-        <magazine-form v-if="item.itemCategory == 0" :item="item" :saveItem="saveItem" @saved="close"/>
-        <book-form v-if="item.itemCategory == 1" :item="item" :saveItem="saveItem" @saved="close"/>
-        <game-form v-if="item.itemCategory == 2" :item="item" :saveItem="saveItem" @saved="close"/>
+        <magazine-form v-if="item.type == 0" :item="item" :saveItem="saveItem" @saved="close"/>
+        <book-form v-if="item.type == 1" :item="item" :saveItem="saveItem" @saved="close"/>
+        <game-form v-if="item.type == 2" :item="item" :saveItem="saveItem" @saved="close"/>
       </div>
     </template>
     <template v-slot:modal-button>

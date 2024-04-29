@@ -55,7 +55,7 @@
             <label for="no">Nein</label>
           </div>
         </div>
-        <div class="isDamaged">
+        <div class="condition">
           <h3>Ist der Gegenstand beschädigt worden?</h3>
 
           <div class="radio-group">
@@ -64,7 +64,7 @@
               id="yesBroken"
               name="condition"
               value="yes"
-              @click="checkIsDamaged"
+              @click="checkcondition"
             />
             <label for="yes">Ja</label>
             <input
@@ -72,14 +72,14 @@
               id="noNotBroken"
               name="condition"
               value="no"
-              @click="checkIsDamaged"
+              @click="checkcondition"
             />
             <label for="no">Nein</label>
           </div>
 
           <input
             type="text"
-            v-if="isDamaged == true"
+            v-if="condition == true"
             v-model="damageDescription"
             maxlength="150"
             placeholder="Bitte benenne den Schaden..."
@@ -115,7 +115,7 @@ export default {
       rating: 0,
       comment: "",
       recommendation: null,
-      isDamaged: null,
+      condition: null,
       stars: [false, false, false, false, false],
       showAlert: false,
       damageDescription: "",
@@ -145,18 +145,18 @@ export default {
       }
     },
 
-    checkIsDamaged() {
+    checkcondition() {
       if (yesBroken.checked) {
-        this.isDamaged = true;
+        this.condition = true;
       } else {
-        this.isDamaged = false;
+        this.condition = false;
         this.damageDescription = "";
       }
     },
 
     processReturn() {
       this.checkRecommendation();
-      this.checkIsDamaged();
+      this.checkcondition();
 
       if (
         this.rating != 0 ||
@@ -179,7 +179,7 @@ export default {
         this.addRating(newRating);
       }
 
-      if (this.isDamaged == true) {
+      if (this.condition == true) {
         this.itemTitle = this.$store.getters["itemStore/getItemById"](
           this.id
         ).title;
@@ -218,7 +218,7 @@ export default {
 
 .rating,
 .recommendation,
-.isDamaged {
+.condition {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -236,7 +236,7 @@ export default {
   margin-top: 1rem;
 }
 
-.isDamaged {
+.condition {
   margin-top: 1rem;
 }
 

@@ -7,8 +7,8 @@
       <option value="titleDesc">Titel Z-A</option>
       <option value="author">Autor A-Z</option>
       <option value="authorDesc">Autor Z-A</option>
-      <option value="rating">Bewertung 0-5</option>
-      <option value="ratingDesc">Bewertung 5-1</option>
+      <option value="avgRating">Bewertung 0-5</option>
+      <option value="avgRatingDesc">Bewertung 5-1</option>
     </select>
   </div>
 </template>
