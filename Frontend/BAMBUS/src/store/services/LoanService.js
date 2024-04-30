@@ -1,11 +1,15 @@
 import axios from "axios";
-import { s } from "vite/dist/node/types.d-aGj9QkWt";
-
-async function GettAllLoans() {
+import userStore from "../modules/user/index.js";
+async function GetAllLoans() {
     try {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/GetAllLoans`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
         });
         return response;
     }
@@ -21,6 +25,11 @@ async function GetAllLoansFromUser() {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/GetAllLoansFromUser`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
         });
         return response;
     }
@@ -36,6 +45,11 @@ async function GetLoanById(payload) {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/GetLoanById`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
             data: {
                 loanId: payload,
             },
@@ -54,6 +68,11 @@ async function CreateLoan(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/CreateLoan`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
             data: {
                 userId: payload.userId,
                 itemId: payload.itemId,
@@ -75,6 +94,11 @@ async function SetReturnDate(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/SetReturnDate`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
             data: {
                 loanId: payload,
             },
@@ -93,6 +117,11 @@ async function EndExtensionREquest (payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/EndExtensionRequest`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
             data: {
                 loanId: payload,
             },
@@ -111,6 +140,11 @@ async function UpdateDueDate(payload) {
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/UpdateDueDate`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
             data: {
                 loanId: payload.loanId,
                 newDueDate: payload.newDueDate,
@@ -125,6 +159,6 @@ async function UpdateDueDate(payload) {
     }
 }
 
-export default { GettAllLoans, GetAllLoansFromUser, GetLoanById, CreateLoan, SetReturnDate, EndExtensionREquest, UpdateDueDate };
+export default { GetAllLoans, GetAllLoansFromUser, GetLoanById, CreateLoan, SetReturnDate, EndExtensionREquest, UpdateDueDate };
 
 

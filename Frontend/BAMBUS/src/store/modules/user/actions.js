@@ -1,20 +1,43 @@
 import router from "@/router";
 import UserServices from "../../services/UserServices";
+import MessageService from "@/store/services/MessageService";
+import LoanService from "@/store/services/LoanService";
 
 export default {
   async loginUser({ commit }, payload) {
-    await UserServices.Login(payload).then((response) => {
-      if (response.data.success) {
-        commit("login", response.data);
-        router.push("/");
+    try {
+      const loginResponse = await UserServices.Login(payload);
+      if (!loginResponse.data.success) {
+        throw new Error("Invalid username or password");
       }
-      else {
-        alert("Invalid username or password");
-      }
-    }
-    );
-  },
+      commit("login", loginResponse.data);
 
+      const messageResponse = await MessageService.GetMessagesFromUserId(loginResponse.data.data.userId);
+      if (!messageResponse.data.success) {
+        throw new Error(messageResponse.data.message);
+      }
+      commit("setNotifications", messageResponse.data.data);
+
+      if (loginResponse.data.data.role === 2 || loginResponse.data.data.role === 1) {
+        const userResponse = await UserServices.GetAllUsers();
+        if (!userResponse.data.success) {
+          throw new Error(userResponse.data.message);
+        }
+        commit("setUsers", userResponse.data.data);
+
+        const loanResponse = await LoanService.GetAllLoans();
+        if (!loanResponse.data.success) {
+          throw new Error(loanResponse.data.message);
+        }
+        commit("loanStore/setLoans", loanResponse.data.data, { root: true });
+      }
+    
+      router.push("/");
+    
+    } catch (error) {
+      alert(error.message);
+    }
+  },
   async registerUser({ commit, dispatch }, payload) {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
@@ -28,8 +51,7 @@ export default {
     }
     );
   },
-  
-  changeUsername({ commit, state }, payload) {
+  async changeUsername({ commit, state }, payload) {
     const userExists = state.users.find((user) => user.username === payload);
     if (userExists) {
       alert("Username already exists");
@@ -39,7 +61,11 @@ export default {
       alert("Please provide a username");
       return;
     }
-    commit("changeUsername", payload);
+
+    const user = state.user
+    await UserServices.UpdateUser(user.userId, payload, user.email, user.password, user.firstName, user.lastName).then((response) => {
+    commit("changeUsername", response.data.data.username);
+    })
   },
   changeEmail({ commit, state }, payload) {
     const emailExists = state.users.find((user) => user.email === payload);

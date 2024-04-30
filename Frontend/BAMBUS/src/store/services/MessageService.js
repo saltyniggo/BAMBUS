@@ -1,10 +1,16 @@
 import axios from "axios";
+import userStore from '../modules/user/index.js';
 
 async function GetMessagesFromUserId(payload) {
     try {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/GetMessagesFromUserId`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
             data: {
                 userId: payload,
             },

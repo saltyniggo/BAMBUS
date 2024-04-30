@@ -1,4 +1,7 @@
 export default {
+  setLoans(state, loans) {
+    state.loans = loans;
+  },
   createLoan(state, loan) {
     state.loans.push(loan);
   },

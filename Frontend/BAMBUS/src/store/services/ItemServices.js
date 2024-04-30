@@ -1,5 +1,6 @@
 import axios from 'axios';
 import userStore from '../modules/user/index.js';
+import user from '../modules/user/index.js';
 
 async function LoadAllItems() {
     try {
@@ -27,7 +28,8 @@ async function AddItem (payload) {
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
-                "Authorization": "Bearer " + store.getters.getToken(),
+                "Authorization": "Bearer " + userStore.state.user.token,
+                
             },
             data: {
                 title: payload.title,
@@ -50,15 +52,14 @@ async function AddItem (payload) {
 
 async function DeleteItem (payload) {
     try {
-        console.log(userStore.getters.getToken());
-        var token = userStore.getters.getToken();
+        console.log(userStore.state.token)
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/DeleteItem`,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
-                "Authorization": "Bearer " + token,
+                "Authorization": "Bearer " + userStore.state.user.token,
             },
             data: {
                 itemId: payload,
