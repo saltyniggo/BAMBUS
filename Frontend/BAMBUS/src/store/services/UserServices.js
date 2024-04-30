@@ -54,7 +54,7 @@ async function Login(payload) {
 async function UpdateUser(payload) {
     try {
         const response = await axios({
-            method: "post",
+            method: "put",
             url: `http://localhost:5240/UpdateUser`,
             headers: {
                 "Content-Type": "application/json",
