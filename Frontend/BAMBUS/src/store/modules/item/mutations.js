@@ -1,5 +1,12 @@
 export default {
   setItems(state, items) {
+    items.forEach((item) => {
+      item.reservations = item.reservations ? item.reservations : [];
+      item.category = item.category ? item.category : "";
+      item.author = item.author ? item.author : "";
+      item.avgRating = item.avgRating ? item.avgRating : 0;
+      item.currentLoanId = item.currentLoanId ? item.currentLoanId : 0;
+    });
     state.items = items;
   },
   removeReservationFromItem(state, { itemId, userId }) {

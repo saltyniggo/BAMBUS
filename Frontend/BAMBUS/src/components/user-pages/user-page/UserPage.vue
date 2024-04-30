@@ -49,6 +49,8 @@ export default {
     "$route.params": {
       immediate: true,
       handler(newParams) {
+        console.log(newParams);
+        console.log(newParams.overview);
         this.activeRoute = newParams.overview;
       },
     },

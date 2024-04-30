@@ -31,9 +31,9 @@ export default {
         }
         commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
-    
+
       router.push("/");
-    
+
     } catch (error) {
       alert(error.message);
     }
@@ -63,11 +63,17 @@ export default {
     }
 
     const user = state.user
-    await UserServices.UpdateUser(user.userId, payload, user.email, user.password, user.firstName, user.lastName).then((response) => {
-    commit("changeUsername", response.data.data.username);
+    user.username = payload;
+    await UserServices.UpdateUser(user).then((response) => {
+      if (response.data.success) {
+        commit("changeUsername", payload)
+      }
+      else {
+        alert(response.data.message);
+      }
     })
   },
-  changeEmail({ commit, state }, payload) {
+  async changeEmail({ commit, state }, payload) {
     const emailExists = state.users.find((user) => user.email === payload);
     if (emailExists) {
       alert("Email already exists");
@@ -81,17 +87,47 @@ export default {
       alert("Please provide a valid email address");
       return;
     }
-    commit("changeEmail", payload);
+
+    const user = state.user;
+    user.email = payload;
+    await UserServices.UpdateUser(user).then((response) => {
+      if (response.data.success) {
+        commit("changeEmail", payload)
+      }
+      else {
+        alert(response.data.message);
+      }
+    });
   },
-  changeName({ commit }, payload) {
+  async changeName({ commit, state }, payload) {
     if (!payload.firstName && !payload.lastName) {
       alert("Please provide your first or last name");
       return;
     }
-    if (payload.firstName) commit("changeFirstName", payload.firstName);
-    if (payload.lastName) commit("changeLastName", payload.lastName);
+    
+    const user = state.user;
+
+    if (payload.firstName) {
+      user.firstName = payload.firstName;
+    }
+    if (payload.lastName) 
+    {
+      user.lastName = payload.lastName;
+    }
+      await UserServices.UpdateUser(user).then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          if (payload.firstName)
+            commit("changeFirstName", payload.firstName);
+          if (payload.lastName)
+            commit("changeLastName", payload.lastName)
+        }
+        else {
+          alert(response.data.message);
+        }
+      })
   },
-  changePassword({ commit }, payload) {
+  async changePassword({ commit, state }, payload) {
     if (!payload.currentPassword) {
       alert("Please enter your current password");
       return;
@@ -108,15 +144,24 @@ export default {
       alert("Password must be at least 6 characters long");
       return;
     }
-    commit("changePassword", payload.newPassword);
+    const user = state.user;
+    user.password = payload.newPassword;
+    await UserServices.UpdateUser(user).then((response) => {
+      if (response.data.success) {
+        commit("changePassword", payload.newPassword)
+      }
+      else {
+        alert(response.data.message);
+      }
+    });
   },
   async deleteAccount({ commit, state }) {
     if (confirm("Are you sure you want to delete the account?")) {
       await UserServices.DeleteUser(state.user.userId).then((response) => {
         if (response.data.success) {
-            commit("deleteAccount", state.user.userId);
-            commit("logout");
-            router.push("/");
+          commit("deleteAccount", state.user.userId);
+          commit("logout");
+          router.push("/");
         }
         else {
           alert(response.data.message);
@@ -131,10 +176,19 @@ export default {
       }
       else {
         alert(response.data.message);
-      }})
+      }
+    })
   },
-  adminChangePassword({ commit }, payload) {
-    commit("adminChangePassword", payload);
+  async adminChangePassword({ commit }, payload) {
+    const user = state.users.find((user) => user.userId === payload.userId);
+    await UserServices.UpdateUser(user.userId, user.username, user.email, payload.newPassword, user.firstName, user.lastName).then((response) => {
+      if (response.data.success) {
+        commit("adminChangePassword", payload)
+      }
+      else {
+        alert(response.data.message);
+      }
+    })
   },
   addNotification({ commit, state }, payload) {
     const notificationId =
