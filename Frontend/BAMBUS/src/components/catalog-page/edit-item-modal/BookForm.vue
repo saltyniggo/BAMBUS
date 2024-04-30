@@ -9,8 +9,8 @@
       <input type="text" id="author" v-model="author" required />
     </div>
     <div class="field">
-      <label for="ISBN">ISBN </label>
-      <input type="text" id="ISBN" v-model="ISBN" required />
+      <label for="isbn">ISBN </label>
+      <input type="text" id="isbn" v-model="isbn" required />
     </div>
     <div class="field">
       <label for="category">Kategorie </label>
@@ -38,28 +38,35 @@ export default {
     return {
       title: "",
       author: "",
-      ISBN: "",
+      isbn: "",
       category: "",
       available: "",
     };
   },
 
-  watch:{
-  saveItem: {
-    immediate: true,
-    handler: function (newVal) {
-      if (newVal===true) {
-        this.$store.dispatch("itemStore/editItem", {
-          itemId: this.item.itemId, title: this.title, author: this.author, ISBN: this.ISBN, category: this.category, available: this.available === "Ja" ? true : false,});
-        this.$emit("saved");
-      }
+  watch: {
+    saveItem: {
+      immediate: true,
+      handler: function (newVal) {
+        if (newVal === true) {
+          console.log(this.isbn);
+          this.$store.dispatch("itemStore/editItem", {
+            itemId: this.item.itemId,
+            title: this.title,
+            author: this.author,
+            isbn: this.isbn,
+            category: this.category,
+            available: this.available === "Ja" ? true : false,
+          });
+          this.$emit("saved");
+        }
+      },
     },
   },
-},
   beforeMount() {
     this.title = this.item.title;
     this.author = this.item.author;
-    this.ISBN = this.item.ISBN;
+    this.isbn = this.item.isbn;
     this.category = this.item.category;
     if (this.item.available === true) {
       this.available = "Ja";

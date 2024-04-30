@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace Backend.Controllers
 {
     public class ItemController : ControllerBase
@@ -17,7 +19,7 @@ namespace Backend.Controllers
         [HttpDelete("DeleteItem")]
         public async Task<IActionResult> DeleteItem()
         {
-            return Ok("hier wird ein Item gelöscht");
+            return Ok("hier wird ein Item gelï¿½scht");
         }
 
         [HttpPut("UpdateItem")]
@@ -35,7 +37,7 @@ namespace Backend.Controllers
         [HttpPut("AddReservation")]
         public async Task<IActionResult> AddReservation()
         {
-            return Ok("hier wird eine Reservation hinzugefügt");
+            return Ok("hier wird eine Reservation hinzugefï¿½gt");
         }
 
         [HttpPut("RemoveReservation")]

@@ -26,12 +26,12 @@
           <input type="text" id="author" v-model="author" />
         </div>
         <div class="input" v-if="type == 1">
-          <label for="ISBN">ISBN</label>
-          <input type="text" id="ISBN" v-model="ISBN" />
+          <label for="isbn">ISBN</label>
+          <input type="text" id="isbn" v-model="isbn" />
         </div>
         <div class="input" v-if="type == 0">
-          <label for="ISSN">ISSN</label>
-          <input type="text" id="ISSN" v-model="ISSN" />
+          <label for="issn">ISSN</label>
+          <input type="text" id="issn" v-model="issn" />
         </div>
         <div class="input">
           <label for="category">Kategorie</label>
@@ -55,60 +55,63 @@ import BaseContentContainer from "../base-components/BaseContentContainer.vue";
 import BaseRectangleButton from "../base-components/BaseRectangleButton.vue";
 
 export default {
-    name: "NewItemContainer",
-    components: {
-        BaseContentContainer,
-        BaseRectangleButton,
-    },
-    data() {
-        return {
-            title: "",
-            author: "",
-            category: "",
-            ISBN: "",
-            ISSN: "",
-            condition: 0,
-            isAvailable: true,
-            type: 1,
-            showAlert: false,
+  name: "NewItemContainer",
+  components: {
+    BaseContentContainer,
+    BaseRectangleButton,
+  },
+  data() {
+    return {
+      title: "",
+      author: "",
+      category: "",
+      isbn: "",
+      issn: "",
+      condition: 0,
+      isAvailable: true,
+      type: 1,
+      showAlert: false,
+    };
+  },
+  methods: {
+    ...mapActions("notificationStore", ["managerAddsItem"]),
+    createNewItem() {
+      if (this.title.trim() == "" || this.category.trim() == "") {
+        this.showAlert = true;
+        return;
+      } else if (
+        this.type &&
+        (this.author.trim() == "" || this.isbn.trim() == "")
+      ) {
+        this.showAlert = true;
+        return;
+      } else if (
+        this.type &&
+        (this.author.trim() == "" || this.isbn.trim() == "")
+      ) {
+        this.showAlert = true;
+        return;
+      } else {
+        const item = {
+          title: this.title,
+          type: this.type,
+          category: this.category,
+          reservations: [],
+          condition: 0,
+          available: true,
+          dueDate: undefined,
+          rentedBy: undefined,
+          itemId: new Date().getTime().toString(),
         };
-    },
-    methods: {
-      ...mapActions("notificationStore", ["managerAddsItem"]),
-        createNewItem() {
-            if (this.title.trim() == "" || this.category.trim() == "") {
-                this.showAlert = true;
-                return;
-            }
-            else if (this.type && (this.author.trim() == "" || this.ISBN.trim() == "")) {
-                this.showAlert = true;
-                return;
-            }
-            else if (this.type && (this.author.trim() == "" || this.ISBN.trim() == "")) {
-                this.showAlert = true;
-                return;
-            }
-            else {
-                const item = {
-                    title: this.title,
-                    type: this.type,
-                    category: this.category,
-                    reservations: [],
-                    condition: 0,
-                    available: true,
-                    dueDate: undefined,
-                    rentedBy: undefined,
-                    itemId: new Date().getTime().toString(),
-                };
 
         if (this.type == 0 || this.type == 1) {
           item.author = this.author;
         }
 
         if (this.type == 1) {
-          item.ISBN = this.ISBN;
+          item.isbn = this.isbn;
         } else if (this.type == 0) {
-          item.ISSN = this.ISSN;
+          item.issn = this.issn;
         }
         this.managerAddsItem(item);
         this.$store.dispatch("itemStore/createItem", item);

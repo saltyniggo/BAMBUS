@@ -50,8 +50,8 @@
           <p v-else>Nicht verfügbar</p>
           <p>{{ item.category }}</p>
         </div>
-        <p v-if="item.ISBN">ISBN {{ item.ISBN }}</p>
-        <p v-else-if="item.ISSN">ISSN {{ item.ISSN }}</p>
+        <p v-if="item.type == 1">ISBN {{ item.isbn }}</p>
+        <p v-else-if="item.type == 0">ISSN {{ item.issn }}</p>
         <item-buttons
           :item="item"
           :role="user.role"
@@ -59,8 +59,12 @@
           @openReportModal="openReportModal"
         />
       </div>
-      <p v-if="item.condition==2" class="damged-item-warning">!!!Beschädigt!!!</p>
-      <p v-if="item.condition==1" class="damged-item-warning">ggf. bschädigt</p>
+      <p v-if="item.condition == 2" class="damged-item-warning">
+        !!!Beschädigt!!!
+      </p>
+      <p v-if="item.condition == 1" class="damged-item-warning">
+        ggf. bschädigt
+      </p>
     </template>
   </base-content-container>
 </template>
