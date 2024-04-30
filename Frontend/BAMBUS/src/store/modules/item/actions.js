@@ -1,4 +1,5 @@
 import ItemServices from "../../services/ItemServices";
+import store from "../../index.js";
 import $router from "@/router";
 
 export default {
@@ -12,7 +13,7 @@ export default {
     });
   },
 
- async deleteItem({ commit }, id) {
+  async deleteItem({ commit }, id) {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
@@ -20,6 +21,9 @@ export default {
         $router.push("/error");
       }
     });
+  },
+  addItem({ commit }, item) {
+    commit("addItemToCart", item);
   },
   async createItem({ commit }, item) {
     await ItemServices.AddItem(item).then((response) => {
@@ -135,8 +139,18 @@ export default {
   reportItem({ commit }) {
     commit("reportItem");
   },
-  cancelReservation({ commit }, payload) {
-    commit("removeReservationFromItem", payload);
+  async cancelReservation({ commit }, payload) {
+    const index = state.items.findIndex((item) => item.itemId === payload);
+    if (index !== -1) {
+      await ItemServices.RemoveReservationByUser(payload).then((response) => {
+        if (response.data.success) {
+          // TODO Does it return the updated item list?
+          commit("setItems", response.data.data);
+        } else {
+          $router.push("/error");
+        }
+      });
+    }
   },
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
