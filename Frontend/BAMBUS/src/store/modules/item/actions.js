@@ -137,8 +137,18 @@ export default {
   reportItem({ commit }) {
     commit("reportItem");
   },
-  cancelReservation({ commit }, payload) {
-    commit("removeReservationFromItem", payload);
+  async cancelReservation({ commit }, payload) {
+    const index = state.items.findIndex((item) => item.itemId === payload);
+    if (index !== -1) {
+      await ItemServices.RemoveReservationByUser(payload).then((response) => {
+        if (response.data.success) {
+          // TODO Does it return the updated item list?
+          commit("setItems", response.data.data);
+        } else {
+          $router.push("/error");
+        }
+      });
+    }
   },
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);

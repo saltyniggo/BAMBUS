@@ -1,5 +1,4 @@
 import axios from "axios";
-import axios from "axios";
 import userStore from "../modules/user/index.js";
 
 async function LoadAllItems() {
