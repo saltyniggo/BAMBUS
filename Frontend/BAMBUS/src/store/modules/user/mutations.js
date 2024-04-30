@@ -39,6 +39,10 @@ export default {
     const user = state.users.find((user) => user.userId === payload.userId);
     user.password = payload.newPassword;
   },
+  setNotifications(state, payload) {
+    if (!payload) return;
+    state.user.notifications = payload;
+  },
   addNotification(state, payload) {
     const user = state.users.find((user) => user.userId === payload.receiverId);
     if (user && user.notifications) {
