@@ -49,7 +49,7 @@ export default {
     immediate: true,
     handler: function (newVal) {
       if (newVal===true) {
-        this.$store.dispatch("itemStore/editBook", {
+        this.$store.dispatch("itemStore/editItem", {
           itemId: this.item.itemId, title: this.title, author: this.author, ISBN: this.ISBN, category: this.category, available: this.available === "Ja" ? true : false,});
         this.$emit("saved");
       }

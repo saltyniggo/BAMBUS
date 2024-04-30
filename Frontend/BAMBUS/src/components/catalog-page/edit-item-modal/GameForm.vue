@@ -34,12 +34,12 @@ export default {
       immediate: true,
       handler: function (newVal) {
         if (newVal) {
-          this.$store.dispatch("itemStore/editGame", {
+          this.$store.dispatch("itemStore/editItem", {
             itemId: this.item.itemId,
             title: this.title,
             category: this.category,
             available: this.available === "Ja" ? true : false,
-          })
+          });
           this.$emit("saved");
         }
       },

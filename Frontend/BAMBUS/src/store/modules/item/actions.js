@@ -6,8 +6,7 @@ export default {
     await ItemServices.LoadAllItems().then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
-      }
-      else {
+      } else {
         $router.push("/error");
       }
     });
@@ -17,27 +16,33 @@ export default {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
-      }
-      else {
+      } else {
         $router.push("/error");
       }
-    });  
+    });
   },
-  createItem({ commit }, item) {
-
-    commit("addItem", item);
+  async createItem({ commit }, item) {
+    await ItemServices.AddItem(item).then((response) => {
+      if (response.data.success) {
+        // TODO Does it return the updated item list?
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
   setEditItemId({ commit }, id) {
     commit("setEditItemId", id);
   },
-  editBook({ commit }, payload) {
-    commit("editBook", payload);
-  },
-  editGame({ commit }, payload) {
-    commit("editGame", payload);
-  },
-  editMagazine({ commit }, payload) {
-    commit("editMagazine", payload);
+  async editItem({ commit }, payload) {
+    await ItemServices.UpdateItem(payload).then((response) => {
+      if (response.data.success) {
+        // TODO Does it return the updated item list?
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
   addItem({ commit }, item) {
     commit("addItemToCart", item);
@@ -51,20 +56,44 @@ export default {
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
-  addLoanIdToItem({ commit }, payload) {
-    commit("addLoanIdToItem", payload);
+  async addLoanIdToItem({ commit }, payload) {
+    await ItemServices.AddLoan(payload).then((response) => {
+      if (response.data.success) {
+        // TODO Does it return the updated item list?
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
-  removeLoanIdFromItem({ commit }, payload) {
-    commit("removeLoanIdFromItem", payload);
+  async removeLoanIdFromItem({ commit }, payload) {
+    await ItemServices.RemoveLoan(payload).then((response) => {
+      if (response.data.success) {
+        // TODO Does it return the updated item list?
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
   },
-  userReservesItem({ commit, state, rootState }, payload) {
+  async userReservesItem({ commit, state, rootState }, payload) {
     const index = state.items.findIndex((item) => item.itemId === payload);
     if (index !== -1) {
       const userId = rootState.userStore.user.userId;
       if (userId == null) {
         alert("Please log in to reserve an item");
       } else {
-        commit("userReservesItem", { userId, index });
+        await ItemServices.RemoveLoan({
+          userId: userId,
+          itemId: item.itemId,
+        }).then((response) => {
+          if (response.data.success) {
+            // TODO Does it return the updated item list?
+            commit("setItems", response.data.data);
+          } else {
+            $router.push("/error");
+          }
+        });
       }
     }
   },
