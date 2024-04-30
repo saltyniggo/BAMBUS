@@ -2,6 +2,6 @@ namespace Backend.Models
 {
     public class BookModel : LiteratureModel
     {
-        public string ISBN { get; set; }
+        public string isbn { get; set; }
     }
 }

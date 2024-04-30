@@ -1,6 +1,6 @@
-import axios from 'axios';
-import userStore from '../modules/user/index.js';
-import user from '../modules/user/index.js';
+import axios from "axios";
+import userStore from "../modules/user/index.js";
+import user from "../modules/user/index.js";
 
 async function LoadAllItems() {
   try {
@@ -19,69 +19,64 @@ async function LoadAllItems() {
   }
 }
 
-async function AddItem (payload) {
-    try {
-        const response = await axios({
-            method: "post",
-            url: `http://localhost:5240/CreateItem`,
-            headers: {
-                "Content-Type": "application/json",
-                "accept": "*/*",
-                "Authorization": "Bearer " + userStore.state.user.token,
-                
-            },
-            data: {
-                title: payload.title,
-                condition : payload.condition,
-                type: payload.type,
-                author: payload.author,
-                category: payload.category,
-                isbn: payload.ISBN,
-                issn: payload.ISSN,
-            },
-        });
-        return response;
-    }
-    catch (error) {
-        console.warn("Error when adding item to DB:");
-        console.error("Error:", error);
-        throw error;
-    }
+async function AddItem(payload) {
+  try {
+    console.log(payload);
+    const response = await axios({
+      method: "post",
+      url: `http://localhost:5240/CreateItem`,
+      headers: {
+        "Content-Type": "application/json",
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
+      },
+      data: {
+        title: payload.title,
+        condition: payload.condition,
+        type: payload.type,
+        author: payload.author,
+        category: payload.category,
+        isbn: payload.isbn,
+        issn: payload.issn,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.warn("Error when adding item to DB:");
+    console.error("Error:", error);
+    throw error;
+  }
 }
 
-async function DeleteItem (payload) {
-    try {
-        console.log(userStore.state.token)
-        const response = await axios({
-            method: "post",
-            url: `http://localhost:5240/DeleteItem`,
-            headers: {
-                "Content-Type": "application/json",
-                "accept": "*/*",
-                "Authorization": "Bearer " + userStore.state.user.token,
-            },
-            data: {
-                itemId: payload,
-            },
-        });
-        return response;
-    }
-    catch (error) {
-        console.warn("Error when deleting item from DB:");
-        console.error("Error:", error);
-        throw error;
-    }
+async function DeleteItem(payload) {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `http://localhost:5240/DeleteItem?itemId=${payload}`,
+      headers: {
+        "Content-Type": "application/json",
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.warn("Error when deleting item from DB:");
+    console.error("Error:", error);
+    throw error;
+  }
 }
 
 async function UpdateItem(payload) {
   try {
+    console.log(payload);
     const response = await axios({
       method: "put",
-      url: `http://localhost:5240/EditItem`,
+      url: `http://localhost:5240/UpdateItem`,
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + userStore.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload.itemId,
@@ -92,8 +87,12 @@ async function UpdateItem(payload) {
         issn: payload.issn || null,
         category: payload.category || null,
         author: payload.author || null,
+        reservations: payload.reservations || null,
+        currentLoanId: payload.currentLoanId || null,
+        avgRating: payload.avgRating || null,
       },
     });
+    console.log(response);
     return response;
   } catch (error) {
     console.warn("Error when updating item in DB:");
@@ -110,7 +109,7 @@ async function UpdateCondition(payload) {
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + store.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload.itemId,
@@ -134,7 +133,7 @@ async function AddReservation(payload) {
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + store.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         userId: payload.userId,
@@ -157,7 +156,7 @@ async function RemoveFirstReservation(payload) {
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + store.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
@@ -179,7 +178,7 @@ async function RemoveReservationByUser(payload) {
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + store.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         userId: payload.userId,
@@ -202,7 +201,7 @@ async function AddLoan(payload) {
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + store.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
@@ -224,7 +223,7 @@ async function RemoveLoan(payload) {
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
-        Authorization: "Bearer " + store.getters.getToken(),
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
