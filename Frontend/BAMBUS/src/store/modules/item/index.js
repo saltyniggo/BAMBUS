@@ -12,7 +12,7 @@ export default {
     sortedBy: null,
     onlyAvailable: false,
     search: "",
-    itmes: [],
+    items: [],
     // items: [
     //   {
     //     itemId: 1,
