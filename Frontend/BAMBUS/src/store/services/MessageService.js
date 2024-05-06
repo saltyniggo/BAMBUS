@@ -5,7 +5,7 @@ async function GetMessagesFromUserId(payload) {
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/GetMessagesFromUserId`,
+            url: `http://localhost:5240/GetMessagesFromUserId/${payload}`,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
@@ -27,7 +27,7 @@ async function GetMessagesFromUserId(payload) {
 async function CreateMessage(payload) {
     try {
         const response = await axios({
-            method: "put",
+            method: "post",
             url: `http://localhost:5240/CreateMessage`,
             data: {
                 senderId: payload.senderId,
@@ -65,6 +65,29 @@ async function DeleteMessage(payload) {
     }
 }
 
-export default { GetMessagesFromUserId, CreateMessage, DeleteMessage };
+async function UserRequestsPasswordReset (payload) {
+    try {
+        const response = await axios({
+            method: "post",
+            url: `http://localhost:5240/RequestPasswordReset`,
+            data: {
+                senderId: 1000,
+                receiverId: 1000,
+                text: payload.text,
+                date: payload.date,
+                type: 7,
+                payload: payload.payload,
+            },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when creating message in DB:");
+        console.error("Error:", error);
+        throw error;
+    }
+}
+
+export default { GetMessagesFromUserId, CreateMessage, DeleteMessage, UserRequestsPasswordReset  };
 
  

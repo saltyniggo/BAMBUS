@@ -3,7 +3,6 @@ export default {
     state.userIsAuth = true;
     state.user = payload.data;
     state.user.token = payload.token;
-    console.log(state.user);
   },
   setUsers(state, payload) {
     state.users = payload;

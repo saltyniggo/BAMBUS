@@ -39,7 +39,6 @@ export default {
     commit("setEditItemId", id);
   },
   async editItem({ commit }, payload) {
-    console.log(payload);
     await ItemServices.UpdateItem(payload).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
@@ -165,11 +164,9 @@ export default {
     commit("setSearch", payload);
   },
   acceptDamage({ commit }, payload) {
-    console.log(payload);
     commit("acceptDamage", payload);
   },
   rejectDamage({ commit }, payload) {
-    console.log(payload);
     commit("rejectDamage", payload);
   },
 };

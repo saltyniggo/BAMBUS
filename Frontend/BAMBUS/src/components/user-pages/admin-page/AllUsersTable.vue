@@ -105,9 +105,6 @@ export default {
   font-weight: bold;
 }
 
-button {
-}
-
 .uneven {
   background-color: #d8c6b9;
 }

@@ -17,5 +17,8 @@ export default {
   },
   getToken(state) {
     return state.user.token;
+  },
+  getUserFromUsers:(state) => (userId) => {
+    return state.users.find((user) => user.userId === userId);
   }
 };

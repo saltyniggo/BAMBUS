@@ -8,7 +8,6 @@ export default {
     try {
       const loginResponse = await UserServices.Login(payload);
       if (!loginResponse.data.success) {
-        console.log(loginResponse.data.message);
         throw new Error("Invalid email or password");
       }
       commit("login", loginResponse.data);
@@ -68,7 +67,6 @@ export default {
     user.username = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        // commit("changeUsername", payload)
         alert("Username changed successfully");
       }
       else {
@@ -95,7 +93,6 @@ export default {
     user.email = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        // commit("changeEmail", payload)
         alert("Email changed successfully");
       }
       else {
@@ -108,9 +105,7 @@ export default {
       alert("Please provide your first or last name");
       return;
     }
-    
     const user = state.user;
-
     if (payload.firstName) {
       user.firstName = payload.firstName;
     }
@@ -119,12 +114,8 @@ export default {
       user.lastName = payload.lastName;
     }
       await UserServices.UpdateUser(user).then((response) => {
-        console.log(response);
+
         if (response.data.success) {
-          // if (payload.firstName)
-          //   commit("changeFirstName", payload.firstName);
-          // if (payload.lastName)
-          //   commit("changeLastName", payload.lastName)
           alert("Name changed successfully");
         }
         else {
@@ -163,7 +154,6 @@ export default {
   },
   async deleteAccount({ commit, state }) {
     if (confirm("Are you sure you want to delete the account?")) {
-      console.log(state.user.userId);
       await UserServices.DeleteUser(state.user.userId).then((response) => {
         if (response.data.success) {
           commit("deleteAccount", state.user.userId);
@@ -188,9 +178,7 @@ export default {
     })
   },
   async adminChangePassword({ commit, state }, payload) {
-    console.log(payload);
     const user = state.users.find((user) => user.userId === payload.userId);
-    console.log(user);
     user.password = payload.newPassword;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {

@@ -53,7 +53,6 @@ async function Login(payload) {
 
 async function UpdateUser(payload) {
     try {
-        console.log("payload", payload);
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/UpdateUser`,

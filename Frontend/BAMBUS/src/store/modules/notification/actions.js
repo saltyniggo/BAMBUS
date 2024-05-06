@@ -1,3 +1,4 @@
+import MessageService from "@/store/services/MessageService.js";
 import router from "../../../router/index.js";
 
 export default {
@@ -146,28 +147,25 @@ export default {
     dispatch("userStore/addNotification", notification, { root: true });
   },
 
-  userRequestsPasswordReset({ dispatch }, payload) {
-    if (!this.state.userStore.users.find((user) => user.email === payload)) {
-      alert("User does not exist");
-      return;
-    } else {
-      const username = this.state.userStore.users.find(
-        (user) => user.email === payload
-      ).username;
-      const notification = {
-        notificationId: null,
-        type: 8,
-        title: null,
-        message: `${username} mit der Adresse ${payload} hat eine Zurücksetzung des Passworts angefragt`,
-        senderId: 0,
-        receiverId: 3,
-        date: new Date().toLocaleDateString("de-DE"),
-        payload: payload,
-      };
-      dispatch("userStore/addNotification", notification, { root: true });
-      alert("Passwort zurücksetzen angefordert.");
-      router.push({ name: "login" });
+  async userRequestsPasswordReset({ dispatch }, payload) {
+
+    var message = {
+      senderId: 0,
+      receiverId: 0,
+      date: new Date(),
+      text: `${payload} hat eine Zurücksetzung des Passworts angefragt`,
+      type: 7,
+      payload: payload,
     }
+      await MessageService.UserRequestsPasswordReset(message).then((response) => {
+        if (response.data.success) {
+          alert("Passwort zurücksetzen angefordert.");
+          router.push({ name: "login" });
+        }
+        else {
+          alert(response.data.message);
+        }
+     });	
   },
   userReportsDamage({ dispatch, rootState }, payload) {
     const username = rootState.userStore.users.find(

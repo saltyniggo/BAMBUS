@@ -29,12 +29,9 @@ export default {
     dispatch("itemStore/removeLoanIdFromItem", itemId, { root: true });
   },
   endActiveExtensionRequest({ commit, dispatch, rootState }, loanId) {
-    console.log(loanId);
-    console.log(rootState);
     const notificationId = rootState.userStore.users[1].notifications.find(
       (notification) => notification.payload.loanId === loanId
     ).notificationId;
-    console.log(notificationId);
     const userId = rootState.userStore.users[1].userId;
     dispatch(
       "userStore/deleteNotification",

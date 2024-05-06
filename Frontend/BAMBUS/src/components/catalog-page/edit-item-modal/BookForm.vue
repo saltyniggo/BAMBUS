@@ -49,7 +49,6 @@ export default {
       immediate: true,
       handler: function (newVal) {
         if (newVal === true) {
-          console.log(this.isbn);
           this.$store.dispatch("itemStore/editItem", {
             itemId: this.item.itemId,
             title: this.title,

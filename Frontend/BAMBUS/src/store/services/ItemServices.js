@@ -21,7 +21,6 @@ async function LoadAllItems() {
 
 async function AddItem(payload) {
   try {
-    console.log(payload);
     const response = await axios({
       method: "post",
       url: `http://localhost:5240/CreateItem`,
@@ -69,7 +68,6 @@ async function DeleteItem(payload) {
 
 async function UpdateItem(payload) {
   try {
-    console.log(payload);
     const response = await axios({
       method: "put",
       url: `http://localhost:5240/UpdateItem`,
@@ -92,7 +90,6 @@ async function UpdateItem(payload) {
         avgRating: payload.avgRating || null,
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.warn("Error when updating item in DB:");

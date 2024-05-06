@@ -1,20 +1,14 @@
 <template>
   <div class="base-notification-element">
     <section class="notification-base-content">
-      <h2>{{ notification.title }}</h2>
-      <h3>Von {{ notification.senderName }} am {{ notification.date }}</h3>
-      <p>{{ notification.message }}</p>
+      <h2>{{ title }}</h2>
+      <br />
+      <h3>Von {{ senderName }} am {{ date }}</h3>
+      <p>{{ notification.text }}</p>
     </section>
-    <section
-      class="notification-manager-extension"
-      v-if="this.notification.type == 5"
-    >
-      <base-text-button @click="sendResponse('accept')"
-        >accept</base-text-button
-      >
-      <base-text-button @click="sendResponse('decline')"
-        >nein oida</base-text-button
-      >
+    <section class="notification-manager-extension" v-if="this.notification.type == 4">
+      <base-text-button @click="sendResponse('accept')">accept</base-text-button>
+      <base-text-button @click="sendResponse('decline')">nein oida</base-text-button>
     </section>
   </div>
 </template>
@@ -35,6 +29,44 @@ export default {
   },
   components: {
     BaseTextButton,
+  },
+  computed: {
+    senderName() {
+      const user = this.$store.getters["userStore/getUserFromUsers"](this.notification.senderId);
+      var name = user.firstName + " " + user.lastName;
+      return name;
+    },
+    date() {
+      return new Date(this.notification.date).toLocaleDateString();
+    },
+    title() {
+      switch (this.notification.type) {
+        case 0:
+          return "Erinnerung Rückgabe";
+        case 1:
+          return "Reservierung";
+        case 2:
+          return "Verleihung";
+        case 3:
+          return "Rückgabe";
+        case 4:
+          return "Verlängerungsanfrage";
+        case 5:
+          return "Frist abgelaufen";
+        case 6:
+          return "Neue Registrierung"
+        case 7:
+          return "Passwort zurücksetzen";
+        case 8:
+          return "Schadensmeldung";
+        case 9:
+          return "Neuer Katalogsgegenstand";
+        case 10:
+          return "Anfragenantwort"
+        default:
+          return "Neue Benachrichtigung";
+      }
+    }
   },
   methods: {
     ...mapActions("loanStore", ["extensionRequestResponse"]),
@@ -57,7 +89,7 @@ export default {
 <style scoped>
 .base-notification-element {
   background-color: #f2eae4;
-  padding: 1%;
+  padding: 1.25rem;
   margin: 1%;
   border-radius: 2rem;
   box-shadow: 0 0 0.5rem #222126;
