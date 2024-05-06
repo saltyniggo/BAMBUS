@@ -27,11 +27,11 @@
         </div>
         <div class="input" v-if="type == 1">
           <label for="ISBN">ISBN</label>
-          <input type="text" id="ISBN" v-model="ISBN" />
+          <input type="text" id="ISBN" v-model="isbn" />
         </div>
         <div class="input" v-if="type == 0">
           <label for="ISSN">ISSN</label>
-          <input type="text" id="ISSN" v-model="ISSN" />
+          <input type="text" id="ISSN" v-model="issn" />
         </div>
         <div class="input">
           <label for="category">Kategorie</label>
@@ -65,8 +65,8 @@ export default {
       title: "",
       author: "",
       category: "",
-      ISBN: "",
-      ISSN: "",
+      isbn: "",
+      issn: "",
       condition: 0,
       isAvailable: true,
       type: 1,
@@ -81,13 +81,13 @@ export default {
         return;
       } else if (
         this.type &&
-        (this.author.trim() == "" || this.ISBN.trim() == "")
+        (this.author.trim() == "" || this.isbn.trim() == "")
       ) {
         this.showAlert = true;
         return;
       } else if (
         this.type &&
-        (this.author.trim() == "" || this.ISBN.trim() == "")
+        (this.author.trim() == "" || this.issn.trim() == "")
       ) {
         this.showAlert = true;
         return;
@@ -109,9 +109,9 @@ export default {
         }
 
         if (this.type == 1) {
-          item.ISBN = this.ISBN;
+          item.isbn = this.isbn;
         } else if (this.type == 0) {
-          item.ISSN = this.ISSN;
+          item.issn = this.issn;
         }
         this.managerAddsItem(item);
         this.$store.dispatch("itemStore/createItem", item);

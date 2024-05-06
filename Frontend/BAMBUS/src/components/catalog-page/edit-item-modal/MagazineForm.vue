@@ -11,7 +11,7 @@
 
     <div class="field">
       <label for="ISSN">ISSN </label>
-      <input type="text" id="ISSN" v-model="ISSN" required />
+      <input type="text" id="ISSN" v-model="issn" required />
     </div>
 
     <div class="field">
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       title: "",
-      ISSN: "",
+      issn: "",
       category: "",
       available: "",
       author: "",
@@ -48,11 +48,17 @@ export default {
         if (newVal === true) {
           this.$store.dispatch("itemStore/editItem", {
             itemId: this.item.itemId,
+            condition: this.item.condition,
             title: this.title,
-            ISSN: this.ISSN,
-            category: this.category,
-            available: this.available === "Ja" ? true : false,
+            type: 0,
+            isbn: "",
             author: this.author,
+            category: this.category,
+            issn: this.issn,
+            available: this.available === "Ja" ? true : false,
+            reservations: this.item.reservations,
+            currentLoanId: this.item.currentLoanId,
+            avgRating: this.item.avgRating,
           });
           this.$emit("saved");
         }
@@ -61,7 +67,7 @@ export default {
   },
   mounted() {
     this.title = this.item.title;
-    this.ISSN = this.item.ISSN;
+    this.issn = this.item.issn;
     this.category = this.item.category;
     this.author = this.item.author;
     if (this.item.available === true) {

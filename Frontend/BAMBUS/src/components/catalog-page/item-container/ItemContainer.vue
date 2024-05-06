@@ -50,8 +50,8 @@
           <p v-else>Nicht verfügbar</p>
           <p>{{ item.category }}</p>
         </div>
-        <p v-if="item.type == 1">ISBN {{ item.ISBN }}</p>
-        <p v-else-if="item.type == 0">ISSN {{ item.ISSN }}</p>
+        <p v-if="item.type == 1">ISBN {{ item.isbn }}</p>
+        <p v-else-if="item.type == 0">ISSN {{ item.issn }}</p>
         <item-buttons
           :item="item"
           :role="user.role"

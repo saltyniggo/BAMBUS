@@ -36,9 +36,17 @@ export default {
         if (newVal) {
           this.$store.dispatch("itemStore/editItem", {
             itemId: this.item.itemId,
+            condition: this.item.condition,
             title: this.title,
+            type: 2,
+            isbn: "",
+            author: "",
             category: this.category,
+            issn: "",
             available: this.available === "Ja" ? true : false,
+            reservations: this.item.reservations,
+            currentLoanId: this.item.currentLoanId,
+            avgRating: this.item.avgRating,
           });
           this.$emit("saved");
         }

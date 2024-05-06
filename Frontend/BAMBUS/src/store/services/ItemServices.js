@@ -35,8 +35,8 @@ async function AddItem(payload) {
         type: payload.type,
         author: payload.author,
         category: payload.category,
-        ISBN: payload.ISBN,
-        ISSN: payload.ISSN,
+        isbn: payload.isbn,
+        issn: payload.issn,
       },
     });
     return response;
@@ -67,6 +67,7 @@ async function DeleteItem(payload) {
 }
 
 async function UpdateItem(payload) {
+  console.log("UpdateItem payload: ", payload);
   try {
     const response = await axios({
       method: "put",
@@ -81,8 +82,8 @@ async function UpdateItem(payload) {
         title: payload.title,
         condition: payload.condition,
         type: payload.type,
-        ISBN: payload.ISBN,
-        ISSN: payload.ISSN,
+        isbn: payload.isbn,
+        issn: payload.issn,
         category: payload.category,
         author: payload.author,
         reservations: payload.reservations,
@@ -90,6 +91,7 @@ async function UpdateItem(payload) {
         avgRating: payload.avgRating,
       },
     });
+    console.log("UpdateItem response: ", response.data.data);
     return response;
   } catch (error) {
     console.warn("Error when updating item in DB:");
