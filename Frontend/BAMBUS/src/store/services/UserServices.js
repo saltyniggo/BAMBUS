@@ -53,6 +53,7 @@ async function Login(payload) {
 
 async function UpdateUser(payload) {
     try {
+        console.log("payload", payload);
         const response = await axios({
             method: "put",
             url: `http://localhost:5240/UpdateUser`,
@@ -83,14 +84,14 @@ async function DeleteUser(payload) {
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/DeleteUser`,
+            url: `http://localhost:5240/DeleteUser/${payload}`,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
                 "Authorization": "Bearer " + userStore.state.user.token,
             },
             data: {
-                userId: payload,
+                id: payload,
             },
         });
         return response;

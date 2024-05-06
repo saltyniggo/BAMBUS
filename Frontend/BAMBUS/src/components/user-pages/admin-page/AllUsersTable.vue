@@ -33,10 +33,7 @@
         />
         <base-rectangle-button
           @click="
-            adminChangePassword({
-              newPassword: passwordInputs[index],
-              userId: user.userId,
-            })
+            changePassword(index, user.userId)
           "
           >Speichern</base-rectangle-button
         >
@@ -80,6 +77,13 @@ export default {
         }
       });
     },
+    changePassword(index, userId) {
+      this.adminChangePassword({
+        newPassword: this.passwordInputs[index],
+        userId: userId,
+      });
+      this.passwordInputs[index] = "";
+    }
   },
   computed: {
     ...mapGetters("userStore", { users: "getEmployees" }),

@@ -8,30 +8,27 @@ export default {
   setUsers(state, payload) {
     state.users = payload;
   },
-  changeUsername(state, payload) {
-    const user = state.users.find((user) => user.userId === state.user.userId);
-    user.username = payload;
-  },
-  changeEmail(state, payload) {
-    const user = state.users.find((user) => user.userId === state.user.userId);
-    user.email = payload;
-  },
-  changePassword(state, payload) {
-    const user = state.users.find((user) => user.userId === state.user.userId);
-    user.password = payload;
-  },
-  changeFirstName(state, payload) {
-    const user = state.users.find((user) => user.userId === state.user.userId);
-    user.firstName = payload;
-  },
-  changeLastName(state, payload) {
-    const user = state.users.find((user) => user.userId === state.user.userId);
-    user.lastName = payload;
-  },
-  changePassword(state, payload) {
-    const user = state.users.find((user) => user.userId === state.user.userId);
-    user.password = payload;
-  },
+  // changeUsername(state, payload) {
+  //   const user = state.users.find((user) => user.userId === state.user.userId);
+  //   user.username = payload;
+  // },
+  // changeEmail(state, payload) {
+  //   const user = state.users.find((user) => user.userId === state.user.userId);
+  //   user.email = payload;
+  // },
+  // changeFirstName(state, payload) {
+  //   const user = state.users.find((user) => user.userId === state.user.userId);
+  //   user.firstName = payload;
+  // },
+  // changeLastName(state, payload) {
+  //   const user = state.users.find((user) => user.userId === state.user.userId);
+  //   user.lastName = payload;
+  // },
+  // changePassword(state, payload) {
+  //   console.log(payload);
+  //   const user = state.users.find((user) => user.userId === state.user.userId);
+  //   user.password = payload;
+  // },
   deleteAccount(state, payload) {
     state.users = state.users.filter((user) => user.userId !== payload);
   },

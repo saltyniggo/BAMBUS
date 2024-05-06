@@ -8,7 +8,8 @@ export default {
     try {
       const loginResponse = await UserServices.Login(payload);
       if (!loginResponse.data.success) {
-        throw new Error("Invalid username or password");
+        console.log(loginResponse.data.message);
+        throw new Error("Invalid email or password");
       }
       commit("login", loginResponse.data);
 
@@ -41,7 +42,8 @@ export default {
   async registerUser({ commit, dispatch }, payload) {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
-        commit("login", response.data.data, response.data.token);
+        
+        commit("login", response.data);
         dispatch("notificationStore/userRegistersAccount", response.data.data, { root: true });
         router.push("/");
       }
@@ -66,7 +68,8 @@ export default {
     user.username = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        commit("changeUsername", payload)
+        // commit("changeUsername", payload)
+        alert("Username changed successfully");
       }
       else {
         alert(response.data.message);
@@ -92,7 +95,8 @@ export default {
     user.email = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        commit("changeEmail", payload)
+        // commit("changeEmail", payload)
+        alert("Email changed successfully");
       }
       else {
         alert(response.data.message);
@@ -117,10 +121,11 @@ export default {
       await UserServices.UpdateUser(user).then((response) => {
         console.log(response);
         if (response.data.success) {
-          if (payload.firstName)
-            commit("changeFirstName", payload.firstName);
-          if (payload.lastName)
-            commit("changeLastName", payload.lastName)
+          // if (payload.firstName)
+          //   commit("changeFirstName", payload.firstName);
+          // if (payload.lastName)
+          //   commit("changeLastName", payload.lastName)
+          alert("Name changed successfully");
         }
         else {
           alert(response.data.message);
@@ -148,7 +153,8 @@ export default {
     user.password = payload.newPassword;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        commit("changePassword", payload.newPassword)
+        // commit("changePassword", payload.newPassword)
+        alert("Password changed successfully");
       }
       else {
         alert(response.data.message);
@@ -157,6 +163,7 @@ export default {
   },
   async deleteAccount({ commit, state }) {
     if (confirm("Are you sure you want to delete the account?")) {
+      console.log(state.user.userId);
       await UserServices.DeleteUser(state.user.userId).then((response) => {
         if (response.data.success) {
           commit("deleteAccount", state.user.userId);
@@ -172,6 +179,7 @@ export default {
   async adminDeleteAccount({ commit }, payload) {
     await UserServices.DeleteUser(payload).then((response) => {
       if (response.data.success) {
+        alert("Account deleted successfully");
         commit("deleteAccount", payload);
       }
       else {
@@ -179,10 +187,14 @@ export default {
       }
     })
   },
-  async adminChangePassword({ commit }, payload) {
+  async adminChangePassword({ commit, state }, payload) {
+    console.log(payload);
     const user = state.users.find((user) => user.userId === payload.userId);
-    await UserServices.UpdateUser(user.userId, user.username, user.email, payload.newPassword, user.firstName, user.lastName).then((response) => {
+    console.log(user);
+    user.password = payload.newPassword;
+    await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
+        alert("Password changed successfully");
         commit("adminChangePassword", payload)
       }
       else {
