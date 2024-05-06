@@ -36,8 +36,8 @@ async function AddItem(payload) {
         type: payload.type,
         author: payload.author,
         category: payload.category,
-        isbn: payload.isbn,
-        issn: payload.issn,
+        ISBN: payload.ISBN,
+        ISSN: payload.ISSN,
       },
     });
     return response;
@@ -83,13 +83,13 @@ async function UpdateItem(payload) {
         title: payload.title,
         condition: payload.condition,
         type: payload.type,
-        isbn: payload.isbn || null,
-        issn: payload.issn || null,
-        category: payload.category || null,
-        author: payload.author || null,
-        reservations: payload.reservations || null,
-        currentLoanId: payload.currentLoanId || null,
-        avgRating: payload.avgRating || null,
+        ISBN: payload.ISBN,
+        ISSN: payload.ISSN,
+        category: payload.category,
+        author: payload.author,
+        reservations: payload.reservations,
+        currentLoanId: payload.currentLoanId,
+        avgRating: payload.avgRating,
       },
     });
     console.log(response);

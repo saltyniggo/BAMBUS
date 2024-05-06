@@ -9,8 +9,8 @@
       <input type="text" id="author" v-model="author" required />
     </div>
     <div class="field">
-      <label for="isbn">ISBN </label>
-      <input type="text" id="isbn" v-model="isbn" required />
+      <label for="ISBN">ISBN </label>
+      <input type="text" id="ISBN" v-model="ISBN" required />
     </div>
     <div class="field">
       <label for="category">Kategorie </label>
@@ -38,7 +38,7 @@ export default {
     return {
       title: "",
       author: "",
-      isbn: "",
+      ISBN: "",
       category: "",
       available: "",
     };
@@ -49,12 +49,12 @@ export default {
       immediate: true,
       handler: function (newVal) {
         if (newVal === true) {
-          console.log(this.isbn);
+          console.log(this.ISBN);
           this.$store.dispatch("itemStore/editItem", {
             itemId: this.item.itemId,
             title: this.title,
             author: this.author,
-            isbn: this.isbn,
+            ISBN: this.ISBN,
             category: this.category,
             available: this.available === "Ja" ? true : false,
           });
@@ -66,7 +66,7 @@ export default {
   beforeMount() {
     this.title = this.item.title;
     this.author = this.item.author;
-    this.isbn = this.item.isbn;
+    this.ISBN = this.item.ISBN;
     this.category = this.item.category;
     if (this.item.available === true) {
       this.available = "Ja";
