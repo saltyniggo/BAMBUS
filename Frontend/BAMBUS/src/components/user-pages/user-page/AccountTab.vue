@@ -6,15 +6,19 @@
         <BaseContainerNarrow>
         <form @submit.prevent="changeUsername(this.newUsername)">
           <h2>Benutzernamen ändern</h2>
+          <div class="label-input">
           <label for="newUsername">Neuer Benutzername:</label>
           <input type="text" id="newUsername" v-model="newUsername" required />
+        </div>
           <button type="submit">Benutzernamen ändern</button>
         </form>
 
         <form @submit.prevent="changeEmail(newEmail)">
           <h2>Email ändern</h2>
+          <div class="label-input">
           <label for="newEmail">Neue Email:</label>
           <input type="email" id="newEmail" v-model="newEmail" required />
+        </div>
           <button type="submit">Email ändern</button>
         </form>
 
@@ -24,11 +28,15 @@
           "
         >
           <h2>Namen ändern</h2>
+          <div class="label-input">
           <label for="newFirstname">Neuer Vorname:</label>
           <input type="text" id="newFirstname" v-model="newFirstname" />
+        </div>
           <br />
-          <label for="newLastname" id="label2">Neuer Nachname:</label>
+          <div class="label-input2">
+          <label for="newLastname" >Neuer Nachname:</label>
           <input type="text" id="newLastname" v-model="newLastname" />
+        </div>
           <button type="submit">Namen ändern</button>
         </form>
 
@@ -41,6 +49,7 @@
           "
         >
           <h2>Passwort ändern</h2>
+          <div class="label-input">
           <label for="currentPassword">Aktuelles Passwort:</label>
           <input
             type="password"
@@ -48,14 +57,17 @@
             v-model="currentPassword"
             required
           />
+        </div>
           <br />
-          <label for="newPassword" id="label2">Neues Passwort:</label>
+          <div class="label-input2">
+          <label for="newPassword">Neues Passwort:</label>
           <input
             type="password"
             id="newPassword"
             v-model="newPassword"
             required
           />
+        </div>
           <button type="submit">Passwort ändern</button>
         </form>
       </BaseContainerNarrow>
@@ -122,13 +134,23 @@ h2 {
   grid-area: h2;
   margin-bottom: 0.5rem;
 }
+.label-input {
+  grid-area: label-input;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.5rem;
+}
+.label-input2 {
+  grid-area: label-input2;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.5rem;
+}
 input {
-  grid-area: input;
   width: 100%;
   justify-self: end;
 }
 label {
-  grid-area: label;
   justify-self: start;
   width: 100%;
 }
@@ -156,16 +178,7 @@ button {
   flex: 1;
   padding-left: 1%;
 }
-#label2 {
-  grid-area: label2;
-  width: 100%;
-  justify-self: start;
-}
-#newPassword, #newLastname {
-  grid-area: input2;
-  width: 100%;
-  justify-self: end;
-}
+
 .delete-account {
   display: inline-flex;
   flex-direction: row;
@@ -177,9 +190,9 @@ button {
 form {
   width: 100%;
   display: grid;
-  grid-template-columns: 33%, 33%, 33%;
+  
   grid-template-rows: 1fr, 1fr, 1fr, 1fr;
   gap: 0.5rem;
-  grid-template-areas:"h2 h2 h2" "label input input" "label2 input2 input2" ". . button";
+  grid-template-areas:"h2" "label-input" "label-input" "label-input2" "button";
 }
 </style>
