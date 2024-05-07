@@ -27,6 +27,9 @@ export default {
     selected(newValue) {
       this.$store.dispatch("itemStore/setFilteredBy", newValue);
     },
+    category(newValue) {
+      this.selected = newValue;
+    },
   },
 };
 </script>

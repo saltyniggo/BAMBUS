@@ -30,9 +30,6 @@ export default {
       }
     });
   },
-  setEditItemId({ commit }, id) {
-    commit("setEditItemId", id);
-  },
   async editItem({ commit }, payload) {
     await ItemServices.UpdateItem(payload).then((response) => {
       if (response.data.success) {
@@ -41,6 +38,9 @@ export default {
         $router.push("/error");
       }
     });
+  },
+  setEditItemId({ commit }, id) {
+    commit("setEditItemId", id);
   },
   setReturnItemId({ commit }, id) {
     commit("setReturnItemId", id);
@@ -61,16 +61,16 @@ export default {
   //     }
   //   });
   // },
-  async removeLoanIdFromItem({ commit }, payload) {
-    await ItemServices.RemoveLoan(payload).then((response) => {
-      if (response.data.success) {
-        // TODO Does it return the updated item list?
-        commit("setItems", response.data.data);
-      } else {
-        $router.push("/error");
-      }
-    });
-  },
+  // async removeLoanIdFromItem({ commit }, payload) {
+  //   await ItemServices.RemoveLoan(payload).then((response) => {
+  //     if (response.data.success) {
+  //       // TODO Does it return the updated item list?
+  //       commit("setItems", response.data.data);
+  //     } else {
+  //       $router.push("/error");
+  //     }
+  //   });
+  // },
   async userReservesItem({ commit, state, rootState }, payload) {
     const index = state.items.findIndex((item) => item.itemId === payload);
     if (index !== -1) {
