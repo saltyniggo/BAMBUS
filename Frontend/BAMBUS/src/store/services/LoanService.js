@@ -1,5 +1,6 @@
 import axios from "axios";
 import userStore from "../modules/user/index.js";
+import item from "../modules/item/index.js";
 async function GetAllLoans() {
     try {
         const response = await axios({
@@ -66,7 +67,7 @@ async function GetLoanById(payload) {
 async function CreateLoan(payload) {
     try {
         const response = await axios({
-            method: "put",
+            method: "post",
             url: `http://localhost:5240/CreateLoan`,
             headers: {
                 "Content-Type": "application/json",
@@ -76,6 +77,7 @@ async function CreateLoan(payload) {
             data: {
                 userId: payload.userId,
                 itemId: payload.itemId,
+                itemType: payload.itemType,
                 startDate: payload.startDate,
                 dueDate: payload.dueDate,
             },
@@ -93,7 +95,7 @@ async function SetReturnDate(payload) {
     try {
         const response = await axios({
             method: "put",
-            url: `http://localhost:5240/SetReturnDate`,
+            url: `http://localhost:5240/SetReturnDate/${payload}`,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",
@@ -116,7 +118,7 @@ async function EndExtensionREquest (payload) {
     try {
         const response = await axios({
             method: "put",
-            url: `http://localhost:5240/EndExtensionRequest`,
+            url: `http://localhost:5240/EndExtensionRequest/${payload}`,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",

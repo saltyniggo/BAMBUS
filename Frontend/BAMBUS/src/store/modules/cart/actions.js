@@ -5,14 +5,29 @@ export default {
     if (!dueDate) {
       alert("Please select a return date");
     } else {
-      dueDate = new Date(dueDate).toISOString().split("T")[0];
-
-      //TODO: Implement LoanService.CreateLoan
-      //LoanService.CreateLoan({ item, dueDate });
-
-      commit("removeRentalItemFromCart", item.itemId);
+      dueDate = new Date(dueDate).toISOString();
       const userId = rootState.userStore.user.userId;
-      dispatch("loanStore/createLoan", { item, dueDate }, { root: true });
+      const startDate = new Date().toISOString();
+
+      LoanService.CreateLoan({ userId: userId, itemId : item.itemId, itemType : item.type, dueDate : dueDate, startDate : startDate }).then((response) => {
+        if (response.data.success) {
+          commit("removeRentalItemFromCart", item.itemId);
+          dispatch("itemStore/loadItems", null, {root: true});
+          LoanService.GetAllLoansFromUser(userId).then((response) => {
+            if (!response.data.success) {
+              alert("Error getting updated loans");
+            }
+            else {
+              commit("loanStore/setLoans", response.data.data, { root: true });
+            }
+          });
+        }
+        else {
+          alert("Error creating loan");
+        }
+      });
+      
+      // dispatch("loanStore/createLoan", { item, dueDate }, { root: true });
       commit(
         "itemStore/removeReservationFromItem",
         { itemId: item.itemId, userId: userId },

@@ -20,8 +20,8 @@ export default {
     );
   },
   getActiveItemIdFromUserId: (state) => {
-    let loans = state.loans.find(
-      (loan) => loan.returnDate === null
+    let loans = state.loans.filter(
+      (loan) => loan.returnDate === null 
     );
 
     if (!Array.isArray(loans)) {

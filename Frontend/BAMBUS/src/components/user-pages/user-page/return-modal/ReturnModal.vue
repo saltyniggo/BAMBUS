@@ -11,47 +11,23 @@
           <i v-if="showAlert">Bitte gebe Sterne an, wenn du bewertest.</i>
 
           <div class="stars">
-            <div
-              v-for="(star, index) in stars"
-              :key="index"
-              @click="changeStar(index + 1)"
-            >
-              <i
-                :class="[star ? 'fa-solid' : 'fa-regular', 'fa-star']"
-                style="color: #222126"
-              ></i>
+            <div v-for="(star, index) in stars" :key="index" @click="changeStar(index + 1)">
+              <i :class="[star ? 'fa-solid' : 'fa-regular', 'fa-star']" style="color: #222126"></i>
             </div>
           </div>
 
           <p v-if="rating != 0">{{ rating }} Sterne</p>
 
           <br />
-          <textarea
-            id="comment"
-            name="comment"
-            rows="5"
-            cols="60"
-            maxlength="200"
-            v-model="comment"
-            placeholder="Möchtest du noch was hinzufügen?"
-          ></textarea>
+          <textarea id="comment" name="comment" rows="5" cols="60" maxlength="200" v-model="comment"
+            placeholder="Möchtest du noch was hinzufügen?"></textarea>
         </div>
         <div class="recommendation">
           <h3>Würdest du den Gegenstand weiter empfehlen?</h3>
           <div class="radio-group">
-            <input
-              type="radio"
-              id="yesRecommend"
-              name="recommendation"
-              value="yes"
-            />
+            <input type="radio" id="yesRecommend" name="recommendation" value="yes" />
             <label for="yes">Ja</label>
-            <input
-              type="radio"
-              id="noRecommend"
-              name="recommendation"
-              value="no"
-            />
+            <input type="radio" id="noRecommend" name="recommendation" value="no" />
             <label for="no">Nein</label>
           </div>
         </div>
@@ -59,38 +35,19 @@
           <h3>Ist der Gegenstand beschädigt worden?</h3>
 
           <div class="radio-group">
-            <input
-              type="radio"
-              id="yesBroken"
-              name="condition"
-              value="yes"
-              @click="checkcondition"
-            />
+            <input type="radio" id="yesBroken" name="condition" value="yes" @click="checkcondition" />
             <label for="yes">Ja</label>
-            <input
-              type="radio"
-              id="noNotBroken"
-              name="condition"
-              value="no"
-              @click="checkcondition"
-            />
+            <input type="radio" id="noNotBroken" name="condition" value="no" @click="checkcondition" />
             <label for="no">Nein</label>
           </div>
 
-          <input
-            type="text"
-            v-if="condition == true"
-            v-model="damageDescription"
-            maxlength="150"
-            placeholder="Bitte benenne den Schaden..."
-          />
+          <input type="text" v-if="condition == true" v-model="damageDescription" maxlength="150"
+            placeholder="Bitte benenne den Schaden..." />
         </div>
       </div>
     </template>
     <template v-slot:modal-button>
-      <base-rectangle-button @click="processReturn"
-        >Abgeben</base-rectangle-button
-      >
+      <base-rectangle-button @click="processReturn">Abgeben</base-rectangle-button>
     </template>
   </base-modal-large>
 </template>
@@ -128,12 +85,12 @@ export default {
     ...mapGetters("itemStore", { id: "getReturnItemId" }),
   },
   methods: {
-    ...mapActions("itemStore", ["removeLoanIdFromItem"]),
-    ...mapActions("itemStore", ["reportItem"]),
+    // ...mapActions("itemStore", ["removeLoanIdFromItem"]),
+    // ...mapActions("itemStore", ["reportItem"]),
     ...mapActions("modalStore", ["closeAllModals"]),
-    ...mapActions("ratingStore", ["addRating"]),
-    ...mapActions("notificationStore", ["userReportsDamage"]),
-    ...mapActions("loanStore", ["returnItem"]),
+    // ...mapActions("ratingStore", ["addRating"]),
+    // ...mapActions("notificationStore", ["userReportsDamage"]),
+    // ...mapActions("loanStore", ["returnItem"]),
 
     checkRecommendation() {
       if (yesRecommend.checked) {
@@ -157,42 +114,47 @@ export default {
     processReturn() {
       this.checkRecommendation();
       this.checkcondition();
+      let item = this.$store.getters["itemStore/getItemById"](this.id);
 
-      if (
-        this.rating != 0 ||
-        this.comment.trim() != "" ||
-        this.recommendation != null
-      ) {
-        if (this.rating == 0) {
-          this.showAlert = true;
-          return;
-        }
-        this.showAlert = false;
-        let newRating = {
-          ratingId: new Date().toISOString(),
-          itemId: this.id,
-          userId: this.user.userId,
-          rating: this.rating,
-          comment: this.comment,
-          isRecommended: this.recommendation,
-        };
-        this.addRating(newRating);
-      }
+      // if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) 
+      // {
+      //   if (this.rating == 0) 
+      //   {
+      //     this.showAlert = true;
+      //     return;
+      //   }
+      //   this.showAlert = false;
+      //   let newRating = {
+      //     ratingId: new Date().toISOString(),
+      //     itemId: this.id,
+      //     userId: this.user.userId,
+      //     rating: this.rating,
+      //     comment: this.comment,
+      //     isRecommended: this.recommendation,
+      //   };
+      //   this.addRating(newRating);
+      // }
 
       if (this.condition == true) {
-        this.itemTitle = this.$store.getters["itemStore/getItemById"](
-          this.id
-        ).title;
-        this.reportItem();
-        this.userReportsDamage({
-          itemId: this.id,
-          userId: this.user.userId,
-          title: this.itemTitle,
-          damageDescription: this.damageDescription,
-        });
+        this.itemTitle = this.$store.getters["itemStore/getItemById"](this.id).title;
+        item.condition = 1;
+        // this.userReportsDamage({
+        //   itemId: this.id,
+        //   userId: this.user.userId,
+        //   title: this.itemTitle,
+        //   damageDescription: this.damageDescription,
+        // });
       }
-      this.returnItem(this.id);
-      this.removeLoanIdFromItem(this.id);
+
+      // this.returnItem(this.id);
+      // this.removeLoanIdFromItem(this.id);
+
+      this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
+      item.currentLoanId = 0;
+      this.$store.dispatch("itemStore/editItem", item);
+   
+
+   
 
       this.hideModal = true;
       setTimeout(() => {

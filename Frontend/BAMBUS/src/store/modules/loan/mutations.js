@@ -21,4 +21,8 @@ export default {
     const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
     loan.dueDate = payload.newDueDate;
   },
+  setReturnDate(state, payload) {
+    const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
+    loan.returnDate = payload.returnDate;
+  }
 };
