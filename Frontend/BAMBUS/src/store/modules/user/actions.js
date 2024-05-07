@@ -12,28 +12,26 @@ export default {
       }
       commit("login", loginResponse.data);
 
-      const messageResponse = await MessageService.GetMessagesFromUserId(loginResponse.data.data.userId);
+      const messageResponse = await MessageService.GetMessagesFromUserId(
+        loginResponse.data.data.userId
+      );
       if (!messageResponse.data.success) {
         throw new Error(messageResponse.data.message);
       }
       commit("setNotifications", messageResponse.data.data);
-
-      if (loginResponse.data.data.role === 2 || loginResponse.data.data.role === 1) {
-        const userResponse = await UserServices.GetAllUsers();
-        if (!userResponse.data.success) {
-          throw new Error(userResponse.data.message);
-        }
-        commit("setUsers", userResponse.data.data);
-
-        const loanResponse = await LoanService.GetAllLoans();
-        if (!loanResponse.data.success) {
-          throw new Error(loanResponse.data.message);
-        }
-        commit("loanStore/setLoans", loanResponse.data.data, { root: true });
+      const userResponse = await UserServices.GetAllUsers();
+      if (!userResponse.data.success) {
+        throw new Error(userResponse.data.message);
       }
+      commit("setUsers", userResponse.data.data);
+
+      const loanResponse = await LoanService.GetAllLoans();
+      if (!loanResponse.data.success) {
+        throw new Error(loanResponse.data.message);
+      }
+      commit("loanStore/setLoans", loanResponse.data.data, { root: true });
 
       router.push("/");
-
     } catch (error) {
       alert(error.message);
     }
@@ -41,16 +39,15 @@ export default {
   async registerUser({ commit, dispatch }, payload) {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
-        
         commit("login", response.data);
-        dispatch("notificationStore/userRegistersAccount", response.data.data, { root: true });
+        dispatch("notificationStore/userRegistersAccount", response.data.data, {
+          root: true,
+        });
         router.push("/");
-      }
-      else {
+      } else {
         alert(response.data.message);
       }
-    }
-    );
+    });
   },
   async changeUsername({ commit, state }, payload) {
     const userExists = state.users.find((user) => user.username === payload);
@@ -63,16 +60,15 @@ export default {
       return;
     }
 
-    const user = state.user
+    const user = state.user;
     user.username = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
         alert("Username changed successfully");
-      }
-      else {
+      } else {
         alert(response.data.message);
       }
-    })
+    });
   },
   async changeEmail({ commit, state }, payload) {
     const emailExists = state.users.find((user) => user.email === payload);
@@ -94,8 +90,7 @@ export default {
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
         alert("Email changed successfully");
-      }
-      else {
+      } else {
         alert(response.data.message);
       }
     });
@@ -109,19 +104,16 @@ export default {
     if (payload.firstName) {
       user.firstName = payload.firstName;
     }
-    if (payload.lastName) 
-    {
+    if (payload.lastName) {
       user.lastName = payload.lastName;
     }
-      await UserServices.UpdateUser(user).then((response) => {
-
-        if (response.data.success) {
-          alert("Name changed successfully");
-        }
-        else {
-          alert(response.data.message);
-        }
-      })
+    await UserServices.UpdateUser(user).then((response) => {
+      if (response.data.success) {
+        alert("Name changed successfully");
+      } else {
+        alert(response.data.message);
+      }
+    });
   },
   async changePassword({ commit, state }, payload) {
     if (!payload.currentPassword) {
@@ -146,8 +138,7 @@ export default {
       if (response.data.success) {
         // commit("changePassword", payload.newPassword)
         alert("Password changed successfully");
-      }
-      else {
+      } else {
         alert(response.data.message);
       }
     });
@@ -159,11 +150,10 @@ export default {
           commit("deleteAccount", state.user.userId);
           commit("logout");
           router.push("/");
-        }
-        else {
+        } else {
           alert(response.data.message);
         }
-      })
+      });
     }
   },
   async adminDeleteAccount({ commit }, payload) {
@@ -171,11 +161,10 @@ export default {
       if (response.data.success) {
         alert("Account deleted successfully");
         commit("deleteAccount", payload);
-      }
-      else {
+      } else {
         alert(response.data.message);
       }
-    })
+    });
   },
   async adminChangePassword({ commit, state }, payload) {
     const user = state.users.find((user) => user.userId === payload.userId);
@@ -183,12 +172,11 @@ export default {
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
         alert("Password changed successfully");
-        commit("adminChangePassword", payload)
-      }
-      else {
+        commit("adminChangePassword", payload);
+      } else {
         alert(response.data.message);
       }
-    })
+    });
   },
   addNotification({ commit, state }, payload) {
     const notificationId =

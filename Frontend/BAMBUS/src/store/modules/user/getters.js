@@ -18,7 +18,12 @@ export default {
   getToken(state) {
     return state.user.token;
   },
-  getUserFromUsers:(state) => (userId) => {
-    return state.users.find((user) => user.userId === userId);
-  }
+  getUserFromUsers: (state) => (userId) => {
+    const user = state.users.find((user) => user.userId === userId);
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  },
 };

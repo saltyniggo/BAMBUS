@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+
 namespace Backend.Controllers
 {
     public class MessageController : ControllerBase
@@ -17,7 +19,7 @@ namespace Backend.Controllers
         [HttpDelete("DeleteMessage")]
         public async Task<IActionResult> DeleteMessage()
         {
-            return Ok("hier wird eine Nachricht gelöscht");
+            return Ok("hier wird eine Nachricht gelï¿½scht");
         }
     }
 }

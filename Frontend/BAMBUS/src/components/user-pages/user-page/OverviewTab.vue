@@ -8,7 +8,8 @@
       <i class="fa-solid fa-arrows-rotate"></i>
       <p>Neuladen</p>
     </button>
-    <base-notification v-if=" user.notification != null && user.notifications.length > 0"
+    <base-notification
+      v-if="user.notifications != null && user.notifications.length > 0"
       v-for="notification in user.notifications"
       :key="notification.id"
       :notification="notification"
@@ -35,8 +36,8 @@ export default {
     ...mapGetters("userStore", { user: "getUser" }),
   },
   beforeMount() {
-    this.deleteNotificationsWithType(1);
-    this.deleteNotificationsWithType(2);
+    // this.deleteNotificationsWithType(1);
+    // this.deleteNotificationsWithType(2);
     this.checkReservedItems();
     this.checkDueDates();
   },

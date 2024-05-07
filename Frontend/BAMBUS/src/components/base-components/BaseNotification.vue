@@ -3,12 +3,19 @@
     <section class="notification-base-content">
       <h2>{{ title }}</h2>
       <br />
-      <h3>Von {{ senderName }} am {{ date }}</h3>
+      <h3>Von {{ senderName }} am {{ notification.date }}</h3>
       <p>{{ notification.text }}</p>
     </section>
-    <section class="notification-manager-extension" v-if="this.notification.type == 4">
-      <base-text-button @click="sendResponse('accept')">accept</base-text-button>
-      <base-text-button @click="sendResponse('decline')">nein oida</base-text-button>
+    <section
+      class="notification-manager-extension"
+      v-if="this.notification.type == 4"
+    >
+      <base-text-button @click="sendResponse('accept')"
+        >accept</base-text-button
+      >
+      <base-text-button @click="sendResponse('decline')"
+        >nein oida</base-text-button
+      >
     </section>
   </div>
 </template>
@@ -32,41 +39,42 @@ export default {
   },
   computed: {
     senderName() {
-      const user = this.$store.getters["userStore/getUserFromUsers"](this.notification.senderId);
-      var name = user.firstName + " " + user.lastName;
+      if (this.notification.senderId == 0) return "System";
+      const user = this.$store.getters["userStore/getUserFromUsers"](
+        this.notification.senderId
+      );
+      if (!user) return "Unbekannter User";
+      const name = user.firstName + " " + user.lastName;
       return name;
-    },
-    date() {
-      return new Date(this.notification.date).toLocaleDateString();
     },
     title() {
       switch (this.notification.type) {
         case 0:
-          return "Erinnerung Rückgabe";
+          return "Erinnerung an den Rückgabezeitpunkt";
         case 1:
-          return "Reservierung";
+          return "Benachrichtigung über die Reservierung";
         case 2:
-          return "Verleihung";
+          return "Benachrichtigung über die Ausleihe";
         case 3:
-          return "Rückgabe";
+          return "Benachrichtigung über die Rückgabe";
         case 4:
-          return "Verlängerungsanfrage";
+          return "Anfrage zur Verlängerung einer Ausleihe";
         case 5:
-          return "Frist abgelaufen";
+          return "Rückgabe ist überfällig";
         case 6:
-          return "Neue Registrierung"
+          return "User hat sich registriert";
         case 7:
-          return "Passwort zurücksetzen";
+          return "Anfrage zur Zurücksetzung des Passworts";
         case 8:
-          return "Schadensmeldung";
+          return "Schaden wurde gemeldet";
         case 9:
-          return "Neuer Katalogsgegenstand";
+          return "Ein neuer Artikel ist im System verfügbar!";
         case 10:
-          return "Anfragenantwort"
+          return "Der Manager hat deine Anfrage zur Verlängerung der Ausleihe bearbeitet";
         default:
           return "Neue Benachrichtigung";
       }
-    }
+    },
   },
   methods: {
     ...mapActions("loanStore", ["extensionRequestResponse"]),

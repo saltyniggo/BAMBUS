@@ -67,7 +67,6 @@ async function DeleteItem(payload) {
 }
 
 async function UpdateItem(payload) {
-  console.log("UpdateItem payload: ", payload);
   try {
     const response = await axios({
       method: "put",
@@ -91,7 +90,6 @@ async function UpdateItem(payload) {
         avgRating: payload.avgRating,
       },
     });
-    console.log("UpdateItem response: ", response.data.data);
     return response;
   } catch (error) {
     console.warn("Error when updating item in DB:");
