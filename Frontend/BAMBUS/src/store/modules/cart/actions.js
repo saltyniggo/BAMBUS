@@ -1,9 +1,15 @@
+import LoanService from "@/store/services/LoanService";
+
 export default {
   rentItem({ commit, dispatch, rootState }, { item, dueDate }) {
     if (!dueDate) {
       alert("Please select a return date");
     } else {
       dueDate = new Date(dueDate).toISOString().split("T")[0];
+
+      //TODO: Implement LoanService.CreateLoan
+      //LoanService.CreateLoan({ item, dueDate });
+
       commit("removeRentalItemFromCart", item.itemId);
       const userId = rootState.userStore.user.userId;
       dispatch("loanStore/createLoan", { item, dueDate }, { root: true });

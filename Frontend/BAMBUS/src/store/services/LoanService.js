@@ -24,7 +24,7 @@ async function GetAllLoansFromUser() {
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/GetAllLoansFromUser`,
+            url: `http://localhost:5240/GetAllLoansFromUser/${userStore.state.user.userId}`,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "*/*",

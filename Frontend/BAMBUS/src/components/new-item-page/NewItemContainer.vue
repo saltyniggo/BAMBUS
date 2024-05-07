@@ -75,18 +75,18 @@ export default {
   },
   methods: {
     ...mapActions("notificationStore", ["managerAddsItem"]),
-    createNewItem() {
+    async createNewItem() {
       if (this.title.trim() == "" || this.category.trim() == "") {
         this.showAlert = true;
         return;
       } else if (
-        this.type &&
+        this.type == 1 &&
         (this.author.trim() == "" || this.isbn.trim() == "")
       ) {
         this.showAlert = true;
         return;
       } else if (
-        this.type &&
+        this.type == 0 &&
         (this.author.trim() == "" || this.issn.trim() == "")
       ) {
         this.showAlert = true;
@@ -113,8 +113,9 @@ export default {
         } else if (this.type == 0) {
           item.issn = this.issn;
         }
-        this.managerAddsItem(item);
-        this.$store.dispatch("itemStore/createItem", item);
+        
+        await this.$store.dispatch("itemStore/createItem", item);
+        // await this.managerAddsItem(item);
         this.$router.push({ name: "catalog" });
       }
     },

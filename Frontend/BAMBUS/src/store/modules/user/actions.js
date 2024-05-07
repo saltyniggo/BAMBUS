@@ -19,11 +19,21 @@ export default {
         throw new Error(messageResponse.data.message);
       }
       commit("setNotifications", messageResponse.data.data);
-      const userResponse = await UserServices.GetAllUsers();
-      if (!userResponse.data.success) {
-        throw new Error(userResponse.data.message);
+
+      if (loginResponse.data.data.role === 0) {
+        const loanResponse = await LoanService.GetAllLoansFromUser(loginResponse.data.data.userId);
+        if (!loanResponse.data.success) {
+          throw new Error(loanResponse.data.message);
+        }
+        commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
-      commit("setUsers", userResponse.data.data);
+
+      if (loginResponse.data.data.role === 2 || loginResponse.data.data.role === 1) {
+        const userResponse = await UserServices.GetAllUsers();
+        if (!userResponse.data.success) {
+          throw new Error(userResponse.data.message);
+        }
+        commit("setUsers", userResponse.data.data);
 
       const loanResponse = await LoanService.GetAllLoans();
       if (!loanResponse.data.success) {
