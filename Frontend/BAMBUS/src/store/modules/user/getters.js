@@ -20,5 +20,8 @@ export default {
   },
   getUserFromUsers:(state) => (userId) => {
     return state.users.find((user) => user.userId === userId);
-  }
+  },
+  getUserId: (state) => {
+    return state.user.userId;
+  },
 };

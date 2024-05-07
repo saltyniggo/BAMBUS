@@ -18,6 +18,14 @@ export default {
       }
       commit("setNotifications", messageResponse.data.data);
 
+      if (loginResponse.data.data.role === 0) {
+        const loanResponse = await LoanService.GetAllLoansFromUser(loginResponse.data.data.userId);
+        if (!loanResponse.data.success) {
+          throw new Error(loanResponse.data.message);
+        }
+        commit("loanStore/setLoans", loanResponse.data.data, { root: true });
+      }
+
       if (loginResponse.data.data.role === 2 || loginResponse.data.data.role === 1) {
         const userResponse = await UserServices.GetAllUsers();
         if (!userResponse.data.success) {

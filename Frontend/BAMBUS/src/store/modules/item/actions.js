@@ -12,7 +12,6 @@ export default {
       }
     });
   },
-
   async deleteItem({ commit }, id) {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
@@ -22,13 +21,9 @@ export default {
       }
     });
   },
-  addItem({ commit }, item) {
-    commit("addItemToCart", item);
-  },
   async createItem({ commit }, item) {
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
-        // TODO Does it return the updated item list?
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
@@ -48,9 +43,6 @@ export default {
       }
     });
   },
-  addItem({ commit }, item) {
-    commit("addItemToCart", item);
-  },
   setReturnItemId({ commit }, id) {
     commit("setReturnItemId", id);
   },
@@ -60,16 +52,16 @@ export default {
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
-  async addLoanIdToItem({ commit }, payload) {
-    await ItemServices.AddLoan(payload).then((response) => {
-      if (response.data.success) {
-        // TODO Does it return the updated item list?
-        commit("setItems", response.data.data);
-      } else {
-        $router.push("/error");
-      }
-    });
-  },
+  // async addLoanIdToItem({ commit, state }, payload) {
+  //   await ItemServices.AddLoan(payload).then((response) => {
+  //     if (response.data.success) {
+  //       // TODO Does it return the updated item list?
+  //       commit("setItems", response.data.data);
+  //     } else {
+  //       $router.push("/error");
+  //     }
+  //   });
+  // },
   async removeLoanIdFromItem({ commit }, payload) {
     await ItemServices.RemoveLoan(payload).then((response) => {
       if (response.data.success) {

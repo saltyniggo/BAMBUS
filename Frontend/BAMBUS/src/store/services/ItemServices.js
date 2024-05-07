@@ -1,6 +1,5 @@
 import axios from "axios";
 import userStore from "../modules/user/index.js";
-import user from "../modules/user/index.js";
 
 async function LoadAllItems() {
   try {
@@ -8,7 +7,7 @@ async function LoadAllItems() {
       method: "post",
       url: `http://localhost:5240/GetItems`,
       headers: {
-        accept: "*/*",
+        "accept": "*/*",
       },
     });
     return response;
@@ -26,8 +25,8 @@ async function AddItem(payload) {
       url: `http://localhost:5240/CreateItem`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         title: payload.title,
@@ -54,8 +53,8 @@ async function DeleteItem(payload) {
       url: `http://localhost:5240/DeleteItem?itemId=${payload}`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
     });
     return response;
@@ -74,8 +73,8 @@ async function UpdateItem(payload) {
       url: `http://localhost:5240/UpdateItem`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload.itemId,
@@ -107,8 +106,8 @@ async function UpdateCondition(payload) {
       url: `http://localhost:5240/UpdateCondition`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload.itemId,
@@ -131,8 +130,8 @@ async function AddReservation(payload) {
       url: `http://localhost:5240/AddReservation`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         userId: payload.userId,
@@ -154,8 +153,8 @@ async function RemoveFirstReservation(payload) {
       url: `http://localhost:5240/RemoveReservation`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
@@ -176,8 +175,8 @@ async function RemoveReservationByUser(payload) {
       url: `http://localhost:5240/RemoveReservationByUserId`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         userId: payload.userId,
@@ -199,8 +198,8 @@ async function AddLoan(payload) {
       url: `http://localhost:5240/AddCurrentLoan`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
@@ -221,8 +220,8 @@ async function RemoveLoan(payload) {
       url: `http://localhost:5240/RemoveCurrentLoan`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
