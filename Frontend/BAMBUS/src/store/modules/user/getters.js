@@ -24,7 +24,7 @@ export default {
       return user;
     } else {
       return null;
-    },
+    }
   },
   getUserId: (state) => {
     return state.user.userId;

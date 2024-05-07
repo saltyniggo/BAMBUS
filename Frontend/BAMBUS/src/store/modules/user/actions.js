@@ -40,6 +40,7 @@ export default {
         throw new Error(loanResponse.data.message);
       }
       commit("loanStore/setLoans", loanResponse.data.data, { root: true });
+      }
 
       router.push("/");
     } catch (error) {
@@ -257,3 +258,4 @@ export default {
     commit("deleteNotificationsWithType", { userId, type: payload });
   },
 };
+

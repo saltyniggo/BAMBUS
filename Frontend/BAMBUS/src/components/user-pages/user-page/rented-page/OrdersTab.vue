@@ -38,7 +38,6 @@ export default {
     rentedItems() {
       let rentedItems = [];
       let rentedItemsIds = this.$store.getters["loanStore/getActiveItemIdFromUserId"];
-      console.log("rented " + rentedItemsIds);
       if (!Array.isArray(rentedItemsIds)) {
         rentedItemsIds = [rentedItemsIds]
       }
