@@ -39,6 +39,8 @@ const router = createRouter({
           name: "catalog-category",
           component: CatalogView,
           props: true,
+          params: true,
+          paramsAsProps: true,
         },
       ],
     },

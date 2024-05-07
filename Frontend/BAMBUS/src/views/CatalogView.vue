@@ -2,10 +2,9 @@
   <div class="catalog-view">
     <startPage></startPage>
     <catalogPage
-      :category="this.$route.params.category"
+      :category="category"
       id="catalog"
     ></catalogPage>
-    <p>{{ category }}</p>
   </div>
 </template>
 
@@ -15,9 +14,14 @@ import StartPage from "../components/catalog-page/StartPage.vue";
 
 export default {
   name: "CatalogView",
-  props: {
-    category: {
-      type: String,
+  data() {
+    return {
+      category: this.$route.params.category,
+    };
+  },
+  watch: {
+    $route(to, from) {
+      this.category = to.params.category;
     },
   },
   components: {
