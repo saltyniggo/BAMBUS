@@ -71,27 +71,27 @@ export default {
   //     }
   //   });
   // },
-  async userReservesItem({ commit, state, rootState }, payload) {
-    const index = state.items.findIndex((item) => item.itemId === payload);
-    if (index !== -1) {
-      const userId = rootState.userStore.user.userId;
-      if (userId == null) {
-        alert("Please log in to reserve an item");
-      } else {
-        await ItemServices.RemoveLoan({
-          userId: userId,
-          itemId: item.itemId,
-        }).then((response) => {
-          if (response.data.success) {
-            // TODO Does it return the updated item list?
-            commit("setItems", response.data.data);
-          } else {
-            $router.push("/error");
-          }
-        });
-      }
-    }
-  },
+  // async userReservesItem({ commit, state, rootState }, payload) {
+  //   const index = state.items.findIndex((item) => item.itemId === payload);
+  //   if (index !== -1) {
+  //     const userId = rootState.userStore.user.userId;
+  //     if (userId == null) {
+  //       alert("Please log in to reserve an item");
+  //     } else {
+  //       await ItemServices.RemoveLoan({
+  //         userId: userId,
+  //         itemId: item.itemId,
+  //       }).then((response) => {
+  //         if (response.data.success) {
+  //           // TODO Does it return the updated item list?
+  //           commit("setItems", response.data.data);
+  //         } else {
+  //           $router.push("/error");
+  //         }
+  //       });
+  //     }
+  //   }
+  // },
   saveEditItem({ commit, state }, payload) {
     const index = state.items.findIndex(
       (item) => item.itemId === payload.itemId
@@ -130,19 +130,19 @@ export default {
   reportItem({ commit }) {
     commit("reportItem");
   },
-  async cancelReservation({ commit }, payload) {
-    const index = state.items.findIndex((item) => item.itemId === payload);
-    if (index !== -1) {
-      await ItemServices.RemoveReservationByUser(payload).then((response) => {
-        if (response.data.success) {
-          // TODO Does it return the updated item list?
-          commit("setItems", response.data.data);
-        } else {
-          $router.push("/error");
-        }
-      });
-    }
-  },
+  // async cancelReservation({ commit }, payload) {
+  //   const index = state.items.findIndex((item) => item.itemId === payload);
+  //   if (index !== -1) {
+  //     await ItemServices.RemoveReservationByUser(payload).then((response) => {
+  //       if (response.data.success) {
+  //         // TODO Does it return the updated item list?
+  //         commit("setItems", response.data.data);
+  //       } else {
+  //         $router.push("/error");
+  //       }
+  //     });
+  //   }
+  // },
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
   },

@@ -1,4 +1,6 @@
 import LoanService from "@/store/services/LoanService";
+import ItemServices from "@/store/services/ItemServices";
+
 
 export default {
   rentItem({ commit, dispatch, rootState }, { item, dueDate }) {
@@ -38,13 +40,21 @@ export default {
     }
   },
   reserveItem({ commit, dispatch, rootState }, itemId) {
-    const index = rootState.itemStore.items.findIndex(
+    let item = rootState.itemStore.items.find(
       (item) => item.itemId === itemId
     );
-    if (index !== -1) {
-      dispatch("itemStore/userReservesItem", itemId, { root: true });
-      commit("removeReservationItemFromCart", itemId);
-    }
+    const userId = rootState.userStore.user.userId;
+    item.reservations.push(userId);
+    console.log(item);
+    ItemServices.UpdateItem(item).then((response) => {
+      if (response.data.success) {
+        commit("itemStore/setItems", response.data.data, { root: true });
+        commit("removeReservationItemFromCart", itemId);
+      } else {
+        $router.push("/error");
+      }
+    });
+      // dispatch("itemStore/userReservesItem", itemId, { root: true });
   },
   removeRentalItemFromCart({ commit }, itemId) {
     commit("removeRentalItemFromCart", itemId);
@@ -53,12 +63,20 @@ export default {
     commit("removeReservationItemFromCart", itemId);
   },
 
-  addItemToCart({ commit, state }, payload) {
+  addItemToCart({ commit, state, rootState }, payload) {
+    const userId = rootState.userStore.user.userId;
     const itemIsInCartAlready =
       state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
+    const itemIsAlreadyReserved = payload.reservations.includes(userId);
+    const activeLoansByUser = rootState.loanStore.loans;
+    const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
+    } else if (itemIsAlreadyReserved) {
+      alert("Item is already reserved");
+    } else if (itemIsAlreadyRented) {
+      alert("Item is already rented");
     } else if (!payload.currentLoanId) {
       commit("addItemToRentalCart", payload);
     } else if (payload.currentLoanId) {

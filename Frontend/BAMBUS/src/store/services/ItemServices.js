@@ -66,6 +66,7 @@ async function DeleteItem(payload) {
 }
 
 async function UpdateItem(payload) {
+  console.log(payload);
   try {
     const response = await axios({
       method: "put",
