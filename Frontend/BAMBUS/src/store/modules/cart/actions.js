@@ -1,5 +1,6 @@
 import LoanService from "@/store/services/LoanService";
 import ItemServices from "@/store/services/ItemServices";
+import item from "../item";
 
 
 export default {
@@ -68,19 +69,20 @@ export default {
     const itemIsInCartAlready =
       state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
-    const itemIsAlreadyReserved = payload.reservations.includes(userId);
+    const itemIsAlreadyReservedByUser = payload.reservations.includes(userId);
+    const itemIsReserved = payload.reservations.length > 0;
     const activeLoansByUser = rootState.loanStore.loans;
     const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
-    } else if (itemIsAlreadyReserved) {
-      alert("Item is already reserved");
+    } else if (itemIsAlreadyReservedByUser) {
+      alert("Item is already reserved by you");
     } else if (itemIsAlreadyRented) {
       alert("Item is already rented");
-    } else if (!payload.currentLoanId) {
-      commit("addItemToRentalCart", payload);
-    } else if (payload.currentLoanId) {
+    } else if (payload.currentLoanId && itemIsReserved ) {
       commit("addItemToReservationCart", payload);
+    } else if (!payload.currentLoanId && !itemIsReserved) {
+      commit("addItemToRentalCart", payload);
     } else {
       alert("Item is not available for rent or reservation");
     }
