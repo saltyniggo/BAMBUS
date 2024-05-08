@@ -3,14 +3,14 @@ import axios from "axios";
 async function AddRating(payload) {
     try {
         const response = await axios({
-            method: "put",
+            method: "post",
             url: `http://localhost:5240/AddRating`,
             data: {
                 userId: payload.userId,
                 itemId: payload.itemId,
                 rating: payload.rating,
-                comment: payload.comment,
-                isRecomemnded: payload.isRecommended,
+                isRecommended: payload.isRecommended,
+                comment: payload.comment,        
             },
         });
         return response;
@@ -25,13 +25,13 @@ async function AddRating(payload) {
 async function UpdateRating(payload) {
     try {
         const response = await axios({
-            method: "post",
+            method: "put",
             url: `http://localhost:5240/UpdateRating`,
             data: {
-                itemId: payload.itemId,
+                ratingId: payload.ratingId,
                 rating: payload.rating,
+                isRecommended: payload.isRecommended,
                 comment: payload.comment,
-                isRecomemnded: payload.isRecommended,
             },
         });
         return response;
@@ -47,7 +47,7 @@ async function DeleteRating(payload) {
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/DeleteRating`,
+            url: `http://localhost:5240/DeleteRating/${payload}`,
             data: {
                 ratingId: payload,
             },
@@ -61,7 +61,7 @@ async function DeleteRating(payload) {
     }
 }
 
-async function GetAllRating() {
+async function GetAllRatings() {
     try {
         const response = await axios({
             method: "post",
@@ -80,7 +80,7 @@ async function GetRatingById(payload) {
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/GetRatingById`,
+            url: `http://localhost:5240/GetRatingById/${payload}`,
             data: {
                 ratingId: payload,
             },
@@ -94,4 +94,4 @@ async function GetRatingById(payload) {
     }
 }
 
- export default { AddRating, UpdateRating, DeleteRating, GetAllRating, GetRatingById };
+ export default { AddRating, UpdateRating, DeleteRating, GetAllRatings, GetRatingById };

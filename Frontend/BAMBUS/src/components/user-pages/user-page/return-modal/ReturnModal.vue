@@ -136,8 +136,9 @@ export default {
       // }
 
       if (this.condition == true) {
-        this.itemTitle = this.$store.getters["itemStore/getItemById"](this.id).title;
-        item.condition = 1;
+        item.condition == 0? item.condition = 1 : item.condition = item.condition;
+
+
         // this.userReportsDamage({
         //   itemId: this.id,
         //   userId: this.user.userId,
