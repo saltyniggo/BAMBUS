@@ -143,6 +143,19 @@ export default {
   //     });
   //   }
   // },
+
+  async cancelReservation({commit, state, rootState}, payload) {
+    let item = state.items.find((item) => item.itemId === payload.itemId);
+    item.reservations = item.reservations.filter((userId) => userId !== payload.userId);
+    await ItemServices.UpdateItem(item).then((response) => {
+      if (response.data.success) {
+        commit("setItems", response.data.data);
+      } else {
+        $router.push("/error");
+      }
+    });
+  },
+
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
   },

@@ -3,7 +3,7 @@ import ItemServices from "@/store/services/ItemServices";
 
 
 export default {
-  rentItem({ commit, dispatch, rootState }, { item, dueDate }) {
+  async rentItem({ commit, dispatch, rootState }, { item, dueDate }) {
     if (!dueDate) {
       alert("Please select a return date");
     } else {
@@ -11,7 +11,7 @@ export default {
       const userId = rootState.userStore.user.userId;
       const startDate = new Date().toISOString();
 
-      LoanService.CreateLoan({ userId: userId, itemId : item.itemId, itemType : item.type, dueDate : dueDate, startDate : startDate }).then((response) => {
+      await LoanService.CreateLoan({ userId: userId, itemId : item.itemId, itemType : item.type, dueDate : dueDate, startDate : startDate }).then((response) => {
         if (response.data.success) {
           commit("removeRentalItemFromCart", item.itemId);
           dispatch("itemStore/loadItems", null, {root: true});
@@ -39,14 +39,14 @@ export default {
       );
     }
   },
-  reserveItem({ commit, dispatch, rootState }, itemId) {
+  async reserveItem({ commit, dispatch, rootState }, itemId) {
     let item = rootState.itemStore.items.find(
       (item) => item.itemId === itemId
     );
     const userId = rootState.userStore.user.userId;
     item.reservations.push(userId);
     console.log(item);
-    ItemServices.UpdateItem(item).then((response) => {
+    await ItemServices.UpdateItem(item).then((response) => {
       if (response.data.success) {
         commit("itemStore/setItems", response.data.data, { root: true });
         commit("removeReservationItemFromCart", itemId);
