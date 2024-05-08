@@ -98,6 +98,28 @@ async function UpdateItem(payload) {
   }
 }
 
+async function isReturnLongerThanWeekAgo(payload) {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `http://localhost:5240/IsReturnLongerThanWeekAgo/${payload}`,
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
+      },
+      data: {
+        loanId: payload,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.warn("Error when checking if return is longer than a week ago:");
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 async function UpdateCondition(payload) {
   try {
     const response = await axios({

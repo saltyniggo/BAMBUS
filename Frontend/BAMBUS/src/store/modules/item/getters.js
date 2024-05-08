@@ -31,8 +31,9 @@ export default {
     return state.items.find((item) => item.itemId === state.reportItemId);
   },
   isReservedItemAvailableForRenting: (state) => (itemId, userId) => {
+    console.log(itemId, userId); 
     const item = state.items.find((item) => item.itemId === itemId);
-    return item.reservations[0] === userId && item.currentLoanId === null;
+    return item.reservations[0] === userId && item.currentLoanId === 0;
   },
   getFilteredItems: (state, _, __, rootGetters) => {
     if (state.search !== "") {

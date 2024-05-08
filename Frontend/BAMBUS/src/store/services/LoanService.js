@@ -1,6 +1,7 @@
 import axios from "axios";
 import userStore from "../modules/user/index.js";
-import item from "../modules/item/index.js";
+
+
 async function GetAllLoans() {
     try {
         const response = await axios({
@@ -112,6 +113,32 @@ async function SetReturnDate(payload) {
         console.error("Error:", error);
         throw error;
     }
+}
+
+async function ReturnItem(payload) {
+    try
+    {
+        const response = await axios({
+            method: "put",
+            url: `http://localhost:5240/ReturnItem`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+            },
+            data: {
+                loanId: payload.loanId,
+                itemId: payload.itemId,
+                itemType: payload.itemType,
+            },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when returning item in DB:");
+        console.error("Error:", error);
+        throw error;
+    }  
 }
 
 async function EndExtensionREquest (payload) {
