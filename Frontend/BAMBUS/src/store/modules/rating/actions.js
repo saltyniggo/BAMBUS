@@ -1,3 +1,4 @@
+import ItemServices from "@/store/services/ItemServices";
 import RatingService from "../../services/RatingService";
 
 export default {
@@ -7,14 +8,24 @@ export default {
   deleteItemId({ commit }) {
     commit("deleteItemId");
   },
-  async deleteRatingById({ commit }, ratingId) {
+  async deleteRatingById({ commit }, payload) {
+    console.log(payload);
     try {
-      await RatingService.DeleteRating(ratingId).then((response) => {
+      await RatingService.DeleteRating(payload.ratingId).then((response) => {
         if (response.data.success) {
-          commit(setRatings, response.data.data);
+          let ratings = response.data.data;
+          ItemServices.UpdateAvgRating(payload.itemId).then((response) => {
+            if (response.data.success) {
+              commit("itemStore/setItems", response.data.data, { root: true });
+              commit("setRatings", ratings);
+            }
+            else {
+              alert("Error when updating average rating in DB");
+            }
+          })
         }
         else {
-          alert("Error when deleting rating from DB");
+          alert("Error when deletimg rating to DB");
         }
       });
     }
@@ -28,7 +39,16 @@ export default {
     try {
       await RatingService.AddRating(rating).then((response) => {
         if (response.data.success) {
-          commit("setRatings", response.data.data);
+          let ratings = response.data.data;
+          ItemServices.UpdateAvgRating(rating.itemId).then((response) => {
+            if (response.data.success) {
+              commit("itemStore/setItems", response.data.data, { root: true });
+              commit("setRatings", ratings);
+            }
+            else {
+              alert("Error when updating average rating in DB");
+            }
+          })
         }
         else {
           alert("Error when adding rating to DB");
@@ -44,10 +64,19 @@ export default {
     try {
       await RatingService.UpdateRating(rating).then((response) => {
         if (response.data.success) {
-          commit("setRatings", response.data.data);
+          let ratings = response.data.data;
+          ItemServices.UpdateAvgRating(rating.itemId).then((response) => {
+            if (response.data.success) {
+              commit("itemStore/setItems", response.data.data, { root: true });
+              commit("setRatings", ratings);
+            }
+            else {
+              alert("Error when updating average rating in DB");
+            }
+          })
         }
         else {
-          alert("Error when updating rating in DB");
+          alert("Error when updating rating to DB");
         }
       });
     }

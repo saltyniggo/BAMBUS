@@ -71,8 +71,9 @@ export default {
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
     const itemIsAlreadyReservedByUser = payload.reservations.includes(userId);
     const itemIsReserved = payload.reservations.length > 0;
-    const activeLoansByUser = rootState.loanStore.loans;
+    const activeLoansByUser = rootState.loanStore.loans.filter(loan => loan.returnDate === null);
     const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
+    console.log("activeLoansByUser ", activeLoansByUser);
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
     } else if (itemIsAlreadyReservedByUser) {

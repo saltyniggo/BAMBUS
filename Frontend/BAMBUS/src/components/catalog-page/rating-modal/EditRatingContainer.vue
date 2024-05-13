@@ -84,6 +84,9 @@ export default {
       this.$emit("saveEdit");
     },
   },
+  beforeMount() {
+    this.stars = this.stars.map((star, i) => i < this.rating.rating);
+  },
 
 }
 </script>

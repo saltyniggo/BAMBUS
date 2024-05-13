@@ -15,7 +15,7 @@
 
                 <div class="buttons" v-if="role == 1 || userId == rating.userId">
                     <base-rectangle-button @click="toggleEditStatus(rating.ratingId)">Bearbeiten</base-rectangle-button>
-                    <base-rectangle-button @click="deleteRating(rating.ratingId)"> Löschen </base-rectangle-button>
+                    <base-rectangle-button @click="deleteRating(rating.ratingId, rating.itemId)"> Löschen </base-rectangle-button>
                 </div>
             </div>
         </template>
@@ -64,8 +64,10 @@ export default {
         toggleEditStatus(id) {
             this.$emit("toggleEditStatus", id);
         },
-        deleteRating(id) {
-            this.$store.dispatch("ratingStore/deleteRatingById", id);
+        deleteRating(ratingId, itemId) {
+            console.log(ratingId, itemId);
+            this.$store.dispatch("ratingStore/deleteRatingById", {ratingId: ratingId, itemId: itemId});
+            this.toggleEditStatus(ratingId);
         },
     },
 }

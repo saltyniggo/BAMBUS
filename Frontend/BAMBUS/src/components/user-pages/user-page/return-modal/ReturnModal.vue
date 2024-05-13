@@ -88,7 +88,7 @@ export default {
     // ...mapActions("itemStore", ["removeLoanIdFromItem"]),
     // ...mapActions("itemStore", ["reportItem"]),
     ...mapActions("modalStore", ["closeAllModals"]),
-    // ...mapActions("ratingStore", ["addRating"]),
+    ...mapActions("ratingStore", ["addRating"]),
     // ...mapActions("notificationStore", ["userReportsDamage"]),
     // ...mapActions("loanStore", ["returnItem"]),
 
@@ -116,24 +116,24 @@ export default {
       this.checkcondition();
       let item = this.$store.getters["itemStore/getItemById"](this.id);
 
-      // if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) 
-      // {
-      //   if (this.rating == 0) 
-      //   {
-      //     this.showAlert = true;
-      //     return;
-      //   }
-      //   this.showAlert = false;
-      //   let newRating = {
-      //     ratingId: new Date().toISOString(),
-      //     itemId: this.id,
-      //     userId: this.user.userId,
-      //     rating: this.rating,
-      //     comment: this.comment,
-      //     isRecommended: this.recommendation,
-      //   };
-      //   this.addRating(newRating);
-      // }
+      if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) 
+      {
+        if (this.rating == 0) 
+        {
+          this.showAlert = true;
+          return;
+        }
+        this.showAlert = false;
+        let newRating = {
+          ratingId: new Date().toISOString(),
+          itemId: this.id,
+          userId: this.user.userId,
+          rating: this.rating,
+          comment: this.comment,
+          isRecommended: this.recommendation,
+        };
+        this.addRating(newRating);
+      }
 
       if (this.condition == true) {
         item.condition == 0? item.condition = 1 : item.condition = item.condition;

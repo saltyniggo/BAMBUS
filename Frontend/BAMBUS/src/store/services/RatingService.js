@@ -1,13 +1,20 @@
 import axios from "axios";
+import userStore from "../modules/user/index.js";
 
 async function AddRating(payload) {
+    console.log(payload);
     try {
         const response = await axios({
             method: "post",
             url: `http://localhost:5240/AddRating`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
             data: {
-                userId: payload.userId,
                 itemId: payload.itemId,
+                userId: payload.userId,
                 rating: payload.rating,
                 isRecommended: payload.isRecommended,
                 comment: payload.comment,        
@@ -23,6 +30,7 @@ async function AddRating(payload) {
 }
 
 async function UpdateRating(payload) {
+    console.log(payload);
     try {
         const response = await axios({
             method: "put",
@@ -33,6 +41,11 @@ async function UpdateRating(payload) {
                 isRecommended: payload.isRecommended,
                 comment: payload.comment,
             },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
         });
         return response;
     }
@@ -44,6 +57,7 @@ async function UpdateRating(payload) {
 }
 
 async function DeleteRating(payload) {
+    console.log(payload);
     try {
         const response = await axios({
             method: "post",
@@ -51,6 +65,11 @@ async function DeleteRating(payload) {
             data: {
                 ratingId: payload,
             },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
         });
         return response;
     }
@@ -84,6 +103,11 @@ async function GetRatingById(payload) {
             data: {
                 ratingId: payload,
             },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
         });
         return response;
     }

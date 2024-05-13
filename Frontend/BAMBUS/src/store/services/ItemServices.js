@@ -120,6 +120,29 @@ async function isReturnLongerThanWeekAgo(payload) {
   }
 }
 
+async function UpdateAvgRating(payload) {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `http://localhost:5240/UpdateAvgRating/${payload}`,
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
+      },
+      data: {
+        itemId: payload,
+      },
+    });
+    return response;
+  }
+  catch (error) {
+    console.warn("Error when updating average rating in DB:");
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 async function UpdateCondition(payload) {
   try {
     const response = await axios({
@@ -261,6 +284,8 @@ export default {
   AddItem,
   DeleteItem,
   UpdateItem,
+  isReturnLongerThanWeekAgo,
+  UpdateAvgRating,
   UpdateCondition,
   AddReservation,
   RemoveFirstReservation,
