@@ -3,81 +3,160 @@ import router from "../../../router/index.js";
 import LoanService from "@/store/services/LoanService.js";
 
 export default {
-  async checkDueDates({ rootState }) {
+  async checkDueDates({ commit, rootState }) {
     const today = new Date();
     const user = rootState.userStore.user;
-    if (
-      rootState.loanStore.loans != null ||
-      rootState.loanStore.loans != undefined
-    ) {
-      const loans = rootState.loanStore.loans.filter(
-        (loan) => loan.userId === user.userId
+    const activeLoans = rootState.loanStore.loans.filter(
+      (loan) => loan.userId === user.userId && loan.returnDate === null
+    );
+    activeLoans.forEach(async (loan) => {
+      const item = rootState.itemStore.items.find(
+        (item) => item.itemId === loan.itemId
       );
-      loans.forEach((loan) => {
-        const daysUntilReturn = Math.floor(
-          (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
+      const daysUntilReturn = Math.floor(
+        (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
+      );
+      let text;
+      if (daysUntilReturn > 1) {
+        text = `${item.title} ist seit ${daysUntilReturn} Tagen überfällig`;
+      } else if (daysUntilReturn === 1) {
+        text = `${item.title} ist seit einem Tag überfällig`;
+      } else if (daysUntilReturn <= 5) {
+        text = `${item.title} ist in ${-daysUntilReturn} Tagen fällig`;
+      }
+      if (daysUntilReturn > -5 && loan.returnDate === null) {
+        const notification = user.notifications.find(
+          (notification) =>
+            notification.type === 1 &&
+            parseInt(notification.payload) === loan.loanId
         );
-        if (daysUntilReturn > -5 && loan.returnDate === null) {
-          const itemTitle = rootState.itemStore.items.find(
-            (item) => item.itemId === loan.itemId
-          ).title;
-          let message;
-          if (daysUntilReturn > 1) {
-            message = `${itemTitle} ist seit ${daysUntilReturn} Tagen überfällig`;
-          } else if (daysUntilReturn === 1) {
-            message = `${itemTitle} ist seit einem Tag überfällig`;
-          } else if (daysUntilReturn <= 5) {
-            message = `${itemTitle} ist in ${-daysUntilReturn} Tagen fällig`;
+        if (notification) {
+          if ((today - new Date(notification.date)) / 1000 / 60 / 60 / 24 > 1) {
+            MessageService.DeleteMessage(notification.messageId).then(
+              (response) => {
+                if (!response.data.success) {
+                  router.push("/error");
+                  return;
+                } else {
+                  MessageService.CreateMessage({
+                    senderId: 0,
+                    receiverId: user.userId,
+                    text: text,
+                    date: today.toLocaleDateString("de-DE"),
+                    type: 1,
+                    payload: loan.loanId.toString(),
+                  }).then((response) => {
+                    if (response.data.success) {
+                      commit("userStore/setNotifications", response.data.data, {
+                        root: true,
+                      });
+                    } else if (!response.data.success) {
+                      router.push("/error");
+                    }
+                  });
+                }
+              }
+            );
           }
-          const messageResponse = MessageService.CreateMessage({
+        } else {
+          MessageService.CreateMessage({
             senderId: 0,
             receiverId: user.userId,
-            text: message,
+            text: text,
             date: today.toLocaleDateString("de-DE"),
             type: 1,
-            payload: null,
+            payload: loan.loanId.toString(),
+          }).then((response) => {
+            if (response.data.success) {
+              commit("userStore/setNotifications", response.data.data, {
+                root: true,
+              });
+            } else if (!response.data.success) {
+              router.push("/error");
+            }
           });
-          if (!messageResponse.data.success) {
-            throw new Error("Notification could not be added");
-          }
         }
-      });
-    } else {
-      return;
-    }
+      }
+    });
   },
 
-  checkAllDueDates({ rootState }) {
+  async checkAllDueDates({ commit, rootState }) {
     const today = new Date();
-    const loans = LoanService.GetAllLoans();
-    const activeLoans = loans.filter((loan) => loan.returnDate === null);
-    activeLoans.forEach((loan) => {
+    const user = rootState.userStore.user;
+    const loans = await LoanService.GetAllLoans();
+    const activeLoans = loans.data.data.filter(
+      (loan) => loan.returnDate === null
+    );
+    activeLoans.forEach(async (loan) => {
+      const item = rootState.itemStore.items.find(
+        (item) => item.itemId === loan.itemId
+      );
       const daysOverdue = Math.floor(
         (today - new Date(loan.dueDate)) / (1000 * 60 * 60 * 24)
       );
-      const itemTitle = rootState.itemStore.items.find(
-        (item) => item.itemId === loan.itemId
-      ).title;
       const username = rootState.userStore.users.find(
         (user) => user.userId === loan.userId
       ).username;
+      let text;
       if (daysOverdue > 1) {
-        message = `${username} hat ${itemTitle} seit ${daysOverdue} Tagen überfällig`;
+        text = `${username} hat ${item.title} seit ${daysOverdue} Tagen überfällig`;
       } else if (daysOverdue === 1) {
-        message = `${username} hat ${itemTitle} seit einem Tag überfällig`;
+        text = `${username} hat ${item.title} seit einem Tag überfällig`;
       } else if (daysOverdue === 0) {
-        message = `${username} hat ${itemTitle} heute überfällig`;
+        text = `${username} hat ${item.title} heute überfällig`;
       }
-      const messageResponse = MessageService.CreateMessage({
-        senderId: 0,
-        receiverId: user.userId,
-        text: message,
-        date: today.toLocaleDateString("de-DE"),
-        type: 6,
-        payload: loan,
-      });
-      if (!messageResponse.data.success) {
-        throw new Error("Notification could not be added");
+      if (daysOverdue > 0 && loan.returnDate === null) {
+        const notification = user.notifications.find(
+          (notification) =>
+            notification.type === 6 &&
+            parseInt(notification.payload) === loan.loanId
+        );
+        if (notification) {
+          if ((today - new Date(notification.date)) / 1000 / 60 / 60 / 24 > 1) {
+            MessageService.DeleteMessage(notification.messageId).then(
+              (response) => {
+                if (!response.data.success) {
+                  router.push("/error");
+                  return;
+                } else {
+                  MessageService.CreateMessage({
+                    senderId: 0,
+                    receiverId: user.userId,
+                    text: text,
+                    date: today.toLocaleDateString("de-DE"),
+                    type: 6,
+                    payload: loan.loanId.toString(),
+                  }).then((response) => {
+                    if (response.data.success) {
+                      commit("userStore/setNotifications", response.data.data, {
+                        root: true,
+                      });
+                    } else if (!response.data.success) {
+                      router.push("/error");
+                    }
+                  });
+                }
+              }
+            );
+          }
+        } else {
+          MessageService.CreateMessage({
+            senderId: 0,
+            receiverId: user.userId,
+            text: text,
+            date: today.toLocaleDateString("de-DE"),
+            type: 6,
+            payload: loan.loanId.toString(),
+          }).then((response) => {
+            if (response.data.success) {
+              commit("userStore/setNotifications", response.data.data, {
+                root: true,
+              });
+            } else if (!response.data.success) {
+              router.push("/error");
+            }
+          });
+        }
       }
     });
   },
@@ -99,7 +178,7 @@ export default {
           payload: null,
         });
         if (!messageResponse.data.success) {
-          throw new Error("Notification could not be added");
+          router.push("/error");
         }
       }
     });
@@ -112,24 +191,41 @@ export default {
     }
     const user = rootState.userStore.user;
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
-    const notification = {
-      notificationId: null,
-      type: 5,
-      title: null,
-      message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
+    const messageResponse = MessageService.CreateMessage({
       senderId: user.userId,
       receiverId: 2,
+      text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
       date: new Date().toLocaleDateString("de-DE"),
+      type: 5,
       payload: {
         loanId: payload.loanId,
         userId: user.userId,
         newDueDate: payload.newDueDate,
       },
-    };
-    commit("loanStore/setExtensionRequestActive", payload.loanId, {
-      root: true,
     });
-    dispatch("userStore/addNotification", notification, { root: true });
+    if (!messageResponse.data.success) {
+      router.push("/error");
+      return;
+    }
+
+    // const notification = {
+    //   notificationId: null,
+    //   type: 5,
+    //   title: null,
+    //   message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
+    //   senderId: user.userId,
+    //   receiverId: 2,
+    //   date: new Date().toLocaleDateString("de-DE"),
+    //   payload: {
+    //     loanId: payload.loanId,
+    //     userId: user.userId,
+    //     newDueDate: payload.newDueDate,
+    //   },
+    // };
+    // commit("loanStore/setExtensionRequestActive", payload.loanId, {
+    //   root: true,
+    // });
+    // dispatch("userStore/addNotification", notification, { root: true });
   },
 
   userRegistersAccount({ dispatch }, payload) {

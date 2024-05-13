@@ -49,27 +49,27 @@ export default {
     },
     title() {
       switch (this.notification.type) {
-        case 0:
-          return "Erinnerung an den Rückgabezeitpunkt";
         case 1:
-          return "Benachrichtigung über die Reservierung";
+          return "Erinnerung an den Rückgabezeitpunkt";
         case 2:
-          return "Benachrichtigung über die Ausleihe";
+          return "Benachrichtigung über die Reservierung";
         case 3:
-          return "Benachrichtigung über die Rückgabe";
+          return "Benachrichtigung über die Ausleihe";
         case 4:
-          return "Anfrage zur Verlängerung einer Ausleihe";
+          return "Benachrichtigung über die Rückgabe";
         case 5:
-          return "Rückgabe ist überfällig";
+          return "Anfrage zur Verlängerung einer Ausleihe";
         case 6:
-          return "User hat sich registriert";
+          return "Rückgabe ist überfällig";
         case 7:
-          return "Anfrage zur Zurücksetzung des Passworts";
+          return "User hat sich registriert";
         case 8:
-          return "Schaden wurde gemeldet";
+          return "Anfrage zur Zurücksetzung des Passworts";
         case 9:
-          return "Ein neuer Artikel ist im System verfügbar!";
+          return "Schaden wurde gemeldet";
         case 10:
+          return "Ein neuer Artikel ist im System verfügbar!";
+        case 11:
           return "Der Manager hat deine Anfrage zur Verlängerung der Ausleihe bearbeitet";
         default:
           return "Neue Benachrichtigung";

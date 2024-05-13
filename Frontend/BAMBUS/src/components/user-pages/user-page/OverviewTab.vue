@@ -30,14 +30,11 @@ export default {
   },
   methods: {
     ...mapActions("notificationStore", ["checkDueDates", "checkReservedItems"]),
-    ...mapActions("userStore", ["deleteNotificationsWithType"]),
   },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),
   },
   beforeMount() {
-    // this.deleteNotificationsWithType(1);
-    // this.deleteNotificationsWithType(2);
     this.checkReservedItems();
     this.checkDueDates();
   },
