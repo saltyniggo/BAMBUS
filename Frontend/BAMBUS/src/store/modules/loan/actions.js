@@ -13,7 +13,6 @@ export default {
   //     }
   //   });
 
-
   //   // const loanId = Math.floor(Math.random() * (69420 - 1 + 1)) + 1;
   //   // const userId = rootState.userStore.user.userId;
   //   // const currentDay = new Date().toISOString().split("T")[0];
@@ -92,5 +91,5 @@ export default {
         $router.push("/error");
       }
     });
-  }
+  },
 };
