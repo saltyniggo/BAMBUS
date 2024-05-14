@@ -87,6 +87,7 @@ async function UpdateItem(payload) {
         reservations: payload.reservations,
         currentLoanId: payload.currentLoanId,
         avgRating: payload.avgRating,
+        extensionRequestActive: payload.extensionRequestActive,
       },
     });
     return response;
