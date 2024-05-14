@@ -25,7 +25,6 @@
 
 <script>
 import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
-import { mapActions } from "vuex";
 
 export default {
   name: "ReportedDamagesTable",
@@ -48,8 +47,6 @@ export default {
       item.condition = 0;
       this.$store.dispatch("itemStore/editItem", item);
     },
-
-
     sortId() {
       this.reportedItems.sort((a, b) => a.itemId - b.itemId);
     },

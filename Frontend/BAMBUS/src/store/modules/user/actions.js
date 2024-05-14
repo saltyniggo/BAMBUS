@@ -4,7 +4,7 @@ import MessageService from "@/store/services/MessageService";
 import LoanService from "@/store/services/LoanService";
 
 export default {
-  async loginUser({ commit }, payload) {
+  async loginUser({ commit, dispatch }, payload) {
     try {
       const loginResponse = await UserServices.Login(payload);
       if (!loginResponse.data.success) {
@@ -29,6 +29,8 @@ export default {
         }
         commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
+
+      dispatch("itemStore/checkReservationTime", null, { root: true });
 
       if (
         loginResponse.data.data.role === 2 ||
@@ -59,6 +61,7 @@ export default {
         dispatch("notificationStore/userRegistersAccount", response.data.data, {
           root: true,
         });
+        dispatch("itemStore/checkReservationTime", null, { root: true });
         router.push("/");
       } else {
         alert(response.data.message);

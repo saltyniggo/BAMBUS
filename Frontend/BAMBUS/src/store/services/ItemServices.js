@@ -98,7 +98,9 @@ async function UpdateItem(payload) {
   }
 }
 
-async function isReturnLongerThanWeekAgo(payload) {
+async function IsReturnLongerThanWeekAgo(payload) {
+  console.log("Checking if return is longer than a week ago");
+  console.log(payload);
   try {
     const response = await axios({
       method: "put",
@@ -284,7 +286,7 @@ export default {
   AddItem,
   DeleteItem,
   UpdateItem,
-  isReturnLongerThanWeekAgo,
+  IsReturnLongerThanWeekAgo,
   UpdateAvgRating,
   UpdateCondition,
   AddReservation,

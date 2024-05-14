@@ -153,6 +153,11 @@ export default {
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
       item.currentLoanId = 0;
       this.$store.dispatch("itemStore/editItem", item);
+      
+      if (item.reservations.length > 0) {
+        //TODOO create Message to inform first in line
+        console.log("Reservation" + item.reservations[0]);
+      }
    
 
    

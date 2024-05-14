@@ -161,29 +161,29 @@ export default {
     });
   },
 
-  checkReservedItems({ rootState }) {
-    const user = rootState.userStore.user;
-    const today = new Date();
-    rootState.itemStore.items.forEach((item) => {
-      if (
-        item.reservations !== null &&
-        item.reservations[0] === user.userId &&
-        !item.currentLoanId
-      ) {
-        const messageResponse = MessageService.CreateMessage({
-          senderId: 0,
-          receiverId: user.userId,
-          text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
-          date: today.toLocaleDateString("de-DE"),
-          type: 2,
-          payload: null,
-        });
-        if (!messageResponse.data.success) {
-          router.push("/error");
-        }
-      }
-    });
-  },
+  // checkReservedItems({ rootState }) {
+  //   const user = rootState.userStore.user;
+  //   const today = new Date();
+  //   rootState.itemStore.items.forEach((item) => {
+  //     if (
+  //       item.reservations !== null &&
+  //       item.reservations[0] === user.userId &&
+  //       !item.currentLoanId
+  //     ) {
+  //       const messageResponse = MessageService.CreateMessage({
+  //         senderId: 0,
+  //         receiverId: user.userId,
+  //         text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
+  //         date: today.toLocaleDateString("de-DE"),
+  //         type: 2,
+  //         payload: null,
+  //       });
+  //       if (!messageResponse.data.success) {
+  //         router.push("/error");
+  //       }
+  //     }
+  //   });
+  // },
 
   userRequestsLoanExtension({ commit, dispatch, rootState }, payload) {
     if (payload.newDueDate === null || payload.newDueDate === "") {

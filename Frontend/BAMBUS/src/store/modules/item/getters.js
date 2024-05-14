@@ -109,4 +109,9 @@ export default {
   getReportedItems: (state) => {
     return state.items.filter((item) => item.condition == 1);
   },
+  getItemsWithoutLoanButReserved: (state) => {
+    return state.items.filter(
+      (item) => item.reservations.length > 0 && (item.currentLoanId == 0 || item.currentLoanId == null)
+    );
+  },
 };
