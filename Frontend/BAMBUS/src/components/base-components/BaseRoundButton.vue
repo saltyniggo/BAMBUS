@@ -1,8 +1,10 @@
 <template>
   <button class="round-button">
+    <div class="button-content">
     <slot>
       <i class="fa-solid fa-face-smile" style="color: #f2eae4"></i>
     </slot>
+    </div>
   </button>
 </template>
 
@@ -28,6 +30,10 @@ button.round-button {
 
 button.round-button:hover {
   background-color: #f2eae4;
+  color: #d9910d;
+}
+
+.button-content :hover{
   color: #d9910d;
 }
 </style>

@@ -3,17 +3,16 @@
     <div class="cardContent">
       <h2>{{ item.title }}</h2>
       <div class="button-area">
-        <base-round-button
-          class="button"
-          @click="addToCart({ itemId: item.itemId, userId: userId })"
-          v-if="isItemAvailable(item.itemId, userId)"
-        >
-          <i class="fa-solid fa-basket-shopping" style="color: #f2eae4"></i>
+        <base-round-button class="button" @click="addToCart({ itemId: item.itemId, userId: userId })"
+          v-if="isItemAvailable(item.itemId, userId)">
+          <div class="button-content">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </div>
         </base-round-button>
-        <base-round-button
-          @click="cancelReservation({ itemId: item.itemId, userId: userId })"
-        >
-          <i class="fa-solid fa-trash-can" style="color: #f2eae4"></i>
+        <base-round-button @click="cancelReservation({ itemId: item.itemId, userId: userId })">
+          <div class="button-content">
+            <i class="fa-solid fa-trash-can"></i>
+          </div>
         </base-round-button>
       </div>
     </div>
@@ -74,5 +73,17 @@ h2 {
 
 .button {
   margin-right: 10px;
+}
+
+.button-content i {
+  color: #f2eae4;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-content i :hover {
+  color: #d9910d;
 }
 </style>
