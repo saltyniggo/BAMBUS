@@ -95,27 +95,4 @@ async function GetAllRatings() {
     }
 }
 
-async function GetRatingById(payload) {
-    try {
-        const response = await axios({
-            method: "post",
-            url: `http://localhost:5240/GetRatingById/${payload}`,
-            data: {
-                ratingId: payload,
-            },
-            headers: {
-                "Content-Type": "application/json",
-                "accept": "*/*",
-                "Authorization": "Bearer " + userStore.state.user.token,
-              },
-        });
-        return response;
-    }
-    catch (error) {
-        console.warn("Error when getting rating by id from DB:");
-        console.error("Error:", error);
-        throw error;
-    }
-}
-
- export default { AddRating, UpdateRating, DeleteRating, GetAllRatings, GetRatingById };
+ export default { AddRating, UpdateRating, DeleteRating, GetAllRatings };

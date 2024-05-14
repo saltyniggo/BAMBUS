@@ -1,5 +1,5 @@
 export default {
-  getItems: (state) => state.items,
+  // getItems: (state) => state.items,
   getItemById: (state) => (itemId) => {
     return state.items.find((item) => item.itemId === itemId);
   },
@@ -10,15 +10,15 @@ export default {
 
   getReturnItemId: (state) => state.returnItemId,
 
-  getReportItemId: (state) => state.reportItemId,
+  // getReportItemId: (state) => state.reportItemId,
 
-  getItemsRentedByUser: (state, _, __, rootGetters) => (userId) => {
-    const loans = rootGetters["loanStore/getActiveLoansFromUserId"](userId);
-    const items = loans.map((loan) =>
-      state.items.find((item) => item.currentLoanId === loan.loanId)
-    );
-    return items.filter((item) => item !== undefined);
-  },
+  // getItemsRentedByUser: (state, _, __, rootGetters) => (userId) => {
+  //   const loans = rootGetters["loanStore/getActiveLoansFromUserId"](userId);
+  //   const items = loans.map((loan) =>
+  //     state.items.find((item) => item.currentLoanId === loan.loanId)
+  //   );
+  //   return items.filter((item) => item !== undefined);
+  // },
 
   getItemsReservedByUser: (state) => (userId) => {
     const items = state.items.filter((item) =>

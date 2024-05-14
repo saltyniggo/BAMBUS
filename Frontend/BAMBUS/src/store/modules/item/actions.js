@@ -93,12 +93,7 @@ export default {
   //     }
   //   }
   // },
-  saveEditItem({ commit, state }, payload) {
-    const index = state.items.findIndex(
-      (item) => item.itemId === payload.itemId
-    );
-    commit("saveEditItem", { payload, index });
-  },
+
   requestExtension({ commit, rootState }, payload) {
     if (!payload.newDueDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
@@ -128,9 +123,17 @@ export default {
     );
     commit("requestExtension", { index, newDueDate: payload.newdueDate });
   },
-  reportItem({ commit }) {
-    commit("reportItem");
-  },
+
+  
+  // reportItem({ commit }) {
+  //   commit("reportItem");
+  // },
+  // saveEditItem({ commit, state }, payload) {
+  //   const index = state.items.findIndex(
+  //     (item) => item.itemId === payload.itemId
+  //   );
+  //   commit("saveEditItem", { payload, index });
+  // },
   // async cancelReservation({ commit }, payload) {
   //   const index = state.items.findIndex((item) => item.itemId === payload);
   //   if (index !== -1) {
@@ -208,10 +211,10 @@ export default {
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },
-  acceptDamage({ commit }, payload) {
-    commit("acceptDamage", payload);
-  },
-  rejectDamage({ commit }, payload) {
-    commit("rejectDamage", payload);
-  },
+  // acceptDamage({ commit }, payload) {
+  //   commit("acceptDamage", payload);
+  // },
+  // rejectDamage({ commit }, payload) {
+  //   commit("rejectDamage", payload);
+  // },
 };
