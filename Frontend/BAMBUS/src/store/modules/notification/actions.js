@@ -161,6 +161,7 @@ export default {
     });
   },
 
+  // TODO
   checkReservedItems({ rootState }) {
     const user = rootState.userStore.user;
     rootState.itemStore.items.forEach((item) => {
@@ -184,7 +185,8 @@ export default {
     });
   },
 
-  userRequestsLoanExtension({ commit, dispatch, rootState }, payload) {
+  // TODO
+  userRequestsLoanExtension({ rootState }, payload) {
     if (payload.newDueDate === null || payload.newDueDate === "") {
       alert("Bitte geben Sie ein neues Rückgabedatum an.");
       return;
@@ -206,28 +208,32 @@ export default {
     if (!messageResponse.data.success) {
       router.push("/error");
       return;
+    } else {
+      const item = rootState.itemStore.items.find(
+        (item) => item.itemId === payload.itemId
+      );
+      const itemResponse = ItemService.UpdateItem({
+        itemId: item.itemId,
+        title: item.title,
+        condition: item.condition,
+        type: item.type,
+        isbn: item.isbn || null,
+        issn: item.issn || null,
+        category: item.category || null,
+        author: item.author || null,
+        reservations: item.reservations || null,
+        currentLoanId: item.currentLoanId || null,
+        avgRating: item.avgRating || null,
+        extensionRequestActive: true,
+      });
+      if (!itemResponse.data.success) {
+        router.push("/error");
+        return;
+      }
     }
-
-    // const notification = {
-    //   notificationId: null,
-    //   type: 5,
-    //   title: null,
-    //   message: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
-    //   senderId: user.userId,
-    //   receiverId: 2,
-    //   date: new Date().toLocaleDateString("de-DE"),
-    //   payload: {
-    //     loanId: payload.loanId,
-    //     userId: user.userId,
-    //     newDueDate: payload.newDueDate,
-    //   },
-    // };
-    // commit("loanStore/setExtensionRequestActive", payload.loanId, {
-    //   root: true,
-    // });
-    // dispatch("userStore/addNotification", notification, { root: true });
   },
 
+  // TODO
   userRegistersAccount({ dispatch }, payload) {
     const notification = {
       notificationId: null,
@@ -243,6 +249,7 @@ export default {
     dispatch("userStore/addNotification", notification, { root: true });
   },
 
+  // TODO
   async userRequestsPasswordReset({ dispatch }, payload) {
     var message = {
       senderId: 0,
@@ -261,22 +268,29 @@ export default {
       }
     });
   },
-  userReportsDamage({ dispatch, rootState }, payload) {
+
+  // TODO
+  async userReportsDamage({ rootState }, payload) {
     const username = rootState.userStore.users.find(
       (user) => user.userId === payload.userId
     ).username;
-    const notification = {
-      notificationId: null,
-      type: 9,
-      title: null,
-      message: `${payload.title} (${payload.itemId}) ist von ${username} beschädigt gemeldet worden. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
+    const message = {
       senderId: payload.userId,
       receiverId: 2,
+      text: `${username} hat einen Schaden an ${payload.title} (${payload.itemId}) gemeldet. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       date: new Date().toLocaleDateString("de-DE"),
+      type: 9,
       payload: payload,
     };
-    dispatch("userStore/addNotification", notification, { root: true });
+    await MessageService.CreateMessage(message).then((response) => {
+      if (!response.data.success) {
+        router.push("/error");
+        return;
+      }
+    });
   },
+
+  // TODO
   managerAddsItem({ dispatch }, payload) {
     const notification = {
       notificationId: null,
@@ -290,6 +304,8 @@ export default {
     };
     dispatch("userStore/addNotification", notification, { root: true });
   },
+
+  // TODO
   managerRespondsToExtensionRequest({ dispatch, rootState }, payload) {
     const userId = rootState.loanStore.loans.find(
       (loan) => loan.loanId === payload.loanId
