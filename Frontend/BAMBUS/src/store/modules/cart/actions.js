@@ -1,7 +1,10 @@
 import LoanService from "@/store/services/LoanService";
+import ItemServices from "@/store/services/ItemServices";
+import item from "../item";
+
 
 export default {
-  rentItem({ commit, dispatch, rootState }, { item, dueDate }) {
+  async rentItem({ commit, dispatch, rootState }, { item, dueDate }) {
     if (!dueDate) {
       alert("Please select a return date");
     } else {
@@ -9,7 +12,7 @@ export default {
       const userId = rootState.userStore.user.userId;
       const startDate = new Date().toISOString();
 
-      LoanService.CreateLoan({ userId: userId, itemId : item.itemId, itemType : item.type, dueDate : dueDate, startDate : startDate }).then((response) => {
+      await LoanService.CreateLoan({ userId: userId, itemId : item.itemId, itemType : item.type, dueDate : dueDate, startDate : startDate }).then((response) => {
         if (response.data.success) {
           commit("removeRentalItemFromCart", item.itemId);
           dispatch("itemStore/loadItems", null, {root: true});
@@ -37,14 +40,22 @@ export default {
       );
     }
   },
-  reserveItem({ commit, dispatch, rootState }, itemId) {
-    const index = rootState.itemStore.items.findIndex(
+  async reserveItem({ commit, dispatch, rootState }, itemId) {
+    let item = rootState.itemStore.items.find(
       (item) => item.itemId === itemId
     );
-    if (index !== -1) {
-      dispatch("itemStore/userReservesItem", itemId, { root: true });
-      commit("removeReservationItemFromCart", itemId);
-    }
+    const userId = rootState.userStore.user.userId;
+    item.reservations.push(userId);
+    console.log(item);
+    await ItemServices.UpdateItem(item).then((response) => {
+      if (response.data.success) {
+        commit("itemStore/setItems", response.data.data, { root: true });
+        commit("removeReservationItemFromCart", itemId);
+      } else {
+        $router.push("/error");
+      }
+    });
+      // dispatch("itemStore/userReservesItem", itemId, { root: true });
   },
   removeRentalItemFromCart({ commit }, itemId) {
     commit("removeRentalItemFromCart", itemId);
@@ -53,16 +64,26 @@ export default {
     commit("removeReservationItemFromCart", itemId);
   },
 
-  addItemToCart({ commit, state }, payload) {
+  addItemToCart({ commit, state, rootState }, payload) {
+    const userId = rootState.userStore.user.userId;
     const itemIsInCartAlready =
       state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
+    const itemIsAlreadyReservedByUser = payload.reservations.includes(userId);
+    const itemIsReserved = payload.reservations.length > 0;
+    const activeLoansByUser = rootState.loanStore.loans.filter(loan => loan.returnDate === null);
+    const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
+    console.log("activeLoansByUser ", activeLoansByUser);
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
-    } else if (!payload.currentLoanId) {
-      commit("addItemToRentalCart", payload);
-    } else if (payload.currentLoanId) {
+    } else if (itemIsAlreadyReservedByUser) {
+      alert("Item is already reserved by you");
+    } else if (itemIsAlreadyRented) {
+      alert("Item is already rented");
+    } else if (payload.currentLoanId && itemIsReserved ) {
       commit("addItemToReservationCart", payload);
+    } else if (!payload.currentLoanId && !itemIsReserved) {
+      commit("addItemToRentalCart", payload);
     } else {
       alert("Item is not available for rent or reservation");
     }

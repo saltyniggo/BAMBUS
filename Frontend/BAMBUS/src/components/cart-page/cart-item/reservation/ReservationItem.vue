@@ -7,7 +7,7 @@
         :itemId="reservationItem.itemId"
         :condition="reservationItem.condition"
       />
-      <p class="reservation-item-content-row">Hier Liste von ausleiern</p>
+      <p class="reservation-item-content-row"> Warteschlangenlänge {{  }}</p>
       <section class="reservation-item-content-row">
         <base-text-button
           class="reservation-item-content-row-button"
@@ -39,6 +39,11 @@ export default {
   components: {
     ItemInformation,
     BaseTextButton,
+  },
+  computed: {
+    reservationQueueLength() {
+      return this.reservationItem.reservations.length;
+    },
   },
   methods: {
     ...mapActions("cartStore", [

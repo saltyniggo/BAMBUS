@@ -1,16 +1,23 @@
 import axios from "axios";
+import userStore from "../modules/user/index.js";
 
 async function AddRating(payload) {
+    console.log(payload);
     try {
         const response = await axios({
-            method: "put",
+            method: "post",
             url: `http://localhost:5240/AddRating`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
             data: {
-                userId: payload.userId,
                 itemId: payload.itemId,
+                userId: payload.userId,
                 rating: payload.rating,
-                comment: payload.comment,
-                isRecomemnded: payload.isRecommended,
+                isRecommended: payload.isRecommended,
+                comment: payload.comment,        
             },
         });
         return response;
@@ -23,16 +30,22 @@ async function AddRating(payload) {
 }
 
 async function UpdateRating(payload) {
+    console.log(payload);
     try {
         const response = await axios({
-            method: "post",
+            method: "put",
             url: `http://localhost:5240/UpdateRating`,
             data: {
-                itemId: payload.itemId,
+                ratingId: payload.ratingId,
                 rating: payload.rating,
+                isRecommended: payload.isRecommended,
                 comment: payload.comment,
-                isRecomemnded: payload.isRecommended,
             },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
         });
         return response;
     }
@@ -44,13 +57,19 @@ async function UpdateRating(payload) {
 }
 
 async function DeleteRating(payload) {
+    console.log(payload);
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/DeleteRating`,
+            url: `http://localhost:5240/DeleteRating/${payload}`,
             data: {
                 ratingId: payload,
             },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
         });
         return response;
     }
@@ -61,7 +80,7 @@ async function DeleteRating(payload) {
     }
 }
 
-async function GetAllRating() {
+async function GetAllRatings() {
     try {
         const response = await axios({
             method: "post",
@@ -80,10 +99,15 @@ async function GetRatingById(payload) {
     try {
         const response = await axios({
             method: "post",
-            url: `http://localhost:5240/GetRatingById`,
+            url: `http://localhost:5240/GetRatingById/${payload}`,
             data: {
                 ratingId: payload,
             },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
         });
         return response;
     }
@@ -94,4 +118,4 @@ async function GetRatingById(payload) {
     }
 }
 
- export default { AddRating, UpdateRating, DeleteRating, GetAllRating, GetRatingById };
+ export default { AddRating, UpdateRating, DeleteRating, GetAllRatings, GetRatingById };

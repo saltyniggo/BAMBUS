@@ -16,6 +16,9 @@ export default {
     RouterView,
     SideNav,
   },
+  mounted() {
+    this.$store.dispatch("ratingStore/loadAllRatings");
+  },
 };
 </script>
 
