@@ -163,6 +163,7 @@ export default {
 
   checkReservedItems({ rootState }) {
     const user = rootState.userStore.user;
+    const today = new Date();
     rootState.itemStore.items.forEach((item) => {
       if (
         item.reservations !== null &&

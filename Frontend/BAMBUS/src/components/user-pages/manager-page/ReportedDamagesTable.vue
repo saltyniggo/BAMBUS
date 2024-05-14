@@ -14,10 +14,10 @@
   >
     <p id="itemID">{{ item.itemId }}</p>
     <p id="title">{{ item.title }}</p>
-    <p id="acceptDamage" @click="acceptDamage(item.itemId)">
+    <p id="acceptDamage" @click="acceptDamage(item)">
       <BaseRectangleButton>Beschädigt</BaseRectangleButton>
     </p>
-    <p id="rejectDamage" @click="rejectDamage(item.itemId)">
+    <p id="rejectDamage" @click="rejectDamage(item)">
       <BaseRectangleButton>Noch gut</BaseRectangleButton>
     </p>
   </div>
@@ -32,11 +32,6 @@ export default {
   components: {
     BaseRectangleButton,
   },
-  data() {
-    return {
-      reportedItems: [],
-    };
-  },
   computed: {
     reportedItems() {
       return this.$store.getters["itemStore/getReportedItems"];
@@ -44,7 +39,17 @@ export default {
   },
 
   methods: {
-    ...mapActions("itemStore", ["acceptDamage", "rejectDamage"]),
+    acceptDamage(item) {
+      item.condition = 2;
+      this.$store.dispatch("itemStore/editItem", item);
+    },
+
+    rejectDamage(item) {
+      item.condition = 0;
+      this.$store.dispatch("itemStore/editItem", item);
+    },
+
+
     sortId() {
       this.reportedItems.sort((a, b) => a.itemId - b.itemId);
     },
@@ -57,9 +62,6 @@ export default {
     sortRejectDamage() {
       this.reportedItems.sort((a, b) => a.rejectDamage - b.rejectDamage);
     },
-  },
-  mounted() {
-    this.reportedItems = this.$store.getters["itemStore/getReportedItems"];
   },
 };
 </script>
