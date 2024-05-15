@@ -41,27 +41,27 @@ async function GetAllLoansFromUser() {
   }
 }
 
-async function GetLoanById(payload) {
-  try {
-    const response = await axios({
-      method: "post",
-      url: `http://localhost:5240/GetLoanById`,
-      headers: {
-        "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
-      },
-      data: {
-        loanId: payload,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.warn("Error when getting loan by id from DB:");
-    console.error("Error:", error);
-    throw error;
-  }
-}
+// async function GetLoanById(payload) {
+//   try {
+//     const response = await axios({
+//       method: "post",
+//       url: `http://localhost:5240/GetLoanById`,
+//       headers: {
+//         "Content-Type": "application/json",
+//         accept: "*/*",
+//         Authorization: "Bearer " + userStore.state.user.token,
+//       },
+//       data: {
+//         loanId: payload,
+//       },
+//     });
+//     return response;
+//   } catch (error) {
+//     console.warn("Error when getting loan by id from DB:");
+//     console.error("Error:", error);
+//     throw error;
+//   }
+// }
 
 async function CreateLoan(payload) {
   try {
@@ -138,7 +138,8 @@ async function ReturnItem(payload) {
     }  
 }
 
-async function EndExtensionREquest(payload) {
+//TODO: Might not be necessary to have this function
+async function EndExtensionRequest(payload) {
   try {
     const response = await axios({
       method: "put",
@@ -160,6 +161,7 @@ async function EndExtensionREquest(payload) {
   }
 }
 
+//TODO: Might not be necessary to have this function
 async function UpdateDueDate(payload) {
   try {
     const response = await axios({
@@ -186,9 +188,9 @@ async function UpdateDueDate(payload) {
 export default {
   GetAllLoans,
   GetAllLoansFromUser,
-  GetLoanById,
+  // GetLoanById,
   CreateLoan,
   SetReturnDate,
-  EndExtensionREquest,
+  EndExtensionRequest,
   UpdateDueDate,
 };

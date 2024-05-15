@@ -197,6 +197,8 @@ export default {
       }
     });
   },
+
+  // TODO: Kann vermutlich nach abschluss der Implementierung von Notifications entfernt werden
   addNotification({ commit, state }, payload) {
     const notificationId =
       Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -261,8 +263,8 @@ export default {
     commit("deleteNotification", payload);
   },
 
-  deleteNotificationsWithType({ commit, state }, payload) {
-    const userId = state.user.userId;
-    commit("deleteNotificationsWithType", { userId, type: payload });
-  },
+  // deleteNotificationsWithType({ commit, state }, payload) {
+  //   const userId = state.user.userId;
+  //   commit("deleteNotificationsWithType", { userId, type: payload });
+  // },
 };
