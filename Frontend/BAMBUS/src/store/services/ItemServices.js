@@ -19,14 +19,15 @@ async function LoadAllItems() {
 }
 
 async function AddItem(payload) {
+  console.log(payload);
   try {
     const response = await axios({
       method: "post",
       url: `http://localhost:5240/CreateItem`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         title: payload.title,

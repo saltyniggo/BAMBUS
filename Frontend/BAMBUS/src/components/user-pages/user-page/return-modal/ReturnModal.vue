@@ -138,13 +138,13 @@ export default {
       if (this.condition == true) {
         item.condition == 0? item.condition = 1 : item.condition = item.condition;
 
-
-        // this.userReportsDamage({
-        //   itemId: this.id,
-        //   userId: this.user.userId,
-        //   title: this.itemTitle,
-        //   damageDescription: this.damageDescription,
-        // });
+        //Test
+        this.$store.dispatch("notificationStore/userReportsDamage", {
+          itemId: this.id,
+          userId: this.user.userId,
+          title: this.itemTitle,
+          damageDescription: this.damageDescription,
+        });
       }
 
       // this.returnItem(this.id);
@@ -155,7 +155,8 @@ export default {
       this.$store.dispatch("itemStore/editItem", item);
       
       if (item.reservations.length > 0) {
-        //TODOO create Message to inform first in line
+        //TEST
+        this.$store.dispatch("notificationStore/informAboutAvailableReservation", userId = item.reservations[0].userId, itemId = item.itemId, title = item.title);
         console.log("Reservation" + item.reservations[0]);
       }
    

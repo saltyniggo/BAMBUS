@@ -21,6 +21,7 @@ export default {
       commit("setNotifications", messageResponse.data.data);
 
       if (loginResponse.data.data.role === 0) {
+        dispatch("itemStore/checkReservationTime", null, { root: true });
         const loanResponse = await LoanService.GetAllLoansFromUser(
           loginResponse.data.data.userId
         );
@@ -29,8 +30,6 @@ export default {
         }
         commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
-
-      dispatch("itemStore/checkReservationTime", null, { root: true });
 
       if (
         loginResponse.data.data.role === 2 ||

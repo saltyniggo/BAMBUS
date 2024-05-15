@@ -162,25 +162,45 @@ export default {
   },
 
   // TODO
-  checkReservedItems({ rootState }) {
-    const user = rootState.userStore.user;
-    rootState.itemStore.items.forEach((item) => {
-      if (
-        item.reservations !== null &&
-        item.reservations[0] === user.userId &&
-        !item.currentLoanId
-      ) {
-        const messageResponse = MessageService.CreateMessage({
-          senderId: 0,
-          receiverId: user.userId,
-          text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
-          date: today.toLocaleDateString("de-DE"),
-          type: 2,
-          payload: null,
+  // checkReservedItems({ rootState }) {
+  //   const user = rootState.userStore.user;
+  //   rootState.itemStore.items.forEach((item) => {
+  //     if (
+  //       item.reservations !== null &&
+  //       item.reservations[0] === user.userId &&
+  //       !item.currentLoanId
+  //     ) {
+  //       const messageResponse = MessageService.CreateMessage({
+  //         senderId: 0,
+  //         receiverId: user.userId,
+  //         text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
+  //         date: today.toLocaleDateString("de-DE"),
+  //         type: 2,
+  //         payload: null,
+  //       });
+  //       if (!messageResponse.data.success) {
+  //         router.push("/error");
+  //       }
+  //     }
+  //   });
+  // },
+
+  //Repalces the above function:
+  async informAboutAvailableReservation(payload) {
+    await MessageService.CreateMessage({
+      senderId: 0,
+      receiverId: payload.userId,
+      text: `Der von Ihnen reservierte Artikel ${payload.title} ist jetzt verfügbar`,
+      date: new Date().toLocaleDateString("de-DE"),
+      type: 1,
+      payload: payload.itemId,
+    }).then((response) => {
+      if (response.data.success) {
+        commit("userStore/setNotifications", response.data.data, {
+          root: true,
         });
-        if (!messageResponse.data.success) {
-          router.push("/error");
-        }
+      } else if (!response.data.success) {
+        router.push("/error");
       }
     });
   },
@@ -271,15 +291,13 @@ export default {
 
   // TODO
   async userReportsDamage({ rootState }, payload) {
-    const username = rootState.userStore.users.find(
-      (user) => user.userId === payload.userId
-    ).username;
+    const username = rootState.userStore.user.username;
     const message = {
       senderId: payload.userId,
       receiverId: 2,
       text: `${username} hat einen Schaden an ${payload.title} (${payload.itemId}) gemeldet. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       date: new Date().toLocaleDateString("de-DE"),
-      type: 9,
+      type: 8,
       payload: payload,
     };
     await MessageService.CreateMessage(message).then((response) => {
@@ -291,18 +309,34 @@ export default {
   },
 
   // TODO
-  managerAddsItem({ dispatch }, payload) {
-    const notification = {
-      notificationId: null,
-      type: 10,
-      title: null,
-      message: `Ein Manager hat den Artikel ${payload.title} hinzugefügt.`,
+  async managerAddsItem({ dispatch }, payload) {
+    // const notification = {
+    //   notificationId: null,
+    //   type: 10,
+    //   title: null,
+    //   message: `Ein Manager hat den Artikel ${payload.title} hinzugefügt.`,
+    //   senderId: 0,
+    //   receiverId: "users",
+    //   date: new Date().toLocaleDateString("de-DE"),
+    //   payload: payload,
+    // };
+    // dispatch("userStore/addNotification", notification, { root: true });
+    const message = {
       senderId: 0,
-      receiverId: "users",
+      receiverId: 0,
       date: new Date().toLocaleDateString("de-DE"),
+      text: `Der Artikel ${payload.title} wurde zum Katalog hinzugefügt`,
+      type: 9,
       payload: payload,
     };
-    dispatch("userStore/addNotification", notification, { root: true });
+    await MessageService.CreateMessage(message).then((response) => {
+      if (response.data.success) {
+        alert("Artikel hinzugefügt");
+        router.push({ name: "catalog" });
+      } else {
+        alert(response.data.message);
+      }
+    });
   },
 
   // TODO

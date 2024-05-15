@@ -46,7 +46,7 @@ export default {
         processReport() {
             this.item.condition = 1;
             this.$store.dispatch("itemStore/editItem", this.item);
-            // this.$store.dispatch("notificationStore/userReportsDamage", ({ itemId: this.item.itemId, userId: this.user.userId, title: this.item.title  , damageDescription: this.damageDescription }));
+            this.$store.dispatch("notificationStore/userReportsDamage", ({ itemId: this.item.itemId, userId: this.user.userId, title: this.item.title  , damageDescription: this.damageDescription }));
             this.hideModal = true;
             setTimeout(() => {
                 this.$store.dispatch("modalStore/closeAllModals");

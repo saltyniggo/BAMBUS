@@ -13,7 +13,7 @@ export default {
       }
     });
   },
-  async deleteItem({ commit }, id) {
+  async deleteItem({ commit}, id) {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
@@ -22,10 +22,12 @@ export default {
       }
     });
   },
-  async createItem({ commit }, item) {
+  async createItem({ commit, dispatch }, item) {
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
+        //Test
+        dispatch("notificationStore/managerAddsItem", {title : item.title}, {root: true});
       } else {
         $router.push("/error");
       }
@@ -148,7 +150,7 @@ export default {
   //   }
   // },
 
-  async checkReservationTime({ getters }) {
+  async checkReservationTime({ dispatch, getters }) {
     console.log("Checking reservation time items");
     let items = getters.getItemsWithoutLoanButReserved;
     console.log(items);
@@ -166,7 +168,8 @@ export default {
 
           if (item.reservations.length>0) {
             let userId = item.reservations[1];
-            //TODO: Send message to user next in line
+            //Test
+            dispatch("notificationStore, informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
             console.log("Send message to user next in line:" + userId);
           }
         }
@@ -175,7 +178,7 @@ export default {
     });
   },
 
-  async cancelReservation({ commit, state, rootState }, payload) {
+  async cancelReservation({ commit, dispatch, state, rootState }, payload) {
     console.log("Canceling reservation");
     let item = state.items.find((item) => item.itemId === payload.itemId);
 
@@ -186,7 +189,8 @@ export default {
     else {
       item.reservations.shift();
       if (item.reservations.length > 0) {
-      //TODO: Send message to user next in line
+      //Test: 
+      dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: item.reservations[0], title: item.title}, {root: true});
       console.log("Send message to user next in line" + item.reservations[0]);
       }
     }

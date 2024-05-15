@@ -99,9 +99,6 @@ export default {
           reservations: [],
           condition: 0,
           available: true,
-          dueDate: undefined,
-          rentedBy: undefined,
-          itemId: new Date().getTime().toString(),
         };
 
         if (this.type == 0 || this.type == 1) {
@@ -110,8 +107,10 @@ export default {
 
         if (this.type == 1) {
           item.isbn = this.isbn;
+          item.issn = "";
         } else if (this.type == 0) {
           item.issn = this.issn;
+          item.isbn = "";
         }
         
         await this.$store.dispatch("itemStore/createItem", item);
