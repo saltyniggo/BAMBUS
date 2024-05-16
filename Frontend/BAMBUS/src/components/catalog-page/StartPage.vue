@@ -1,6 +1,8 @@
 <template>
   <div class="startpage">
+    <div class="container">
     <h1>Was willst Du heute entdecken?</h1>
+    <div class="shortcuts">
     <router-link
       :to="{
         name: 'catalog-category',
@@ -34,6 +36,8 @@
       }"
       ><shortcut-button>Spiele</shortcut-button></router-link
     >
+    </div>  
+  </div>
   </div>
 </template>
 
@@ -56,16 +60,37 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../../assets/bambooBackground.jpg);
+  background-image: url(../../assets/bambooBackground2.jpg);
+  background-size: cover;
+  background-position: center;
   background-color: #84bf9e;
 }
 
+.container {
+  padding: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background-color: rgba(34, 33, 38, 0.8);
+}
+
+.shortcuts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .startpage h1 {
-  margin: 5% 0%;
-  font-size: 5em;
+  /* margin: 5% 0%; */
+  font-size: 3em;
   text-align: center;
   color: #f2eae4;
-  text-shadow: 0.2rem 0.2rem 0.5rem #3c4e45;
+  /* text-shadow: 0.2rem 0.2rem 0.5rem #3c4e45; */
 }
 
 a {
