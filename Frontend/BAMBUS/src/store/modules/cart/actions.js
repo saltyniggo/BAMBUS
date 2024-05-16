@@ -70,7 +70,7 @@ export default {
       state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
     const itemIsAlreadyReservedByUser = payload.reservations.includes(userId);
-    const itemIsReserved = payload.reservations.length > 0;
+    const itemIsReserved = payload.reservations.length > 0 && payload.reservations[0] != [0];
     const activeLoansByUser = rootState.loanStore.loans.filter(loan => loan.returnDate === null);
     const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
     console.log("activeLoansByUser ", activeLoansByUser);
@@ -80,10 +80,10 @@ export default {
       alert("Item is already reserved by you");
     } else if (itemIsAlreadyRented) {
       alert("Item is already rented");
+    } else if (payload.currentLoanId == 0 && !itemIsReserved) {
+      commit("addItemToRentalCart", payload);
     } else if (itemIsReserved || payload.currentLoanId != null) {
       commit("addItemToReservationCart", payload);
-    } else if (!payload.currentLoanId && !itemIsReserved) {
-      commit("addItemToRentalCart", payload);
     } else {
 
       alert("Item is not available for rent or reservation " + itemIsReserved + " " + payload.currentLoanId);
