@@ -13,7 +13,7 @@ export default {
       }
     });
   },
-  async deleteItem({ commit }, id) {
+  async deleteItem({ commit}, id) {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
@@ -22,10 +22,12 @@ export default {
       }
     });
   },
-  async createItem({ commit }, item) {
+  async createItem({ commit, dispatch }, item) {
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
+        //Test
+        dispatch("notificationStore/managerAddsItem", {title : item.title}, {root: true});
       } else {
         $router.push("/error");
       }
@@ -34,6 +36,8 @@ export default {
   async editItem({ commit }, payload) {
     await ItemServices.UpdateItem(payload).then((response) => {
       if (response.data.success) {
+        console.log("editItem response:");
+        console.log(response.data.data);
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
@@ -93,12 +97,7 @@ export default {
   //     }
   //   }
   // },
-  saveEditItem({ commit, state }, payload) {
-    const index = state.items.findIndex(
-      (item) => item.itemId === payload.itemId
-    );
-    commit("saveEditItem", { payload, index });
-  },
+
   requestExtension({ commit, rootState }, payload) {
     if (!payload.newDueDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
@@ -128,9 +127,17 @@ export default {
     );
     commit("requestExtension", { index, newDueDate: payload.newdueDate });
   },
-  reportItem({ commit }) {
-    commit("reportItem");
-  },
+
+  
+  // reportItem({ commit }) {
+  //   commit("reportItem");
+  // },
+  // saveEditItem({ commit, state }, payload) {
+  //   const index = state.items.findIndex(
+  //     (item) => item.itemId === payload.itemId
+  //   );
+  //   commit("saveEditItem", { payload, index });
+  // },
   // async cancelReservation({ commit }, payload) {
   //   const index = state.items.findIndex((item) => item.itemId === payload);
   //   if (index !== -1) {
@@ -145,7 +152,7 @@ export default {
   //   }
   // },
 
-  async checkReservationTime({ getters }) {
+  async checkReservationTime({ dispatch, getters }) {
     console.log("Checking reservation time items");
     let items = getters.getItemsWithoutLoanButReserved;
     console.log(items);
@@ -163,7 +170,8 @@ export default {
 
           if (item.reservations.length>0) {
             let userId = item.reservations[1];
-            //TODO: Send message to user next in line
+            //Test
+            dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
             console.log("Send message to user next in line:" + userId);
           }
         }
@@ -172,7 +180,7 @@ export default {
     });
   },
 
-  async cancelReservation({ commit, state, rootState }, payload) {
+  async cancelReservation({ commit, dispatch, state, rootState }, payload) {
     console.log("Canceling reservation");
     let item = state.items.find((item) => item.itemId === payload.itemId);
 
@@ -183,7 +191,8 @@ export default {
     else {
       item.reservations.shift();
       if (item.reservations.length > 0) {
-      //TODO: Send message to user next in line
+      //Test: 
+      dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: item.reservations[0], title: item.title}, {root: true});
       console.log("Send message to user next in line" + item.reservations[0]);
       }
     }
@@ -208,10 +217,10 @@ export default {
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },
-  acceptDamage({ commit }, payload) {
-    commit("acceptDamage", payload);
-  },
-  rejectDamage({ commit }, payload) {
-    commit("rejectDamage", payload);
-  },
+  // acceptDamage({ commit }, payload) {
+  //   commit("acceptDamage", payload);
+  // },
+  // rejectDamage({ commit }, payload) {
+  //   commit("rejectDamage", payload);
+  // },
 };

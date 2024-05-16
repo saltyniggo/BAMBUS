@@ -21,6 +21,7 @@ export default {
       commit("setNotifications", messageResponse.data.data);
 
       if (loginResponse.data.data.role === 0) {
+        dispatch("itemStore/checkReservationTime", null, { root: true });
         const loanResponse = await LoanService.GetAllLoansFromUser(
           loginResponse.data.data.userId
         );
@@ -29,8 +30,6 @@ export default {
         }
         commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
-
-      dispatch("itemStore/checkReservationTime", null, { root: true });
 
       if (
         loginResponse.data.data.role === 2 ||
@@ -197,6 +196,8 @@ export default {
       }
     });
   },
+
+  // TODO: Kann vermutlich nach abschluss der Implementierung von Notifications entfernt werden
   addNotification({ commit, state }, payload) {
     const notificationId =
       Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -261,8 +262,8 @@ export default {
     commit("deleteNotification", payload);
   },
 
-  deleteNotificationsWithType({ commit, state }, payload) {
-    const userId = state.user.userId;
-    commit("deleteNotificationsWithType", { userId, type: payload });
-  },
+  // deleteNotificationsWithType({ commit, state }, payload) {
+  //   const userId = state.user.userId;
+  //   commit("deleteNotificationsWithType", { userId, type: payload });
+  // },
 };

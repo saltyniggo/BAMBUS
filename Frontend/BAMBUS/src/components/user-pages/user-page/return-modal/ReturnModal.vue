@@ -138,13 +138,13 @@ export default {
       if (this.condition == true) {
         item.condition == 0? item.condition = 1 : item.condition = item.condition;
 
-
-        // this.userReportsDamage({
-        //   itemId: this.id,
-        //   userId: this.user.userId,
-        //   title: this.itemTitle,
-        //   damageDescription: this.damageDescription,
-        // });
+        //Test
+        this.$store.dispatch("notificationStore/userReportsDamage", {
+          itemId: this.id,
+          userId: this.user.userId,
+          title: this.itemTitle,
+          damageDescription: this.damageDescription,
+        });
       }
 
       // this.returnItem(this.id);
@@ -152,15 +152,23 @@ export default {
 
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
       item.currentLoanId = 0;
-      this.$store.dispatch("itemStore/editItem", item);
+      
+
+      console.log("Reservations: " + item.reservations.length);
       
       if (item.reservations.length > 0) {
-        //TODOO create Message to inform first in line
+        item.reservations.shift();
+      }
+
+      this.$store.dispatch("itemStore/editItem", item);
+
+      if (item.reservations.length > 1) {
+        //TEST
+        this.$store.dispatch("notificationStore/informAboutAvailableReservation",{ userId : item.reservations[0], itemId : item.itemId, title : item.title});
         console.log("Reservation" + item.reservations[0]);
       }
-   
 
-   
+     
 
       this.hideModal = true;
       setTimeout(() => {
