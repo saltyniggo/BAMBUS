@@ -48,7 +48,11 @@ export default {
         commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
 
-      router.push("/");
+      if (loginResponse.data.data.role === 2) {
+        router.push("/admin/overview");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       alert(error.message);
     }
