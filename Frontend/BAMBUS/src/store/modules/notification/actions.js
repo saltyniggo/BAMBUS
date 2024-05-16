@@ -186,7 +186,7 @@ export default {
   // },
 
   //Repalces the above function:
-  async informAboutAvailableReservation({commit}, payload) {
+  async informAboutAvailableReservation({ commit }, payload) {
     console.log("informAboutAvailableReservation");
     await MessageService.CreateMessage({
       senderId: 0,

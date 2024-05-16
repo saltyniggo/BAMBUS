@@ -28,7 +28,8 @@
               itemTitle: item.title,
               loanId: loan.loanId,
               newDueDate: newDueDate,
-            })
+            }),
+              this.$emit('extensionRequested')
           "
         >
           Verlängern
