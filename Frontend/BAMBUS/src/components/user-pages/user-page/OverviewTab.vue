@@ -29,13 +29,12 @@ export default {
     BaseNotification,
   },
   methods: {
-    ...mapActions("notificationStore", ["checkDueDates", "checkReservedItems"]),
+    ...mapActions("notificationStore", ["checkDueDates"]),
   },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),
   },
   beforeMount() {
-    this.checkReservedItems();
     this.checkDueDates();
   },
 };

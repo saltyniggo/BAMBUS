@@ -162,74 +162,38 @@ export default {
   },
 
   // TODO
-  checkReservedItems({ rootState }) {
-    const user = rootState.userStore.user;
-    rootState.itemStore.items.forEach((item) => {
-      if (
-        item.reservations !== null &&
-        item.reservations[0] === user.userId &&
-        !item.currentLoanId
-      ) {
-        const messageResponse = MessageService.CreateMessage({
-          senderId: 0,
-          receiverId: user.userId,
-          text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
-          date: today.toLocaleDateString("de-DE"),
-          type: 2,
-          payload: null,
-        });
-        if (!messageResponse.data.success) {
-          router.push("/error");
-        }
-      }
-    });
-  },
-
-  // TODO
-  userRequestsLoanExtension({ rootState }, payload) {
+  async userRequestsLoanExtension({ rootState }, payload) {
     if (payload.newDueDate === null || payload.newDueDate === "") {
       alert("Bitte geben Sie ein neues Rückgabedatum an.");
       return;
     }
     const user = rootState.userStore.user;
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
-    const messageResponse = MessageService.CreateMessage({
+    const messageResponse = await MessageService.CreateMessage({
       senderId: user.userId,
       receiverId: 2,
       text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
       date: new Date().toLocaleDateString("de-DE"),
       type: 5,
-      payload: {
+      payload: JSON.stringify({
         loanId: payload.loanId,
         userId: user.userId,
         newDueDate: payload.newDueDate,
-      },
+      }),
     });
     if (!messageResponse.data.success) {
       router.push("/error");
       return;
     } else {
-      const item = rootState.itemStore.items.find(
-        (item) => item.itemId === payload.itemId
+      const loan = rootState.loanStore.loans.find(
+        (loan) => loan.loanId === payload.loanId
       );
-      const itemResponse = ItemService.UpdateItem({
-        itemId: item.itemId,
-        title: item.title,
-        condition: item.condition,
-        type: item.type,
-        isbn: item.isbn || null,
-        issn: item.issn || null,
-        category: item.category || null,
-        author: item.author || null,
-        reservations: item.reservations || null,
-        currentLoanId: item.currentLoanId || null,
-        avgRating: item.avgRating || null,
-        extensionRequestActive: true,
+      LoanService.ActivateExtensionRequest(loan.loanId).then((response) => {
+        if (!response.data.success) {
+          router.push("/error");
+          return;
+        }
       });
-      if (!itemResponse.data.success) {
-        router.push("/error");
-        return;
-      }
     }
   },
 
@@ -249,7 +213,6 @@ export default {
     dispatch("userStore/addNotification", notification, { root: true });
   },
 
-  // TODO
   async userRequestsPasswordReset({ dispatch }, payload) {
     var message = {
       senderId: 0,
