@@ -28,7 +28,7 @@ export default {
       tabs: [
         { title: "Overview", route: "/admin/overview" },
         { title: "Management", route: "/admin/management" },
-        { title: "Settings", route: "/admin/settings" },
+        // { title: "Settings", route: "/admin/settings" },
       ],
       activeRoute: undefined,
     };
