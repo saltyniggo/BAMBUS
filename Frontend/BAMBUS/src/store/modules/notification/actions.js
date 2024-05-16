@@ -186,20 +186,24 @@ export default {
   // },
 
   //Repalces the above function:
-  async informAboutAvailableReservation(payload) {
+  async informAboutAvailableReservation({commit}, payload) {
+    console.log("informAboutAvailableReservation");
     await MessageService.CreateMessage({
       senderId: 0,
       receiverId: payload.userId,
       text: `Der von Ihnen reservierte Artikel ${payload.title} ist jetzt verfügbar`,
       date: new Date().toLocaleDateString("de-DE"),
       type: 1,
-      payload: payload.itemId,
+      payload: payload.itemId.toString(),
     }).then((response) => {
       if (response.data.success) {
+        console.log("Message sent");
+        console.log(response.data.data);
         commit("userStore/setNotifications", response.data.data, {
           root: true,
         });
       } else if (!response.data.success) {
+        console.log(response.data.message);
         router.push("/error");
       }
     });
@@ -294,11 +298,11 @@ export default {
     const username = rootState.userStore.user.username;
     const message = {
       senderId: payload.userId,
-      receiverId: 2,
+      receiverId: 5,
       text: `${username} hat einen Schaden an ${payload.title} (${payload.itemId}) gemeldet. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       date: new Date().toLocaleDateString("de-DE"),
       type: 8,
-      payload: payload,
+      payload: null,
     };
     await MessageService.CreateMessage(message).then((response) => {
       if (!response.data.success) {
@@ -308,26 +312,14 @@ export default {
     });
   },
 
-  // TODO
   async managerAddsItem({ dispatch }, payload) {
-    // const notification = {
-    //   notificationId: null,
-    //   type: 10,
-    //   title: null,
-    //   message: `Ein Manager hat den Artikel ${payload.title} hinzugefügt.`,
-    //   senderId: 0,
-    //   receiverId: "users",
-    //   date: new Date().toLocaleDateString("de-DE"),
-    //   payload: payload,
-    // };
-    // dispatch("userStore/addNotification", notification, { root: true });
     const message = {
       senderId: 0,
       receiverId: 0,
       date: new Date().toLocaleDateString("de-DE"),
       text: `Der Artikel ${payload.title} wurde zum Katalog hinzugefügt`,
       type: 9,
-      payload: payload,
+      payload: payload.title,
     };
     await MessageService.CreateMessage(message).then((response) => {
       if (response.data.success) {

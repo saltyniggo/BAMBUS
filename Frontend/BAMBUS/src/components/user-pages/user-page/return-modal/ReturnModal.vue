@@ -152,16 +152,23 @@ export default {
 
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
       item.currentLoanId = 0;
-      this.$store.dispatch("itemStore/editItem", item);
+      
+
+      console.log("Reservations: " + item.reservations.length);
       
       if (item.reservations.length > 0) {
+        item.reservations.shift();
+      }
+
+      this.$store.dispatch("itemStore/editItem", item);
+
+      if (item.reservations.length > 1) {
         //TEST
-        this.$store.dispatch("notificationStore/informAboutAvailableReservation", userId = item.reservations[0].userId, itemId = item.itemId, title = item.title);
+        this.$store.dispatch("notificationStore/informAboutAvailableReservation",{ userId : item.reservations[0], itemId : item.itemId, title : item.title});
         console.log("Reservation" + item.reservations[0]);
       }
-   
 
-   
+     
 
       this.hideModal = true;
       setTimeout(() => {

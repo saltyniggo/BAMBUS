@@ -36,6 +36,8 @@ export default {
   async editItem({ commit }, payload) {
     await ItemServices.UpdateItem(payload).then((response) => {
       if (response.data.success) {
+        console.log("editItem response:");
+        console.log(response.data.data);
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
@@ -169,7 +171,7 @@ export default {
           if (item.reservations.length>0) {
             let userId = item.reservations[1];
             //Test
-            dispatch("notificationStore, informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
+            dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
             console.log("Send message to user next in line:" + userId);
           }
         }

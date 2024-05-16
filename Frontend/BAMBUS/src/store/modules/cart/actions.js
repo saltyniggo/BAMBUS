@@ -80,12 +80,13 @@ export default {
       alert("Item is already reserved by you");
     } else if (itemIsAlreadyRented) {
       alert("Item is already rented");
-    } else if (payload.currentLoanId && itemIsReserved ) {
+    } else if (itemIsReserved || payload.currentLoanId != null) {
       commit("addItemToReservationCart", payload);
     } else if (!payload.currentLoanId && !itemIsReserved) {
       commit("addItemToRentalCart", payload);
     } else {
-      alert("Item is not available for rent or reservation");
+
+      alert("Item is not available for rent or reservation " + itemIsReserved + " " + payload.currentLoanId);
     }
   },
 

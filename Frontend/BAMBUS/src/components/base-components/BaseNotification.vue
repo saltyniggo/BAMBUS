@@ -48,7 +48,7 @@ export default {
       return name;
     },
     title() {
-      switch (this.notification.type) {
+      switch (this.notification.type+1) {
         case 1:
           return "Erinnerung an den Rückgabezeitpunkt";
         case 2:
