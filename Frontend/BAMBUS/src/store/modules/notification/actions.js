@@ -245,20 +245,25 @@ export default {
     }
   },
 
-  // TODO
-  userRegistersAccount({ dispatch }, payload) {
-    const notification = {
-      notificationId: null,
-      type: 7,
-      title: null,
-      message: `${payload.username} hat sich registriert`,
-      senderId: 0,
-      receiverId: 3,
-      date: new Date().toLocaleDateString("de-DE"),
-      payload: payload,
+  async userRegistersAccount({}, payload) {
+    console.log("userRegistersAccount");
+    console.log(payload);
+    var message = {
+      senderId: payload.userId,
+      receiverId: 4,
+      date: new Date(),
+      text: `${payload.username} hat sich registriert`,
+      type: 6,
+      payload: null,
     };
 
-    dispatch("userStore/addNotification", notification, { root: true });
+      await MessageService.CreateMessage(message).then((response) => {
+        if (!response.data.success) {
+          console.log("Message to Manager about new user registration failed");
+          return;
+        }
+      }
+    );
   },
 
   async userRequestsPasswordReset({ dispatch }, payload) {
@@ -280,12 +285,11 @@ export default {
     });
   },
 
-  // TODO
   async userReportsDamage({ rootState }, payload) {
     const username = rootState.userStore.user.username;
     const message = {
       senderId: payload.userId,
-      receiverId: 5,
+      receiverId: 0,
       text: `${username} hat einen Schaden an ${payload.title} (${payload.itemId}) gemeldet. Die Schadensbeschreibung lautet: '${payload.damageDescription}'`,
       date: new Date().toLocaleDateString("de-DE"),
       type: 8,
@@ -326,7 +330,7 @@ export default {
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
     const notification = {
       notificationId: null,
-      type: 11,
+      type: 10,
       title: null,
       message: null,
       senderId: 2,

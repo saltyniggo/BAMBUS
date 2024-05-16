@@ -57,7 +57,9 @@ export default {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
         commit("login", response.data);
-        dispatch("notificationStore/userRegistersAccount", response.data.data, {
+        console.log("User registered successfully");
+        console.log(response.data.data);
+        dispatch("notificationStore/userRegistersAccount", {username: response.data.data.username, userId: response.data.data.userId}, {
           root: true,
         });
         dispatch("itemStore/checkReservationTime", null, { root: true });
