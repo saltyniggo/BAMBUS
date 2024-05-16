@@ -1,6 +1,6 @@
 import axios from "axios";
 import userStore from "../modules/user/index.js";
-import item from "../modules/item/index.js";
+
 async function GetAllLoans() {
   try {
     const response = await axios({
@@ -87,6 +87,28 @@ async function CreateLoan(payload) {
   }
 }
 
+async function ActivateExtensionRequest(payload) {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `http://localhost:5240/ActivateExtensionRequest/${payload}`,
+      headers: {
+        "Content-Type": "application/json",
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
+      },
+      data: {
+        loanId: payload,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.warn("Error when activating extension request in DB:");
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 async function SetReturnDate(payload) {
   try {
     const response = await axios({
@@ -109,7 +131,7 @@ async function SetReturnDate(payload) {
   }
 }
 
-async function EndExtensionREquest(payload) {
+async function EndExtensionRequest(payload) {
   try {
     const response = await axios({
       method: "put",
@@ -160,6 +182,7 @@ export default {
   GetLoanById,
   CreateLoan,
   SetReturnDate,
-  EndExtensionREquest,
+  EndExtensionRequest,
   UpdateDueDate,
+  ActivateExtensionRequest,
 };

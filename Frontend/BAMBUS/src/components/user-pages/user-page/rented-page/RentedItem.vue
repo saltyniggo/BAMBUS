@@ -10,7 +10,7 @@
           Rückgabe
         </base-rectangle-button>
       </div>
-      <div class="extend" v-if="!loan.extensionRequestActive">
+      <div class="extend" v-if="!loan.extensionRequestRunning">
         <p>
           <strong>Verlängern zum: </strong>
         </p>
@@ -33,6 +33,9 @@
         >
           Verlängern
         </base-rectangle-button>
+      </div>
+      <div v-else>
+        <p>Verlängerung wird bearbeitet...</p>
       </div>
     </div>
   </base-container-narrow>
