@@ -254,7 +254,7 @@ export default {
     var message = {
       senderId: payload.userId,
       receiverId: 4,
-      date: new Date(),
+      date: new Date().toLocaleDateString("de-DE"),
       text: `${payload.username} hat sich registriert`,
       type: 6,
       payload: null,
@@ -271,7 +271,7 @@ export default {
     var message = {
       senderId: 0,
       receiverId: 0,
-      date: new Date(),
+      date: new Date().toLocaleDateString("de-DE"),
       text: `${payload} hat eine Zurücksetzung des Passworts angefragt`,
       type: 7,
       payload: payload,

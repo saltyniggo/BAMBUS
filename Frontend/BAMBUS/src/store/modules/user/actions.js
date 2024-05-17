@@ -48,7 +48,11 @@ export default {
         commit("loanStore/setLoans", loanResponse.data.data, { root: true });
       }
 
-      router.push("/");
+      if (loginResponse.data.data.role === 2) {
+        router.push("/admin/overview");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -192,6 +196,31 @@ export default {
     });
   },
   async adminChangePassword({ commit, state }, payload) {
+    if (payload.newPassword.length < 8) {
+      alert("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!/\d/.test(payload.newPassword)) {
+      alert("Password must include at least one number");
+      return;
+    }
+
+    if (!/[A-Z]/.test(payload.newPassword)) {
+      alert("Password must include at least one uppercase letter");
+      return;
+    }
+
+    if (!/[a-z]/.test(payload.newPassword)) {
+      alert("Password must include at least one lowercase letter");
+      return;
+    }
+
+    if (!/[!@#$%^&*?/=,.:;'€]/.test(payload.newPassword)) {
+      alert("Password must include at least one special character");
+      return;
+    }
+
     const user = state.users.find((user) => user.userId === payload.userId);
     user.password = payload.newPassword;
     await UserServices.UpdateUser(user).then((response) => {
