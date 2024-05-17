@@ -57,8 +57,8 @@ async function DeleteMessage(payload) {
       url: `http://localhost:5240/DeleteMessage/${payload}`,
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
+        "accept": "*/*",
+        "Authorization": "Bearer " + userStore.state.user.token,
       },
       data: {
         messageId: payload,
@@ -77,11 +77,15 @@ async function UserRequestsPasswordReset(payload) {
     const response = await axios({
       method: "post",
       url: `http://localhost:5240/RequestPasswordReset`,
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "*/*",
+      },
       data: {
-        senderId: 1000,
-        receiverId: 1000,
+        senderId: payload.senderId,
+        receiverId: payload.receiverId,
         text: payload.text,
-        date: payload.date,
+        date: new Date().toISOString(),
         type: 7,
         payload: payload.payload,
       },

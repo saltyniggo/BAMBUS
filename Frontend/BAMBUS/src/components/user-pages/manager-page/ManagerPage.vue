@@ -46,7 +46,7 @@ export default {
 
 <style scoped>
 .manager-page {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f2eae4;
   padding: 1%;
   color: #222126;
