@@ -213,53 +213,62 @@ export default {
     }
     const user = rootState.userStore.user;
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
-    const messageResponse = await MessageService.CreateMessage({
-      senderId: user.userId,
-      receiverId: 5,
-      text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
-      date: new Date().toLocaleDateString("de-DE"),
-      type: 5,
-      payload: `${payload.loanId};${user.userId};${payload.newDueDate}`,
-    });
-    if (!messageResponse.data.success) {
-      router.push("/error");
-      return;
-    } else {
-      const loan = rootState.loanStore.loans.find(
-        (loan) => loan.loanId === payload.loanId
-      );
-      LoanService.ActivateExtensionRequest(loan.loanId).then((response) => {
+    const managers = rootState.userStore.users.filter(
+      (user) => user.role === 5
+    );
+    managers.forEach(async (manager) => {
+      await MessageService.CreateMessage({
+        senderId: user.userId,
+        receiverId: manager.userId,
+        text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
+        date: new Date().toLocaleDateString("de-DE"),
+        type: 5,
+        payload: `${payload.loanId};${user.userId};${payload.newDueDate}`,
+      }).then((response) => {
         if (!response.data.success) {
           router.push("/error");
           return;
-        } else {
-          LoanService.GetAllLoans().then((response) => {
-            if (!response.data.success) {
-              router.push("/error");
-              return;
-            } else {
-              rootState.loanStore.loans = response.data.data;
-            }
-          });
         }
       });
-    }
+    });
+    const loan = rootState.loanStore.loans.find(
+      (loan) => loan.loanId === payload.loanId
+    );
+    LoanService.ActivateExtensionRequest(loan.loanId).then((response) => {
+      if (!response.data.success) {
+        router.push("/error");
+        return;
+      } else {
+        LoanService.GetAllLoans().then((response) => {
+          if (!response.data.success) {
+            router.push("/error");
+            return;
+          } else {
+            rootState.loanStore.loans = response.data.data;
+          }
+        });
+      }
+    });
   },
 
   async userRegistersAccount({}, payload) {
-    var message = {
-      senderId: payload.userId,
-      receiverId: 4,
-      date: new Date().toLocaleDateString("de-DE"),
-      text: `${payload.username} hat sich registriert`,
-      type: 6,
-      payload: null,
-    };
-
-    await MessageService.CreateMessage(message).then((response) => {
-      if (!response.data.success) {
-        return;
-      }
+    const admins = await rootState.userStore.users.filter(
+      (user) => user.role === 4
+    );
+    admins.forEach(async (admin) => {
+      await MessageService.CreateMessage({
+        senderId: payload.userId,
+        receiverId: admin.userId,
+        text: `${payload.username} hat sich registriert`,
+        date: new Date().toLocaleDateString("de-DE"),
+        type: 6,
+        payload: null,
+      }).then((response) => {
+        if (!response.data.success) {
+          router.push("/error");
+          return;
+        }
+      });
     });
   },
 
