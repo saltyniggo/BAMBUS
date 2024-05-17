@@ -134,7 +134,6 @@ export default {
   min-width: 120px;
 }
 
-
 .deletePassword {
   width: 10%;
   min-width: 80px;

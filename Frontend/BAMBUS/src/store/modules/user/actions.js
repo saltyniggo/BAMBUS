@@ -167,7 +167,12 @@ export default {
       }
     });
   },
-  async deleteAccount({ commit, state }) {
+  async deleteAccount({ commit, state, rootState, rootGetters }) {
+    let activeLoans = rootGetters["loanStore/getActiveItemIdFromUserId"];
+    if (activeLoans.length > 0) {
+      alert("Du musst erst alle Artikel zurückgeben, bevor du dein Konto löschen kannst");
+      return;
+    }
     if (confirm("Are you sure you want to delete the account?")) {
       await UserServices.DeleteUser(state.user.userId).then((response) => {
         if (response.data.success) {
@@ -180,39 +185,45 @@ export default {
       });
     }
   },
-  async adminDeleteAccount({ commit }, payload) {
+  async adminDeleteAccount({ commit, rootGetters }, payload) {
+    let activeLoans = rootGetters["loanStore/getActiveLoansFromUserId"](payload);
+    if (activeLoans.length > 0) {
+      alert("Der Benutzer muss erst alle Artikel zurückgeben, bevor sein Konto gelöscht werden kann.");
+      return;
+    }
     await UserServices.DeleteUser(payload).then((response) => {
       if (response.data.success) {
-        alert("Account deleted successfully");
+        alert("Der Account wurde erfolgreich gelöscht.");
         commit("deleteAccount", payload);
       } else {
-        alert(response.data.message);
+        alert("Leider ist ein Fehler aufgetreten.");
       }
     });
   },
+
   async adminChangePassword({ commit, state }, payload) {
     if (payload.newPassword.length < 8) {
-      alert("Password must be at least 8 characters long");
+      alert("Das Passwort muss mindestens 8 Zeichen lang sein.");
       return;
     }
 
     if (!/\d/.test(payload.newPassword)) {
-      alert("Password must include at least one number");
+      alert("Das Passwort muss mindestens eine Zahl enthalten.");
       return;
     }
 
     if (!/[A-Z]/.test(payload.newPassword)) {
-      alert("Password must include at least one uppercase letter");
+      alert("Das Passwort muss mindestens einen Großbuchstaben enthalten.");
       return;
     }
 
     if (!/[a-z]/.test(payload.newPassword)) {
-      alert("Password must include at least one lowercase letter");
+      alert("Das Passwort muss mindestens einen Kleinbuchstaben enthalten.");
       return;
     }
 
     if (!/[!@#$%^&*?/=,.:;'€]/.test(payload.newPassword)) {
-      alert("Password must include at least one special character");
+      alert("Das Passwort muss mindestens ein Sonderzeichen enthalten.");
       return;
     }
 
@@ -220,7 +231,7 @@ export default {
     user.password = payload.newPassword;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        alert("Password changed successfully");
+        alert("Das Passwort wurde erfolgreich geändert.");
         commit("adminChangePassword", payload);
       } else {
         alert(response.data.message);
