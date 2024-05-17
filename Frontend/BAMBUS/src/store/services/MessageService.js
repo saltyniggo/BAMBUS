@@ -24,7 +24,6 @@ async function GetMessagesFromUserId(payload) {
 }
 
 async function CreateMessage(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "post",
@@ -74,7 +73,6 @@ async function DeleteMessage(payload) {
 }
 
 async function UserRequestsPasswordReset(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "post",

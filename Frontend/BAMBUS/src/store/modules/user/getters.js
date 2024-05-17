@@ -36,7 +36,6 @@ export default {
   getDamageDescription: (state) => (itemId) => {
     let id = itemId;
     let description = "Keine Beschreibung verfügbar";
-    console.log(id);
     let damageNotifications = state.user.notifications.filter(n => n.type == 8);
 
     for (let i = 0; i < damageNotifications.length; i++) {

@@ -19,7 +19,6 @@ async function LoadAllItems() {
 }
 
 async function AddItem(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "post",

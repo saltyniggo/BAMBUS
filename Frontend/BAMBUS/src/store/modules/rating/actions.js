@@ -9,7 +9,6 @@ export default {
     commit("deleteItemId");
   },
   async deleteRatingById({ commit }, payload) {
-    console.log(payload);
     try {
       await RatingService.DeleteRating(payload.ratingId).then((response) => {
         if (response.data.success) {
