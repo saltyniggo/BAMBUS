@@ -76,7 +76,6 @@ export default {
       stars: [false, false, false, false, false],
       showAlert: false,
       damageDescription: "",
-      itemTitle: "",
       hideModal: false,
     };
   },
@@ -115,6 +114,7 @@ export default {
       this.checkRecommendation();
       this.checkcondition();
       let item = this.$store.getters["itemStore/getItemById"](this.id);
+;
 
       if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) 
       {
@@ -142,7 +142,7 @@ export default {
         this.$store.dispatch("notificationStore/userReportsDamage", {
           itemId: this.id,
           userId: this.user.userId,
-          title: this.itemTitle,
+          title: item.title,
           damageDescription: this.damageDescription,
         });
       }
