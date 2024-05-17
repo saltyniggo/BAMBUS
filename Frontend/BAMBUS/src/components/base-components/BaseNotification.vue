@@ -8,7 +8,7 @@
     </section>
     <section
       class="notification-manager-extension"
-      v-if="this.notification.type == 4"
+      v-if="this.notification.type == 5"
     >
       <base-text-button @click="sendResponse('accept')"
         >accept</base-text-button

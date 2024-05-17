@@ -8,7 +8,8 @@
       <i class="fa-solid fa-arrows-rotate"></i>
       <p>Neuladen</p>
     </button>
-    <base-notification v-if="user.notifications != null && user.notifications.length > 0"
+    <base-notification
+      v-if="user.notifications != null && user.notifications.length > 0"
       v-for="notification in user.notifications"
       :key="notification.id"
       :notification="notification"
@@ -18,6 +19,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 import BaseNotification from "../../base-components/BaseNotification.vue";
 
@@ -26,8 +28,14 @@ export default {
   components: {
     BaseNotification,
   },
+  methods: {
+    ...mapActions("notificationStore", ["checkDueDates"]),
+  },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),
+  },
+  beforeMount() {
+    this.checkDueDates();
   },
 };
 </script>

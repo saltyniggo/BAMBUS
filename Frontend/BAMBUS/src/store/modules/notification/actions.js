@@ -215,15 +215,11 @@ export default {
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
     const messageResponse = await MessageService.CreateMessage({
       senderId: user.userId,
-      receiverId: 2,
+      receiverId: 5,
       text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
       date: new Date().toLocaleDateString("de-DE"),
       type: 5,
-      payload: JSON.stringify({
-        loanId: payload.loanId,
-        userId: user.userId,
-        newDueDate: payload.newDueDate,
-      }),
+      payload: `${payload.loanId};${user.userId};${payload.newDueDate}`,
     });
     if (!messageResponse.data.success) {
       router.push("/error");
