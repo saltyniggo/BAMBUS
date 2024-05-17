@@ -31,7 +31,6 @@ export default {
     return state.items.find((item) => item.itemId === state.reportItemId);
   },
   isReservedItemAvailableForRenting: (state) => (itemId, userId) => {
-    console.log(itemId, userId); 
     const item = state.items.find((item) => item.itemId === itemId);
     return item.reservations[0] === userId && item.currentLoanId === 0;
   },
@@ -111,7 +110,9 @@ export default {
   },
   getItemsWithoutLoanButReserved: (state) => {
     return state.items.filter(
-      (item) => item.reservations.length > 0 && (item.currentLoanId == 0 || item.currentLoanId == null)
+      (item) =>
+        item.reservations.length > 0 &&
+        (item.currentLoanId == 0 || item.currentLoanId == null)
     );
   },
 };

@@ -57,11 +57,16 @@ export default {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
         commit("login", response.data);
-        console.log("User registered successfully");
-        console.log(response.data.data);
-        dispatch("notificationStore/userRegistersAccount", {username: response.data.data.username, userId: response.data.data.userId}, {
-          root: true,
-        });
+        dispatch(
+          "notificationStore/userRegistersAccount",
+          {
+            username: response.data.data.username,
+            userId: response.data.data.userId,
+          },
+          {
+            root: true,
+          }
+        );
         dispatch("itemStore/checkReservationTime", null, { root: true });
         router.push("/");
       } else {

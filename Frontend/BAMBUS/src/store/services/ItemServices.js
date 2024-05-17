@@ -19,15 +19,14 @@ async function LoadAllItems() {
 }
 
 async function AddItem(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "post",
       url: `http://localhost:5240/CreateItem`,
       headers: {
         "Content-Type": "application/json",
-        "accept": "*/*",
-        "Authorization": "Bearer " + userStore.state.user.token,
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         title: payload.title,
@@ -67,7 +66,6 @@ async function DeleteItem(payload) {
 }
 
 async function UpdateItem(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "put",
@@ -101,16 +99,14 @@ async function UpdateItem(payload) {
 }
 
 async function IsReturnLongerThanWeekAgo(payload) {
-  console.log("Checking if return is longer than a week ago");
-  console.log(payload);
   try {
     const response = await axios({
       method: "put",
       url: `http://localhost:5240/IsReturnLongerThanWeekAgo/${payload}`,
       headers: {
         "Content-Type": "application/json",
-        "accept": "*/*",
-        "Authorization": "Bearer " + userStore.state.user.token,
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         loanId: payload,
@@ -131,23 +127,20 @@ async function UpdateAvgRating(payload) {
       url: `http://localhost:5240/UpdateAvgRating/${payload}`,
       headers: {
         "Content-Type": "application/json",
-        "accept": "*/*",
-        "Authorization": "Bearer " + userStore.state.user.token,
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         itemId: payload,
       },
     });
     return response;
-  }
-  catch (error) {
+  } catch (error) {
     console.warn("Error when updating average rating in DB:");
     console.error("Error:", error);
     throw error;
   }
 }
-
-
 
 // async function UpdateCondition(payload) {
 //   try {

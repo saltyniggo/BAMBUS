@@ -151,11 +151,7 @@ export default {
       // this.removeLoanIdFromItem(this.id);
 
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
-      item.currentLoanId = 0;
-      
-
-      console.log("Reservations: " + item.reservations.length);
-      
+      item.currentLoanId = 0;      
       if (item.reservations.length > 0) {
         item.reservations.shift();
       }
@@ -165,7 +161,6 @@ export default {
       if (item.reservations.length > 1) {
         //TEST
         this.$store.dispatch("notificationStore/informAboutAvailableReservation",{ userId : item.reservations[0], itemId : item.itemId, title : item.title});
-        console.log("Reservation" + item.reservations[0]);
       }
 
      

@@ -9,7 +9,6 @@ export default {
     commit("deleteItemId");
   },
   async deleteRatingById({ commit }, payload) {
-    console.log(payload);
     try {
       await RatingService.DeleteRating(payload.ratingId).then((response) => {
         if (response.data.success) {
@@ -18,18 +17,15 @@ export default {
             if (response.data.success) {
               commit("itemStore/setItems", response.data.data, { root: true });
               commit("setRatings", ratings);
-            }
-            else {
+            } else {
               alert("Error when updating average rating in DB");
             }
-          })
-        }
-        else {
+          });
+        } else {
           alert("Error when deletimg rating to DB");
         }
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.warn("Error when deleting rating from DB:");
       console.error("Error:", error);
       throw error;
@@ -44,13 +40,11 @@ export default {
             if (response.data.success) {
               commit("itemStore/setItems", response.data.data, { root: true });
               commit("setRatings", ratings);
-            }
-            else {
+            } else {
               alert("Error when updating average rating in DB");
             }
-          })
-        }
-        else {
+          });
+        } else {
           alert("Error when adding rating to DB");
         }
       });
@@ -69,18 +63,15 @@ export default {
             if (response.data.success) {
               commit("itemStore/setItems", response.data.data, { root: true });
               commit("setRatings", ratings);
-            }
-            else {
+            } else {
               alert("Error when updating average rating in DB");
             }
-          })
-        }
-        else {
+          });
+        } else {
           alert("Error when updating rating to DB");
         }
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.warn("Error when updating rating in DB:");
       console.error("Error:", error);
       throw error;
@@ -91,8 +82,7 @@ export default {
       await RatingService.GetAllRatings().then((response) => {
         if (response.data.success) {
           commit("setRatings", response.data.data);
-        }
-        else {
+        } else {
           alert("Error when loading all ratings from DB");
         }
       });

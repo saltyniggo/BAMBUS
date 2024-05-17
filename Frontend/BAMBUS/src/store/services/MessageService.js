@@ -24,15 +24,14 @@ async function GetMessagesFromUserId(payload) {
 }
 
 async function CreateMessage(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "post",
       url: `http://localhost:5240/CreateMessage`,
       headers: {
         "Content-Type": "application/json",
-        "accept": "*/*",
-        "Authorization": "Bearer " + userStore.state.user.token,
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         senderId: payload.senderId,

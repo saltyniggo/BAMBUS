@@ -13,7 +13,7 @@ export default {
       }
     });
   },
-  async deleteItem({ commit}, id) {
+  async deleteItem({ commit }, id) {
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
@@ -27,7 +27,11 @@ export default {
       if (response.data.success) {
         commit("setItems", response.data.data);
         //Test
-        dispatch("notificationStore/managerAddsItem", {title : item.title}, {root: true});
+        dispatch(
+          "notificationStore/managerAddsItem",
+          { title: item.title },
+          { root: true }
+        );
       } else {
         $router.push("/error");
       }
@@ -36,8 +40,6 @@ export default {
   async editItem({ commit }, payload) {
     await ItemServices.UpdateItem(payload).then((response) => {
       if (response.data.success) {
-        console.log("editItem response:");
-        console.log(response.data.data);
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
@@ -128,7 +130,6 @@ export default {
     commit("requestExtension", { index, newDueDate: payload.newdueDate });
   },
 
-  
   // reportItem({ commit }) {
   //   commit("reportItem");
   // },
@@ -153,47 +154,48 @@ export default {
   // },
 
   async checkReservationTime({ dispatch, getters }) {
-    console.log("Checking reservation time items");
     let items = getters.getItemsWithoutLoanButReserved;
-    console.log(items);
 
     if (!items) {
       return;
     }
     items.forEach((item) => {
       ItemServices.IsReturnLongerThanWeekAgo(item.itemId).then((response) => {
-        console.log("Checking reservation time");
-        console.log(response);
         if (response.data.success && response.data.data) {
-          console.log("Reservation time is over a week");
-          console.log(item.reservations);
-
-          if (item.reservations.length>0) {
+          if (item.reservations.length > 0) {
             let userId = item.reservations[1];
             //Test
-            dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
-            console.log("Send message to user next in line:" + userId);
+            dispatch(
+              "notificationStore/informAboutAvailableReservation",
+              { itemId: item.itemId, userId: userId, title: item.title },
+              { root: true }
+            );
           }
         }
-      }
-      );
+      });
     });
   },
 
   async cancelReservation({ commit, dispatch, state, rootState }, payload) {
-    console.log("Canceling reservation");
     let item = state.items.find((item) => item.itemId === payload.itemId);
 
     if (item.reservations[0] !== payload.userId) {
-    item.reservations = item.reservations.filter((userId) => userId !== payload.userId);
-    console.log("Reservation canceled");
-    }
-    else {
+      item.reservations = item.reservations.filter(
+        (userId) => userId !== payload.userId
+      );
+    } else {
       item.reservations.shift();
       if (item.reservations.length > 0) {
-      //Test: 
-      dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: item.reservations[0], title: item.title}, {root: true});
-      console.log("Send message to user next in line" + item.reservations[0]);
+        //Test:
+        dispatch(
+          "notificationStore/informAboutAvailableReservation",
+          {
+            itemId: item.itemId,
+            userId: item.reservations[0],
+            title: item.title,
+          },
+          { root: true }
+        );
       }
     }
     await ItemServices.UpdateItem(item).then((response) => {

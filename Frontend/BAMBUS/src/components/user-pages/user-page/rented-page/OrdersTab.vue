@@ -7,14 +7,13 @@
         :key="item.itemId"
         :item="item"
         @openReturnModal="openReturnModal(item.itemId)"
-        @extensionRequested="updateRentedItems()"
       />
     </div>
 
     <div class="reserved">
       <h1>Reserviert für dich</h1>
       <reserved-item
-        v-for="item in reservedItems(user.userId)"
+        v-for="item in reservedItems"
         :key="item.itemId"
         :item="item"
         :userId="user.userId"
@@ -24,8 +23,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 import RentedItem from "./RentedItem.vue";
 import ReservedItem from "./ReservedItem.vue";
 
@@ -35,46 +32,53 @@ export default {
     RentedItem,
     ReservedItem,
   },
-
+  data() {
+    return {
+      rentedItems: [],
+    };
+  },
   computed: {
-    ...mapGetters("itemStore", {
-      // rentedItems: "getItemsRentedByUser",
-      reservedItems: "getItemsReservedByUser",
-    }),
-
-    ...mapGetters("userStore", {
-      user: "getUser",
-    }),
-    rentedItems() {
-      let rentedItems = [];
-      let rentedItemsIds =
-        this.$store.getters["loanStore/getActiveItemIdFromUserId"];
-      if (!Array.isArray(rentedItemsIds)) {
-        rentedItemsIds = [rentedItemsIds];
-      }
-      rentedItemsIds.forEach((id) => {
-        let item = this.$store.getters["itemStore/getItemById"](id);
-        rentedItems.push(item);
-      });
-      return rentedItems;
+    rentedItemIds() {
+      return this.$store.getters["loanStore/getActiveItemIdFromUserId"](
+        this.user.userId
+      );
+    },
+    loans() {
+      return this.$store.getters["loanStore/getActiveItemIdFromUserId"](
+        this.user.userId
+      );
+    },
+    user() {
+      return this.$store.getters["userStore/getUser"];
+    },
+    reservedItems() {
+      return this.$store.getters["itemStore/getItemsReservedByUser"](
+        this.user.userId
+      );
+    },
+  },
+  watch: {
+    loans: {
+      immediate: true,
+      handler() {
+        this.setRentedItems();
+      },
     },
   },
   methods: {
     openReturnModal(id) {
       this.$emit("openReturnModal", id);
     },
-    updateRentedItems() {
+    setRentedItems() {
       this.rentedItems = [];
-      let rentedItemsIds =
-        this.$store.getters["loanStore/getActiveItemIdFromUserId"];
-      if (!Array.isArray(rentedItemsIds)) {
-        rentedItemsIds = [rentedItemsIds];
-      }
-      rentedItemsIds.forEach((id) => {
+      this.rentedItemIds.forEach((id) => {
         let item = this.$store.getters["itemStore/getItemById"](id);
         this.rentedItems.push(item);
       });
     },
+  },
+  beforeMount() {
+    this.setRentedItems();
   },
 };
 </script>

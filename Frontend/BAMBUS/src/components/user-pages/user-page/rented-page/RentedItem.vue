@@ -22,16 +22,7 @@
           :max="maxDate"
           v-model="newDueDate"
         />
-        <base-rectangle-button
-          @click="
-            requestExtension({
-              itemTitle: item.title,
-              loanId: loan.loanId,
-              newDueDate: newDueDate,
-            }),
-              this.$emit('extensionRequested')
-          "
-        >
+        <base-rectangle-button @click="extendLoan()">
           Verlängern
         </base-rectangle-button>
       </div>
@@ -69,6 +60,13 @@ export default {
     }),
     returnItem() {
       this.$emit("openReturnModal");
+    },
+    async extendLoan() {
+      await this.requestExtension({
+        itemTitle: this.item.title,
+        loanId: this.loan.loanId,
+        newDueDate: this.newDueDate,
+      });
     },
   },
   computed: {

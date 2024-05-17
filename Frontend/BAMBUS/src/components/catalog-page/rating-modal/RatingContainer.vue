@@ -65,7 +65,6 @@ export default {
             this.$emit("toggleEditStatus", id);
         },
         deleteRating(ratingId, itemId) {
-            console.log(ratingId, itemId);
             this.$store.dispatch("ratingStore/deleteRatingById", {ratingId: ratingId, itemId: itemId});
             this.toggleEditStatus(ratingId);
         },
