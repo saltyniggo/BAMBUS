@@ -13,8 +13,12 @@
                     <p v-else>Keine Empfehlung abgegeben</p>
                 </div>
 
-                <div class="buttons" v-if="role == 1 || userId == rating.userId">
+                <div class="buttons" v-if="userId == rating.userId">
                     <base-rectangle-button @click="toggleEditStatus(rating.ratingId)">Bearbeiten</base-rectangle-button>
+                    <base-rectangle-button @click="deleteRating(rating.ratingId, rating.itemId)"> Löschen </base-rectangle-button>
+                </div>
+
+                <div class="buttons" v-if="role == 1">
                     <base-rectangle-button @click="deleteRating(rating.ratingId, rating.itemId)"> Löschen </base-rectangle-button>
                 </div>
             </div>
