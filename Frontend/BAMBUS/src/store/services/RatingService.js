@@ -95,4 +95,28 @@ async function GetAllRatings() {
     }
 }
 
- export default { AddRating, UpdateRating, DeleteRating, GetAllRatings };
+async function DeleteRatingByItemId(payload)
+{
+    try {
+        const response = await axios({
+            method: "post",
+            url: `http://localhost:5240/DeleteRatingsByItemId/${payload}`,
+            data: {
+                itemId: payload,
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when deleting rating in DB:");
+        console.error("Error:", error);
+        throw error;
+    }
+}
+
+ export default { AddRating, UpdateRating, DeleteRating, GetAllRatings, DeleteRatingByItemId };

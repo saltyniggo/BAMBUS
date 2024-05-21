@@ -2,6 +2,7 @@ import router from "@/router";
 import UserServices from "../../services/UserServices";
 import MessageService from "@/store/services/MessageService";
 import LoanService from "@/store/services/LoanService";
+import RatingService from "@/store/services/RatingService";
 
 export default {
   async loginUser({ commit, dispatch }, payload) {
@@ -11,6 +12,11 @@ export default {
         throw new Error("Invalid email or password");
       }
       commit("login", loginResponse.data);
+
+      const ratingResponse = await RatingService.GetAllRatings();
+      if (!ratingResponse.data.success) {
+        throw new Error(ratingResponse.data.message);
+      }
 
       const messageResponse = await MessageService.GetMessagesFromUserId(
         loginResponse.data.data.userId
@@ -60,7 +66,7 @@ export default {
   async registerUser({ commit, dispatch }, payload) {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
-        commit("login", response.data);
+        commit("login", response.data);       
         dispatch("notificationStore/userRegistersAccount", {username: response.data.data.username, userId: response.data.data.userId}, {
           root: true,
         });

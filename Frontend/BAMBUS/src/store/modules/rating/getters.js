@@ -2,7 +2,6 @@
 export default {  
     getRatings: (state) => state.ratings,
     getRatingsByItemId: (state) => {
-
         let temp = [];
         let ratings = state.ratings;
         let counter = 0;

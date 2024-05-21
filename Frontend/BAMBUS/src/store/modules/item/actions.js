@@ -3,6 +3,7 @@ import store from "../../index.js";
 import $router from "@/router";
 import item from ".";
 import LoanService from "@/store/services/LoanService";
+import RatingService from "@/store/services/RatingService";
 
 export default {
   async loadItems({ commit }) {
@@ -16,22 +17,19 @@ export default {
   },
   async deleteItem({ commit}, id) {
     let item = store.getters["itemStore/getItemById"](id);
-    console.log(item.currentLoanId);
     if (item.currentLoanId != 0) {
       if (confirm("Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?") == false) {
-        console.log("DOnt delete item")
         return;
       }
       else {
-        console.log("Set return date and end extension request");
         LoanService.SetReturnDate(item.currentLoanId);
         LoanService.EndExtensionRequest(item.currentLoanId);
       }
     }
-    console.log("Delete item"); 
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
+        RatingService.DeleteRatingByItemId(id);
       } else {
         $router.push("/error");
       }

@@ -8,7 +8,7 @@
                 <div class="text">
                     <p>{{ rating.comment }}</p>
                     <br>
-                    <p v-if="rating.isRecommended">Zu empfehelen</p>
+                    <p v-if="rating.isRecommended">Zu empfehlen</p>
                     <p v-else-if="rating.isRecommended==false">Nicht zu empfehlen</p>
                     <p v-else>Keine Empfehlung abgegeben</p>
                 </div>
