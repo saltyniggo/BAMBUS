@@ -30,6 +30,7 @@ async function AddRating(payload) {
 }
 
 async function UpdateRating(payload) {
+    console.log("UpdateRating")
     console.log(payload);
     try {
         const response = await axios({

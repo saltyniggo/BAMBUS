@@ -94,12 +94,13 @@ export default {
       } else {
         const item = {
           title: this.title,
-          type: this.type,
+          type: parseInt(this.type),
           category: this.category,
           reservations: [],
           condition: 0,
           available: true,
         };
+        console.log(item);
 
         if (this.type == 0 || this.type == 1) {
           item.author = this.author;

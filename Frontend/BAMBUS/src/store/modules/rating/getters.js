@@ -13,4 +13,13 @@ export default {
         }
         return temp;
     },
+    getRatingByUserAndItemId: (state) => (itemId, userId) => {
+        let ratings = state.ratings;
+        for (let i = 0; i < ratings.length; i++) {
+            if (ratings[i].userId === userId && ratings[i].itemId === itemId) {
+                return ratings[i];
+            }
+        }
+        return null;
+    }
 };

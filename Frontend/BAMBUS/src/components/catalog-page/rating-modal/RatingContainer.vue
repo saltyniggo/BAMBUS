@@ -110,6 +110,5 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
 }
 </style>

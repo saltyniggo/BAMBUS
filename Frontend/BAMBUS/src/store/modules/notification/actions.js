@@ -27,7 +27,7 @@ export default {
       if (daysUntilReturn > -5 && loan.returnDate === null) {
         const notification = user.notifications.find(
           (notification) =>
-            notification.type === 1 &&
+            notification.type === 0 &&
             parseInt(notification.payload) === loan.loanId
         );
         if (notification) {
@@ -43,7 +43,7 @@ export default {
                     receiverId: user.userId,
                     text: text,
                     date: today.toLocaleDateString("de-DE"),
-                    type: 1,
+                    type: 0,
                     payload: loan.loanId.toString(),
                   }).then((response) => {
                     if (response.data.success) {
@@ -64,7 +64,7 @@ export default {
             receiverId: user.userId,
             text: text,
             date: today.toLocaleDateString("de-DE"),
-            type: 1,
+            type: 0,
             payload: loan.loanId.toString(),
           }).then((response) => {
             if (response.data.success) {
@@ -108,7 +108,7 @@ export default {
       if (daysOverdue > 0 && loan.returnDate === null) {
         const notification = user.notifications.find(
           (notification) =>
-            notification.type === 6 &&
+            notification.type === 5 &&
             parseInt(notification.payload) === loan.loanId
         );
         if (notification) {
@@ -124,7 +124,7 @@ export default {
                     receiverId: user.userId,
                     text: text,
                     date: today.toLocaleDateString("de-DE"),
-                    type: 6,
+                    type: 5,
                     payload: loan.loanId.toString(),
                   }).then((response) => {
                     if (response.data.success) {
@@ -145,7 +145,7 @@ export default {
             receiverId: user.userId,
             text: text,
             date: today.toLocaleDateString("de-DE"),
-            type: 6,
+            type: 5,
             payload: loan.loanId.toString(),
           }).then((response) => {
             if (response.data.success) {
@@ -222,7 +222,7 @@ export default {
       receiverId: 2,
       text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
       date: new Date().toLocaleDateString("de-DE"),
-      type: 5,
+      type: 4,
       payload: JSON.stringify({
         loanId: payload.loanId,
         userId: user.userId,
