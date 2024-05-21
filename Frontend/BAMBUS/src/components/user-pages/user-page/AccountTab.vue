@@ -158,6 +158,14 @@ button {
   grid-area: button;
   justify-self: end;
   width: 10rem;
+  padding: 0.5rem;
+  background-color: #d9910d;
+  color: #f2eae4;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 5px 0px #222126;
+  cursor: pointer;
+  transition: 0.3s;
 }
 .account-container {
   width: 100%;

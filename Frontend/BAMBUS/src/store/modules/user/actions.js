@@ -3,6 +3,7 @@ import UserServices from "../../services/UserServices";
 import MessageService from "@/store/services/MessageService";
 import LoanService from "@/store/services/LoanService";
 import RatingService from "@/store/services/RatingService";
+import ItemServices from "@/store/services/ItemServices";
 
 export default {
   async loginUser({ commit, dispatch }, payload) {
@@ -177,7 +178,20 @@ export default {
       alert("Du musst erst alle Artikel zurückgeben, bevor du dein Konto löschen kannst");
       return;
     }
+    
     if (confirm("Are you sure you want to delete the account?")) {
+
+      //TODO: Test
+      let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](state.user.userId);
+      if (activeReservations.length > 0) {
+        for (let i = 0; i < activeReservations.length; i++) {
+          let item = activeReservations[i];
+          console.log(item);
+          item.reservations = item.reservations.filter((id) => id !== state.user.userId);
+          console.log(item);
+          await ItemServices.UpdateItem(item);
+        }
+      }
       await UserServices.DeleteUser(state.user.userId).then((response) => {
         if (response.data.success) {
           commit("deleteAccount", state.user.userId);
@@ -195,14 +209,25 @@ export default {
       alert("Der Benutzer muss erst alle Artikel zurückgeben, bevor sein Konto gelöscht werden kann.");
       return;
     }
-    await UserServices.DeleteUser(payload).then((response) => {
-      if (response.data.success) {
-        alert("Der Account wurde erfolgreich gelöscht.");
-        commit("deleteAccount", payload);
-      } else {
-        alert("Leider ist ein Fehler aufgetreten.");
-      }
-    });
+     //TODO: Test
+     //getter für alle reservierungen eines users, get nicht so brauch user id al input
+     let activeReservations = rootGetters["itemStore/getItemsReservedByUser"];
+     if (activeReservations.length > 0) {
+       for (let i = 0; i < activeReservations.length; i++) {
+        let item = activeReservations[i];
+        console.log(item);
+        item.reservations = item.reservations.filter((id) => id !== payload);
+        console.log(item);
+       }
+     }
+    // await UserServices.DeleteUser(payload).then((response) => {
+    //   if (response.data.success) {
+    //     alert("Der Account wurde erfolgreich gelöscht.");
+    //     commit("deleteAccount", payload);
+    //   } else {
+    //     alert("Leider ist ein Fehler aufgetreten.");
+    //   }
+    // });
   },
 
   async adminChangePassword({ commit, state }, payload) {
