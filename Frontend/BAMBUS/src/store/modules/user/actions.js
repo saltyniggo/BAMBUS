@@ -179,9 +179,8 @@ export default {
       return;
     }
     
-    if (confirm("Are you sure you want to delete the account?")) {
+    if (confirm("Bist du sicher, dass du deinen Account unwiderruflich löschen möchtest?")) {
 
-      //TODO: Test
       let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](state.user.userId);
       if (activeReservations.length > 0) {
         for (let i = 0; i < activeReservations.length; i++) {
