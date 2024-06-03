@@ -209,25 +209,23 @@ export default {
       alert("Der Benutzer muss erst alle Artikel zurückgeben, bevor sein Konto gelöscht werden kann.");
       return;
     }
-     //TODO: Test
-     //getter für alle reservierungen eines users, get nicht so brauch user id al input
-     let activeReservations = rootGetters["itemStore/getItemsReservedByUser"];
+     let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](payload);
+
      if (activeReservations.length > 0) {
        for (let i = 0; i < activeReservations.length; i++) {
         let item = activeReservations[i];
-        console.log(item);
-        item.reservations = item.reservations.filter((id) => id !== payload);
-        console.log(item);
+        item.reservations = item.reservations.filter((id) => id != payload);
+        await ItemServices.UpdateItem(item);
        }
      }
-    // await UserServices.DeleteUser(payload).then((response) => {
-    //   if (response.data.success) {
-    //     alert("Der Account wurde erfolgreich gelöscht.");
-    //     commit("deleteAccount", payload);
-    //   } else {
-    //     alert("Leider ist ein Fehler aufgetreten.");
-    //   }
-    // });
+    await UserServices.DeleteUser(payload).then((response) => {
+      if (response.data.success) {
+        alert("Der Account wurde erfolgreich gelöscht.");
+        commit("deleteAccount", payload);
+      } else {
+        alert("Leider ist ein Fehler aufgetreten.");
+      }
+    });
   },
 
   async adminChangePassword({ commit, state }, payload) {
