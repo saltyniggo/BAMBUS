@@ -1,9 +1,10 @@
 <template>
   <div class="header">
-    <p id="itemID" @click="sortId">ID</p>
-    <p id="title" @click="sortTitle">Titel</p>
-    <p id="acceptDamage" @click="sortacceptDamage">Akzeptieren</p>
-    <p id="rejectDamage" @click="sortRejectDamage">Ablehnen</p>
+    <p class="itemID" @click="sortId">ID</p>
+    <p class="title" @click="sortTitle">Titel</p>
+    <p class="description">Beschreibung</p>
+    <p class="acceptDamage" @click="sortacceptDamage">Akzeptieren</p>
+    <p class="rejectDamage" @click="sortRejectDamage">Ablehnen</p>
   </div>
   <hr />
   <div
@@ -12,12 +13,13 @@
     :key="item.index"
     :class="{ uneven: index % 2 == 0 }"
   >
-    <p id="itemID">{{ item.itemId }}</p>
-    <p id="title">{{ item.title }}</p>
-    <p id="acceptDamage" @click="acceptDamage(item)">
+    <p class="itemID">{{ item.itemId }}</p>
+    <p class="title">{{ item.title }}</p>
+    <p class="description">{{ item.damageDescription }}</p>
+    <p class="acceptDamage" @click="acceptDamage(item)">
       <BaseRectangleButton>Beschädigt</BaseRectangleButton>
     </p>
-    <p id="rejectDamage" @click="rejectDamage(item)">
+    <p class="rejectDamage" @click="rejectDamage(item)">
       <BaseRectangleButton>Noch gut</BaseRectangleButton>
     </p>
   </div>
@@ -33,7 +35,15 @@ export default {
   },
   computed: {
     reportedItems() {
-      return this.$store.getters["itemStore/getReportedItems"];
+      return this.$store.getters["itemStore/getReportedItems"].map(item => {
+        console.log(item.itemId);
+        let description = this.$store.getters["userStore/getDamageDescription"](item.itemId);
+        console.log(description);
+        return {
+          ...item,
+          damageDescription: description,
+        };
+      })
     },
   },
 
@@ -83,22 +93,29 @@ export default {
   background-color: #d8c6b9;
 }
 
-#title {
-  width: 50%;
+.title {
+  width: 20%;
   text-align: left;
   min-width: 120px;
   overflow-wrap: break-word;
 }
 
-#acceptDamage,
-#rejectDamage {
+.description {
+  width: 30%;
+  text-align: left;
+  min-width: 120px;
+  overflow-wrap: break-word;
+}
+
+.acceptDamage,
+.rejectDamage {
   width: 20%;
   text-align: center;
   min-width: 40px;
   overflow-wrap: break-word;
 }
 
-#itemID {
+.itemID {
   width: 10%;
   text-align: center;
   min-width: 50px;

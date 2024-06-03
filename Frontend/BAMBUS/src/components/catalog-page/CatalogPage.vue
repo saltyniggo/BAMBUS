@@ -15,7 +15,7 @@
       <h1>Wie schade! Wir haben leider keine Ergebnisse für Dich.</h1>
     </div>
     <edit-item-modal v-if="showsEditModal"></edit-item-modal>
-    <ratings-modal v-if="showsRatingsModal" :role></ratings-modal>
+    <ratings-modal v-if="showsRatingsModal"></ratings-modal>
     <report-modal v-if="showsReportModal"></report-modal>
 
   </div>

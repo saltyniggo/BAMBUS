@@ -10,6 +10,5 @@ export default {
   },
   logout(state) {
     state.itemId = null;
-    state.ratings = [];
   },
 };

@@ -1,49 +1,31 @@
 <template>
   <div class="header">
-    <p id="firstName">Vorname</p>
-    <p id="lastName">Nachname</p>
-    <p id="email">Email</p>
-    <div id="editPassword">
-      <div>
-        <p>Passwort ändern</p>
-        <button @click="showPasswords">
-          <i v-if="showPassword" class="fa-regular fa-eye-slash"></i>
-          <i v-else class="fa-regular fa-eye"></i>
-        </button>
-      </div>
+    <p class="firstName">Vorname</p>
+    <p class="lastName">Nachname</p>
+    <p class="email">Email</p>
+    <div class="editPasswordHeader">
+      <p>Passwort ändern </p>
+      <button @click="showPasswords">
+        <i v-if="showPassword" class="fa-regular fa-eye-slash"></i>
+        <i v-else class="fa-regular fa-eye"></i>
+      </button>
     </div>
-    <p id="deletePassword">Account löschen?</p>
+    <div class = "deletePassword">
+      <p>Account löschen?</p>
+    </div> 
   </div>
   <hr />
-  <div
-    class="content"
-    v-for="(user, index) in users"
-    :key="user.id"
-    :class="{ uneven: index % 2 == 0 }"
-  >
-    <p id="firstName">{{ user.firstName }}</p>
-    <p id="lastName">{{ user.lastName }}</p>
-    <p id="email">{{ user.email }}</p>
-    <div id="editPassword">
-      <div>
-        <input
-          type="password"
-          v-model="passwordInputs[index]"
-          placeholder="Neues Passwort"
-        />
-        <base-rectangle-button
-          @click="
-            changePassword(index, user.userId)
-          "
-          >Speichern</base-rectangle-button
-        >
-      </div>
-    </div>
-    <base-rectangle-button
-      id="deletePassword"
-      @click="adminDeleteAccount(user.userId)"
-      >Löschen</base-rectangle-button
-    >
+  <div class="content" v-for="(user, index) in users" :key="user.class" :class="{ uneven: index % 2 == 0 }">
+    <p class="firstName">{{ user.firstName }}</p>
+    <p class="lastName">{{ user.lastName }}</p>
+    <p class="email">{{ user.email }}</p>
+    <div class="editPassword">
+      <input type="password" v-model="passwordInputs[index]" placeholder="Neues Passwort" />
+      <base-rectangle-button @click="
+        changePassword(index, user.userId)
+        ">Speichern</base-rectangle-button>
+    </div class="deletePassword">
+    <base-rectangle-button @click="adminDeleteAccount(user.userId)">Löschen</base-rectangle-button>
   </div>
 </template>
 
@@ -94,7 +76,8 @@ export default {
 <style scoped>
 .header,
 .content {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   width: 75vw;
   align-items: center;
   padding: 0.5rem;
@@ -109,49 +92,55 @@ export default {
   background-color: #d8c6b9;
 }
 
-#firstName,
-#lastName {
+.firstName,
+.lastName {
   width: 15%;
   text-align: left;
   min-width: 120px;
   overflow-wrap: break-word;
 }
 
-#email {
+.email {
   width: 30%;
   text-align: left;
   min-width: 120px;
   overflow-wrap: break-word;
 }
 
-#editPassword {
-  display: inline;
+.editPasswordHeader {
   width: 30%;
+  display: flex;
+  flex-direction: row;
   min-width: 240px;
-  text-align: left;
 }
 
-#editPassword div {
+.editPasswordHeader button {
+  border: none;
+  background-color: transparent;
+  margin-left: 0.5rem;
+}
+
+.editPassword {
+  width: 30%;
   display: flex;
+  flex-direction: row;
+  min-width: 240px;
   justify-content: space-between;
-  width: 100%;
   padding-right: 5%;
 }
 
-#editPassword p {
+.editPassword input {
+  width: 60%;
+  min-width: 120px;
+}
+
+.deletePassword {
+  width: 10%;
+  min-width: 80px;
   text-align: left;
 }
 
-#editPassword input {
-  width: 65%;
-}
-
-#deletePassword {
-  width: 10%;
-  min-width: 80px;
-}
-
-#deletePassword button {
+.deletePassword button {
   height: 1rem;
 }
 </style>

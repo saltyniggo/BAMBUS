@@ -33,9 +33,9 @@ export default {
   data() {
     return {
       tabs: [
-        { title: "Overview", route: "/my-view/overview" },
-        { title: "Orders", route: "/my-view/orders" },
-        { title: "Account", route: "/my-view/account" },
+        { title: "Nachrichten", id: "overview", route: "/my-view/overview" },
+        { title: "Leihübersicht", id: "orders", route: "/my-view/orders" },
+        { title: "Account",id: "account",  route: "/my-view/account" },
       ],
       activeRoute: undefined,
     };
@@ -49,6 +49,8 @@ export default {
     "$route.params": {
       immediate: true,
       handler(newParams) {
+        // console.log("newParams:" + newParams);
+        // console.log("newParams.overview:" + newParams.overview);
         this.activeRoute = newParams.overview;
       },
     },

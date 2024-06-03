@@ -26,9 +26,9 @@ export default {
   data() {
     return {
       tabs: [
-        { title: "Overview", route: "/managing/overview" },
-        { title: "Beschaedigungen", route: "/managing/beschaedigungen" },
-        { title: "Statistics", route: "/managing/statistics" },
+        { title: "Nachrichten", id: "overview", route: "/managing/overview" },
+        { title: "Beschädigungen", id: "beschaedigungen", route: "/managing/beschaedigungen" },
+        { title: "Ausleihstatistiken", id: "statistics", route: "/managing/statistics" },
       ],
       activeRoute: undefined,
     };
@@ -37,6 +37,8 @@ export default {
     "$route.params": {
       immediate: true,
       handler(newParams) {
+        console.log("newParams:" + newParams);
+        console.log("newParams.overview:" + newParams.overview);
         this.activeRoute = newParams.overview;
       },
     },
@@ -46,7 +48,7 @@ export default {
 
 <style scoped>
 .manager-page {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f2eae4;
   padding: 1%;
   color: #222126;

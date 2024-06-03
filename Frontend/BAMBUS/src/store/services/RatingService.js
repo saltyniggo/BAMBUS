@@ -28,28 +28,31 @@ async function AddRating(payload) {
 }
 
 async function UpdateRating(payload) {
-  try {
-    const response = await axios({
-      method: "put",
-      url: `http://localhost:5240/UpdateRating`,
-      data: {
-        ratingId: payload.ratingId,
-        rating: payload.rating,
-        isRecommended: payload.isRecommended,
-        comment: payload.comment,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.warn("Error when updating rating in DB:");
-    console.error("Error:", error);
-    throw error;
-  }
+    console.log("UpdateRating")
+    console.log(payload);
+    try {
+        const response = await axios({
+            method: "put",
+            url: `http://localhost:5240/UpdateRating`,
+            data: {
+                ratingId: payload.ratingId,
+                rating: payload.rating,
+                isRecommended: payload.isRecommended,
+                comment: payload.comment,
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when updating rating in DB:");
+        console.error("Error:", error);
+        throw error;
+    }
 }
 
 async function DeleteRating(payload) {
@@ -88,4 +91,28 @@ async function GetAllRatings() {
   }
 }
 
-export default { AddRating, UpdateRating, DeleteRating, GetAllRatings };
+async function DeleteRatingByItemId(payload)
+{
+    try {
+        const response = await axios({
+            method: "post",
+            url: `http://localhost:5240/DeleteRatingsByItemId/${payload}`,
+            data: {
+                itemId: payload,
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when deleting rating in DB:");
+        console.error("Error:", error);
+        throw error;
+    }
+}
+
+ export default { AddRating, UpdateRating, DeleteRating, GetAllRatings, DeleteRatingByItemId };

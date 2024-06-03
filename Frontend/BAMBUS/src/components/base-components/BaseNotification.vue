@@ -3,12 +3,12 @@
     <section class="notification-base-content">
       <h2>{{ title }}</h2>
       <br />
-      <h3>Von {{ senderName }} am {{ notification.date }}</h3>
+      <h3>Von {{ senderName }} am {{ date }}</h3>
       <p>{{ notification.text }}</p>
     </section>
     <section
       class="notification-manager-extension"
-      v-if="this.notification.type == 5"
+      v-if="this.notification.type == 4"
     >
       <base-text-button @click="sendResponse(true)">accept</base-text-button>
       <base-text-button @click="sendResponse(false)"
@@ -47,31 +47,35 @@ export default {
     },
     title() {
       switch (this.notification.type) {
-        case 1:
+        case 0:
           return "Erinnerung an den Rückgabezeitpunkt";
-        case 2:
+        case 1:
           return "Benachrichtigung über die Reservierung";
-        case 3:
+        case 2:
           return "Benachrichtigung über die Ausleihe";
-        case 4:
+        case 3:
           return "Benachrichtigung über die Rückgabe";
-        case 5:
+        case 4:
           return "Anfrage zur Verlängerung einer Ausleihe";
-        case 6:
+        case 5:
           return "Rückgabe ist überfällig";
-        case 7:
+        case 6:
           return "User hat sich registriert";
-        case 8:
+        case 7:
           return "Anfrage zur Zurücksetzung des Passworts";
-        case 9:
+        case 8:
           return "Schaden wurde gemeldet";
-        case 10:
+        case 9:
           return "Ein neuer Artikel ist im System verfügbar!";
-        case 11:
+        case 10:
           return "Der Manager hat deine Anfrage zur Verlängerung der Ausleihe bearbeitet";
         default:
           return "Neue Benachrichtigung";
       }
+    },
+    date() {
+      let date = new Date(this.notification.date).toLocaleDateString("de-DE");
+      return date;
     },
   },
   methods: {

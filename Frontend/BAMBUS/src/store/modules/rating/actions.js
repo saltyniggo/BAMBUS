@@ -32,6 +32,8 @@ export default {
     }
   },
   async addRating({ commit }, rating) {
+    console.log("Rating in addRating:");
+    console.log(rating);
     try {
       await RatingService.AddRating(rating).then((response) => {
         if (response.data.success) {
@@ -40,12 +42,14 @@ export default {
             if (response.data.success) {
               commit("itemStore/setItems", response.data.data, { root: true });
               commit("setRatings", ratings);
-            } else {
-              alert("Error when updating average rating in DB");
             }
-          });
-        } else {
-          alert("Error when adding rating to DB");
+            else {
+              alert("Error when updating average rating in DB: " + response.data.message);
+            }
+          })
+        }
+        else {
+          alert("Error when adding rating to DB" + response.data.message);
         }
       });
     } catch (error) {
@@ -59,16 +63,18 @@ export default {
       await RatingService.UpdateRating(rating).then((response) => {
         if (response.data.success) {
           let ratings = response.data.data;
+          commit("setRatings", ratings);
           ItemServices.UpdateAvgRating(rating.itemId).then((response) => {
             if (response.data.success) {
-              commit("itemStore/setItems", response.data.data, { root: true });
-              commit("setRatings", ratings);
-            } else {
-              alert("Error when updating average rating in DB");
+              commit("itemStore/setItems", response.data.data, { root: true });    
             }
-          });
-        } else {
-          alert("Error when updating rating to DB");
+            else {
+              alert("Error when updating average rating in DB: " + response.data.message);
+            }
+          })
+        }
+        else {
+          alert("Error when updating rating to DB: " + response.data.message);
         }
       });
     } catch (error) {

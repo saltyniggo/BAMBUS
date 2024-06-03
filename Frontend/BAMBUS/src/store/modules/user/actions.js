@@ -2,6 +2,8 @@ import router from "@/router";
 import UserServices from "../../services/UserServices";
 import MessageService from "@/store/services/MessageService";
 import LoanService from "@/store/services/LoanService";
+import RatingService from "@/store/services/RatingService";
+import ItemServices from "@/store/services/ItemServices";
 
 export default {
   async loginUser({ commit, dispatch }, payload) {
@@ -11,6 +13,11 @@ export default {
         throw new Error("Invalid email or password");
       }
       commit("login", loginResponse.data);
+
+      const ratingResponse = await RatingService.GetAllRatings();
+      if (!ratingResponse.data.success) {
+        throw new Error(ratingResponse.data.message);
+      }
 
       const messageResponse = await MessageService.GetMessagesFromUserId(
         loginResponse.data.data.userId
@@ -60,17 +67,10 @@ export default {
   async registerUser({ commit, dispatch }, payload) {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
-        commit("login", response.data);
-        dispatch(
-          "notificationStore/userRegistersAccount",
-          {
-            username: response.data.data.username,
-            userId: response.data.data.userId,
-          },
-          {
-            root: true,
-          }
-        );
+        commit("login", response.data);       
+        dispatch("notificationStore/userRegistersAccount", {username: response.data.data.username, userId: response.data.data.userId}, {
+          root: true,
+        });
         dispatch("itemStore/checkReservationTime", null, { root: true });
         router.push("/");
       } else {
@@ -172,8 +172,25 @@ export default {
       }
     });
   },
-  async deleteAccount({ commit, state }) {
-    if (confirm("Are you sure you want to delete the account?")) {
+  async deleteAccount({ commit, state, rootState, rootGetters }) {
+    let activeLoans = rootGetters["loanStore/getActiveItemIdFromUserId"];
+    if (activeLoans.length > 0) {
+      alert("Du musst erst alle Artikel zurückgeben, bevor du dein Konto löschen kannst");
+      return;
+    }
+    
+    if (confirm("Bist du sicher, dass du deinen Account unwiderruflich löschen möchtest?")) {
+
+      let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](state.user.userId);
+      if (activeReservations.length > 0) {
+        for (let i = 0; i < activeReservations.length; i++) {
+          let item = activeReservations[i];
+          console.log(item);
+          item.reservations = item.reservations.filter((id) => id !== state.user.userId);
+          console.log(item);
+          await ItemServices.UpdateItem(item);
+        }
+      }
       await UserServices.DeleteUser(state.user.userId).then((response) => {
         if (response.data.success) {
           commit("deleteAccount", state.user.userId);
@@ -185,39 +202,54 @@ export default {
       });
     }
   },
-  async adminDeleteAccount({ commit }, payload) {
+  async adminDeleteAccount({ commit, rootGetters }, payload) {
+    let activeLoans = rootGetters["loanStore/getActiveLoansFromUserId"](payload);
+    if (activeLoans.length > 0) {
+      alert("Der Benutzer muss erst alle Artikel zurückgeben, bevor sein Konto gelöscht werden kann.");
+      return;
+    }
+     let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](payload);
+
+     if (activeReservations.length > 0) {
+       for (let i = 0; i < activeReservations.length; i++) {
+        let item = activeReservations[i];
+        item.reservations = item.reservations.filter((id) => id != payload);
+        await ItemServices.UpdateItem(item);
+       }
+     }
     await UserServices.DeleteUser(payload).then((response) => {
       if (response.data.success) {
-        alert("Account deleted successfully");
+        alert("Der Account wurde erfolgreich gelöscht.");
         commit("deleteAccount", payload);
       } else {
-        alert(response.data.message);
+        alert("Leider ist ein Fehler aufgetreten.");
       }
     });
   },
+
   async adminChangePassword({ commit, state }, payload) {
     if (payload.newPassword.length < 8) {
-      alert("Password must be at least 8 characters long");
+      alert("Das Passwort muss mindestens 8 Zeichen lang sein.");
       return;
     }
 
     if (!/\d/.test(payload.newPassword)) {
-      alert("Password must include at least one number");
+      alert("Das Passwort muss mindestens eine Zahl enthalten.");
       return;
     }
 
     if (!/[A-Z]/.test(payload.newPassword)) {
-      alert("Password must include at least one uppercase letter");
+      alert("Das Passwort muss mindestens einen Großbuchstaben enthalten.");
       return;
     }
 
     if (!/[a-z]/.test(payload.newPassword)) {
-      alert("Password must include at least one lowercase letter");
+      alert("Das Passwort muss mindestens einen Kleinbuchstaben enthalten.");
       return;
     }
 
     if (!/[!@#$%^&*?/=,.:;'€]/.test(payload.newPassword)) {
-      alert("Password must include at least one special character");
+      alert("Das Passwort muss mindestens ein Sonderzeichen enthalten.");
       return;
     }
 
@@ -225,7 +257,7 @@ export default {
     user.password = payload.newPassword;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        alert("Password changed successfully");
+        alert("Das Passwort wurde erfolgreich geändert.");
         commit("adminChangePassword", payload);
       } else {
         alert(response.data.message);

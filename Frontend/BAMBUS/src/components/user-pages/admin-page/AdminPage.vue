@@ -26,8 +26,10 @@ export default {
   data() {
     return {
       tabs: [
-        { title: "Overview", route: "/admin/overview" },
-        { title: "Management", route: "/admin/management" },
+        { title: "Nachrichten", id: "overview",  route: "/admin/overview" },
+        { title: "Accounts verwalten", id: "management",  route: "/admin/management" },
+
+        // Uncomment this line to add a new tab
         // { title: "Settings", route: "/admin/settings" },
       ],
       activeRoute: undefined,
@@ -46,7 +48,7 @@ export default {
 
 <style scoped>
 .admin-page {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f2eae4;
   padding: 1%;
   color: #222126;
