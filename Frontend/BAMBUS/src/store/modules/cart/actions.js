@@ -69,14 +69,10 @@ export default {
       state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
     const itemIsAlreadyReservedByUser = payload.reservations.includes(userId);
-    const itemIsReserved =
-      payload.reservations.length > 0 && payload.reservations[0] != [0];
-    const activeLoansByUser = rootState.loanStore.loans.filter(
-      (loan) => loan.returnDate === null
-    );
-    const itemIsAlreadyRented = activeLoansByUser.some(
-      (item) => item.itemId === payload.itemId
-    );
+    const itemIsReserved = payload.reservations.length > 0 && payload.reservations[0] != [0];
+    const activeLoansByUser = rootState.loanStore.loans.filter(loan => loan.returnDate === null);
+    const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
+
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
     } else if (itemIsAlreadyReservedByUser) {

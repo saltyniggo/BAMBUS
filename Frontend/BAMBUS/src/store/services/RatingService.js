@@ -2,34 +2,33 @@ import axios from "axios";
 import userStore from "../modules/user/index.js";
 
 async function AddRating(payload) {
-  try {
-    const response = await axios({
-      method: "post",
-      url: `http://localhost:5240/AddRating`,
-      headers: {
-        "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
-      },
-      data: {
-        itemId: payload.itemId,
-        userId: payload.userId,
-        rating: payload.rating,
-        isRecommended: payload.isRecommended,
-        comment: payload.comment,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.warn("Error when adding rating to DB:");
-    console.error("Error:", error);
-    throw error;
-  }
+    try {
+        const response = await axios({
+            method: "post",
+            url: `http://localhost:5240/AddRating`,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
+            data: {
+                itemId: payload.itemId,
+                userId: payload.userId,
+                rating: payload.rating,
+                isRecommended: payload.isRecommended,
+                comment: payload.comment,        
+            },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when adding rating to DB:");
+        console.error("Error:", error);
+        throw error;
+    }
 }
 
 async function UpdateRating(payload) {
-    console.log("UpdateRating")
-    console.log(payload);
     try {
         const response = await axios({
             method: "put",
@@ -56,25 +55,26 @@ async function UpdateRating(payload) {
 }
 
 async function DeleteRating(payload) {
-  try {
-    const response = await axios({
-      method: "post",
-      url: `http://localhost:5240/DeleteRating/${payload}`,
-      data: {
-        ratingId: payload,
-      },
-      headers: {
-        "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.warn("Error when deleting rating in DB:");
-    console.error("Error:", error);
-    throw error;
-  }
+    try {
+        const response = await axios({
+            method: "post",
+            url: `http://localhost:5240/DeleteRating/${payload}`,
+            data: {
+                ratingId: payload,
+            },
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "*/*",
+                "Authorization": "Bearer " + userStore.state.user.token,
+              },
+        });
+        return response;
+    }
+    catch (error) {
+        console.warn("Error when deleting rating in DB:");
+        console.error("Error:", error);
+        throw error;
+    }
 }
 
 async function GetAllRatings() {
