@@ -10,10 +10,8 @@
       class="notification-manager-extension"
       v-if="this.notification.type == 5"
     >
-      <base-text-button @click="sendResponse('accept')"
-        >accept</base-text-button
-      >
-      <base-text-button @click="sendResponse('decline')"
+      <base-text-button @click="sendResponse(true)">accept</base-text-button>
+      <base-text-button @click="sendResponse(false)"
         >nein oida</base-text-button
       >
     </section>
