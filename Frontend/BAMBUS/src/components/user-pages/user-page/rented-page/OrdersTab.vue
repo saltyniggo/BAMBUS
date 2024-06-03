@@ -15,7 +15,7 @@
       <h1>Reserviert für dich</h1>
       <base-container-narrow v-if="reservedItems(user.userId).length === 0">Du hast derzeit keine Artikel reserviert.</base-container-narrow>
       <reserved-item
-        v-for="item in reservedItems"
+        v-for="item in reservedItems(user.userId)"
         :key="item.itemId"
         :item="item"
         :userId="user.userId"
