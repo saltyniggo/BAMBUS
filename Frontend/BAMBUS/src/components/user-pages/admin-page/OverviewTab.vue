@@ -1,10 +1,7 @@
 <template>
   <div>
     <h1>Benachrichtigungen</h1>
-    <button
-      class="notification-refresh-button"
-      @click="console.log('hallo oida')"
-    >
+    <button class="notification-refresh-button" @click="updateNotifications">
       <i class="fa-solid fa-arrows-rotate"></i>
       <p>Neuladen</p>
     </button>
@@ -29,7 +26,10 @@ export default {
     BaseNotification,
   },
   methods: {
-    ...mapActions("notificationStore", ["checkDueDates"]),
+    ...mapActions("notificationStore", [
+      "checkDueDates",
+      "updateNotifications",
+    ]),
   },
   computed: {
     ...mapGetters("userStore", { user: "getUser" }),

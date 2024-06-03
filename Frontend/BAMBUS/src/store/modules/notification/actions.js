@@ -357,4 +357,17 @@ export default {
     }
     dispatch("userStore/addNotification", notification, { root: true });
   },
+
+  updateNotifications({ commit, rootState }) {
+    const userId = rootState.userStore.user.userId;
+    MessageService.GetMessagesFromUserId(userId).then((response) => {
+      if (response.data.success) {
+        commit("userStore/setNotifications", response.data.data, {
+          root: true,
+        });
+      } else {
+        router.push("/error");
+      }
+    });
+  },
 };

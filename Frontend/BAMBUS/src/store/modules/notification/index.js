@@ -4,8 +4,7 @@ import Getters from "./getters.js";
 
 export default {
   namespaced: true,
-  state: {
-  },
+  state: {},
   mutations: Mutations,
   actions: Actions,
   getters: Getters,
