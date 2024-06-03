@@ -8,13 +8,17 @@
                 <div class="text">
                     <p>{{ rating.comment }}</p>
                     <br>
-                    <p v-if="rating.isRecommended">Zu empfehelen</p>
+                    <p v-if="rating.isRecommended">Zu empfehlen</p>
                     <p v-else-if="rating.isRecommended==false">Nicht zu empfehlen</p>
                     <p v-else>Keine Empfehlung abgegeben</p>
                 </div>
 
-                <div class="buttons" v-if="role == 1 || userId == rating.userId">
+                <div class="buttons" v-if="userId == rating.userId">
                     <base-rectangle-button @click="toggleEditStatus(rating.ratingId)">Bearbeiten</base-rectangle-button>
+                    <base-rectangle-button @click="deleteRating(rating.ratingId, rating.itemId)"> Löschen </base-rectangle-button>
+                </div>
+
+                <div class="buttons" v-if="role == 1">
                     <base-rectangle-button @click="deleteRating(rating.ratingId, rating.itemId)"> Löschen </base-rectangle-button>
                 </div>
             </div>
@@ -105,6 +109,5 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
 }
 </style>

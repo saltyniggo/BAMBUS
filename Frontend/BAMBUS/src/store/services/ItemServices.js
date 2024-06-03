@@ -19,6 +19,7 @@ async function LoadAllItems() {
 }
 
 async function AddItem(payload) {
+  console.log(payload);
   try {
     const response = await axios({
       method: "post",
@@ -32,10 +33,14 @@ async function AddItem(payload) {
         title: payload.title,
         condition: payload.condition,
         type: payload.type,
-        author: payload.author,
-        category: payload.category,
-        isbn: payload.isbn,
-        issn: payload.issn,
+        author: payload.author || "",
+        category: payload.category || "",
+        isbn: payload.isbn || "",
+        issn: payload.issn || "",
+        reservations: [],
+        currentLoanId: 0,
+        avgRating: 0,
+        itemId: 0,
       },
     });
     return response;

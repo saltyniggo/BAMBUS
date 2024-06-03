@@ -25,9 +25,9 @@
         <div class="recommendation">
           <h3>Würdest du den Gegenstand weiter empfehlen?</h3>
           <div class="radio-group">
-            <input type="radio" id="yesRecommend" name="recommendation" value="yes" />
+            <input type="radio" id="yesRecommend" name="recommendation" value="yes" :checked="recommendation"/>
             <label for="yes">Ja</label>
-            <input type="radio" id="noRecommend" name="recommendation" value="no" />
+            <input type="radio" id="noRecommend" name="recommendation" value="no" :checked="recommendation == false" />
             <label for="no">Nein</label>
           </div>
         </div>
@@ -59,6 +59,7 @@ import { mapActions } from "vuex";
 import BaseModalLarge from "@/components/base-components/BaseModalLarge.vue";
 import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
 import BaseRoundButton from "@/components/base-components/BaseRoundButton.vue";
+import rating from "@/store/modules/rating";
 
 export default {
   name: "ReturnModal",
@@ -77,6 +78,8 @@ export default {
       showAlert: false,
       damageDescription: "",
       hideModal: false,
+      hasRating: false,
+      ratingId: 0,
     };
   },
   computed: {
@@ -87,7 +90,7 @@ export default {
     // ...mapActions("itemStore", ["removeLoanIdFromItem"]),
     // ...mapActions("itemStore", ["reportItem"]),
     ...mapActions("modalStore", ["closeAllModals"]),
-    ...mapActions("ratingStore", ["addRating"]),
+    ...mapActions("ratingStore", ["addRating", "updateRating"]),
     // ...mapActions("notificationStore", ["userReportsDamage"]),
     // ...mapActions("loanStore", ["returnItem"]),
 
@@ -125,20 +128,27 @@ export default {
         }
         this.showAlert = false;
         let newRating = {
-          ratingId: new Date().toISOString(),
           itemId: this.id,
           userId: this.user.userId,
           rating: this.rating,
           comment: this.comment,
           isRecommended: this.recommendation,
+          ratingId: this.ratingId,
         };
-        this.addRating(newRating);
+
+        if (!this.hasRating)
+        {
+          this.addRating(newRating);
+        }
+        else 
+        {
+          this.updateRating(newRating);
+        }
       }
 
       if (this.condition == true) {
         item.condition == 0? item.condition = 1 : item.condition = item.condition;
 
-        //Test
         this.$store.dispatch("notificationStore/userReportsDamage", {
           itemId: this.id,
           userId: this.user.userId,
@@ -176,6 +186,19 @@ export default {
       this.stars = this.stars.map((star, i) => i < index);
       this.rating = this.stars.filter((star) => star).length;
     },
+  },
+  created() {
+    console.log("mounted");
+    let oldRating = this.$store.getters["ratingStore/getRatingByUserAndItemId"](this.id, this.user.userId);
+    if (oldRating) {
+      console.log(oldRating);
+      this.hasRating = true;
+      this.rating = oldRating.rating;
+      this.comment = oldRating.comment;
+      this.recommendation = oldRating.isRecommended;
+      this.stars = this.stars.map((star, i) => i < this.rating);
+      this.ratingId = oldRating.ratingId;
+    }
   },
 };
 </script>

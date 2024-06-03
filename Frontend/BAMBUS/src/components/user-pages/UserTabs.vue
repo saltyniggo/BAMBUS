@@ -5,7 +5,7 @@
       :key="index"
       :id="index"
       class="tab"
-      :class="{ active: activeRoute === tab.title.toLowerCase() }"
+      :class="{ active: activeRoute === tab.id.toLowerCase() }"
       @click="$router.push(tab.route)"
     >
       <h2>

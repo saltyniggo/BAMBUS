@@ -2,6 +2,8 @@ import ItemServices from "../../services/ItemServices";
 import store from "../../index.js";
 import $router from "@/router";
 import item from ".";
+import LoanService from "@/store/services/LoanService";
+import RatingService from "@/store/services/RatingService";
 
 export default {
   async loadItems({ commit }) {
@@ -13,16 +15,29 @@ export default {
       }
     });
   },
-  async deleteItem({ commit }, id) {
+  async deleteItem({ commit}, id) {
+    let item = store.getters["itemStore/getItemById"](id);
+    if (item.currentLoanId != 0) {
+      if (confirm("Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?") == false) {
+        return;
+      }
+      else {
+        LoanService.SetReturnDate(item.currentLoanId);
+        LoanService.EndExtensionRequest(item.currentLoanId);
+      }
+    }
     await ItemServices.DeleteItem(id).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
+        RatingService.DeleteRatingByItemId(id);
       } else {
         $router.push("/error");
       }
     });
   },
   async createItem({ commit, dispatch }, item) {
+    console.log("Creating item");
+    console.log(item);
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);

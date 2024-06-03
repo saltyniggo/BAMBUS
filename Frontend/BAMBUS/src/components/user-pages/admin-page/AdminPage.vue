@@ -26,8 +26,10 @@ export default {
   data() {
     return {
       tabs: [
-        { title: "Overview", route: "/admin/overview" },
-        { title: "Management", route: "/admin/management" },
+        { title: "Nachrichten", id: "overview",  route: "/admin/overview" },
+        { title: "Accounts verwalten", id: "management",  route: "/admin/management" },
+
+        // Uncomment this line to add a new tab
         // { title: "Settings", route: "/admin/settings" },
       ],
       activeRoute: undefined,

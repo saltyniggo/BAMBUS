@@ -46,8 +46,8 @@
         </div>
 
         <div class="item-description">
-          <p v-if="!item.currentLoanId">Verfügbar</p>
-          <p v-else>Nicht verfügbar</p>
+          <p v-if="!item.currentLoanId && item.reservations.length == 0">Sofort verfügbar</p>
+          <p v-else>Rerservierbar</p>
           <p>{{ item.category }}</p>
         </div>
         <p v-if="item.type == 1">ISBN {{ item.isbn }}</p>

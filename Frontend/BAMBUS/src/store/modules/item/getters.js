@@ -24,7 +24,7 @@ export default {
     const items = state.items.filter((item) =>
       item.reservations.includes(userId)
     );
-
+    console.log("getter" + items);
     return items != null ? items : [];
   },
   getReportedItem: (state) => {
