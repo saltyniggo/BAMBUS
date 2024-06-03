@@ -60,16 +60,14 @@ export default {
     // );
     // commit("setExtensionRequestInactive", loanId);
   },
-  extensionRequestResponse({ commit, dispatch }, payload) {
-    if (payload.response === "accept") {
-      commit("setExtensionRequestInactive", payload.loanId);
-      commit("extendLoan", {
-        loanId: payload.loanId,
-        newDueDate: payload.newDueDate,
-      });
-    } else if (payload.response === "decline") {
-      commit("setExtensionRequestInactive", payload.loanId);
-    }
+  extensionRequestResponse({ dispatch }, payload) {
+    LoanService.EndExtensionRequest(payload).then((response) => {
+      if (!response.data.success) {
+        $router.push("/error");
+      } else {
+        dispatch("updateLoans");
+      }
+    });
     dispatch(
       "notificationStore/managerRespondsToExtensionRequest",
       {

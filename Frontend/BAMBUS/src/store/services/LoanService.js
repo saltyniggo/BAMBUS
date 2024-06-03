@@ -156,35 +156,11 @@ async function ReturnItem(payload) {
   }
 }
 
-//TODO: Might not be necessary to have this function
 async function EndExtensionRequest(payload) {
   try {
     const response = await axios({
       method: "put",
-      url: `http://localhost:5240/EndExtensionRequest/${payload}`,
-      headers: {
-        "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
-      },
-      data: {
-        loanId: payload,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.warn("Error when ending extension request in DB:");
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
-//TODO: Might not be necessary to have this function
-async function UpdateDueDate(payload) {
-  try {
-    const response = await axios({
-      method: "put",
-      url: `http://localhost:5240/UpdateDueDate`,
+      url: `http://localhost:5240/EndExtensionRequest`,
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
@@ -193,11 +169,12 @@ async function UpdateDueDate(payload) {
       data: {
         loanId: payload.loanId,
         newDueDate: payload.newDueDate,
+        response: payload.response,
       },
     });
     return response;
   } catch (error) {
-    console.warn("Error when updating due date in DB:");
+    console.warn("Error when ending extension request in DB:");
     console.error("Error:", error);
     throw error;
   }
@@ -211,6 +188,5 @@ export default {
   SetReturnDate,
   EndExtensionRequest,
   EndExtensionRequest,
-  UpdateDueDate,
   ActivateExtensionRequest,
 };
