@@ -187,10 +187,8 @@ export default {
     },
   },
   created() {
-    console.log("mounted");
     let oldRating = this.$store.getters["ratingStore/getRatingByUserAndItemId"](this.id, this.user.userId);
     if (oldRating) {
-      console.log(oldRating);
       this.hasRating = true;
       this.rating = oldRating.rating;
       this.comment = oldRating.comment;

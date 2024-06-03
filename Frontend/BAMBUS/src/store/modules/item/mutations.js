@@ -11,10 +11,10 @@ export default {
   },
 
 
-  removeReservationFromItem(state, { itemId, userId }) {
-    const item = state.items.find((item) => item.itemId === itemId);
-    item.reservations = item.reservations.filter((id) => id !== userId);
-  },
+  // removeReservationFromItem(state, { itemId, userId }) {
+  //   const item = state.items.find((item) => item.itemId === itemId);
+  //   item.reservations = item.reservations.filter((id) => id !== userId);
+  // },
   setEditItemId(state, id) {
     state.editItemId = id;
   },

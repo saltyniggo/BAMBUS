@@ -184,10 +184,8 @@ export default {
       let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](state.user.userId);
       if (activeReservations.length > 0) {
         for (let i = 0; i < activeReservations.length; i++) {
-          let item = activeReservations[i];
-          console.log(item);
+          let item = activeReservations[i];;
           item.reservations = item.reservations.filter((id) => id !== state.user.userId);
-          console.log(item);
           await ItemServices.UpdateItem(item);
         }
       }

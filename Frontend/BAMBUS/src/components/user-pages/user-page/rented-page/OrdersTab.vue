@@ -46,20 +46,16 @@ export default {
   computed: {
 
     rentedItems() {
-      console.log("rentedItems computed");
       let rentedItems = [];
       let rentedItemsIds =
         this.$store.getters["loanStore/getActiveItemIdFromUserId"];
       if (!Array.isArray(rentedItemsIds)) {
         rentedItemsIds = [rentedItemsIds];
       }
-      console.log(rentedItemsIds);
       rentedItemsIds.forEach((id) => {
         let item = this.$store.getters["itemStore/getItemById"](id);
         rentedItems.push(item);
-        console.log(rentedItems);
       });
-      console.log(rentedItems);
       return rentedItems;
     },
     rentedItemIds() {
@@ -93,8 +89,6 @@ export default {
       this.rentedItemIds.forEach((id) => {
         let item = this.$store.getters["itemStore/getItemById"](id);
         this.rentedItems.push(item);
-        console.log("setRentedItems");
-        console.log(this.rentedItems);
       });
     },
     updateRentedItems() {

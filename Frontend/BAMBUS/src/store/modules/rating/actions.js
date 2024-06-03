@@ -32,8 +32,6 @@ export default {
     }
   },
   async addRating({ commit }, rating) {
-    console.log("Rating in addRating:");
-    console.log(rating);
     try {
       await RatingService.AddRating(rating).then((response) => {
         if (response.data.success) {

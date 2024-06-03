@@ -36,8 +36,6 @@ export default {
     });
   },
   async createItem({ commit, dispatch }, item) {
-    console.log("Creating item");
-    console.log(item);
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);

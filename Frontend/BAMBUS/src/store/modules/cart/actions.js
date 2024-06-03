@@ -33,13 +33,13 @@ export default {
       });
 
       // dispatch("loanStore/createLoan", { item, dueDate }, { root: true });
-      commit(
-        "itemStore/removeReservationFromItem",
-        { itemId: item.itemId, userId: userId },
-        {
-          root: true,
-        }
-      );
+      // commit(
+      //   "itemStore/removeReservationFromItem",
+      //   { itemId: item.itemId, userId: userId },
+      //   {
+      //     root: true,
+      //   }
+      // );
     }
   },
   async reserveItem({ commit, dispatch, rootState }, itemId) {

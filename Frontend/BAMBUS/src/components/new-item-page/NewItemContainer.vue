@@ -100,7 +100,6 @@ export default {
           condition: 0,
           available: true,
         };
-        console.log(item);
 
         if (this.type == 0 || this.type == 1) {
           item.author = this.author;

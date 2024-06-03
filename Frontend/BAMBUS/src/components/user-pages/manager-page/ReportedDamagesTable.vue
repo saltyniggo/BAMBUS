@@ -36,9 +36,7 @@ export default {
   computed: {
     reportedItems() {
       return this.$store.getters["itemStore/getReportedItems"].map(item => {
-        console.log(item.itemId);
         let description = this.$store.getters["userStore/getDamageDescription"](item.itemId);
-        console.log(description);
         return {
           ...item,
           damageDescription: description,
