@@ -71,7 +71,6 @@ async function DeleteItem(payload) {
 }
 
 async function UpdateItem(payload) {
-  console.log(payload);
   try {
     const response = await axios({
       method: "put",
@@ -105,8 +104,6 @@ async function UpdateItem(payload) {
 }
 
 async function IsReturnLongerThanWeekAgo(payload) {
-  console.log("Checking if return is longer than a week ago");
-  console.log(payload);
   try {
     const response = await axios({
       method: "put",
@@ -150,8 +147,6 @@ async function UpdateAvgRating(payload) {
     throw error;
   }
 }
-
-
 
 // async function UpdateCondition(payload) {
 //   try {

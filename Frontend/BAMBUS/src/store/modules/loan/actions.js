@@ -86,8 +86,6 @@ export default {
   async setReturnDate({ commit }, loanId) {
     await LoanService.SetReturnDate(loanId).then((response) => {
       if (response.data.success) {
-        console.log("setReturnDate response:");
-        console.log(response.data.data);
         commit("setReturnDate", response.data.data);
       } else {
         $router.push("/error");

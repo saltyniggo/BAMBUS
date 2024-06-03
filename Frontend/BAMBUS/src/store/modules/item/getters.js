@@ -31,7 +31,6 @@ export default {
     return state.items.find((item) => item.itemId === state.reportItemId);
   },
   isReservedItemAvailableForRenting: (state) => (itemId, userId) => {
-    console.log(itemId, userId); 
     const item = state.items.find((item) => item.itemId === itemId);
     return item.reservations[0] === userId && item.currentLoanId === 0;
   },

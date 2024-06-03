@@ -187,7 +187,6 @@ export default {
 
   //Repalces the above function:
   async informAboutAvailableReservation({ commit }, payload) {
-    console.log("informAboutAvailableReservation");
     await MessageService.CreateMessage({
       senderId: 0,
       receiverId: payload.userId,
@@ -197,13 +196,10 @@ export default {
       payload: payload.itemId.toString(),
     }).then((response) => {
       if (response.data.success) {
-        console.log("Message sent");
-        console.log(response.data.data);
         commit("userStore/setNotifications", response.data.data, {
           root: true,
         });
       } else if (!response.data.success) {
-        console.log(response.data.message);
         router.push("/error");
       }
     });
@@ -246,8 +242,6 @@ export default {
   },
 
   async userRegistersAccount({}, payload) {
-    console.log("userRegistersAccount");
-    console.log(payload);
     var message = {
       senderId: payload.userId,
       receiverId: 4,

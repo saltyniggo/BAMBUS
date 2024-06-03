@@ -24,5 +24,5 @@ export default {
   setReturnDate(state, payload) {
     const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
     loan.returnDate = payload.returnDate;
-  }
+  },
 };

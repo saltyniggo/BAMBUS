@@ -46,7 +46,6 @@ export default {
     let item = rootState.itemStore.items.find((item) => item.itemId === itemId);
     const userId = rootState.userStore.user.userId;
     item.reservations.push(userId);
-    console.log(item);
     await ItemServices.UpdateItem(item).then((response) => {
       if (response.data.success) {
         commit("itemStore/setItems", response.data.data, { root: true });
@@ -73,7 +72,7 @@ export default {
     const itemIsReserved = payload.reservations.length > 0 && payload.reservations[0] != [0];
     const activeLoansByUser = rootState.loanStore.loans.filter(loan => loan.returnDate === null);
     const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
-    console.log("activeLoansByUser ", activeLoansByUser);
+
     if (itemIsInCartAlready) {
       alert("Item is already in cart");
     } else if (itemIsAlreadyReservedByUser) {

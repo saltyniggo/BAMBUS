@@ -2,7 +2,6 @@ import axios from "axios";
 import userStore from "../modules/user/index.js";
 
 async function AddRating(payload) {
-    console.log(payload);
     try {
         const response = await axios({
             method: "post",
@@ -30,8 +29,6 @@ async function AddRating(payload) {
 }
 
 async function UpdateRating(payload) {
-    console.log("UpdateRating")
-    console.log(payload);
     try {
         const response = await axios({
             method: "put",
@@ -58,7 +55,6 @@ async function UpdateRating(payload) {
 }
 
 async function DeleteRating(payload) {
-    console.log(payload);
     try {
         const response = await axios({
             method: "post",
