@@ -8,6 +8,7 @@
         :key="item.itemId"
         :item="item"
         @openReturnModal="openReturnModal(item.itemId)"
+        @extensionRequested="updateRentedItems()"
       />
     </div>
 
@@ -29,6 +30,7 @@ import RentedItem from "./RentedItem.vue";
 import ReservedItem from "./ReservedItem.vue";
 import BaseContainerNarrow from "@/components/base-components/BaseContainerNarrow.vue";
 
+
 export default {
   name: "OrdersTab",
   components: {
@@ -36,39 +38,52 @@ export default {
     ReservedItem,
     BaseContainerNarrow,
   },
-  data() {
-    return {
-      rentedItems: [],
-    };
-  },
+  // data() {
+  //   return {
+  //     rentedItems: [],
+  //   };
+  // },
   computed: {
+
+    rentedItems() {
+      console.log("rentedItems computed");
+      let rentedItems = [];
+      let rentedItemsIds =
+        this.$store.getters["loanStore/getActiveItemIdFromUserId"];
+      if (!Array.isArray(rentedItemsIds)) {
+        rentedItemsIds = [rentedItemsIds];
+      }
+      console.log(rentedItemsIds);
+      rentedItemsIds.forEach((id) => {
+        let item = this.$store.getters["itemStore/getItemById"](id);
+        rentedItems.push(item);
+        console.log(rentedItems);
+      });
+      console.log(rentedItems);
+      return rentedItems;
+    },
     rentedItemIds() {
-      return this.$store.getters["loanStore/getActiveItemIdFromUserId"](
-        this.user.userId
-      );
+      return this.$store.getters["loanStore/getActiveItemIdFromUserId"];
     },
     loans() {
-      return this.$store.getters["loanStore/getActiveItemIdFromUserId"](
-        this.user.userId
-      );
+      return this.$store.getters["loanStore/getActiveItemIdFromUserId"];
     },
     user() {
       return this.$store.getters["userStore/getUser"];
     },
     reservedItems() {
-      return this.$store.getters["itemStore/getItemsReservedByUser"](
-        this.user.userId
-      );
+      return this.$store.getters["itemStore/getItemsReservedByUser"];
     },
   },
-  watch: {
-    loans: {
-      immediate: true,
-      handler() {
-        this.setRentedItems();
-      },
-    },
-  },
+  // watch: {
+  //   loans: {
+  //     immediate: true,
+  //     handler() {
+  //       // this.setRentedItems();
+  //       this.updateRentedItems();
+  //     },
+  //   },
+  // },
   methods: {
     openReturnModal(id) {
       this.$emit("openReturnModal", id);
@@ -78,12 +93,26 @@ export default {
       this.rentedItemIds.forEach((id) => {
         let item = this.$store.getters["itemStore/getItemById"](id);
         this.rentedItems.push(item);
+        console.log("setRentedItems");
+        console.log(this.rentedItems);
+      });
+    },
+    updateRentedItems() {
+      this.rentedItems = [];
+      let rentedItemsIds =
+        this.$store.getters["loanStore/getActiveItemIdFromUserId"];
+      if (!Array.isArray(rentedItemsIds)) {
+        rentedItemsIds = [rentedItemsIds];
+      }
+      rentedItemsIds.forEach((id) => {
+        let item = this.$store.getters["itemStore/getItemById"](id);
+        this.rentedItems.push(item);
       });
     },
   },
-  beforeMount() {
-    this.setRentedItems();
-  },
+  // beforeMount() {
+  //   this.setRentedItems();
+  // },
 };
 </script>
 
