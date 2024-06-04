@@ -92,15 +92,13 @@ async function ActivateExtensionRequest(payload) {
   try {
     const response = await axios({
       method: "put",
-      url: `http://localhost:5240/ActivateExtensionRequest/${payload}`,
+      url: `http://localhost:5240/ActivateExtensionRequest`,
       headers: {
         "Content-Type": "application/json",
         accept: "*/*",
         Authorization: "Bearer " + userStore.state.user.token,
       },
-      data: {
-        loanId: payload,
-      },
+      data: payload,
     });
     return response;
   } catch (error) {

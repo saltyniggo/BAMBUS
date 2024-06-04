@@ -83,14 +83,18 @@ export default {
     ...mapActions("loanStore", ["extensionRequestResponse"]),
     ...mapActions("userStore", ["deleteNotification"]),
     sendResponse(response) {
+      console.log(this.notification);
+      const loanId = parseInt(this.notification.payload.split(";")[0]);
+      const userId = parseInt(this.notification.payload.split(";")[1]);
+      const newDueDate = this.notification.payload.split(";")[2];
       this.extensionRequestResponse({
-        loanId: this.notification.payload.loanId,
-        newDueDate: this.notification.payload.newDueDate,
+        loanId: loanId,
+        newDueDate: newDueDate,
         response: response,
       });
       this.deleteNotification({
         notificationId: this.notification.notificationId,
-        userId: this.notification.receiverId,
+        userId: userId,
       });
     },
   },

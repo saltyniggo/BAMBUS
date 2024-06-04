@@ -67,10 +67,17 @@ export default {
   async registerUser({ commit, dispatch }, payload) {
     await UserServices.Register(payload).then((response) => {
       if (response.data.success) {
-        commit("login", response.data);       
-        dispatch("notificationStore/userRegistersAccount", {username: response.data.data.username, userId: response.data.data.userId}, {
-          root: true,
-        });
+        commit("login", response.data);
+        dispatch(
+          "notificationStore/userRegistersAccount",
+          {
+            username: response.data.data.username,
+            userId: response.data.data.userId,
+          },
+          {
+            root: true,
+          }
+        );
         dispatch("itemStore/checkReservationTime", null, { root: true });
         router.push("/");
       } else {
@@ -175,19 +182,26 @@ export default {
   async deleteAccount({ commit, state, rootState, rootGetters }) {
     let activeLoans = rootGetters["loanStore/getActiveItemIdFromUserId"];
     if (activeLoans.length > 0) {
-      alert("Du musst erst alle Artikel zurückgeben, bevor du dein Konto löschen kannst");
+      alert(
+        "Du musst erst alle Artikel zurückgeben, bevor du dein Konto löschen kannst"
+      );
       return;
     }
-    
-    if (confirm("Bist du sicher, dass du deinen Account unwiderruflich löschen möchtest?")) {
 
-      let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](state.user.userId);
+    if (
+      confirm(
+        "Bist du sicher, dass du deinen Account unwiderruflich löschen möchtest?"
+      )
+    ) {
+      let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](
+        state.user.userId
+      );
       if (activeReservations.length > 0) {
         for (let i = 0; i < activeReservations.length; i++) {
           let item = activeReservations[i];
-          console.log(item);
-          item.reservations = item.reservations.filter((id) => id !== state.user.userId);
-          console.log(item);
+          item.reservations = item.reservations.filter(
+            (id) => id !== state.user.userId
+          );
           await ItemServices.UpdateItem(item);
         }
       }
@@ -203,20 +217,24 @@ export default {
     }
   },
   async adminDeleteAccount({ commit, rootGetters }, payload) {
-    let activeLoans = rootGetters["loanStore/getActiveLoansFromUserId"](payload);
+    let activeLoans =
+      rootGetters["loanStore/getActiveLoansFromUserId"](payload);
     if (activeLoans.length > 0) {
-      alert("Der Benutzer muss erst alle Artikel zurückgeben, bevor sein Konto gelöscht werden kann.");
+      alert(
+        "Der Benutzer muss erst alle Artikel zurückgeben, bevor sein Konto gelöscht werden kann."
+      );
       return;
     }
-     let activeReservations = rootGetters["itemStore/getItemsReservedByUser"](payload);
+    let activeReservations =
+      rootGetters["itemStore/getItemsReservedByUser"](payload);
 
-     if (activeReservations.length > 0) {
-       for (let i = 0; i < activeReservations.length; i++) {
+    if (activeReservations.length > 0) {
+      for (let i = 0; i < activeReservations.length; i++) {
         let item = activeReservations[i];
         item.reservations = item.reservations.filter((id) => id != payload);
         await ItemServices.UpdateItem(item);
-       }
-     }
+      }
+    }
     await UserServices.DeleteUser(payload).then((response) => {
       if (response.data.success) {
         alert("Der Account wurde erfolgreich gelöscht.");

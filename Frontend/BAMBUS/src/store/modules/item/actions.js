@@ -15,13 +15,16 @@ export default {
       }
     });
   },
-  async deleteItem({ commit}, id) {
+  async deleteItem({ commit }, id) {
     let item = store.getters["itemStore/getItemById"](id);
     if (item.currentLoanId != 0) {
-      if (confirm("Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?") == false) {
+      if (
+        confirm(
+          "Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?"
+        ) == false
+      ) {
         return;
-      }
-      else {
+      } else {
         LoanService.SetReturnDate(item.currentLoanId);
         LoanService.EndExtensionRequest(item.currentLoanId);
       }
@@ -36,8 +39,6 @@ export default {
     });
   },
   async createItem({ commit, dispatch }, item) {
-    console.log("Creating item");
-    console.log(item);
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
@@ -179,7 +180,11 @@ export default {
           if (item.reservations.length > 0) {
             let userId = item.reservations[1];
             //Test
-            dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
+            dispatch(
+              "notificationStore/informAboutAvailableReservation",
+              { itemId: item.itemId, userId: userId, title: item.title },
+              { root: true }
+            );
           }
         }
       });
@@ -190,13 +195,22 @@ export default {
     let item = state.items.find((item) => item.itemId === payload.itemId);
 
     if (item.reservations[0] !== payload.userId) {
-    item.reservations = item.reservations.filter((userId) => userId !== payload.userId);
-    }
-    else {
+      item.reservations = item.reservations.filter(
+        (userId) => userId !== payload.userId
+      );
+    } else {
       item.reservations.shift();
       if (item.reservations.length > 0) {
-      //Test: 
-      dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: item.reservations[0], title: item.title}, {root: true});
+        //Test:
+        dispatch(
+          "notificationStore/informAboutAvailableReservation",
+          {
+            itemId: item.itemId,
+            userId: item.reservations[0],
+            title: item.title,
+          },
+          { root: true }
+        );
       }
     }
     await ItemServices.UpdateItem(item).then((response) => {

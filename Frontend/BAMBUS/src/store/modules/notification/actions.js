@@ -213,28 +213,20 @@ export default {
     }
     const user = rootState.userStore.user;
     const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
-    const managers = rootState.userStore.users.filter(
-      (user) => user.role === 5
-    );
-    managers.forEach(async (manager) => {
-      await MessageService.CreateMessage({
-        senderId: user.userId,
-        receiverId: manager.userId,
-        text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
-        date: new Date().toLocaleDateString("de-DE"),
-        type: 4,
-        payload: `${payload.loanId};${user.userId};${payload.newDueDate}`,
-      }).then((response) => {
-        if (!response.data.success) {
-          router.push("/error");
-          return;
-        }
-      });
+    await MessageService.CreateMessage({
+      senderId: user.userId,
+      receiverId: 2,
+      text: `${user.username} hat eine Verlängerung der Ausleihe von ${payload.itemTitle} bis zum ${dateGerman} angefragt`,
+      date: new Date().toLocaleDateString("de-DE"),
+      type: 4,
+      payload: `${payload.loanId};${user.userId};${payload.newDueDate}`,
+    }).then((response) => {
+      if (!response.data.success) {
+        router.push("/error");
+        return;
+      }
     });
-    const loan = rootState.loanStore.loans.find(
-      (loan) => loan.loanId === payload.loanId
-    );
-    LoanService.ActivateExtensionRequest(loan.loanId).then((response) => {
+    LoanService.ActivateExtensionRequest(payload).then((response) => {
       if (!response.data.success) {
         router.push("/error");
         return;
@@ -329,33 +321,51 @@ export default {
   },
 
   // TODO
-  managerRespondsToExtensionRequest({ dispatch, rootState }, payload) {
+  managerRespondsToExtensionRequest({ rootState }, payload) {
+    console.log(payload);
+    const managerId = rootState.userStore.user.userId;
     const userId = rootState.loanStore.loans.find(
       (loan) => loan.loanId === payload.loanId
     ).userId;
-    const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
-    const notification = {
-      notificationId: null,
-      type: 10,
-      title: null,
-      message: null,
-      senderId: 2,
-      receiverId: userId,
-      date: new Date().toLocaleDateString("de-DE"),
-      payload: payload,
-    };
-    const loan = rootState.loanStore.loans.find(
-      (loan) => loan.loanId === payload.loanId
-    );
     const itemTitle = rootState.itemStore.items.find(
-      (item) => item.itemId === loan.itemId
+      (item) => item.currentLoanId === payload.loanId
     ).title;
-    if (payload.response === "accept") {
-      notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} bis zum ${dateGerman} bestätigt`;
-    } else if (payload.response === "decline") {
-      notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} abgelehnt`;
-    }
-    dispatch("userStore/addNotification", notification, { root: true });
+    const dateGerman = new Date(payload.newDueDate).toLocaleDateString("de-DE");
+    MessageService.CreateMessage({
+      senderId: managerId,
+      receiverId: userId,
+      text: `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} bis zum ${dateGerman} bestätigt`,
+      date: new Date().toLocaleDateString("de-DE"),
+      type: 10,
+      payload: null,
+    }).then((response) => {
+      if (!response.data.success) {
+        router.push("/error");
+        return;
+      }
+    });
+    // const notification = {
+    //   notificationId: null,
+    //   type: 10,
+    //   title: null,
+    //   message: null,
+    //   senderId: 2,
+    //   receiverId: userId,
+    //   date: new Date().toLocaleDateString("de-DE"),
+    //   payload: payload,
+    // };
+    // const loan = rootState.loanStore.loans.find(
+    //   (loan) => loan.loanId === payload.loanId
+    // );
+    // const itemTitle = rootState.itemStore.items.find(
+    //   (item) => item.itemId === loan.itemId
+    // ).title;
+    // if (payload.response === "accept") {
+    //   notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} bis zum ${dateGerman} bestätigt`;
+    // } else if (payload.response === "decline") {
+    //   notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} abgelehnt`;
+    // }
+    // dispatch("userStore/addNotification", notification, { root: true });
   },
 
   updateNotifications({ commit, rootState }) {

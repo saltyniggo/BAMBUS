@@ -57,8 +57,8 @@ async function DeleteMessage(payload) {
       url: `http://localhost:5240/DeleteMessage/${payload}`,
       headers: {
         "Content-Type": "application/json",
-        "accept": "*/*",
-        "Authorization": "Bearer " + userStore.state.user.token,
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
       },
       data: {
         messageId: payload,
@@ -79,7 +79,7 @@ async function UserRequestsPasswordReset(payload) {
       url: `http://localhost:5240/RequestPasswordReset`,
       headers: {
         "Content-Type": "application/json",
-        "accept": "*/*",
+        accept: "*/*",
       },
       data: {
         senderId: payload.senderId,
