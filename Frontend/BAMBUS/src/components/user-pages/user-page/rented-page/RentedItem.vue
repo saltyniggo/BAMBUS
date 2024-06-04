@@ -79,8 +79,6 @@ export default {
       );
     },
     dueDate() {
-      console.log(this.loan.loandId);
-      console.log(this.loan.dueDate);
       return new Date(this.loan.dueDate).toLocaleDateString("de-DE");
     },
     maxDate() {
