@@ -252,7 +252,7 @@ export default {
         alert("Passwort zurücksetzen angefordert.");
         router.push({ name: "login" });
       } else {
-        alert(response.data.message);
+        alert("Fehler beim Zurücksetzen des Passworts");
       }
     });
   },
