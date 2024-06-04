@@ -88,11 +88,11 @@ export default {
   async changeUsername({ commit, state }, payload) {
     const userExists = state.users.find((user) => user.username === payload);
     if (userExists) {
-      alert("Username already exists");
+      alert("Username ist bereits vergeben");
       return;
     }
     if (!payload) {
-      alert("Please provide a username");
+      alert("Bitte gib einen Benutzernamen ein");
       return;
     }
 
@@ -100,7 +100,7 @@ export default {
     user.username = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        alert("Username changed successfully");
+        alert("Benutzername erfolgreich geändert");
       } else {
         alert(response.data.message);
       }
@@ -109,15 +109,15 @@ export default {
   async changeEmail({ commit, state }, payload) {
     const emailExists = state.users.find((user) => user.email === payload);
     if (emailExists) {
-      alert("Email already exists");
+      alert("Emailadresse ist bereits vergeben");
       return;
     }
     if (!payload) {
-      alert("Please provide an email address");
+      alert("Bitte gib eine Emailadresse ein");
       return;
     }
     if (!payload.includes("@")) {
-      alert("Please provide a valid email address");
+      alert("Bitte gib eine gültige Emailadresse ein");
       return;
     }
 
@@ -125,7 +125,7 @@ export default {
     user.email = payload;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        alert("Email changed successfully");
+        alert("Emailadresse erfolgreich geändert");
       } else {
         alert(response.data.message);
       }
@@ -133,7 +133,7 @@ export default {
   },
   async changeName({ commit, state }, payload) {
     if (!payload.firstName && !payload.lastName) {
-      alert("Please provide your first or last name");
+      alert("Bitte gib einen Vornamen oder Nachnamen ein");
       return;
     }
     const user = state.user;
@@ -145,7 +145,7 @@ export default {
     }
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        alert("Name changed successfully");
+        alert("Name erfolgreich geändert");
       } else {
         alert(response.data.message);
       }
@@ -153,19 +153,19 @@ export default {
   },
   async changePassword({ commit, state }, payload) {
     if (!payload.currentPassword) {
-      alert("Please enter your current password");
+      alert("Bitte gib dein aktuelles Passwort ein");
       return;
     }
     if (!payload.newPassword) {
-      alert("Please enter a new password");
+      alert("Bitte gib ein neues Passwort ein");
       return;
     }
     if (payload.currentPassword == payload.newPassword) {
-      alert("Passwords must be different");
+      alert("Passwort muss sich von deinem aktuellen Passwort unterscheiden");
       return;
     }
     if (payload.newPassword.length < 6) {
-      alert("Password must be at least 6 characters long");
+      alert("Passwort muss mindestens 6 Zeichen lang sein");
       return;
     }
     const user = state.user;
@@ -173,7 +173,7 @@ export default {
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
         // commit("changePassword", payload.newPassword)
-        alert("Password changed successfully");
+        alert("Passwort erfolgreich geändert");
       } else {
         alert(response.data.message);
       }
@@ -199,6 +199,7 @@ export default {
       if (activeReservations.length > 0) {
         for (let i = 0; i < activeReservations.length; i++) {
           let item = activeReservations[i];
+          console.log(item);
           item.reservations = item.reservations.filter(
             (id) => id !== state.user.userId
           );

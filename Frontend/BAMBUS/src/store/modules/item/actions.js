@@ -1,7 +1,6 @@
 import ItemServices from "../../services/ItemServices";
 import store from "../../index.js";
 import $router from "@/router";
-import item from ".";
 import LoanService from "@/store/services/LoanService";
 import RatingService from "@/store/services/RatingService";
 
@@ -42,7 +41,6 @@ export default {
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
-        //Test
         dispatch(
           "notificationStore/managerAddsItem",
           { title: item.title },
@@ -74,48 +72,6 @@ export default {
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
-  // async addLoanIdToItem({ commit, state }, payload) {
-  //   await ItemServices.AddLoan(payload).then((response) => {
-  //     if (response.data.success) {
-  //       // TODO Does it return the updated item list?
-  //       commit("setItems", response.data.data);
-  //     } else {
-  //       $router.push("/error");
-  //     }
-  //   });
-  // },
-  // async removeLoanIdFromItem({ commit }, payload) {
-  //   await ItemServices.RemoveLoan(payload).then((response) => {
-  //     if (response.data.success) {
-  //       // TODO Does it return the updated item list?
-  //       commit("setItems", response.data.data);
-  //     } else {
-  //       $router.push("/error");
-  //     }
-  //   });
-  // },
-  // async userReservesItem({ commit, state, rootState }, payload) {
-  //   const index = state.items.findIndex((item) => item.itemId === payload);
-  //   if (index !== -1) {
-  //     const userId = rootState.userStore.user.userId;
-  //     if (userId == null) {
-  //       alert("Please log in to reserve an item");
-  //     } else {
-  //       await ItemServices.RemoveLoan({
-  //         userId: userId,
-  //         itemId: item.itemId,
-  //       }).then((response) => {
-  //         if (response.data.success) {
-  //           // TODO Does it return the updated item list?
-  //           commit("setItems", response.data.data);
-  //         } else {
-  //           $router.push("/error");
-  //         }
-  //       });
-  //     }
-  //   }
-  // },
-
   requestExtension({ commit, rootState }, payload) {
     if (!payload.newDueDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
@@ -146,29 +102,6 @@ export default {
     commit("requestExtension", { index, newDueDate: payload.newdueDate });
   },
 
-  // reportItem({ commit }) {
-  //   commit("reportItem");
-  // },
-  // saveEditItem({ commit, state }, payload) {
-  //   const index = state.items.findIndex(
-  //     (item) => item.itemId === payload.itemId
-  //   );
-  //   commit("saveEditItem", { payload, index });
-  // },
-  // async cancelReservation({ commit }, payload) {
-  //   const index = state.items.findIndex((item) => item.itemId === payload);
-  //   if (index !== -1) {
-  //     await ItemServices.RemoveReservationByUser(payload).then((response) => {
-  //       if (response.data.success) {
-  //         // TODO Does it return the updated item list?
-  //         commit("setItems", response.data.data);
-  //       } else {
-  //         $router.push("/error");
-  //       }
-  //     });
-  //   }
-  // },
-
   async checkReservationTime({ dispatch, getters }) {
     let items = getters.getItemsWithoutLoanButReserved;
     if (!items) {
@@ -190,7 +123,6 @@ export default {
       });
     });
   },
-
   async cancelReservation({ commit, dispatch, state, rootState }, payload) {
     let item = state.items.find((item) => item.itemId === payload.itemId);
 
@@ -221,7 +153,6 @@ export default {
       }
     });
   },
-
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
   },
@@ -234,10 +165,4 @@ export default {
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },
-  // acceptDamage({ commit }, payload) {
-  //   commit("acceptDamage", payload);
-  // },
-  // rejectDamage({ commit }, payload) {
-  //   commit("rejectDamage", payload);
-  // },
 };

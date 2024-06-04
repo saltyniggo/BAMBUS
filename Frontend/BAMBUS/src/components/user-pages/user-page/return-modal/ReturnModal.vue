@@ -25,7 +25,7 @@
         <div class="recommendation">
           <h3>Würdest du den Gegenstand weiter empfehlen?</h3>
           <div class="radio-group">
-            <input type="radio" id="yesRecommend" name="recommendation" value="yes" :checked="recommendation"/>
+            <input type="radio" id="yesRecommend" name="recommendation" value="yes" :checked="recommendation" />
             <label for="yes">Ja</label>
             <input type="radio" id="noRecommend" name="recommendation" value="no" :checked="recommendation == false" />
             <label for="no">Nein</label>
@@ -80,6 +80,7 @@ export default {
       hideModal: false,
       hasRating: false,
       ratingId: 0,
+      oldRating: null,
     };
   },
   computed: {
@@ -87,12 +88,9 @@ export default {
     ...mapGetters("itemStore", { id: "getReturnItemId" }),
   },
   methods: {
-    // ...mapActions("itemStore", ["removeLoanIdFromItem"]),
-    // ...mapActions("itemStore", ["reportItem"]),
     ...mapActions("modalStore", ["closeAllModals"]),
     ...mapActions("ratingStore", ["addRating", "updateRating"]),
-    // ...mapActions("notificationStore", ["userReportsDamage"]),
-    // ...mapActions("loanStore", ["returnItem"]),
+
 
     checkRecommendation() {
       if (yesRecommend.checked) {
@@ -116,13 +114,12 @@ export default {
     processReturn() {
       this.checkRecommendation();
       this.checkcondition();
-      let item = this.$store.getters["itemStore/getItemById"](this.id);
-;
 
-      if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) 
-      {
-        if (this.rating == 0) 
-        {
+      let item = this.$store.getters["itemStore/getItemById"](this.id);
+      ;
+
+      if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) {
+        if (this.rating == 0) {
           this.showAlert = true;
           return;
         }
@@ -136,18 +133,15 @@ export default {
           ratingId: this.ratingId,
         };
 
-        if (!this.hasRating)
-        {
+        if (!this.hasRating) {
           this.addRating(newRating);
-        }
-        else 
-        {
+        } else if (this.oldRating.rating !== this.rating || this.oldRating.comment !== this.comment || this.oldRating.isRecommended !== this.recommendation) {
           this.updateRating(newRating);
         }
       }
 
       if (this.condition == true) {
-        item.condition == 0? item.condition = 1 : item.condition = item.condition;
+        item.condition == 0 ? item.condition = 1 : item.condition = item.condition;
 
         this.$store.dispatch("notificationStore/userReportsDamage", {
           itemId: this.id,
@@ -157,22 +151,13 @@ export default {
         });
       }
 
-      // this.returnItem(this.id);
-      // this.removeLoanIdFromItem(this.id);
-
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
       item.currentLoanId = 0;
-      if (item.reservations.length > 0) {
-        item.reservations.shift();
-      }
-
       this.$store.dispatch("itemStore/editItem", item);
 
       if (item.reservations.length > 1) {
-        this.$store.dispatch("notificationStore/informAboutAvailableReservation",{ userId : item.reservations[0], itemId : item.itemId, title : item.title});
+        this.$store.dispatch("notificationStore/informAboutAvailableReservation", { userId: item.reservations[0], itemId: item.itemId, title: item.title });
       }
-
-     
 
       this.hideModal = true;
       setTimeout(() => {
@@ -186,6 +171,7 @@ export default {
       this.rating = this.stars.filter((star) => star).length;
     },
   },
+  
   created() {
     let oldRating = this.$store.getters["ratingStore/getRatingByUserAndItemId"](this.id, this.user.userId);
     if (oldRating) {
@@ -195,6 +181,7 @@ export default {
       this.recommendation = oldRating.isRecommended;
       this.stars = this.stars.map((star, i) => i < this.rating);
       this.ratingId = oldRating.ratingId;
+      this.oldRating = oldRating;
     }
   },
 };

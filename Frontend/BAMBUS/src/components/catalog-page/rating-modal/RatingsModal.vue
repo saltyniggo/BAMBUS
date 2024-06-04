@@ -7,7 +7,7 @@
     <template v-slot:modal-content>
       <div v-for="rating in ratings" class="ratings">
         <div class="rating" v-if="showRating && editId != rating.ratingId">
-          <rating-container :rating="rating" @toggleEditStatus="toggleEditStatus"></rating-container> 
+          <rating-container :rating="rating" @toggleEditStatus="toggleEditStatus" :numberOfRatings @closeModal="closeModal"></rating-container> 
         </div>
        
        <div class="edit" v-else-if="!showRating && editId == rating.ratingId">
@@ -59,6 +59,9 @@ export default {
       role: "userStore/getRoleLoggedUser",
       userId: "userStore/getUserIdLoggedUser",
     }),
+    numberOfRatings() {
+      return this.ratings.length;
+    },
   },
   methods: {
     ...mapActions({
