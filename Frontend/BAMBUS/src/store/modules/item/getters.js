@@ -62,7 +62,11 @@ export default {
   },
   getOnlyAvailableItems: (state) => (items) => {
     if (state.onlyAvailable) {
-      let availableItems = items.filter((item) => ((item.currentLoanId === 0 || item.currentLoanId === null)&& item.reservations.length === 0));
+      let availableItems = items.filter(
+        (item) =>
+          (item.currentLoanId === 0 || item.currentLoanId === null) &&
+          item.reservations.length === 0
+      );
       return availableItems;
     }
     return items;

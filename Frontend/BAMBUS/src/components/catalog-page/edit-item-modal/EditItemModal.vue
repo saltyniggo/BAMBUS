@@ -13,9 +13,24 @@
             <option value="2">Spiel</option>
           </select>
         </div>
-        <magazine-form v-if="item.type == 0" :item="item" :saveItem="saveItem" @saved="close"/>
-        <book-form v-if="item.type == 1" :item="item" :saveItem="saveItem" @saved="close"/>
-        <game-form v-if="item.type == 2" :item="item" :saveItem="saveItem" @saved="close"/>
+        <magazine-form
+          v-if="item.type == 0"
+          :item="item"
+          :saveItem="saveItem"
+          @saved="close"
+        />
+        <book-form
+          v-if="item.type == 1"
+          :item="item"
+          :saveItem="saveItem"
+          @saved="close"
+        />
+        <game-form
+          v-if="item.type == 2"
+          :item="item"
+          :saveItem="saveItem"
+          @saved="close"
+        />
       </div>
     </template>
     <template v-slot:modal-button>
@@ -66,7 +81,7 @@ export default {
         this.$store.dispatch("modalStore/closeAllModals");
       }, 500);
       this.$store.dispatch("itemStore/deleteAllModalIds");
-    }
+    },
   },
 };
 </script>

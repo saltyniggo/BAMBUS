@@ -6,7 +6,7 @@ export default {
   namespaced: true,
   state: {
     itemId: null,
-    ratings: []
+    ratings: [],
   },
   mutations: Mutations,
   actions: Actions,

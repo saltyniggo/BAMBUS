@@ -20,20 +20,18 @@ export default {
     );
   },
   getActiveItemIdFromUserId: (state) => {
-    let loans = state.loans.filter(
-      (loan) => loan.returnDate === null 
-    );
+    let loans = state.loans.filter((loan) => loan.returnDate === null);
 
     if (!Array.isArray(loans)) {
       loans = [loans];
     }
 
     let itemIds = [];
-    loans.forEach(loan => {
+    loans.forEach((loan) => {
       let itemId = loan.itemId;
       itemIds.push(itemId);
     });
 
     return itemIds;
-  }
+  },
 };

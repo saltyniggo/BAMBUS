@@ -1,13 +1,11 @@
 <template>
   <div class="SideNav-Content">
-    
-   
     <cart-link
       class="SideNav-Content-Section"
       v-if="isLoggedIn && user.role === 0"
       @click="redirectTo('/cart')"
     ></cart-link>
-    <br>
+    <br />
     <return-link
       class="SideNav-Content-Section"
       v-if="isLoggedIn && user.role === 0"

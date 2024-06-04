@@ -1,10 +1,7 @@
 <template>
   <div class="catalog-view">
     <startPage></startPage>
-    <catalogPage
-      :category="category"
-      id="catalog"
-    ></catalogPage>
+    <catalogPage :category="category" id="catalog"></catalogPage>
   </div>
 </template>
 
@@ -31,7 +28,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
-
+<style scoped></style>

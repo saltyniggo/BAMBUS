@@ -2,19 +2,25 @@
   <div class="catalog-filter">
     <filter-selection :category="category" />
     <sort-selection />
-
     <div>
       <label for="Verfuegbarkeit">nur verfügbare Objekte: </label>
-      <input type="checkbox" name="available" id="available" v-model="onlyAvailable" />
+      <input
+        type="checkbox"
+        name="available"
+        id="available"
+        v-model="onlyAvailable"
+      />
     </div>
-
     <div id="search">
       <label for="search">Suche: </label>
       <input type="text" name="search" id="search" v-model="search" />
-
       <div class="buttons">
-        <round-button @click="searchItem"> <i class="fa-solid fa-magnifying-glass"></i> </round-button>
-        <round-button @click="deleteSearch"> <i class="fa-solid fa-eraser"></i></round-button>
+        <round-button @click="searchItem">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </round-button>
+        <round-button @click="deleteSearch">
+          <i class="fa-solid fa-eraser"></i
+        ></round-button>
       </div>
     </div>
   </div>

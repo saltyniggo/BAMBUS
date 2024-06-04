@@ -1,7 +1,7 @@
 <template>
   <div class="catalog">
     <catalog-filter :category="category"></catalog-filter>
-    <div class="catalog-items" v-if="items.length>0">
+    <div class="catalog-items" v-if="items.length > 0">
       <item-container
         v-for="item in items"
         :key="item.itemId"
@@ -11,13 +11,12 @@
         @openReportModal="openReportModal(item.itemId)"
       ></item-container>
     </div>
-    <div class="no-catalog-items" v-if="items.length==0">
+    <div class="no-catalog-items" v-if="items.length == 0">
       <h1>Wie schade! Wir haben leider keine Ergebnisse für Dich.</h1>
     </div>
     <edit-item-modal v-if="showsEditModal"></edit-item-modal>
     <ratings-modal v-if="showsRatingsModal"></ratings-modal>
     <report-modal v-if="showsReportModal"></report-modal>
-
   </div>
 </template>
 

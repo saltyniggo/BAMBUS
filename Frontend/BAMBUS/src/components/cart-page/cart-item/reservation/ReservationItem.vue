@@ -7,7 +7,9 @@
         :itemId="reservationItem.itemId"
         :condition="reservationItem.condition"
       />
-      <p class="reservation-item-content-row"> Warteschlangenlänge {{reservationQueueLength}}</p>
+      <p class="reservation-item-content-row">
+        Warteschlangenlänge {{ reservationQueueLength }}
+      </p>
       <section class="reservation-item-content-row">
         <base-text-button
           class="reservation-item-content-row-button"

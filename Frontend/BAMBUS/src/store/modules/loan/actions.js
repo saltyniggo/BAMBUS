@@ -6,8 +6,6 @@ export default {
     const loanId = rootState.itemStore.items.find(
       (item) => item.itemId === itemId
     ).currentLoanId;
-    // commit("returnItem", { loanId: loanId, returnDate: returnDate });
-    // dispatch("itemStore/removeLoanIdFromItem", itemId, { root: true });
     LoanService.SetReturnDate(loanId).then((response) => {
       if (response.data.success) {
         commit("setReturnDate", { loanId: loanId, returnDate: returnDate });

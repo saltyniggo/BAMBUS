@@ -1,21 +1,28 @@
 <template>
-  <form   class="email-form">
+  <form class="email-form">
     <label for="email"
-      >Bitte gebe Deine Emailadresse ein, um eine Passwortzurücksetzung zu benatragen.
+      >Bitte gebe Deine Emailadresse ein, um eine Passwortzurücksetzung zu
+      benatragen.
     </label>
-    <Form v-slot="{validate}" @submit="onSubmit">
-      <Field name="email" type=email :rules="validateEmail" class="email-form-input" placeholder="Emailadresse"/>
+    <Form v-slot="{ validate }" @submit="onSubmit">
+      <Field
+        name="email"
+        type="email"
+        :rules="validateEmail"
+        class="email-form-input"
+        placeholder="Emailadresse"
+      />
       <ErrorMessage name="email" />
-    <base-text-button @click="validate">
-      Passwort zurücksetzen
-    </base-text-button>
-  </Form>
+      <base-text-button @click="validate">
+        Passwort zurücksetzen
+      </base-text-button>
+    </Form>
   </form>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import {Form, Field, ErrorMessage} from "vee-validate";
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 import BaseTextButton from "../../base-components/BaseTextButton.vue";
 
@@ -23,9 +30,9 @@ export default {
   name: "PasswordResetPage",
   components: {
     BaseTextButton,
-    Form, 
-    Field, 
-    ErrorMessage
+    Form,
+    Field,
+    ErrorMessage,
   },
   methods: {
     ...mapActions("notificationStore", {
@@ -36,11 +43,11 @@ export default {
     },
     validateEmail(value) {
       if (!value) {
-        return 'Dieses Feld muss ausgefüllt werden';
+        return "Dieses Feld muss ausgefüllt werden";
       }
       const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       if (!regex.test(value)) {
-        return 'Bitte gebe eine gültige Emailadresse an';
+        return "Bitte gebe eine gültige Emailadresse an";
       }
       return true;
     },
@@ -49,7 +56,8 @@ export default {
 </script>
 
 <style scoped>
-.email-form, Form {
+.email-form,
+Form {
   width: 100%;
   display: flex;
   flex-direction: column;

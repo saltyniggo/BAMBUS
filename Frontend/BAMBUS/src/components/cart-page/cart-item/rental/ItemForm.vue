@@ -3,7 +3,6 @@
     <label for="fromDate">Ausleihen vom:</label>
     <p name="fromDate">{{ formattedFromDate }}</p>
     <label for="dueDate">Bis zum:</label>
-
     <input
       id="inputDueDate"
       type="date"

@@ -3,13 +3,18 @@
     <div class="cardContent">
       <h2>{{ item.title }}</h2>
       <div class="button-area">
-        <base-round-button class="button" @click="addToCart({ itemId: item.itemId, userId: userId })"
-          v-if="isItemAvailable(item.itemId, userId)">
+        <base-round-button
+          class="button"
+          @click="addToCart({ itemId: item.itemId, userId: userId })"
+          v-if="isItemAvailable(item.itemId, userId)"
+        >
           <div class="button-content">
             <i class="fa-solid fa-basket-shopping"></i>
           </div>
         </base-round-button>
-        <base-round-button @click="cancelReservation({ itemId: item.itemId, userId: userId })">
+        <base-round-button
+          @click="cancelReservation({ itemId: item.itemId, userId: userId })"
+        >
           <div class="button-content">
             <i class="fa-solid fa-trash-can"></i>
           </div>

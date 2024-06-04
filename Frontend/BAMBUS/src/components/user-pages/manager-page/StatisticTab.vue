@@ -1,8 +1,8 @@
 <template>
   <div>
-    <br>
+    <br />
     <h1>Stats</h1>
-    <br>
+    <br />
     <base-content-container>
       <stats-table></stats-table>
     </base-content-container>

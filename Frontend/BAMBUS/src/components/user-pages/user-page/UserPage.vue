@@ -35,7 +35,7 @@ export default {
       tabs: [
         { title: "Nachrichten", id: "overview", route: "/my-view/overview" },
         { title: "Leihübersicht", id: "orders", route: "/my-view/orders" },
-        { title: "Account",id: "account",  route: "/my-view/account" },
+        { title: "Account", id: "account", route: "/my-view/account" },
       ],
       activeRoute: undefined,
     };
@@ -63,7 +63,7 @@ export default {
     async openReturnModal(id) {
       await this.$store.dispatch("modalStore/closeAllModals");
       await this.$store.dispatch("itemStore/setReturnItemId", id);
-      await this.$store.dispatch("itemStore/setReportItemId", id)
+      await this.$store.dispatch("itemStore/setReportItemId", id);
       await this.$store.dispatch("modalStore/toggleReturnModal");
     },
   },

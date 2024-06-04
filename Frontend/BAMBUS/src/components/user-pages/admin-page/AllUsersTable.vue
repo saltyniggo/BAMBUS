@@ -30,9 +30,10 @@
 </template>
 
 <script>
-import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
 import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
+
+import BaseRectangleButton from "@/components/base-components/BaseRectangleButton.vue";
 
 export default {
   name: "UserManagementTab",

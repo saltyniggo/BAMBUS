@@ -8,7 +8,6 @@
         <div class="warning">
           <p v-if="showAlert">Bitte fülle alle Felder aus</p>
         </div>
-
         <div class="input">
           <label for="title">Titel</label>
           <input type="text" id="title" v-model="title" />
@@ -37,7 +36,6 @@
           <label for="category">Kategorie</label>
           <input type="text" id="category" v-model="category" />
         </div>
-
         <div class="buttons">
           <base-rectangle-button @click="createNewItem"
             >Hinzufügen</base-rectangle-button
@@ -112,7 +110,6 @@ export default {
           item.issn = this.issn;
           item.isbn = "";
         }
-        
         await this.$store.dispatch("itemStore/createItem", item);
         this.$router.push({ name: "catalog" });
       }

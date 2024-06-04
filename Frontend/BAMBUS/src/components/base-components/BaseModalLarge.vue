@@ -1,8 +1,7 @@
 <template>
-  <Transition
-    ><div class="backdrop" v-if="isShowing" @click="closeModal"></div
-  ></Transition>
-
+  <Transition>
+    <div class="backdrop" v-if="isShowing" @click="closeModal"></div>
+  </Transition>
   <Transition>
     <div class="modal" v-if="isShowing">
       <base-round-button
@@ -29,7 +28,6 @@
 </template>
 
 <script>
-import { watch } from "vue";
 import BaseRectangleButton from "./BaseRectangleButton.vue";
 import BaseRoundButton from "./BaseRoundButton.vue";
 
@@ -73,7 +71,6 @@ export default {
       this.$store.dispatch("itemStore/deleteAllModalIds");
     },
   },
-
   mounted() {
     this.isShowing = true;
   },

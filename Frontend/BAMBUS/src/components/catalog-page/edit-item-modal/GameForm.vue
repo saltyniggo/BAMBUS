@@ -8,13 +8,6 @@
       <label for="category">Kategorie </label>
       <input type="text" id="category" v-model="category" required />
     </div>
-    <!-- <div class="field">
-      <label for="available">Verfügbarkeit </label>
-      <select id="available" v-model="available">
-        <option value="Ja">Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </div> -->
   </div>
 </template>
 
@@ -26,7 +19,6 @@ export default {
     return {
       title: "",
       category: "",
-      // available: "",
     };
   },
   watch: {
@@ -43,7 +35,6 @@ export default {
             author: "",
             category: this.category,
             issn: "",
-            // available: this.available === "Ja" ? true : false,
             reservations: this.item.reservations,
             currentLoanId: this.item.currentLoanId,
             avgRating: this.item.avgRating,
@@ -56,11 +47,6 @@ export default {
   beforeMount() {
     this.title = this.item.title;
     this.category = this.item.category;
-    // if (this.item.available === true) {
-    //   this.available = "Ja";
-    // } else {
-    //   this.available = "Nein";
-    // }
   },
 };
 </script>

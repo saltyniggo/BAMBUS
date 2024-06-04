@@ -1,13 +1,18 @@
 <template>
   <div class="item-footer">
-    <base-round-button v-if="role == 1" @click="openEditModal(item.itemId)"><i class="fa-regular fa-pen-to-square"
-        style="color: #222126"></i></base-round-button>
-    <base-round-button v-if="role == 1" @click="deleteItem(item.itemId)"><i class="fa-solid fa-trash-can"
-        style="color: #222126"></i></base-round-button>
-    <base-round-button v-if="role == 0" @click="addToCart(item)"><i class="fa-solid fa-basket-shopping"
-        style="color: #222126"></i></base-round-button>
-    <base-round-button v-if="role == 0 && item.condition==0" @click="openReportModal(item.itemId)"><i class="fa-solid fa-flag"
-        style="color: #222126"></i>
+    <base-round-button v-if="role == 1" @click="openEditModal(item.itemId)"
+      ><i class="fa-regular fa-pen-to-square" style="color: #222126"></i
+    ></base-round-button>
+    <base-round-button v-if="role == 1" @click="deleteItem(item.itemId)"
+      ><i class="fa-solid fa-trash-can" style="color: #222126"></i
+    ></base-round-button>
+    <base-round-button v-if="role == 0" @click="addToCart(item)"
+      ><i class="fa-solid fa-basket-shopping" style="color: #222126"></i
+    ></base-round-button>
+    <base-round-button
+      v-if="role == 0 && item.condition == 0"
+      @click="openReportModal(item.itemId)"
+      ><i class="fa-solid fa-flag" style="color: #222126"></i>
     </base-round-button>
   </div>
 </template>
@@ -25,11 +30,9 @@ export default {
     addToCart(id) {
       this.$store.dispatch("cartStore/addItemToCart", id);
     },
-
     openEditModal(id) {
       this.$emit("openEditModal", id);
     },
-
     deleteItem(id) {
       this.$store.dispatch("itemStore/deleteItem", id);
     },

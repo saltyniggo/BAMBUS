@@ -133,7 +133,6 @@ export default {
     } else {
       item.reservations.shift();
       if (item.reservations.length > 0) {
-        //Test:
         dispatch(
           "notificationStore/informAboutAvailableReservation",
           {

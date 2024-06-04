@@ -1,7 +1,6 @@
 <template>
   <h1>Beep Boop</h1>
   <p>Settings go here</p>
-
 </template>
 
 <script>
@@ -15,5 +14,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

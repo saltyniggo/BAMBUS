@@ -8,7 +8,12 @@
             <h2>Benutzernamen ändern</h2>
             <div class="label-input">
               <label for="newUsername">Neuer Benutzername:</label>
-              <input type="text" id="newUsername" v-model="newUsername" required />
+              <input
+                type="text"
+                id="newUsername"
+                v-model="newUsername"
+                required
+              />
             </div>
             <button type="submit">Speichern</button>
           </form>
@@ -22,9 +27,11 @@
             <button type="submit">Speichern</button>
           </form>
 
-          <form @submit.prevent="
-            changeName({ firstName: newFirstname, lastName: newLastname })
-          ">
+          <form
+            @submit.prevent="
+              changeName({ firstName: newFirstname, lastName: newLastname })
+            "
+          >
             <h2>Namen ändern</h2>
             <div class="label-input">
               <label for="newFirstname">Neuer Vorname:</label>
@@ -38,33 +45,53 @@
             <button type="submit">Speichern</button>
           </form>
 
-          <form @submit.prevent="
-            changePassword({
-              currentPassword: currentPassword,
-              newPassword: newPassword,
-            })
-          ">
-            <h2>Passwort ändern 
-              <i v-if="showPassword" class="fa-regular fa-eye-slash" style="color: #222126"
-                @click="togglePasswordVisibility"></i>
-              <i v-else class="fa-regular fa-eye" style="color: #222126" @click="togglePasswordVisibility"></i>
+          <form
+            @submit.prevent="
+              changePassword({
+                currentPassword: currentPassword,
+                newPassword: newPassword,
+              })
+            "
+          >
+            <h2>
+              Passwort ändern
+              <i
+                v-if="showPassword"
+                class="fa-regular fa-eye-slash"
+                style="color: #222126"
+                @click="togglePasswordVisibility"
+              ></i>
+              <i
+                v-else
+                class="fa-regular fa-eye"
+                style="color: #222126"
+                @click="togglePasswordVisibility"
+              ></i>
             </h2>
             <div class="label-input">
               <label for="currentPassword">Aktuelles Passwort:</label>
-              <input :type="currentPasswordType" id="currentPassword" v-model="currentPassword" required />
+              <input
+                :type="currentPasswordType"
+                id="currentPassword"
+                v-model="currentPassword"
+                required
+              />
             </div>
             <br />
             <div class="label-input2">
               <label for="newPassword">Neues Passwort:</label>
-              <input :type="currentPasswordType" id="newPassword" v-model="newPassword" required />
+              <input
+                :type="currentPasswordType"
+                id="newPassword"
+                v-model="newPassword"
+                required
+              />
             </div>
             <button type="submit">Speichern</button>
           </form>
         </BaseContainerNarrow>
         <BaseContainerNarrow>
           <div class="delete-account">
-
-
             <h2>Account löschen</h2>
             <button @click="deleteAccount">Account löschen</button>
           </div>
@@ -196,9 +223,9 @@ button {
 form {
   width: 100%;
   display: grid;
-  
+
   grid-template-rows: 1fr, 1fr, 1fr, 1fr;
   gap: 0.5rem;
-  grid-template-areas:"h2" "label-input" "label-input" "label-input2" "button";
+  grid-template-areas: "h2" "label-input" "label-input" "label-input2" "button";
 }
 </style>

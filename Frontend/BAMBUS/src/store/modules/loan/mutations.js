@@ -24,5 +24,5 @@ export default {
   },
   logout(state) {
     state.loans = [];
-  }
+  },
 };

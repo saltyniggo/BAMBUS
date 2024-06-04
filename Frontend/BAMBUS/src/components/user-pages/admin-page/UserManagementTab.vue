@@ -1,14 +1,12 @@
 <template>
   <div>
     <h1>User Management</h1>
-    <br>
-
+    <br />
     <base-content-container>
       <all-users-table></all-users-table>
     </base-content-container>
   </div>
 </template>
-
 
 <script>
 import BaseContentContainer from "@/components/base-components/BaseContentContainer.vue";
@@ -20,7 +18,7 @@ export default {
     BaseContentContainer,
     AllUsersTable,
   },
-}
+};
 </script>
 
 <style scoped></style>

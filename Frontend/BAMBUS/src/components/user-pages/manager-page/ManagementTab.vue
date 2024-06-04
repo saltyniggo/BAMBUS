@@ -1,8 +1,8 @@
 <template>
   <div>
-    <br>
+    <br />
     <h1>Als beschädigt gemeldete Gegenstände</h1>
-    <br>
+    <br />
     <ReportedDamagesTable></ReportedDamagesTable>
   </div>
 </template>
@@ -12,8 +12,8 @@ import ReportedDamagesTable from "./ReportedDamagesTable.vue";
 export default {
   name: "ManagementTab",
   components: {
-    ReportedDamagesTable
-  }
+    ReportedDamagesTable,
+  },
 };
 </script>
 

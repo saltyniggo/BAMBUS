@@ -18,12 +18,6 @@ export default {
     if (!payload) return;
     state.user.notifications = payload;
   },
-  // addNotification(state, payload) {
-  //   const user = state.users.find((user) => user.userId === payload.receiverId);
-  //   if (user && user.notifications) {
-  //     user.notifications.push(payload);
-  //   }
-  // },
   deleteNotification(state, payload) {
     const user = state.users.find((user) => user.userId === payload.userId);
     if (user && user.notifications) {
@@ -32,14 +26,6 @@ export default {
       );
     }
   },
-  // deleteNotificationsWithType(state, payload) {
-  //   const user = state.user;
-  //   if (user && user.notifications) {
-  //     user.notifications = user.notifications.filter(
-  //       (notification) => notification.type !== payload.type
-  //     );
-  //   }
-  // },
   logout(state) {
     state.userIsAuth = false;
     state.user.token = null;

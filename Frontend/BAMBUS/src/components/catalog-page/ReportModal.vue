@@ -9,7 +9,6 @@
                     <p>Bitte benenne die Schäden.</p>
                     <input v-model="damageDescription" placeholder="Grund für die Meldung" maxlength="150"></input>
                 </div>
-
             </template>
             <template v-slot:modal-button>
                 <base-rectangle-button @click="processReport">Melden</base-rectangle-button>

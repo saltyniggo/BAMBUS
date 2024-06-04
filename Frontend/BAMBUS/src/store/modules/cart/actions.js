@@ -9,7 +9,6 @@ export default {
       dueDate = new Date(dueDate).toISOString();
       const userId = rootState.userStore.user.userId;
       const startDate = new Date().toISOString();
-
       await LoanService.CreateLoan({
         userId: userId,
         itemId: item.itemId,
@@ -31,15 +30,6 @@ export default {
           alert("Error beim Erstellen des Loans");
         }
       });
-
-      // dispatch("loanStore/createLoan", { item, dueDate }, { root: true });
-      // commit(
-      //   "itemStore/removeReservationFromItem",
-      //   { itemId: item.itemId, userId: userId },
-      //   {
-      //     root: true,
-      //   }
-      // );
     }
   },
   async reserveItem({ commit, dispatch, rootState }, itemId) {
@@ -54,11 +44,12 @@ export default {
         $router.push("/error");
       }
     });
-    // dispatch("itemStore/userReservesItem", itemId, { root: true });
   },
+
   removeRentalItemFromCart({ commit }, itemId) {
     commit("removeRentalItemFromCart", itemId);
   },
+
   removeReservationItemFromCart({ commit }, itemId) {
     commit("removeReservationItemFromCart", itemId);
   },
@@ -69,9 +60,14 @@ export default {
       state.cartRentalItems.find((item) => item.itemId === payload.itemId) ||
       state.cartReservationItems.find((item) => item.itemId === payload.itemId);
     const itemIsAlreadyReservedByUser = payload.reservations.includes(userId);
-    const itemIsReserved = payload.reservations.length > 0 && payload.reservations[0] != [0];
-    const activeLoansByUser = rootState.loanStore.loans.filter(loan => loan.returnDate === null);
-    const itemIsAlreadyRented = activeLoansByUser.some(item => item.itemId === payload.itemId);
+    const itemIsReserved =
+      payload.reservations.length > 0 && payload.reservations[0] != [0];
+    const activeLoansByUser = rootState.loanStore.loans.filter(
+      (loan) => loan.returnDate === null
+    );
+    const itemIsAlreadyRented = activeLoansByUser.some(
+      (item) => item.itemId === payload.itemId
+    );
 
     if (itemIsInCartAlready) {
       alert("Der Gegenstand ist bereits im Warenkorb");

@@ -4,7 +4,7 @@
   ></Transition>
 
   <Transition>
-    <div class="modal" v-if="isShowing ">
+    <div class="modal" v-if="isShowing">
       <h1>
         <slot name="modal-title">
           <h1>Modal Title</h1>

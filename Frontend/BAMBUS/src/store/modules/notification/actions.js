@@ -161,31 +161,6 @@ export default {
     });
   },
 
-  // TODO
-  // checkReservedItems({ rootState }) {
-  //   const user = rootState.userStore.user;
-  //   rootState.itemStore.items.forEach((item) => {
-  //     if (
-  //       item.reservations !== null &&
-  //       item.reservations[0] === user.userId &&
-  //       !item.currentLoanId
-  //     ) {
-  //       const messageResponse = MessageService.CreateMessage({
-  //         senderId: 0,
-  //         receiverId: user.userId,
-  //         text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
-  //         date: today.toLocaleDateString("de-DE"),
-  //         type: 2,
-  //         payload: null,
-  //       });
-  //       if (!messageResponse.data.success) {
-  //         router.push("/error");
-  //       }
-  //     }
-  //   });
-  // },
-
-  //Repalces the above function:
   async informAboutAvailableReservation({ commit }, payload) {
     await MessageService.CreateMessage({
       senderId: 0,
@@ -205,7 +180,6 @@ export default {
     });
   },
 
-  // TODO
   async userRequestsLoanExtension({ rootState }, payload) {
     if (payload.newDueDate === null || payload.newDueDate === "") {
       alert("Bitte geben Sie ein neues Rückgabedatum an.");
@@ -320,7 +294,6 @@ export default {
     });
   },
 
-  // TODO
   managerRespondsToExtensionRequest({ rootState }, payload) {
     console.log(payload);
     const managerId = rootState.userStore.user.userId;
@@ -344,28 +317,6 @@ export default {
         return;
       }
     });
-    // const notification = {
-    //   notificationId: null,
-    //   type: 10,
-    //   title: null,
-    //   message: null,
-    //   senderId: 2,
-    //   receiverId: userId,
-    //   date: new Date().toLocaleDateString("de-DE"),
-    //   payload: payload,
-    // };
-    // const loan = rootState.loanStore.loans.find(
-    //   (loan) => loan.loanId === payload.loanId
-    // );
-    // const itemTitle = rootState.itemStore.items.find(
-    //   (item) => item.itemId === loan.itemId
-    // ).title;
-    // if (payload.response === "accept") {
-    //   notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} bis zum ${dateGerman} bestätigt`;
-    // } else if (payload.response === "decline") {
-    //   notification.message = `Der Manager hat die Verlängerung der Ausleihe von ${itemTitle} abgelehnt`;
-    // }
-    // dispatch("userStore/addNotification", notification, { root: true });
   },
 
   updateNotifications({ commit, rootState }) {

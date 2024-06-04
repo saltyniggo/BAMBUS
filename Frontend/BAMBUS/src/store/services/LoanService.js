@@ -1,6 +1,5 @@
 import axios from "axios";
 import userStore from "../modules/user/index.js";
-import item from "../modules/item/index.js";
 
 async function GetAllLoans() {
   try {

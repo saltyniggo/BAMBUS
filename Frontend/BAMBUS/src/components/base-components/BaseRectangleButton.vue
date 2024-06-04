@@ -3,9 +3,7 @@
     <p>
       <slot>
         <i class="fa-solid fa-dog" style="color: #f2eae4"></i>
-
         <i class="fa-solid fa-otter" style="color: #f2eae4"></i>
-
         <i class="fa-solid fa-dragon" style="color: #f2eae4"></i>
       </slot>
     </p>

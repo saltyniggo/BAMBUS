@@ -41,11 +41,6 @@ export default {
     ReservedItem,
     BaseContainerNarrow,
   },
-  // data() {
-  //   return {
-  //     rentedItems: [],
-  //   };
-  // },
   computed: {
     rentedItems() {
       let rentedItems = [];
@@ -73,15 +68,6 @@ export default {
       return this.$store.getters["itemStore/getItemsReservedByUser"];
     },
   },
-  // watch: {
-  //   loans: {
-  //     immediate: true,
-  //     handler() {
-  //       // this.setRentedItems();
-  //       this.updateRentedItems();
-  //     },
-  //   },
-  // },
   methods: {
     openReturnModal(id) {
       this.$emit("openReturnModal", id);

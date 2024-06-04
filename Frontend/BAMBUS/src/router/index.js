@@ -195,7 +195,7 @@ const router = createRouter({
       path: "/sorry",
       name: "LoadingProblems",
       component: ErrorView,
-    }
+    },
   ],
 });
 

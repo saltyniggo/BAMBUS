@@ -19,7 +19,6 @@
 </template>
 
 <script>
-// habe an
 import { mapActions } from "vuex";
 
 import BaseTextButton from "./BaseTextButton.vue";
@@ -83,7 +82,6 @@ export default {
     ...mapActions("loanStore", ["extensionRequestResponse"]),
     ...mapActions("userStore", ["deleteNotification"]),
     sendResponse(response) {
-      console.log(this.notification);
       const loanId = parseInt(this.notification.payload.split(";")[0]);
       const userId = parseInt(this.notification.payload.split(";")[1]);
       const newDueDate = this.notification.payload.split(";")[2];

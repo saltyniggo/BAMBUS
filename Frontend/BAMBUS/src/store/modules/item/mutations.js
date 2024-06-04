@@ -28,12 +28,12 @@ export default {
   },
   logout(state) {
     state.editItemId = null;
-    state.returnItemId= null;
-    state.reportItemId= null;
-    state.filteredBy= null;
-    state.sortedBy= null;
-    state.onlyAvailable= false;
-    state.search= "";
+    state.returnItemId = null;
+    state.reportItemId = null;
+    state.filteredBy = null;
+    state.sortedBy = null;
+    state.onlyAvailable = false;
+    state.search = "";
   },
   setFilteredBy(state, filterBy) {
     if (filterBy === "books") {

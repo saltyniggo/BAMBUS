@@ -18,7 +18,6 @@
               >Lese hier Bewertungen</a
             >
           </div>
-
           <div class="item-header-category">
             <i
               v-if="item.type == 1"
@@ -37,16 +36,16 @@
             ></i>
           </div>
         </div>
-
         <div class="item-title">
           <h2 v-if="user.role == 1">Id: {{ item.itemId }}</h2>
           <h1 v-if="item.title">{{ item.title }}</h1>
           <h1 v-else>{{ item.name }}</h1>
           <i v-if="item.author">{{ item.author }}</i>
         </div>
-
         <div class="item-description">
-          <p v-if="!item.currentLoanId && item.reservations.length == 0">Sofort verfügbar</p>
+          <p v-if="!item.currentLoanId && item.reservations.length == 0">
+            Sofort verfügbar
+          </p>
           <p v-else>Rerservierbar</p>
           <p>{{ item.category }}</p>
         </div>

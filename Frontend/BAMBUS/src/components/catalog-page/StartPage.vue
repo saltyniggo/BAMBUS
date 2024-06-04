@@ -1,43 +1,43 @@
 <template>
   <div class="startpage">
     <div class="container">
-    <h1>Was willst Du heute entdecken?</h1>
-    <div class="shortcuts">
-    <router-link
-      :to="{
-        name: 'catalog-category',
-        params: { category: 'all' },
-        hash: '#catalog',
-      }"
-    >
-      <shortcut-button>Alles</shortcut-button></router-link
-    >
-    <router-link
-      :to="{
-        name: 'catalog-category',
-        params: { category: 'books' },
-        hash: '#catalog',
-      }"
-      ><shortcut-button>Bücher</shortcut-button></router-link
-    >
-    <router-link
-      :to="{
-        name: 'catalog-category',
-        params: { category: 'magazines' },
-        hash: '#catalog',
-      }"
-      ><shortcut-button>Zeitschriften</shortcut-button></router-link
-    >
-    <router-link
-      :to="{
-        name: 'catalog-category',
-        params: { category: 'games' },
-        hash: '#catalog',
-      }"
-      ><shortcut-button>Spiele</shortcut-button></router-link
-    >
-    </div>  
-  </div>
+      <h1>Was willst Du heute entdecken?</h1>
+      <div class="shortcuts">
+        <router-link
+          :to="{
+            name: 'catalog-category',
+            params: { category: 'all' },
+            hash: '#catalog',
+          }"
+        >
+          <shortcut-button>Alles</shortcut-button></router-link
+        >
+        <router-link
+          :to="{
+            name: 'catalog-category',
+            params: { category: 'books' },
+            hash: '#catalog',
+          }"
+          ><shortcut-button>Bücher</shortcut-button></router-link
+        >
+        <router-link
+          :to="{
+            name: 'catalog-category',
+            params: { category: 'magazines' },
+            hash: '#catalog',
+          }"
+          ><shortcut-button>Zeitschriften</shortcut-button></router-link
+        >
+        <router-link
+          :to="{
+            name: 'catalog-category',
+            params: { category: 'games' },
+            hash: '#catalog',
+          }"
+          ><shortcut-button>Spiele</shortcut-button></router-link
+        >
+      </div>
+    </div>
   </div>
 </template>
 
@@ -86,11 +86,9 @@ export default {
 }
 
 .startpage h1 {
-  /* margin: 5% 0%; */
   font-size: 3em;
   text-align: center;
   color: #f2eae4;
-  /* text-shadow: 0.2rem 0.2rem 0.5rem #3c4e45; */
 }
 
 a {

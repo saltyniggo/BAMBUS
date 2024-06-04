@@ -1,6 +1,3 @@
-
-import item from "../item";
-
 export default {
   isUserAuthenticated: (state) => state.userIsAuth,
   getUser(state) {
@@ -36,7 +33,9 @@ export default {
   getDamageDescription: (state) => (itemId) => {
     let id = itemId;
     let description = "Keine Beschreibung verfügbar";
-    let damageNotifications = state.user.notifications.filter(n => n.type == 8);
+    let damageNotifications = state.user.notifications.filter(
+      (n) => n.type == 8
+    );
 
     for (let i = 0; i < damageNotifications.length; i++) {
       if (damageNotifications[i].text.includes(id)) {
@@ -46,5 +45,5 @@ export default {
       }
     }
     return description;
-    },
+  },
 };

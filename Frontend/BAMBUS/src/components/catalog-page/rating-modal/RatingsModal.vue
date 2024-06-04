@@ -3,20 +3,29 @@
     <template v-slot:modal-title>
       <h1>Bewertungen</h1>
     </template>
-
     <template v-slot:modal-content>
       <div v-for="rating in ratings" class="ratings">
         <div class="rating" v-if="showRating && editId != rating.ratingId">
-          <rating-container :rating="rating" @toggleEditStatus="toggleEditStatus" :numberOfRatings @closeModal="closeModal"></rating-container> 
+          <rating-container
+            :rating="rating"
+            @toggleEditStatus="toggleEditStatus"
+            :numberOfRatings
+            @closeModal="closeModal"
+          ></rating-container>
         </div>
-       
-       <div class="edit" v-else-if="!showRating && editId == rating.ratingId">
-          <edit-rating-container :rating="rating" @toggleEditStatus="toggleEditStatus" @saveEdit="saveEdit"></edit-rating-container>
-      </div>
+        <div class="edit" v-else-if="!showRating && editId == rating.ratingId">
+          <edit-rating-container
+            :rating="rating"
+            @toggleEditStatus="toggleEditStatus"
+            @saveEdit="saveEdit"
+          ></edit-rating-container>
+        </div>
       </div>
     </template>
     <template v-slot:modal-button>
-      <base-rectangle-button @click="closeModal">Schließen</base-rectangle-button>
+      <base-rectangle-button @click="closeModal"
+        >Schließen</base-rectangle-button
+      >
     </template>
   </base-modal-large>
 </template>
@@ -69,15 +78,14 @@ export default {
     }),
 
     toggleEditStatus(id) {
-      this.editId = id
-      this.showRating = !this.showRating
-
+      this.editId = id;
+      this.showRating = !this.showRating;
     },
 
     saveEdit() {
-      this.editId = null
-      this.showRating = !this.showRating
-      this.$forceUpdate()
+      this.editId = null;
+      this.showRating = !this.showRating;
+      this.$forceUpdate();
     },
 
     closeModal() {
@@ -85,7 +93,7 @@ export default {
       setTimeout(() => {
         this.$store.dispatch("modalStore/closeAllModals");
       }, 500);
-      this.$store.dispatch("ratingStore/deleteItemId")
+      this.$store.dispatch("ratingStore/deleteItemId");
     },
   },
 };
