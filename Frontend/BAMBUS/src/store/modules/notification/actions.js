@@ -161,31 +161,7 @@ export default {
     });
   },
 
-  // TODO
-  // checkReservedItems({ rootState }) {
-  //   const user = rootState.userStore.user;
-  //   rootState.itemStore.items.forEach((item) => {
-  //     if (
-  //       item.reservations !== null &&
-  //       item.reservations[0] === user.userId &&
-  //       !item.currentLoanId
-  //     ) {
-  //       const messageResponse = MessageService.CreateMessage({
-  //         senderId: 0,
-  //         receiverId: user.userId,
-  //         text: `Der von Ihnen reservierte Artikel ${item.title} ist jetzt verfügbar`,
-  //         date: today.toLocaleDateString("de-DE"),
-  //         type: 2,
-  //         payload: null,
-  //       });
-  //       if (!messageResponse.data.success) {
-  //         router.push("/error");
-  //       }
-  //     }
-  //   });
-  // },
 
-  //Repalces the above function:
   async informAboutAvailableReservation({ commit }, payload) {
     await MessageService.CreateMessage({
       senderId: 0,
@@ -286,7 +262,7 @@ export default {
         alert("Passwort zurücksetzen angefordert.");
         router.push({ name: "login" });
       } else {
-        alert(response.data.message);
+        alert("Fehler beim Zurücksetzen des Passworts");
       }
     });
   },
