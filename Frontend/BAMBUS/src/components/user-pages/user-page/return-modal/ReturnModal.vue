@@ -116,6 +116,10 @@ export default {
     processReturn() {
       this.checkRecommendation();
       this.checkcondition();
+
+      console.log(this.recommendation);
+      console.log(this.condition);
+
       let item = this.$store.getters["itemStore/getItemById"](this.id);
 ;
 
@@ -162,10 +166,11 @@ export default {
 
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
       item.currentLoanId = 0;
-      if (item.reservations.length > 0) {
-        item.reservations.shift();
-      }
+      // if (item.reservations.length > 0) {
+      //   item.reservations.shift();
+      // }
 
+        console.log("edit item: " + item)
       this.$store.dispatch("itemStore/editItem", item);
 
       if (item.reservations.length > 1) {

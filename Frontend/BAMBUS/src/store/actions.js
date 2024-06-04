@@ -7,6 +7,7 @@ export default {
     commit("ratingStore/logout", { root: true });
     commit("cartStore/logout", { root: true });
     commit("itemStore/logout", { root: true });
+    commit("loanStore/logout", { root: true });
     router.push("/");
   },
 };
