@@ -6,19 +6,7 @@ export default {
   getEditItem: (state) => {
     return state.items.find((item) => item.itemId === state.editItemId);
   },
-
   getReturnItemId: (state) => state.returnItemId,
-
-  // getReportItemId: (state) => state.reportItemId,
-
-  // getItemsRentedByUser: (state, _, __, rootGetters) => (userId) => {
-  //   const loans = rootGetters["loanStore/getActiveLoansFromUserId"](userId);
-  //   const items = loans.map((loan) =>
-  //     state.items.find((item) => item.currentLoanId === loan.loanId)
-  //   );
-  //   return items.filter((item) => item !== undefined);
-  // },
-
   getItemsReservedByUser: (state) => (userId) => {
     const items = state.items.filter((item) =>
       item.reservations.includes(userId)

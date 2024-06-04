@@ -70,7 +70,6 @@ export default {
         },
         deleteRating(ratingId, itemId) {
             this.$store.dispatch("ratingStore/deleteRatingById", {ratingId: ratingId, itemId: itemId});
-            this.toggleEditStatus(ratingId);
         },
     },
 }

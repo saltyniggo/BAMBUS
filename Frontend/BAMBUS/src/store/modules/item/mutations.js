@@ -9,12 +9,6 @@ export default {
     });
     state.items = items;
   },
-
-
-  // removeReservationFromItem(state, { itemId, userId }) {
-  //   const item = state.items.find((item) => item.itemId === itemId);
-  //   item.reservations = item.reservations.filter((id) => id !== userId);
-  // },
   setEditItemId(state, id) {
     state.editItemId = id;
   },
@@ -29,23 +23,18 @@ export default {
     state.returnItemId = null;
     state.reportItemId = null;
   },
-
-
-
   requestExtension(state, payload) {
     state.items[payload.index].dueDate = payload.newDueDate;
   },
   logout(state) {
     state.editItemId = null;
-    // state.items = [];
+    state.returnItemId= null;
+    state.reportItemId= null;
+    state.filteredBy= null;
+    state.sortedBy= null;
+    state.onlyAvailable= false;
+    state.search= "";
   },
-
-  // reportItem(state) {
-  //   state.items.find((item) => item.itemId == state.reportItemId).condition = 1;
-  // },
-
-
-
   setFilteredBy(state, filterBy) {
     if (filterBy === "books") {
       state.filteredBy = 1;
@@ -66,10 +55,4 @@ export default {
   setSearch(state, search) {
     state.search = search;
   },
-  // acceptDamage(state, itemId) {
-  //   state.items.find((item) => item.itemId === itemId).condition = 2;
-  // },
-  // rejectDamage(state, itemId) {
-  //   state.items.find((item) => item.itemId === itemId).condition = 0;
-  // },
 };

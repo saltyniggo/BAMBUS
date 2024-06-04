@@ -15,7 +15,7 @@ export default {
       }
     });
   },
-  async deleteItem({ commit}, id) {
+  async deleteItem({ commit }, id) {
     let item = store.getters["itemStore/getItemById"](id);
     if (item.currentLoanId != 0) {
       if (confirm("Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?") == false) {
@@ -39,7 +39,6 @@ export default {
     await ItemServices.AddItem(item).then((response) => {
       if (response.data.success) {
         commit("setItems", response.data.data);
-        //Test
         dispatch(
           "notificationStore/managerAddsItem",
           { title: item.title },
@@ -71,48 +70,6 @@ export default {
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
-  // async addLoanIdToItem({ commit, state }, payload) {
-  //   await ItemServices.AddLoan(payload).then((response) => {
-  //     if (response.data.success) {
-  //       // TODO Does it return the updated item list?
-  //       commit("setItems", response.data.data);
-  //     } else {
-  //       $router.push("/error");
-  //     }
-  //   });
-  // },
-  // async removeLoanIdFromItem({ commit }, payload) {
-  //   await ItemServices.RemoveLoan(payload).then((response) => {
-  //     if (response.data.success) {
-  //       // TODO Does it return the updated item list?
-  //       commit("setItems", response.data.data);
-  //     } else {
-  //       $router.push("/error");
-  //     }
-  //   });
-  // },
-  // async userReservesItem({ commit, state, rootState }, payload) {
-  //   const index = state.items.findIndex((item) => item.itemId === payload);
-  //   if (index !== -1) {
-  //     const userId = rootState.userStore.user.userId;
-  //     if (userId == null) {
-  //       alert("Please log in to reserve an item");
-  //     } else {
-  //       await ItemServices.RemoveLoan({
-  //         userId: userId,
-  //         itemId: item.itemId,
-  //       }).then((response) => {
-  //         if (response.data.success) {
-  //           // TODO Does it return the updated item list?
-  //           commit("setItems", response.data.data);
-  //         } else {
-  //           $router.push("/error");
-  //         }
-  //       });
-  //     }
-  //   }
-  // },
-
   requestExtension({ commit, rootState }, payload) {
     if (!payload.newDueDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
@@ -143,29 +100,6 @@ export default {
     commit("requestExtension", { index, newDueDate: payload.newdueDate });
   },
 
-  // reportItem({ commit }) {
-  //   commit("reportItem");
-  // },
-  // saveEditItem({ commit, state }, payload) {
-  //   const index = state.items.findIndex(
-  //     (item) => item.itemId === payload.itemId
-  //   );
-  //   commit("saveEditItem", { payload, index });
-  // },
-  // async cancelReservation({ commit }, payload) {
-  //   const index = state.items.findIndex((item) => item.itemId === payload);
-  //   if (index !== -1) {
-  //     await ItemServices.RemoveReservationByUser(payload).then((response) => {
-  //       if (response.data.success) {
-  //         // TODO Does it return the updated item list?
-  //         commit("setItems", response.data.data);
-  //       } else {
-  //         $router.push("/error");
-  //       }
-  //     });
-  //   }
-  // },
-
   async checkReservationTime({ dispatch, getters }) {
     let items = getters.getItemsWithoutLoanButReserved;
     if (!items) {
@@ -176,25 +110,22 @@ export default {
         if (response.data.success && response.data.data) {
           if (item.reservations.length > 0) {
             let userId = item.reservations[1];
-            //Test
-            dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: userId, title: item.title}, {root: true});
+            dispatch("notificationStore/informAboutAvailableReservation", { itemId: item.itemId, userId: userId, title: item.title }, { root: true });
           }
         }
       });
     });
   },
-
   async cancelReservation({ commit, dispatch, state, rootState }, payload) {
     let item = state.items.find((item) => item.itemId === payload.itemId);
 
     if (item.reservations[0] !== payload.userId) {
-    item.reservations = item.reservations.filter((userId) => userId !== payload.userId);
+      item.reservations = item.reservations.filter((userId) => userId !== payload.userId);
     }
     else {
       item.reservations.shift();
       if (item.reservations.length > 0) {
-      //Test: 
-      dispatch("notificationStore/informAboutAvailableReservation", {itemId: item.itemId, userId: item.reservations[0], title: item.title}, {root: true});
+        dispatch("notificationStore/informAboutAvailableReservation", { itemId: item.itemId, userId: item.reservations[0], title: item.title }, { root: true });
       }
     }
     await ItemServices.UpdateItem(item).then((response) => {
@@ -205,7 +136,6 @@ export default {
       }
     });
   },
-
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
   },
@@ -218,10 +148,4 @@ export default {
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },
-  // acceptDamage({ commit }, payload) {
-  //   commit("acceptDamage", payload);
-  // },
-  // rejectDamage({ commit }, payload) {
-  //   commit("rejectDamage", payload);
-  // },
 };
