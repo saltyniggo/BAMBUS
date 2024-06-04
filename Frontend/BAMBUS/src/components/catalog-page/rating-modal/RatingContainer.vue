@@ -42,6 +42,10 @@ export default {
             type: Object,
             required: true,
         },
+        numberOfRatings: {
+            type: Number,
+            required: true,
+        },
     },
     computed: {
         role() {
@@ -70,6 +74,9 @@ export default {
         },
         deleteRating(ratingId, itemId) {
             this.$store.dispatch("ratingStore/deleteRatingById", {ratingId: ratingId, itemId: itemId});
+            if (this.numberOfRatings === 1) {
+                this.$emit("closeModal");
+            }
         },
     },
 }
