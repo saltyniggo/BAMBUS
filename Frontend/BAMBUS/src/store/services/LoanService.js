@@ -39,28 +39,6 @@ async function GetAllLoansFromUser() {
   }
 }
 
-// async function GetLoanById(payload) {
-//   try {
-//     const response = await axios({
-//       method: "post",
-//       url: `http://localhost:5240/GetLoanById`,
-//       headers: {
-//         "Content-Type": "application/json",
-//         accept: "*/*",
-//         Authorization: "Bearer " + userStore.state.user.token,
-//       },
-//       data: {
-//         loanId: payload,
-//       },
-//     });
-//     return response;
-//   } catch (error) {
-//     console.warn("Error when getting loan by id from DB:");
-//     console.error("Error:", error);
-//     throw error;
-//   }
-// }
-
 async function CreateLoan(payload) {
   try {
     const response = await axios({
@@ -129,30 +107,6 @@ async function SetReturnDate(payload) {
   }
 }
 
-async function ReturnItem(payload) {
-  try {
-    const response = await axios({
-      method: "put",
-      url: `http://localhost:5240/ReturnItem`,
-      headers: {
-        "Content-Type": "application/json",
-        accept: "*/*",
-        Authorization: "Bearer " + userStore.state.user.token,
-      },
-      data: {
-        loanId: payload.loanId,
-        itemId: payload.itemId,
-        itemType: payload.itemType,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.warn("Error when returning item in DB:");
-    console.error("Error:", error);
-    throw error;
-  }
-}
-
 async function EndExtensionRequest(payload) {
   try {
     const response = await axios({
@@ -180,7 +134,6 @@ async function EndExtensionRequest(payload) {
 export default {
   GetAllLoans,
   GetAllLoansFromUser,
-  // GetLoanById,
   CreateLoan,
   SetReturnDate,
   EndExtensionRequest,
