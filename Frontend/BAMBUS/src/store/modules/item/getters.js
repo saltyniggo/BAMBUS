@@ -1,5 +1,4 @@
 export default {
-  // getItems: (state) => state.items,
   getItemById: (state) => (itemId) => {
     return state.items.find((item) => item.itemId === itemId);
   },
@@ -75,7 +74,8 @@ export default {
   },
   getOnlyAvailableItems: (state) => (items) => {
     if (state.onlyAvailable) {
-      return items.filter((item) => !item.currentLoanId);
+      let availableItems = items.filter((item) => ((item.currentLoanId === 0 || item.currentLoanId === null)&& item.reservations.length === 0));
+      return availableItems;
     }
     return items;
   },
