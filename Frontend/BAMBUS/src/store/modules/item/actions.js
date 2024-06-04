@@ -1,7 +1,6 @@
 import ItemServices from "../../services/ItemServices";
 import store from "../../index.js";
 import $router from "@/router";
-import item from ".";
 import LoanService from "@/store/services/LoanService";
 import RatingService from "@/store/services/RatingService";
 

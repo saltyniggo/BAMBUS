@@ -114,7 +114,6 @@ export default {
         }
         
         await this.$store.dispatch("itemStore/createItem", item);
-        // await this.managerAddsItem(item);
         this.$router.push({ name: "catalog" });
       }
     },

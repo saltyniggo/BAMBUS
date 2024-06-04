@@ -88,12 +88,9 @@ export default {
     ...mapGetters("itemStore", { id: "getReturnItemId" }),
   },
   methods: {
-    // ...mapActions("itemStore", ["removeLoanIdFromItem"]),
-    // ...mapActions("itemStore", ["reportItem"]),
     ...mapActions("modalStore", ["closeAllModals"]),
     ...mapActions("ratingStore", ["addRating", "updateRating"]),
-    // ...mapActions("notificationStore", ["userReportsDamage"]),
-    // ...mapActions("loanStore", ["returnItem"]),
+
 
     checkRecommendation() {
       if (yesRecommend.checked) {
@@ -138,9 +135,7 @@ export default {
 
         if (!this.hasRating) {
           this.addRating(newRating);
-        } else if (this.oldRating.rating == this.rating && this.oldRating.comment == this.comment && this.oldRating.isRecommended == this.recommendation) {
-          console.log("no changes");
-        } else {
+        } else if (this.oldRating.rating !== this.rating || this.oldRating.comment !== this.comment || this.oldRating.isRecommended !== this.recommendation) {
           this.updateRating(newRating);
         }
       }

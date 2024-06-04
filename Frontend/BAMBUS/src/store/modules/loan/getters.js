@@ -19,11 +19,6 @@ export default {
       (loan) => loan.loanId === loanId && loan.returnDate === null
     );
   },
-  // getActiveItemIdFromUserId: (state) => (userId) => {
-  //   return state.loans
-  //     .filter((loan) => loan.userId === userId && loan.returnDate === null)
-  //     .map((loan) => loan.itemId);
-  // },
   getActiveItemIdFromUserId: (state) => {
     let loans = state.loans.filter(
       (loan) => loan.returnDate === null 
