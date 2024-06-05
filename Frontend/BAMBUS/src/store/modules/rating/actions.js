@@ -18,7 +18,7 @@ export default {
               commit("itemStore/setItems", response.data.data, { root: true });
               commit("setRatings", ratings);
             } else {
-              alert("Error when updating average rating in DB");
+              alert("Error when updating average rating in DB 1");
             }
           });
         } else {
@@ -42,7 +42,7 @@ export default {
               commit("setRatings", ratings);
             } else {
               alert(
-                "Error when updating average rating in DB: " +
+                "Error when updating average rating in DB 0: " +
                   response.data.message
               );
             }
@@ -68,7 +68,7 @@ export default {
               commit("itemStore/setItems", response.data.data, { root: true });
             } else {
               alert(
-                "Error when updating average rating in DB: " +
+                "Error when updating average rating in DB 1: " +
                   response.data.message
               );
             }

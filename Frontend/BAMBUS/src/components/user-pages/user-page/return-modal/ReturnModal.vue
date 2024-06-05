@@ -165,7 +165,7 @@ export default {
         this.comment.trim() != "" ||
         this.recommendation != null
       ) {
-        if (this.rating == 0) {
+        if (this.rating == 0 || this.recommendation == null ) {
           this.showAlert = true;
           return;
         }

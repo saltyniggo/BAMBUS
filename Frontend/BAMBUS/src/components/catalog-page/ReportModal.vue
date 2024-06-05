@@ -25,7 +25,7 @@ import BaseContentContainer from "../base-components/BaseContentContainer.vue";
 import BaseModalSmall from "../base-components/BaseModalSmall.vue";
 
 export default {
-    name: "ReturnModal",
+    name: "ReportModal",
     components: {
         BaseModalSmall,
         BaseRectangleButton,
