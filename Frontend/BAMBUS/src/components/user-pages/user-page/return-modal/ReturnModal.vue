@@ -11,49 +11,23 @@
           <i v-if="showAlert">Bitte gebe Sterne an, wenn du bewertest.</i>
 
           <div class="stars">
-            <div
-              v-for="(star, index) in stars"
-              :key="index"
-              @click="changeStar(index + 1)"
-            >
-              <i
-                :class="[star ? 'fa-solid' : 'fa-regular', 'fa-star']"
-                style="color: #222126"
-              ></i>
+            <div v-for="(star, index) in stars" :key="index" @click="changeStar(index + 1)">
+              <i :class="[star ? 'fa-solid' : 'fa-regular', 'fa-star']" style="color: #222126"></i>
             </div>
           </div>
 
           <p v-if="rating != 0">{{ rating }} Sterne</p>
 
           <br />
-          <textarea
-            id="comment"
-            name="comment"
-            rows="5"
-            cols="60"
-            maxlength="200"
-            v-model="comment"
-            placeholder="Möchtest du noch was hinzufügen?"
-          ></textarea>
+          <textarea id="comment" name="comment" rows="5" cols="60" maxlength="200" v-model="comment"
+            placeholder="Möchtest du noch was hinzufügen?"></textarea>
         </div>
         <div class="recommendation">
           <h3>Würdest du den Gegenstand weiter empfehlen?</h3>
           <div class="radio-group">
-            <input
-              type="radio"
-              id="yesRecommend"
-              name="recommendation"
-              value="yes"
-              :checked="recommendation"
-            />
+            <input type="radio" id="yesRecommend" name="recommendation" value="yes" :checked="recommendation" />
             <label for="yes">Ja</label>
-            <input
-              type="radio"
-              id="noRecommend"
-              name="recommendation"
-              value="no"
-              :checked="recommendation == false"
-            />
+            <input type="radio" id="noRecommend" name="recommendation" value="no" :checked="recommendation == false" />
             <label for="no">Nein</label>
           </div>
         </div>
@@ -61,38 +35,19 @@
           <h3>Ist der Gegenstand beschädigt worden?</h3>
 
           <div class="radio-group">
-            <input
-              type="radio"
-              id="yesBroken"
-              name="condition"
-              value="yes"
-              @click="checkcondition"
-            />
+            <input type="radio" id="yesBroken" name="condition" value="yes" @click="checkcondition" />
             <label for="yes">Ja</label>
-            <input
-              type="radio"
-              id="noNotBroken"
-              name="condition"
-              value="no"
-              @click="checkcondition"
-            />
+            <input type="radio" id="noNotBroken" name="condition" value="no" @click="checkcondition" />
             <label for="no">Nein</label>
           </div>
 
-          <input
-            type="text"
-            v-if="condition == true"
-            v-model="damageDescription"
-            maxlength="150"
-            placeholder="Bitte benenne den Schaden..."
-          />
+          <input type="text" v-if="condition == true" v-model="damageDescription" maxlength="150"
+            placeholder="Bitte benenne den Schaden..." />
         </div>
       </div>
     </template>
     <template v-slot:modal-button>
-      <base-rectangle-button @click="processReturn"
-        >Abgeben</base-rectangle-button
-      >
+      <base-rectangle-button @click="processReturn">Abgeben</base-rectangle-button>
     </template>
   </base-modal-large>
 </template>
@@ -126,6 +81,8 @@ export default {
       hasRating: false,
       ratingId: 0,
       oldRating: null,
+      needsRatingUpdate: false,
+
     };
   },
   computed: {
@@ -155,17 +112,9 @@ export default {
       }
     },
 
-    processReturn() {
-      this.checkRecommendation();
-      this.checkcondition();
-
-      let item = this.$store.getters["itemStore/getItemById"](this.id);
-      if (
-        this.rating != 0 ||
-        this.comment.trim() != "" ||
-        this.recommendation != null
-      ) {
-        if (this.rating == 0 || this.recommendation == null ) {
+    processRating() {
+      if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) {
+        if (this.rating == 0 || this.recommendation == null) {
           this.showAlert = true;
           return;
         }
@@ -180,28 +129,88 @@ export default {
         };
 
         if (!this.hasRating) {
-          this.addRating(newRating);
+          // this.addRating(newRating);
+          this.needsRatingUpdate = false;
         } else if (
           this.oldRating.rating !== this.rating ||
           this.oldRating.comment !== this.comment ||
           this.oldRating.isRecommended !== this.recommendation
         ) {
-          this.updateRating(newRating);
+          // this.updateRating(newRating);
+          this.needsRatingUpdate = true;
         }
+
+        return newRating;
       }
+    },
 
+    processDamage() {
       if (this.condition == true) {
-        item.condition == 0
-          ? (item.condition = 1)
-          : (item.condition = item.condition);
+        item.condition == 0 ? (item.condition = 1) : (item.condition = item.condition);
 
-        this.$store.dispatch("notificationStore/userReportsDamage", {
+        let damageMessage = {
           itemId: this.id,
           userId: this.user.userId,
           title: item.title,
           damageDescription: this.damageDescription,
-        });
+        };
+
+        return damageMessage;
+
+        // this.$store.dispatch("notificationStore/userReportsDamage", {
+        //   itemId: this.id,
+        //   userId: this.user.userId,
+        //   title: item.title,
+        //   damageDescription: this.damageDescription,
+        // });
       }
+    },
+
+    processReturn() {
+      this.checkRecommendation();
+      this.checkcondition();
+
+      let item = this.$store.getters["itemStore/getItemById"](this.id);
+      // if (
+      //   this.rating != 0 ||
+      //   this.comment.trim() != "" ||
+      //   this.recommendation != null
+      // ) {
+      //   if (this.rating == 0 || this.recommendation == null ) {
+      //     this.showAlert = true;
+      //     return;
+      //   }
+      //   this.showAlert = false;
+      //   let newRating = {
+      //     itemId: this.id,
+      //     userId: this.user.userId,
+      //     rating: this.rating,
+      //     comment: this.comment,
+      //     isRecommended: this.recommendation,
+      //     ratingId: this.ratingId,
+      //   };
+
+      // if (!this.hasRating) {
+      //   this.addRating(newRating);
+      // } else if (
+      //   this.oldRating.rating !== this.rating ||
+      //   this.oldRating.comment !== this.comment ||
+      //   this.oldRating.isRecommended !== this.recommendation
+      // ) {
+      //   this.updateRating(newRating);
+      // }
+      // }
+
+      // if(this.condition == true) {
+      //   item.condition == 0 ? (item.condition = 1) : (item.condition = item.condition);
+
+      // this.$store.dispatch("notificationStore/userReportsDamage", {
+      //   itemId: this.id,
+      //   userId: this.user.userId,
+      //   title: item.title,
+      //   damageDescription: this.damageDescription,
+      // });
+      // }
 
       this.$store.dispatch("loanStore/setReturnDate", item.currentLoanId);
       item.currentLoanId = 0;

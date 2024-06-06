@@ -164,4 +164,13 @@ export default {
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },
+
+  processReturn({ commit, dispatch, rootState }, payload) {
+    //add or update rating
+    //notify about damaged item
+    //notify about available reservation
+    //remove current loan from item
+    //update avg rating
+    //update reservations list in item
+  },
 };
