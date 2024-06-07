@@ -85,6 +85,26 @@ async function ActivateExtensionRequest(payload) {
   }
 }
 
+async function ReturnItem(payload) {
+  try {
+    const response = await axios({
+      method: "put",
+      url: `http://localhost:5240/ReturnItem`,
+      headers: {
+        "Content-Type": "application/json",
+        accept: "*/*",
+        Authorization: "Bearer " + userStore.state.user.token,
+      },
+      data: payload,
+    });
+    return response;
+  } catch (error) {
+    console.warn("Error when returning item in DB:");
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
 async function SetReturnDate(payload) {
   try {
     const response = await axios({
@@ -136,6 +156,7 @@ export default {
   GetAllLoansFromUser,
   CreateLoan,
   SetReturnDate,
+  ReturnItem,
   EndExtensionRequest,
   EndExtensionRequest,
   ActivateExtensionRequest,

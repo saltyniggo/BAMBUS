@@ -22,6 +22,10 @@ export default {
     const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
     loan.returnDate = payload.returnDate;
   },
+  updateLoan(state, loan) {
+    const index = state.loans.findIndex((l) => l.loanId === loan.loanId);
+    state.loans[index] = loan;
+  },
   logout(state) {
     state.loans = [];
   },

@@ -55,4 +55,12 @@ export default {
   setSearch(state, search) {
     state.search = search;
   },
+  updateItem(state, item) {
+    console.log(item);
+    let index = state.items.findIndex((i) => i.itemId === item.itemId);
+    state.items[index] = item;
+    if (index === -1) {
+      state.items.push(item);
+    }
+  }
 };

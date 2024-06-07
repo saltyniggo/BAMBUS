@@ -165,12 +165,56 @@ export default {
     commit("setSearch", payload);
   },
 
-  processReturn({ commit, dispatch, rootState }, payload) {
-    //add or update rating
-    //notify about damaged item
-    //notify about available reservation
-    //remove current loan from item
-    //update avg rating
-    //update reservations list in item
+  returnItem({ commit, dispatch, rootState }, payload) {
+
+    let item = store.getters["itemStore/getItemById"](payload.itemId);
+    console.log(item);
+    payload.userId = rootState.userStore.user.userId;
+    payload.itemType = item.type;
+    payload.loanId=item.currentLoanId;
+    console.log(payload);
+
+
+    LoanService.ReturnItem(payload).then((response) => {
+      console.log(response);
+      if (response.data.success) {
+        console.log("Item returned");
+        console.log(response.data.data);
+
+        if (response.data.data.book != null) {
+          commit("updateItem", response.data.data.book);
+        }
+        else if (response.data.data.game != null) {
+          commit("updateItem", response.data.data.game);
+        }
+        else if (response.data.data.magazine != null) {
+          commit("updateItem", response.data.data.magazine);
+        }
+
+        commit("loanStore/updateLoan", response.data.data.loan, { root: true });
+        commit("ratingStore/updateRating", response.data.data.rating, { root: true });
+
+       dispatch("notificationStore/userReportsDamage", {
+          itemId: payload.itemId,
+          userId: rootState.userStore.user.userId,
+          title: item.title,
+          damageDescription: payload.damageDescription,
+        }, { root: true });
+        if (item.reservations.length > 0) {
+          dispatch(
+            "notificationStore/informAboutAvailableReservation",
+            {
+              itemId: item.itemId,
+              userId: item.reservations[0],
+              title: item.title,
+            },
+            { root: true }
+          );
+        }
+      }
+      else {
+        alert("Fehler beim Zurückgeben des Artikels");
+      }
+    });
   },
 };
