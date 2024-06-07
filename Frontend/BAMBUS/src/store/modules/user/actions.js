@@ -172,13 +172,21 @@ export default {
     user.password = payload.newPassword;
     await UserServices.UpdateUser(user).then((response) => {
       if (response.data.success) {
-        // commit("changePassword", payload.newPassword)
         alert("Passwort erfolgreich geändert");
       } else {
         alert(response.data.message);
       }
     });
   },
+
+  async deleteNotification({ commit, state }, payload) {
+    const user = state.user;
+    await MessageService.DeleteMessage(payload);
+    await MessageService.GetMessagesFromUserId(user.userId).then((response) => {
+      commit("setNotifications", response.data.data);
+    });
+  },
+
   async deleteAccount({ commit, state, rootState, rootGetters }) {
     let activeLoans = rootGetters["loanStore/getActiveItemIdFromUserId"];
     if (activeLoans.length > 0) {
@@ -199,7 +207,6 @@ export default {
       if (activeReservations.length > 0) {
         for (let i = 0; i < activeReservations.length; i++) {
           let item = activeReservations[i];
-          console.log(item);
           item.reservations = item.reservations.filter(
             (id) => id !== state.user.userId
           );

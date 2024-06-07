@@ -1,5 +1,5 @@
-import MessageService from "@/store/services/MessageService.js";
 import router from "../../../router/index.js";
+import MessageService from "@/store/services/MessageService.js";
 import LoanService from "@/store/services/LoanService.js";
 
 export default {
@@ -294,8 +294,7 @@ export default {
     });
   },
 
-  managerRespondsToExtensionRequest({ rootState }, payload) {
-    console.log(payload);
+  managerRespondsToExtensionRequest({ rootState, dispatch }, payload) {
     const managerId = rootState.userStore.user.userId;
     const userId = rootState.loanStore.loans.find(
       (loan) => loan.loanId === payload.loanId
@@ -315,6 +314,18 @@ export default {
       if (!response.data.success) {
         router.push("/error");
         return;
+      } else {
+        dispatch("userStore/deleteNotification", payload.messageId, {
+          root: true,
+        }).then(
+          MessageService.GetMessagesFromUserId(userId).then((response) => {
+            if (response.data.success) {
+              rootState.userStore.notifications = response.data.data;
+            } else {
+              router.push("/error");
+            }
+          })
+        );
       }
     });
   },

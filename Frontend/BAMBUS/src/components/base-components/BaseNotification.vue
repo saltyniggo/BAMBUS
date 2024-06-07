@@ -6,15 +6,24 @@
       <h3>Von {{ senderName }} am {{ date }}</h3>
       <p>{{ notification.text }}</p>
     </section>
-    <section
-      class="notification-manager-extension"
-      v-if="this.notification.type == 4"
-    >
-      <base-text-button @click="sendResponse(true)">accept</base-text-button>
-      <base-text-button @click="sendResponse(false)"
-        >nein oida</base-text-button
+    <div>
+      <section
+        class="notification-manager-extension"
+        v-if="this.notification.type == 4"
       >
-    </section>
+        <base-text-button @click="sendResponse(true)"
+          >Akzeptieren</base-text-button
+        >
+        <base-text-button @click="sendResponse(false)"
+          >Ablehnen</base-text-button
+        >
+      </section>
+      <section class="notification-delete" v-else>
+        <base-text-button @click="deleteNotification(notification.messageId)"
+          >Löschen</base-text-button
+        >
+      </section>
+    </div>
   </div>
 </template>
 
@@ -23,6 +32,7 @@ import { mapActions } from "vuex";
 
 import BaseTextButton from "./BaseTextButton.vue";
 import notification from "@/store/modules/notification";
+import MessageService from "@/store/services/MessageService";
 
 export default {
   name: "BaseNotification",
@@ -81,18 +91,15 @@ export default {
   methods: {
     ...mapActions("loanStore", ["extensionRequestResponse"]),
     ...mapActions("userStore", ["deleteNotification"]),
-    sendResponse(response) {
+    ...mapActions("notificationStore", ["updateNotifications"]),
+    async sendResponse(response) {
       const loanId = parseInt(this.notification.payload.split(";")[0]);
-      const userId = parseInt(this.notification.payload.split(";")[1]);
       const newDueDate = this.notification.payload.split(";")[2];
-      this.extensionRequestResponse({
+      await this.extensionRequestResponse({
         loanId: loanId,
         newDueDate: newDueDate,
         response: response,
-      });
-      this.deleteNotification({
-        notificationId: this.notification.notificationId,
-        userId: userId,
+        messageId: this.notification.messageId,
       });
     },
   },
