@@ -1,37 +1,26 @@
 export default {
-  getActiveLoansFromUserId: (state) => (userId) => {
-    return state.loans.filter(
+  getActiveLoansFromUserId: (state) => (userId) =>
+    state.loans.filter(
       (loan) => loan.userId === userId && loan.returnDate === null
-    );
-  },
-  getPastLoansFromUserId: (state) => (userId) => {
-    return state.loans.filter(
+    ),
+
+  getPastLoansFromUserId: (state) => (userId) =>
+    state.loans.filter(
       (loan) => loan.userId === userId && loan.returnDate !== null
-    );
-  },
-  getAllLoansFromUserId: (state) => (userId) => {
-    return state.loans.filter((loan) => loan.userId === userId);
-  },
+    ),
+
+  getAllLoansFromUserId: (state) => (userId) =>
+    state.loans.filter((loan) => loan.userId === userId),
+
   getAllLoans: (state) => state.loans,
 
-  getLoanById: (state) => (loanId) => {
-    return state.loans.find(
+  getLoanById: (state) => (loanId) =>
+    state.loans.find(
       (loan) => loan.loanId === loanId && loan.returnDate === null
-    );
-  },
+    ),
+
   getActiveItemIdFromUserId: (state) => {
-    let loans = state.loans.filter((loan) => loan.returnDate === null);
-
-    if (!Array.isArray(loans)) {
-      loans = [loans];
-    }
-
-    let itemIds = [];
-    loans.forEach((loan) => {
-      let itemId = loan.itemId;
-      itemIds.push(itemId);
-    });
-
-    return itemIds;
+    const loans = state.loans.filter((loan) => loan.returnDate === null);
+    return loans.map((loan) => loan.itemId);
   },
 };

@@ -18,14 +18,7 @@ export default {
     if (!payload) return;
     state.user.notifications = payload;
   },
-  deleteNotification(state, payload) {
-    const user = state.users.find((user) => user.userId === payload.userId);
-    if (user && user.notifications) {
-      user.notifications = user.notifications.filter(
-        (notification) => notification.notificationId !== payload.notificationId
-      );
-    }
-  },
+
   logout(state) {
     state.userIsAuth = false;
     state.user.token = null;
