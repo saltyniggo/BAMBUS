@@ -116,6 +116,7 @@ export default {
 
     processRating() {
       this.checkRecommendation();
+      this.needsRating = false;
       if (this.rating != 0 || this.comment.trim() != "" || this.recommendation != null) {
         this.needsRating = true;
         if (this.rating == 0 || this.recommendation == null) {
@@ -127,10 +128,8 @@ export default {
           return true
         }
       }
-
-        this.needsRating = false;
-        this.showAlert = false;
-        return true;
+      this.showAlert = false;
+      return true;
       
 
         
@@ -190,20 +189,21 @@ export default {
     processReturn() {
 
       this.processRating();
+      this.processDamage();
       console.log("Rating0: ", this.processRating());
       if (this.processRating() ) {
         console.log("Rating: ", this.processRating());
-        this.$store.dispatch("itemStore/returnItem", {
-          itemId: this.id,
-          userId: this.user.userId,
-          ratingId: this.ratingId,
-          rating: this.rating,
-          comment: this.comment,
-          isRecommended: this.recommendation,
-          condition: this.condition,
-          damageDescription: this.damageDescription,
-          needsRating: this.needsRating,
-        });
+        // this.$store.dispatch("itemStore/returnItem", {
+        //   itemId: this.id,
+        //   userId: this.user.userId,
+        //   ratingId: this.ratingId,
+        //   rating: this.rating,
+        //   comment: this.comment,
+        //   isRecommended: this.recommendation,
+        //   condition: this.condition,
+        //   damageDescription: this.damageDescription,
+        //   needsRating: this.needsRating,
+        // });
         this.hideModal = true;
       setTimeout(() => {
         this.$store.dispatch("modalStore/closeAllModals");
@@ -283,8 +283,6 @@ export default {
       //     }
       //   );
       // }
-
-
     },
 
     changeStar(index) {
