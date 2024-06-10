@@ -1,44 +1,55 @@
-import ItemServices from "../../services/ItemServices";
 import store from "../../index.js";
 import $router from "@/router";
+import ItemServices from "../../services/ItemServices";
 import LoanService from "@/store/services/LoanService";
 import RatingService from "@/store/services/RatingService";
 
 export default {
   async loadItems({ commit }) {
-    await ItemServices.LoadAllItems().then((response) => {
+    try {
+      const response = await ItemServices.LoadAllItems();
       if (response.data.success) {
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
       }
-    });
-  },
-  async deleteItem({ commit }, id) {
-    let item = store.getters["itemStore/getItemById"](id);
-    if (item.currentLoanId != 0) {
-      if (
-        confirm(
-          "Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?"
-        ) == false
-      ) {
-        return;
-      } else {
-        LoanService.SetReturnDate(item.currentLoanId);
-        LoanService.EndExtensionRequest(item.currentLoanId);
-      }
+    } catch (error) {
+      console.error("Error loading items:", error);
+      $router.push("/error");
     }
-    await ItemServices.DeleteItem(id).then((response) => {
+  },
+
+  async deleteItem({ commit }, id) {
+    const item = store.getters["itemStore/getItemById"](id);
+    if (item.currentLoanId !== 0) {
+      const confirmDeletion = confirm(
+        "Dieser Artikel ist noch ausgeliehen. Wollen Sie ihn trotzdem löschen?"
+      );
+      if (!confirmDeletion) return;
+
+      await Promise.all([
+        LoanService.SetReturnDate(item.currentLoanId),
+        LoanService.EndExtensionRequest(item.currentLoanId),
+      ]);
+    }
+
+    try {
+      const response = await ItemServices.DeleteItem(id);
       if (response.data.success) {
         commit("setItems", response.data.data);
-        RatingService.DeleteRatingByItemId(id);
+        await RatingService.DeleteRatingByItemId(id);
       } else {
         $router.push("/error");
       }
-    });
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      $router.push("/error");
+    }
   },
+
   async createItem({ commit, dispatch }, item) {
-    await ItemServices.AddItem(item).then((response) => {
+    try {
+      const response = await ItemServices.AddItem(item);
       if (response.data.success) {
         commit("setItems", response.data.data);
         dispatch(
@@ -49,82 +60,105 @@ export default {
       } else {
         $router.push("/error");
       }
-    });
+    } catch (error) {
+      console.error("Error creating item:", error);
+      $router.push("/error");
+    }
   },
+
   async editItem({ commit }, payload) {
-    await ItemServices.UpdateItem(payload).then((response) => {
+    try {
+      const response = await ItemServices.UpdateItem(payload);
       if (response.data.success) {
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
       }
-    });
+    } catch (error) {
+      console.error("Error editing item:", error);
+      $router.push("/error");
+    }
   },
+
   setEditItemId({ commit }, id) {
     commit("setEditItemId", id);
   },
+
   setReturnItemId({ commit }, id) {
     commit("setReturnItemId", id);
   },
+
   setReportItemId({ commit }, id) {
     commit("setReportItemId", id);
   },
+
   deleteAllModalIds({ commit }) {
     commit("deleteAllModalIds");
   },
+
   requestExtension({ commit, rootState }, payload) {
-    if (!payload.newDueDate) {
+    const { newDueDate, item } = payload;
+    if (!newDueDate) {
       alert("Bitte wählen Sie ein neues Rückgabedatum");
       return;
     }
-    if (payload.newDueDate <= payload.item.dueDate) {
+    if (newDueDate <= item.dueDate) {
       alert(
         "Das neue Rückgabedatum muss nach dem aktuellen Rückgabedatum liegen"
       );
       return;
     }
-    const maxFutureDate = new Date(payload.item.dueDate);
+
+    const maxFutureDate = new Date(item.dueDate);
     maxFutureDate.setDate(maxFutureDate.getDate() + 31);
     const formattedDate = maxFutureDate.toISOString().split("T")[0];
-    if (payload.newDueDate > formattedDate) {
+    if (newDueDate > formattedDate) {
       alert(
         "Das neue Rückgabedatum darf nicht mehr als 31 Tage in der Zukunft liegen"
       );
       return;
     }
+
     const userId = rootState.userStore.user.userId;
     alert(
-      `Benutzer ${userId} beantragt eine Verlängerung für Artikel ${payload.item.itemId} bis zum ${payload.newDueDate}`
+      `Benutzer ${userId} beantragt eine Verlängerung für Artikel ${item.itemId} bis zum ${newDueDate}`
     );
+
     const index = rootState.itemStore.items.findIndex(
-      (item) => item.itemId === payload.item.itemId
+      (storeItem) => storeItem.itemId === item.itemId
     );
-    commit("requestExtension", { index, newDueDate: payload.newdueDate });
+    commit("requestExtension", { index, newDueDate });
   },
 
   async checkReservationTime({ dispatch, getters }) {
-    let items = getters.getItemsWithoutLoanButReserved;
-    if (!items) {
-      return;
-    }
-    items.forEach((item) => {
-      ItemServices.IsReturnLongerThanWeekAgo(item.itemId).then((response) => {
-        if (response.data.success && response.data.data) {
-          if (item.reservations.length > 0) {
-            let userId = item.reservations[1];
-            //Test
-            dispatch(
-              "notificationStore/informAboutAvailableReservation",
-              { itemId: item.itemId, userId: userId, title: item.title },
-              { root: true }
-            );
-          }
+    const items = getters.getItemsWithoutLoanButReserved;
+    if (!items) return;
+
+    for (const item of items) {
+      try {
+        const response = await ItemServices.IsReturnLongerThanWeekAgo(
+          item.itemId
+        );
+        if (
+          response.data.success &&
+          response.data.data &&
+          item.reservations.length > 0
+        ) {
+          const userId = item.reservations[1];
+          dispatch(
+            "notificationStore/informAboutAvailableReservation",
+            { itemId: item.itemId, userId, title: item.title },
+            { root: true }
+          );
         }
-      });
-    });
+      } catch (error) {
+        console.error("Error checking reservation time:", error);
+      }
+    }
   },
-  async cancelReservation({ commit, dispatch, state, rootState }, payload) {
-    let item = state.items.find((item) => item.itemId === payload.itemId);
+
+  async cancelReservation({ commit, dispatch, state }, payload) {
+    const item = state.items.find((item) => item.itemId === payload.itemId);
 
     if (item.reservations[0] !== payload.userId) {
       item.reservations = item.reservations.filter(
@@ -144,23 +178,32 @@ export default {
         );
       }
     }
-    await ItemServices.UpdateItem(item).then((response) => {
+
+    try {
+      const response = await ItemServices.UpdateItem(item);
       if (response.data.success) {
         commit("setItems", response.data.data);
       } else {
         $router.push("/error");
       }
-    });
+    } catch (error) {
+      console.error("Error canceling reservation:", error);
+      $router.push("/error");
+    }
   },
+
   setSortedBy({ commit }, payload) {
     commit("setSortedBy", payload);
   },
+
   setFilteredBy({ commit }, payload) {
     commit("setFilteredBy", payload);
   },
+
   setOnlyAvailable({ commit }, payload) {
     commit("setOnlyAvailable", payload);
   },
+
   setSearch({ commit }, payload) {
     commit("setSearch", payload);
   },

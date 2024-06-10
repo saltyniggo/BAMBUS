@@ -92,9 +92,6 @@ export default {
       });
     },
   },
-  // beforeMount() {
-  //   this.setRentedItems();
-  // },
 };
 </script>
 

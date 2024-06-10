@@ -2,25 +2,40 @@ export default {
   setLoans(state, loans) {
     state.loans = loans;
   },
-  returnItem(state, payload) {
-    const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
-    loan.returnDate = payload.returnDate;
+
+  returnItem(state, { loanId, returnDate }) {
+    const loan = state.loans.find((loan) => loan.loanId === loanId);
+    if (loan) {
+      loan.returnDate = returnDate;
+    }
   },
-  setExtensionRequestActive(state, payload) {
-    const loan = state.loans.find((loan) => loan.loanId === payload);
-    loan.extensionRequestActive = true;
+
+  setExtensionRequestActive(state, loanId) {
+    const loan = state.loans.find((loan) => loan.loanId === loanId);
+    if (loan) {
+      loan.extensionRequestActive = true;
+    }
   },
-  setExtensionRequestInactive(state, payload) {
-    const loan = state.loans.find((loan) => loan.loanId === payload);
-    loan.extensionRequestActive = false;
+
+  setExtensionRequestInactive(state, loanId) {
+    const loan = state.loans.find((loan) => loan.loanId === loanId);
+    if (loan) {
+      loan.extensionRequestActive = false;
+    }
   },
-  extendLoan(state, payload) {
-    const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
-    loan.dueDate = payload.newDueDate;
+
+  extendLoan(state, { loanId, newDueDate }) {
+    const loan = state.loans.find((loan) => loan.loanId === loanId);
+    if (loan) {
+      loan.dueDate = newDueDate;
+    }
   },
-  setReturnDate(state, payload) {
-    const loan = state.loans.find((loan) => loan.loanId === payload.loanId);
-    loan.returnDate = payload.returnDate;
+
+  setReturnDate(state, { loanId, returnDate }) {
+    const loan = state.loans.find((loan) => loan.loanId === loanId);
+    if (loan) {
+      loan.returnDate = returnDate;
+    }
   },
   updateLoan(state, loan) {
     const index = state.loans.findIndex((l) => l.loanId === loan.loanId);
