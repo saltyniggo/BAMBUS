@@ -1,4 +1,5 @@
 # Bitte nicht vergessen :(
+```
 public partial class InitialCreate : Migration
 {
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,3 +18,4 @@ public partial class InitialCreate : Migration
         // Other rollback code...
     }
 }
+```
